@@ -31,7 +31,7 @@ A multifunctional Discord bot built on [disnake](https://github.com/DisnakeDev/d
 
 ## Configuration
 
-The bot is configured via `config/environment.env`. Two parallel sets of values are supported — production and test — selected at startup by `TEST_ENABLED`.
+The bot is configured via `config/.env`. Two parallel sets of values are supported — production and test — selected at startup by `TEST_ENABLED`.
 
 | Variable                                                     | Description                                                                                                                     |
 |--------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------|
@@ -296,7 +296,7 @@ if await validate_vote(inter):
 ```
 bot_project/
 ├── README.md
-├── LICENCE
+├── LICENSE.md
 ├── .gitignore
 └── Devi/                          # Core directory
     ├── main.py                    # Entry point
@@ -314,12 +314,13 @@ bot_project/
     ├── other_apis/                # Work with APIs of other projects
     │   └──topgg_utils.py
     ├── config/                    # Bot data
-    │   ├── environment.env        # Environment variables
+    │   ├── .env                   # Environment variables
     │   ├── locales/               # Localizations
     │   │   ├── ru.json
     │   │   ├── en-US.json
     │   │   ├── fi.json
     │   │   ├── uk.json
+    │   │   ├── bg.json
     │   │   └── de.json
     │   └── bot.db                 # Database
     └── cogs/
