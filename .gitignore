@@ -3,3 +3,6 @@
 /Devi/config/.env
 merge_memories.py
 /token.md
+
+__pycache__/
+*.py[cod]
