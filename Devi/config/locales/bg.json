@@ -469,7 +469,7 @@
         "unknown_command": ":x: Неизвестна команда",
         "outro": {
             "title": ":blue_book: Полезна информация",
-            "value": "[Сървър за поддръжка](https://discord.gg/ftUm7FbJDw) | [Политика за поверителност](https://gist.github.com/security-camera/c1c4ffc74fb2407b06044e4ab8607e71) | [Условия за ползване](https://gist.github.com/security-camera/147e20418f9528e2e64d5e9e87c40977)"
+            "value": "[Сървър за поддръжка](https://discord.gg/ftUm7FbJDw) | [Политика за поверителност](https://gist.github.com/security-camera/c1c4ffc74fb2407b06044e4ab8607e71) | [Условия за ползване](https://gist.github.com/security-camera/147e20418f9528e2e64d5e9e87c40977) | [Github](https://github.com/security-camera/Devi-Discord-Bot)"
         },
         "monitorings": {
             "title": ":mag: Ботът в мониторингови сайтове",

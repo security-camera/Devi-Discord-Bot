@@ -469,7 +469,7 @@
 		"unknown_command": ":x: Unbekannter Befehl",
 		"outro": {
 			"title": ":blue_book: Nützliche Informationen",
-			"value": "[Support-Server](https://discord.gg/ftUm7FbJDw) | [Datenschutzerklärung](https://gist.github.com/security-camera/c1c4ffc74fb2407b06044e4ab8607e71) | [Nutzungsbedingungen](https://gist.github.com/security-camera/147e20418f9528e2e64d5e9e87c40977)"
+			"value": "[Support-Server](https://discord.gg/ftUm7FbJDw) | [Datenschutzerklärung](https://gist.github.com/security-camera/c1c4ffc74fb2407b06044e4ab8607e71) | [Nutzungsbedingungen](https://gist.github.com/security-camera/147e20418f9528e2e64d5e9e87c40977) | [Github](https://github.com/security-camera/Devi-Discord-Bot)"
 		},
         "monitorings": {
             "title": ":mag: Bot über Überwachung",

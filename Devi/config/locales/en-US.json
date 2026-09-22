@@ -469,7 +469,7 @@
         "unknown_command": ":x: Unknown command",
         "outro": {
             "title": ":blue_book: Useful information",
-            "value": "[Support Server](https://discord.gg/ftUm7FbJDw) | [Privacy Policy](https://gist.github.com/security-camera/c1c4ffc74fb2407b06044e4ab8607e71) | [Terms of Service](https://gist.github.com/security-camera/147e20418f9528e2e64d5e9e87c40977)"
+            "value": "[Support Server](https://discord.gg/ftUm7FbJDw) | [Privacy Policy](https://gist.github.com/security-camera/c1c4ffc74fb2407b06044e4ab8607e71) | [Terms of Service](https://gist.github.com/security-camera/147e20418f9528e2e64d5e9e87c40977) | [Github](https://github.com/security-camera/Devi-Discord-Bot)"
         },
         "monitorings": {
             "title": ":mag: Bot on monitorings",
