@@ -1,0 +1,1166 @@
+{
+	"_meta": {
+		"name": "Deutsch",
+		"flag": "🇩🇪"
+	},
+    "duration_utils": {
+        "invalid_format": ":x:: `{invalid}`\n:white_check_mark:: {examples}.",
+        "duration_units_chars": {
+            "year": "j",
+            "week": "w",
+            "day": "t",
+            "hour": "h",
+            "minute": "m",
+            "second": "s"
+        },
+        "duration_units": {
+            "year": "Jahr",
+            "week": "Woche",
+            "day": "Tag",
+            "hour": "Stunde",
+            "minute": "Minute",
+            "second": "Sekunde"
+        }
+    },
+	"commands": {
+        "common": {
+            "action_add": "Hinzufügen",
+            "action_remove": "Entfernen",
+            "action_check": "Prüfen",
+            "yes": "Ja",
+            "no": "Nein",
+            "access_denied": "Zugriff verweigert. Erforderliche Berechtigungen: `{permission}`.\n\n```---- HILFE ----```\n`guild.permission` – Discord-Berechtigung.\n`bot.permission` – benutzerdefinierte Bot-Berechtigung.\n`/` = ODER | `&` = UND\n`[NO]` – Berechtigung muss **fehlen**."
+        },
+        "help": {
+            "description": "Zeigt eine Liste der Bot-Befehle an",
+            "param_show_descriptions": "Befehlsbeschreibungen anzeigen?",
+            "param_show_descriptions_name": "show_descriptions",
+            "param_command": "Für welchen Befehl wird Hilfe benötigt?",
+            "param_command_name": "command"
+        },
+        "permissions": {
+            "description": "Berechtigungen verwalten und anzeigen"
+        },
+        "permissions_manage": {
+            "description": "Interaktive Rechteverwaltung: Objekt auswählen und Berechtigungen umschalten",
+            "choices": {
+                "manage_mention": "Mention-Verwaltung (bot.ManageMention)",
+                "mention_blacklist": "Mention-Sperrliste (bot.MentionBlacklist)",
+                "manage_triggers": "Trigger-Verwaltung (bot.ManageTriggers)",
+                "tts": "Text-to-Speech (bot.TTS)",
+                "send_dm": "Direktnachrichten senden (bot.SendDM)",
+                "admin_all": "Alle Berechtigungen (bot.Admin)",
+                "ai_blacklist": "KI-Sperrliste (bot.AiBlackList)",
+                "giveaways": "Gewinnspiele (bot.Giveaways)",
+                "warnings": "Verwarnungen (bot.Warnings)",
+                "music_blacklist": "Musik-Sperrliste (bot.MusicBlackList)"
+            }
+        },
+        "permissions_list": {
+            "description": "Zeigt alle auf dem Server vergebenen Berechtigungen an"
+        },
+        "send": {
+            "description": "Sendet eine Nachricht im Namen des Bots"
+        },
+        "send_message": {
+            "description": "Sendet eine Nachricht im Namen des Bots in einen Kanal",
+            "param_message": "Nachrichtentext",
+            "param_message_name": "message",
+            "param_reply_to": "ID der Nachricht, auf die geantwortet werden soll",
+            "param_reply_to_name": "reply_to",
+            "param_mention_author": "Autor der Nachricht bei der Antwort erwähnen",
+            "param_mention_author_name": "mention_author",
+            "param_channel": "Kanal, in den die Nachricht gesendet werden soll",
+            "param_channel_name": "channel"
+        },
+        "send_dm": {
+            "description": "Sendet einem Benutzer eine private Nachricht im Namen des Bots",
+            "param_user": "Benutzer, dem die Nachricht gesendet werden soll",
+            "param_user_name": "user",
+            "param_message": "Nachrichtentext",
+            "param_message_name": "message"
+        },
+        "send_sticky": {
+            "description": "Eine Sticky-Nachricht in einen Kanal senden",
+            "param_message_name": "nachricht",
+            "param_message": "Zu sendende Nachricht (leer lassen, um die vorhandene zu entfernen)",
+            "param_channel_name": "kanal",
+            "param_channel": "Kanal, in den die Nachricht gesendet werden soll (standardmäßig der aktuelle Kanal)"
+        },
+        "send_allow": {
+            "description": "Erlaubt/verbietet das Senden von nicht-systembezogenen Direktnachrichten",
+            "param_allow_name": "erlauben",
+            "param_allow": "Administratoren erlauben, Ihnen über den Bot Direktnachrichten zu senden?"
+        },
+        "set_log_channel": {
+            "description": "Legt den Kanal für das Logs-System fest",
+            "param_channel": "Kanal, in den die Logs gesendet werden",
+            "param_channel_name": "channel"
+        },
+        "warn_role": {
+            "description": "Fügt eine Rolle hinzu oder entfernt sie, die Verwarnungen vergeben und entfernen darf"
+        },
+        "warn_role_add": {
+            "description": "Fügt eine Rolle hinzu, die Verwarnungen vergeben und entfernen darf",
+            "param_role": "Rolle, der Zugriff gewährt werden soll",
+            "param_role_name": "role"
+        },
+        "warn_role_remove": {
+            "description": "Entfernt eine Rolle, die Verwarnungen vergeben und entfernen darf",
+            "param_role": "Rolle, der der Zugriff entzogen werden soll",
+            "param_role_name": "role"
+        },
+        "reload": {
+            "description": "Lädt Trigger und Zugriffslisten aus den Dateien neu"
+        },
+        "clear": {
+            "description": "Löscht eine angegebene Anzahl von Nachrichten im Kanal",
+            "param_count": "Anzahl der zu löschenden Nachrichten",
+            "param_count_name": "count",
+            "param_duration": "Optional: Nur Nachrichten aus diesem Zeitraum löschen, z. B. 30s, 10m, 2h",
+            "param_duration_name": "duration",
+            "param_member": "Optional: Nur Nachrichten dieses Mitglieds löschen",
+            "param_member_name": "member"
+        },
+        "random": {
+            "description": "Generiert eine Zufallszahl",
+            "param_min": "Minimaler Wert",
+            "param_min_name": "min",
+            "param_max": "Maximaler Wert",
+            "param_max_name": "max",
+            "param_count": "Wie oft die Zahl generiert werden soll",
+            "param_count_name": "count"
+        },
+        "coin": {
+            "description": "Wirft eine Münze",
+            "param_count": "Wie oft die Münze geworfen werden soll",
+            "param_count_name": "count"
+        },
+        "ball": {
+            "description": "Eine mysteriöse Kugel, die Fragen beantwortet",
+            "param_question": "Frage, die du der Kugel stellen möchtest",
+            "param_question_name": "question"
+        },
+        "mention": {
+            "description": "Massen-Erwähnung von Benutzern/Rollen"
+        },
+        "mention_user": {
+            "description": "Erwähnt einen Benutzer eine bestimmte Anzahl von Malen",
+            "param_count": "Wie oft die Erwähnung gesendet werden soll",
+            "param_count_name": "count",
+            "param_member": "Wen erwähnen",
+            "param_member_name": "member",
+            "param_message": "Zusätzlicher Nachrichtentext",
+            "param_message_name": "message",
+            "param_delay": "Verzögerung zwischen den Erwähnungen in Sekunden (mindestens 0,1)",
+            "param_delay_name": "delay"
+        },
+        "mention_role": {
+            "description": "Erwähnt eine Rolle eine bestimmte Anzahl von Malen",
+            "param_count": "Wie oft die Erwähnung gesendet werden soll",
+            "param_count_name": "count",
+            "param_role": "Welche Rolle erwähnt werden soll",
+            "param_role_name": "role",
+            "param_message": "Zusätzlicher Nachrichtentext",
+            "param_message_name": "message",
+            "param_delay": "Verzögerung zwischen den Erwähnungen in Sekunden (mindestens 0,1)",
+            "param_delay_name": "delay"
+        },
+        "mention_stop": {
+            "description": "Stoppt mention und mention_role zwangsweise"
+        },
+        "temp_role": {
+            "description": "Gibt einem Mitglied für eine begrenzte Zeit eine Rolle",
+            "param_member": "Mitglied, dem die Rolle gegeben werden soll",
+            "param_member_name": "member",
+            "param_role": "Rolle, die vergeben werden soll",
+            "param_role_name": "role",
+            "param_duration": "Zum Beispiel: 30s, 10m, 2h",
+            "param_duration_name": "duration"
+        },
+        "trigger": {
+            "description": "Fügt eine automatische Antwort hinzu, ändert oder entfernt sie",
+            "param_trigger": "Wort oder Satz, auf den der Bot reagieren soll (unterstützt Regex)",
+            "param_trigger_name": "trigger",
+            "param_action": "Aktion auswählen",
+            "param_action_name": "action",
+            "param_response": "Antworttext des Bots (für Hinzufügen/Ändern erforderlich)",
+            "param_response_name": "response",
+            "choices": {
+                "add": "Hinzufügen / Ändern",
+                "remove": "Entfernen"
+            }
+        },
+        "join": {
+            "description": "Verbindet den Bot mit einem Sprachkanal",
+            "param_channel": "Sprachkanal, mit dem verbunden werden soll (standardmäßig dein aktueller Kanal)",
+            "param_channel_name": "channel"
+        },
+        "leave": {
+            "description": "Trennt den Bot vom Sprachkanal"
+        },
+        "tts": {
+            "description": "Text vorlesen",
+            "param_text": "Text, der vorgelesen werden soll",
+            "param_text_name": "text"
+        },
+        "warn": {
+            "description": "Befehlsgruppe zur Verwaltung von Verwarnungen"
+        },
+        "warn_add": {
+            "description": "Verwarnt einen Benutzer",
+            "param_member": "Mitglied, das verwarnt werden soll",
+            "param_member_name": "member",
+            "param_reason": "Grund für die Verwarnung",
+            "param_reason_name": "reason",
+            "param_duration": "Zum Beispiel: 30s, 10m, 2h",
+            "param_duration_name": "duration"
+        },
+        "warn_show": {
+            "description": "Zeigt die Verwarnungen eines Benutzers an",
+            "param_member": "Mitglied, dessen Verwarnungen angezeigt werden sollen",
+            "param_member_name": "member"
+        },
+        "warn_remove": {
+            "description": "Entfernt eine Verwarnung anhand ihrer ID",
+            "param_case_id": "ID der zu entfernenden Verwarnung",
+            "param_case_id_name": "case_id"
+        },
+        "warn_obsolete": {
+            "description": "Markiert eine Verwarnung als abgelaufen",
+            "param_case_id": "ID der Verwarnung, die als abgelaufen markiert werden soll",
+            "param_case_id_name": "case_id"
+        },
+        "ai_ask_text": {
+            "description": "Fragt den Bot und sendet seine Antwort in einem Textkanal",
+            "param_text": "Was möchtest du fragen?",
+            "param_text_name": "text",
+            "param_hidden": "Antwort als versteckte Nachricht senden?",
+            "param_hidden_name": "hidden",
+            "param_image_name": "bild",
+            "param_image": "Ein Bild, das die KI sehen wird"
+        },
+        "ai_ask_voice": {
+            "description": "Fragt den Bot und gibt seine Antwort in einem Sprachkanal wieder",
+            "param_text": "Was möchtest du fragen?",
+            "param_text_name": "text"
+        },
+        "language": {
+            "description": "Legt die Sprache des Bots für diesen Server fest",
+            "param_language": "Sprache auswählen",
+            "param_language_name": "language"
+        },
+        "ai_clear": {
+            "description": "Löscht den Gesprächsverlauf mit der KI",
+            "param_delete_from_all_servers": "Gesprächsverlauf auf allen Servern löschen?",
+            "param_delete_from_all_servers_name": "delete_from_all_servers"
+        },
+        "ai_key": {
+            "description": "Legt den für die KI-Funktionen erforderlichen Gemini-API-Schlüssel fest",
+            "param_key": "Gemini-API-Schlüssel",
+            "param_key_name": "key"
+        },
+        "command_id": {
+            "description": "Gibt die ID eines Devi-Befehls zurück",
+            "param_command": "Befehl, dessen ID abgerufen werden soll",
+            "param_command_name": "command",
+            "unknown_command": "Unbekannter Befehl"
+        },
+        "giveaway": {
+            "description": "Verwaltung von Gewinnspielen auf dem Server"
+        },
+        "giveaway_start": {
+            "description": "Startet ein neues Gewinnspiel",
+            "param_name": "Name des Gewinnspiels",
+            "param_name_name": "name",
+            "param_duration": "Zum Beispiel: 30s, 10m, 2h",
+            "param_duration_name": "duration",
+            "param_winners": "Anzahl der Gewinner",
+            "param_winners_name": "winners",
+            "param_prize": "Gewinn des Gewinnspiels",
+            "param_prize_name": "prize",
+            "param_channel": "Kanal, in dem das Gewinnspiel veröffentlicht wird (standardmäßig der aktuelle Kanal)",
+            "param_channel_name": "channel"
+        },
+        "giveaway_end": {
+            "description": "Beendet ein Gewinnspiel vorzeitig und ermittelt die Gewinner",
+            "param_message_id": "ID der Gewinnspiel-Nachricht",
+            "param_message_id_name": "message_id"
+        },
+        "giveaway_reroll": {
+            "description": "Wählt neue Gewinner für ein bereits beendetes Gewinnspiel",
+            "param_message_id": "ID der Gewinnspiel-Nachricht",
+            "param_message_id_name": "message_id"
+        },
+        "giveaway_list": {
+            "description": "Zeigt eine Liste der aktiven Gewinnspiele auf dem Server"
+        },
+        "music": {
+            "description": "Befehlsgruppe zur Musiksteuerung"
+        },
+        "music_play": {
+            "description": "Spielt Audio von YouTube anhand eines Links oder Namens ab",
+            "param_query": "Link zu einem Titel/einer Playlist oder Suchanfrage",
+            "param_query_name": "query"
+        },
+        "music_pause": {
+            "description": "Pausiert die Wiedergabe"
+        },
+        "music_resume": {
+            "description": "Setzt die Wiedergabe fort"
+        },
+        "music_skip": {
+            "description": "Überspringt den aktuellen Titel"
+        },
+        "music_queue": {
+            "description": "Zeigt die Titel-Warteschlange an"
+        },
+        "music_stop": {
+            "description": "Stoppt die Wiedergabe und leert die Warteschlange"
+        },
+        "music_loop": {
+            "description": "Wechselt den Wiederholungsmodus",
+            "param_mode": "Wiederholungsmodus (wenn nicht angegeben, wird zyklisch gewechselt)",
+            "param_mode_name": "mode"
+        },
+        "music_interface": {
+            "description": "Zeigt das Bedienfeld des Players mit Schaltflächen an"
+        },
+        "triggers": {
+            "description": "Zeigt alle Trigger des Servers an"
+        },
+        "guild_info": {
+            "description": "Zeigt alle verfügbaren Informationen zu einem Server anhand seiner ID an",
+            "param_guild_id_name": "server_id",
+            "param_guild_id": "ID des Servers, zu dem Informationen angezeigt werden sollen",
+            "param_create_invite_name": "einladung_erstellen",
+            "param_create_invite": "Erstellt eine einmalige Einladung zum Server (30 Minuten gültig)"
+        },
+        "avatar": {
+            "description": "Zeigt den Avatar eines Benutzers an",
+            "param_user_name": "benutzer",
+            "param_user": "Benutzer, dessen Avatar angezeigt werden soll"
+        },
+        "qr": {
+            "description": "Generiert einen QR-Code aus einem Link",
+            "param_link_name": "link",
+            "param_link": "Link, der in einen QR-Code umgewandelt werden soll"
+        },
+        "preview": {
+            "description": "Ruft das Vorschaubild eines YouTube-Videos ab",
+            "param_link_name": "link",
+            "param_link": "Link zum YouTube-Video"
+        },
+        "slowmode": {
+            "description": "Legt den Slowmode für einen Kanal fest",
+            "param_time_name": "zeit",
+            "param_time": "Verzögerung zwischen Nachrichten (z. B. 10s, 5m, 1h)",
+            "param_channel_name": "kanal",
+            "param_channel": "Kanal, für den der Slowmode festgelegt werden soll"
+        },
+        "birthday": {
+            "description": "Geburtstage verwalten"
+        },
+        "birthday_set": {
+            "description": "Deinen Geburtstag festlegen",
+            "param_day_name": "tag",
+            "param_day": "Tag des Monats (1–31)",
+            "param_month_name": "monat",
+            "param_month": "Geburtsmonat",
+            "param_ping_on_servers_name": "auf_servern_gratulieren",
+            "param_ping_on_servers": "Ob zusätzlich eine Nachricht in Servern gepostet werden soll (zusätzlich zur DM)",
+            "param_user_name": "benutzer",
+            "param_user": "Für wen Geburtstag setzen? Standardmäßig für dich; nur der Entwickler darf andere ändern"
+        },
+        "birthday_check": {
+            "description": "Geburtsdatum anzeigen",
+            "param_user_name": "benutzer",
+            "param_user": "Wessen Geburtstag angezeigt werden soll (Standard: dein eigener)"
+        },
+        "birthday_remove": {
+            "description": "Gespeicherten Geburtstag entfernen",
+            "param_user_name": "benutzer",
+            "param_user": "Wessen Geburtstag entfernt werden soll (Standard: dein eigener; fremde nur für Admins)"
+        },
+        "birthday_channel": {
+            "description": "Kanal für Geburtstagsglückwünsche festlegen",
+            "param_channel_name": "kanal",
+            "param_channel": "Kanal für Glückwünsche (weglassen, um Glückwünsche auf diesem Server zu deaktivieren)"
+        },
+        "birthday_congratulate": {
+            "description": "[Test] Glückwunsch für einen Benutzer manuell auslösen",
+            "param_user_name": "benutzer",
+            "param_user": "Wer beglückwünscht werden soll (Standard: du selbst)"
+        },
+        "vote": {
+            "description": "Erfahre mehr über die Vorteile des Abstimmens auf top.gg"
+        },
+        "voice": {
+            "description": "Verwaltet temporäre Sprachkanäle"
+        },
+        "voice_setup": {
+            "description": "Richtet den Lobby-Kanal zur Erstellung temporärer Sprachkanäle ein",
+            "param_lobby_channel_name": "lobby_kanal",
+            "param_lobby_channel": "Sprachkanal, bei dessen Betreten ein temporärer Kanal erstellt wird",
+            "param_category_name": "kategorie",
+            "param_category": "Kategorie, in der neue temporäre Kanäle erstellt werden (Standard: Kategorie der Lobby)",
+            "param_name_template_name": "namensvorlage",
+            "param_name_template": "Namensvorlage für neue Kanäle, [user] wird durch den Spitznamen des Besitzers ersetzt"
+        },
+        "voice_interface": {
+            "description": "Zeigt das Bedienfeld für deinen temporären Sprachkanal"
+        },
+        "voice_name": {
+            "description": "Benennt deinen temporären Sprachkanal um",
+            "param_name_name": "name",
+            "param_name": "Neuer Kanalname"
+        },
+        "voice_limit": {
+            "description": "Legt das Mitgliederlimit deines temporären Kanals fest",
+            "param_limit_name": "limit",
+            "param_limit": "Mitgliederlimit (0 = unbegrenzt)"
+        },
+        "voice_open": {
+            "description": "Öffnet den Kanal für alle (@everyone)"
+        },
+        "voice_close": {
+            "description": "Schließt den Kanal für alle (@everyone)"
+        },
+        "voice_allow": {
+            "description": "Erlaubt einem Benutzer, deinem Kanal beizutreten",
+            "param_user_name": "benutzer",
+            "param_user": "Benutzer, dem Zugriff gewährt werden soll"
+        },
+        "voice_ban": {
+            "description": "Verhindert, dass ein Benutzer deinem Kanal beitritt",
+            "param_user_name": "benutzer",
+            "param_user": "Benutzer, dem der Zugriff verweigert werden soll"
+        },
+        "voice_kick": {
+            "description": "Wirft einen Benutzer aus deinem temporären Kanal",
+            "param_user_name": "benutzer",
+            "param_user": "Wer aus dem Kanal geworfen werden soll"
+        },
+        "voice_transfer": {
+            "description": "Überträgt die Kanalinhaberschaft an einen anderen Benutzer",
+            "param_user_name": "benutzer",
+            "param_user": "Neuer Kanalinhaber (muss sich im Kanal befinden)"
+        },
+        "voice_claim": {
+            "description": "Übernimmt die Inhaberschaft des Kanals, wenn der vorherige Besitzer gegangen ist"
+        },
+        "voice_bitrate": {
+            "description": "Legt die Bitrate deines temporären Kanals fest",
+            "param_kbps_name": "kbits",
+            "param_kbps": "Bitrate in kbit/s"
+        },
+        "voice_region": {
+            "description": "Legt die Sprachregion deines temporären Kanals fest",
+            "param_region_name": "region",
+            "param_region": "Sprachregion"
+        }
+    },
+	"help": {
+		"title": "📚 Liste der Bot-Befehle",
+		"intro": "Serversprache: {server_locale}\n\nNachfolgend findest du eine Liste aller Befehle und ihrer Funktionen:",
+		"footer": "Bot online seit",
+		"parameters": "Parameter",
+		"optional_parameters": "\n-# Optionale Parameter",
+		"unknown_command": ":x: Unbekannter Befehl",
+		"outro": {
+			"title": ":blue_book: Nützliche Informationen",
+			"value": "[Support-Server](https://discord.gg/ftUm7FbJDw) | [Datenschutzerklärung](https://gist.github.com/security-camera/c1c4ffc74fb2407b06044e4ab8607e71) | [Nutzungsbedingungen](https://gist.github.com/security-camera/147e20418f9528e2e64d5e9e87c40977)"
+		},
+        "monitorings": {
+            "title": ":mag: Bot über Überwachung",
+            "value": "[top.gg](https://top.gg/bot/1230603137253900339#reviews) (/vote)"
+        },
+		"sections": {
+			"mention": {
+				"name": "📣 Erwähnungen",
+				"value": "• /mention_user\n• /mention_role\n• /mention_stop"
+			},
+			"triggers": {
+				"name": "💬 Automatische Antworten (Trigger)",
+				"value": "• /trigger\n• /triggers"
+			},
+			"utils": {
+				"name": ":globe_with_meridians: Dienstprogramme",
+				"value": "• /random\n• /coin\n• /ball\n• /avatar\n• /qr\n• /preview"
+			},
+			"messages": {
+				"name": "💬 Nachrichten",
+				"value": "• /send_message\n• /send_dm\n• /send_sticky\n• /send_allow"
+			},
+			"voice": {
+				"name": "🎙️ Sprachfunktionen",
+				"value": "• /join\n• /leave\n• /tts"
+			},
+			"ai": {
+				"name": "🧠 KI",
+				"value": "• /ai_ask_text (<@{bot_id}>)\n• /ai_ask_voice\n• /ai_clear\n• /ai_key"
+			},
+			"admin": {
+				"name": "⚙️ Administration",
+				"value": "• /clear\n• /set_log_channel\n• /language\n• /command_id\n• /slowmode\n• /temp_role"
+			},
+			"permissions": {
+				"name": ":file_folder:  Berechtigungen",
+				"value": "• /permissions manage\n• /permissions list"
+			},
+			"warns": {
+				"name": "⚠️ Verwarnungen",
+				"value": "• /warn_add\n• /warn_show\n• /warn_remove\n• /warn_obsolete"
+			},
+			"giveaway": {
+				"name": "🎉 Gewinnspiele",
+				"value": "• /giveaway_start\n• /giveaway_end\n• /giveaway_reroll\n• /giveaway_list"
+			},
+			"music": {
+				"name": ":musical_note: Musik",
+				"value": "• /music interface\n• /music play\n• /music pause\n• /music loop\n• /music queue\n• /music resume\n• /music skip\n• /music stop"
+			},
+            "birthdays": {
+                "name": ":partying_face: Geburtstage",
+                "value": "• /birthday set\n• /birthday check\n• /birthday remove\n• /birthday channel"
+            },
+            "temp_voices": {
+                "name": "⌛ Temporäre Sprachkanäle",
+                "value": "• /voice setup\n• /voice interface\n• /voice name\n• /voice open\n• /voice close\n• /voice allow\n• /voice ban\n• /voice kick\n• /voice limit\n• /voice bitrate\n• /voice region"
+            },
+            "developer": {
+                "name": "Entwickler",
+                "value": "• /guild_info\n• /ai debug\n• /birthday congratulate\n• /reload"
+            }
+		}
+	},
+	"permissions_cmd": {
+		"granted": "✅ Das Objekt {target} hat die Berechtigung `{permission}` erhalten.",
+		"revoked": "❌ Dem Objekt {target} wurde die Berechtigung `{permission}` entzogen.",
+		"check_yes": "✅ Das Objekt {target} besitzt die Berechtigung `{permission}`.",
+		"check_no": "❌ Das Objekt {target} besitzt die Berechtigung `{permission}` nicht.",
+		"list_title": "📋 Berechtigungen des Objekts {target}:\n{permissions}",
+		"list_empty": "Das Objekt hat keine zugewiesenen Berechtigungen.",
+		"list_all_title": "📋 Alle Berechtigungen auf dem Server",
+		"list_all_empty": "Auf dem Server sind keine Berechtigungen zugewiesen.",
+		"list_all_too_long": "❌ Zu viele zugewiesene Berechtigungen – die Ausgabe passt nicht in eine Nachricht. Wende dich an den Entwickler, um eine Seitennavigation hinzuzufügen.",
+		"section_guild": "Server",
+		"section_users": "Benutzer",
+		"section_roles": "Rollen",
+		"section_channels": "Kanäle",
+		"unknown_user": "auf dem Server nicht gefunden",
+		"unknown_role": "Rolle gelöscht",
+		"unknown_channel": "Kanal gelöscht",
+        "manage_type_user": "Benutzer",
+        "manage_type_role": "Rolle",
+        "manage_type_channel": "Kanal",
+        "manage_type_guild": "Server",
+        "manage_select_type_prompt": "Wähle den Objekttyp aus, für den du Berechtigungen verwalten möchtest.",
+        "manage_select_type_placeholder": "Objekttyp…",
+        "manage_select_object_prompt": "Wähle nun das Objekt selbst aus.",
+        "manage_select_user_placeholder": "Benutzer auswählen…",
+        "manage_select_role_placeholder": "Rolle auswählen…",
+        "manage_select_channel_placeholder": "Kanal auswählen…",
+        "manage_toggle_placeholder": "Berechtigung auswählen, um sie ein-/auszuschalten …",
+        "manage_panel_title": "⚙️ Rechteverwaltung",
+        "manage_panel_target": "Objekt: {target}",
+        "manage_panel_current": "Aktuelle Berechtigungen",
+        "manage_panel_current_empty": "Keine Berechtigungen zugewiesen.",
+        "manage_panel_footer": "Die Auswahl einer Berechtigung unten erteilt oder entzieht sie sofort.",
+        "manage_not_your_session": "❌ Diese Sitzung zur Rechteverwaltung wurde nicht von dir gestartet.",
+        "manage_back_button": "Zurück"
+	},
+	"send_message_cmd": {
+		"message_not_found": "Nachricht mit der angegebenen ID wurde nicht gefunden.",
+		"invalid_id": "{value} ist keine ganze Zahl.",
+		"sent": "Nachricht gesendet.",
+		"warning": "-# Diese Nachricht wurde von einer Person über den Befehl gesendet, nicht vom Bot.",
+		"forbidden": "❌ Nachricht konnte nicht gesendet werden."
+	},
+	"send_dm_cmd": {
+		"sent": "✅ Nachricht an den Benutzer {user} gesendet.",
+		"forbidden": "❌ Nachricht konnte nicht gesendet werden. Möglicherweise hat der Benutzer Direktnachrichten deaktiviert.",
+		"error": "❌ Fehler: `{error}`",
+		"received_message": "{user} hat dir eine Nachricht gesendet: {message}",
+        "message_title": "Nicht-systembezogene Nachricht",
+        "allowed": ":white_check_mark: Sie können jetzt nicht-systembezogene Direktnachrichten erhalten",
+        "denied": ":x: Sie können jetzt keine nicht-systembezogenen Direktnachrichten mehr erhalten",
+        "view": {
+            "deny": "Klicken, um nicht-systembezogene DMs zu verbieten (oder /send allow)",
+            "allow": "Klicken, um nicht-systembezogene DMs zu erlauben (oder /send allow)"
+        }
+	},
+    "send_sticky_cmd": {
+        "sticky_message": "Sticky-Nachricht",
+        "removed": "✅ Sticky-Nachricht aus {channel} entfernt",
+        "nothing_to_remove": "❌ In {channel} gibt es keine Sticky-Nachricht zum Entfernen",
+        "forbidden": "❌ Der Bot hat nicht genügend Berechtigungen. Überprüfe die Berechtigung „Nachrichten verwalten“ und den Zugriff auf den Kanal",
+        "set": "✅ Sticky-Nachricht an {channel} gesendet"
+    },
+	"log_channel_cmd": {
+		"set": "✅ Log-Kanal festgelegt: {channel}",
+        "removed": "✅ Log-Kanal entfernt"
+	},
+	"warn_role_cmd": {
+		"added": "✅ Die Rolle {role} kann jetzt Verwarnungen vergeben und verwalten.",
+		"removed": "❌ Die Rolle {role} kann keine Verwarnungen mehr vergeben und verwalten."
+	},
+	"reload_cmd": {
+		"success": "✅ Daten erfolgreich aus den Dateien neu geladen!\n• **Trigger:** {trigger_count}\n• **Verwarnungsrollen:** {warn_role_count}"
+	},
+	"clear_cmd": {
+		"invalid_count": "Gib eine Anzahl größer als 0 an.",
+		"count_too_high": "Zu viele Nachrichten auf einmal (Maximum {max}).",
+		"wrong_channel_type": "Dieser Befehl kann nur in Textkanälen verwendet werden.",
+		"forbidden": "Der Bot hat keine Berechtigung, Nachrichten in diesem Kanal zu löschen (Berechtigung `Manage Messages` erforderlich).",
+		"http_error": "Fehler beim Löschen der Nachrichten: {error}",
+		"done": "🧹 Gelöschte Nachrichten: {count}.",
+		"log_title": "🧹 Nachrichten wurden gelöscht",
+		"log_channel": "Kanal",
+		"log_moderator": "Moderator",
+		"log_requested": "Angefordert",
+		"log_deleted": "Tatsächlich gelöscht",
+		"log_member_filter": "Mitgliederfilter",
+		"log_duration_filter": "Zeitraumfilter",
+		"log_none": "—"
+	},
+	"random_cmd": {
+		"invalid_count": "Gib eine Anzahl von 1 bis 100 an"
+	},
+	"random": {
+		"coin": {
+			"sides": [
+				"Kopf",
+				"Zahl"
+			]
+		},
+		"ball": {
+			"intros": [
+				"Die Kugel sieht:",
+				"Die Kugel zeigt:",
+				"Die Kugel antwortet:",
+				"Die Kugel sagt voraus:",
+				"Die Kugel flüstert:",
+				"Die Kugel offenbart:",
+				"Die Kugel enthüllt:",
+				"Die Kugel berichtet:",
+				"Die Kugel deutet an:",
+				"Die Kugel gibt einen Hinweis:",
+				"Der Nebel zeigt:",
+				"Der Nebel lichtet sich:",
+				"Das Schicksal sagt:",
+				"Das Schicksal antwortet:",
+				"Das Schicksal hat entschieden:",
+				"Die Fäden des Schicksals weisen darauf hin:",
+				"Die Sterne sagen:",
+				"Die Sterne geben einen Hinweis:",
+				"Die Sternbilder haben sich ausgerichtet:",
+				"Der Mond bezeugt:",
+				"Die Geister geben einen Hinweis:",
+				"Die Geister antworten:",
+				"Die alten Geister flüstern:",
+				"Die Schatten sagen:",
+				"Die Schatten warnen:",
+				"Das Orakel antwortet:",
+				"Das Orakel prophezeit:",
+				"Die Prophezeiung besagt:",
+				"Höhere Mächte sagen:",
+				"Höhere Mächte raten:",
+				"Das Universum antwortet:",
+				"Das Universum deutet an:",
+				"Der Kosmos flüstert:",
+				"Die Energie der Welt sagt:",
+				"Die Runen zeigen:",
+				"Die Runen fügen sich zusammen:",
+				"Die Karten des Schicksals weisen darauf hin:",
+				"Die Zeichen sind eindeutig:",
+				"Die Antwort kommt:",
+				"Nach langem Nachdenken:",
+				"Nach kurzem Schweigen:",
+				"Die Kristallkugel leuchtet:",
+				"Die Kristallkugel zeigt:",
+				"Der magische Nebel berichtet:",
+				"Das Echo der Ewigkeit antwortet:",
+				"Die alte Magie sagt:",
+				"Die Stimmen der Vergangenheit flüstern:",
+				"Jenseitige Mächte berichten:",
+				"Das Omen weist darauf hin:",
+				"Die Wahrheit offenbart sich:"
+			],
+			"answers": [
+				"Ja.",
+				"Definitiv ja.",
+				"Auf jeden Fall.",
+				"Zweifellos.",
+				"Absolut.",
+				"Natürlich.",
+				"Genau so.",
+				"Ja, ohne Zweifel.",
+				"Eher ja.",
+				"Sehr wahrscheinlich.",
+				"Höchstwahrscheinlich.",
+				"Wahrscheinlicher ja als nein.",
+				"Es sieht danach aus.",
+				"Fast sicher.",
+				"Die Wahrscheinlichkeit ist hoch.",
+				"Nein.",
+				"Definitiv nein.",
+				"Auf keinen Fall.",
+				"Zweifellos nein.",
+				"Absolut nein.",
+				"Keinesfalls.",
+				"Eher nein.",
+				"Wahrscheinlicher nein als ja.",
+				"Unwahrscheinlich.",
+				"Es sieht nicht danach aus.",
+				"Praktisch ausgeschlossen.",
+				"Die Chancen sind äußerst gering.",
+				"Vielleicht.",
+				"Kann sein.",
+				"Wahrscheinlich.",
+				"Nicht ausgeschlossen.",
+				"Es besteht eine Wahrscheinlichkeit.",
+				"Die Chancen stehen gleich.",
+				"Der Ausgang ist unklar.",
+				"Noch unbekannt.",
+				"Schwer zu sagen.",
+				"Ich kann es nicht bestimmen.",
+				"Die Antwort ist nicht eindeutig.",
+				"Fünfzig zu fünfzig.",
+				"Unklar.",
+				"Alles ist möglich.",
+				"Sowohl ja als auch nein."
+			]
+		}
+	},
+	"logs_cog": {
+		"titles": {
+			"stage_joined": "🎙️ Mitglied ist dem Bühnenkanal beigetreten",
+			"voice_joined": "🔊 Mitglied ist einem Sprachkanal beigetreten",
+			"stage_left": "🎙️ Mitglied hat den Bühnenkanal verlassen",
+			"voice_left": "🔇 Mitglied hat den Sprachkanal verlassen",
+			"voice_moved": "↔️ Mitglied ist in einen anderen Sprachkanal gewechselt",
+			"stage_opened": "🟣 Bühne geöffnet",
+			"stage_closed": "⚫ Bühne geschlossen",
+			"stage_updated": "🟣 Bühne aktualisiert",
+			"dm_received": "🤖 Bot hat eine Direktnachricht erhalten",
+			"message_edited": "✏️ Nachricht wurde bearbeitet",
+			"message_deleted": "🗑️ Nachricht wurde gelöscht",
+			"member_joined": "📥 Neues Mitglied ist beigetreten",
+			"member_kicked": "👢 Mitglied wurde gekickt",
+			"member_left": "📤 Mitglied hat den Server verlassen",
+			"member_banned": "🔨 Mitglied wurde gebannt",
+			"member_unbanned": "🔓 Mitglied wurde entbannt",
+			"nickname_changed": "📝 Spitzname des Mitglieds wurde geändert",
+			"roles_updated": "🎭 Rollen des Mitglieds wurden aktualisiert",
+			"member_muted": "🔇 Mitglied wurde stummgeschaltet",
+			"member_unmuted": "🔊 Stummschaltung des Mitglieds wurde aufgehoben",
+			"command_used": "🤖 Bot-Befehl verwendet",
+			"bot_added": "🤖 Bot wurde zum Server hinzugefügt",
+			"bot_removed": "🤖 Bot hat den Server verlassen"
+		},
+		"fields": {
+			"member": "Mitglied",
+			"channel": "Kanal",
+			"role": "Rolle",
+			"moderator": "Moderator",
+			"topic": "Thema",
+			"opened_by": "Geöffnet von",
+			"closed_by": "Geschlossen von",
+			"old_topic": "Altes Thema",
+			"new_topic": "Neues Thema",
+			"updated_by": "Aktualisiert von",
+			"from_channel": "Aus Kanal",
+			"to_channel": "In Kanal",
+			"text": "Text",
+			"attachments": "Anhänge",
+			"author": "Autor",
+			"before": "Vorher",
+			"after": "Nachher",
+			"link": "Link",
+			"content": "Inhalt",
+			"deleted_by": "Gelöscht von",
+			"account_created": "Konto erstellt",
+			"kicked_by": "Gekickt von",
+			"banned_by": "Gebannt von",
+			"unbanned_by": "Entbannt von",
+			"old_nickname": "Alter Spitzname",
+			"new_nickname": "Neuer Spitzname",
+			"changed_by_nickname": "Geändert von",
+			"added": "Hinzugefügt",
+			"removed": "Entfernt",
+			"changed_by_roles": "Geändert von",
+			"muted_by": "Stummgeschaltet von",
+			"unmuted_by": "Stummschaltung aufgehoben von",
+			"command": "Befehl",
+			"user": "Benutzer",
+			"params": "Parameter",
+			"server": "Server",
+			"members_count": "Mitglieder"
+		},
+		"common": {
+			"unknown": "Unbekannt",
+			"dash": "—",
+			"unknown_not_cached": "Unbekannt (nicht im Cache)",
+			"content_not_cached": "*(nicht verfügbar – Nachricht wurde nicht zwischengespeichert)*",
+			"message_author": "Nachrichtenautor",
+			"unknown_or_self": "Unbekannt/Selbst",
+			"unknown_or_expired": "Unbekannt/abgelaufen",
+			"jump_to_message": "[Zur Nachricht springen]({jump_url})"
+		}
+	},
+	"mentions_cog": {
+		"max_count_exceeded": "Maximal {max} Pings können auf einmal gesendet werden.",
+		"invalid_count": "Gib eine Anzahl von Pings größer als 0 an.",
+		"banned_words": "Die Nachricht enthält verbotene Wörter und kann nicht gesendet werden.",
+		"mention_forbidden": "Dieser Benutzer oder diese Rolle darf nicht erwähnt werden.",
+		"role_forbidden": "Du darfst diese Rolle nicht erwähnen.",
+		"cooldown": "Warte {seconds} Sek., bevor du den Befehl erneut verwendest.",
+		"stopped": "Spam wurde zwangsweise gestoppt.",
+		"started_member": "Senden von {count} Pings für {member} gestartet...",
+		"started_role": "Senden von {count} Pings für die Rolle {role} gestartet...",
+		"stop_signal_sent": "Stoppsignal gesendet!"
+	},
+	"temp_role_cmd": {
+		"role_too_high_for_bot": "Der Bot kann diese Rolle nicht vergeben – sie steht über oder auf derselben Position wie seine höchste Rolle.",
+		"role_too_high_for_user": "Du kannst keine Rolle vergeben, die über oder auf derselben Position wie deine höchste Rolle steht.",
+		"forbidden": "Der Bot hat nicht genügend Berechtigungen, um diese Rolle zu vergeben.",
+		"http_error": "Fehler beim Vergeben der Rolle: {error}",
+		"success": "✅ {member} hat die Rolle {role} bis {expires_full} ({expires_relative}) erhalten.",
+		"log_expired_title": "⏳ Temporäre Rolle entfernt (abgelaufen)",
+		"log_granted_title": "⏳ Mitglied hat eine temporäre Rolle erhalten",
+		"field_expires": "Läuft ab"
+	},
+	"triggers_cog": {
+		"missing_response": "Gib eine Antwort für den Trigger an.",
+		"saved": "✅ Trigger `{trigger}` gespeichert.",
+		"not_found": "❌ Trigger `{trigger}` nicht gefunden.",
+		"not_found_response": "❌ Antwort `{response}` für den Trigger `{trigger}` nicht gefunden.",
+		"found_response": "✅ Antwort `{response}` für den Trigger `{trigger}` gefunden und hat die ID **{id}**.",
+		"already_exists_response": "❌ Trigger `{trigger}` mit der Antwort `{response}` existiert bereits.",
+		"all_responses": "Alle Antworten auf den Trigger `{trigger}`:",
+		"removed": "✅ Trigger `{trigger}` entfernt.",
+		"invalid_regex": "❌ Regex-Fehler:\n`{error}`",
+		"empty_regex": "Der Regex-Ausdruck darf nicht leer sein.",
+		"no_guild_triggers": "Dieser Server hat keine Trigger."
+	},
+	"voice_cog": {
+		"no_channel_specified": "Gib einen Sprachkanal an oder tritt einem bei.",
+		"joined": "Mit **{channel}** verbunden.",
+		"not_in_voice": "Der Bot befindet sich in keinem Sprachkanal.",
+		"left": "Sprachkanal verlassen.",
+		"too_long": "Die Nachricht ist zu lang (maximal {max} Zeichen).",
+		"queued": "Nachricht zur Warteschlange hinzugefügt. Position: **{position}**",
+		"log_auto_left_title": "🔇 Bot hat den Sprachkanal automatisch verlassen (niemand mehr vorhanden)",
+        "join_failed": "❌ Verbindung zum Sprachkanal fehlgeschlagen: {error}"
+	},
+	"warns_cog": {
+		"forever": "für immer",
+		"expires_relative": "bis {relative}",
+		"line": "{status_emoji} **ID {id}** | Status: `{status}`\nGrund: {reason}\nDauer: {duration}\nModerator: {moderator} | vergeben: {created}\nAktiv Verwarnung: {active_warns}",
+		"log_expired_title": "🔕 Verwarnung ist abgelaufen",
+		"field_case_id": "Verwarnungs-ID",
+		"field_reason": "Grund",
+		"field_duration": "Dauer",
+		"warn_success": "⚠️ {member} wurde verwarnt (ID {id}).\nGrund: {reason}\nDauer: {duration}",
+		"log_warn_title": "⚠️ Mitglied wurde verwarnt",
+		"no_warns": "{member} hat keine Verwarnungen.",
+		"show_title": "Verwarnungen: {name}",
+		"show_description": "Aktiv: **{active}** | Gesamte Einträge: **{total}**",
+		"not_found": "Verwarnung mit ID {id} wurde auf diesem Server nicht gefunden.",
+		"removed": "Verwarnung ID {id} (Benutzer {user}) wurde entfernt.",
+		"log_removed_title": "🔕 Verwarnung wurde entfernt",
+		"field_removed_by": "Entfernt von",
+		"field_original_reason": "Ursprünglicher Verwarnungsgrund",
+		"already_old": "Verwarnung ID {id} ist bereits als alt markiert.",
+		"marked_old": "Verwarnung ID {id} (Benutzer {user}) wurde als alt markiert.",
+		"log_marked_manual_title": "🔕 Verwarnung wurde als alt markiert (manuell)",
+		"field_marked_by": "Markiert von"
+	},
+	"ai_cog": {
+		"empty_prompt": "Du hast mich erwähnt, aber keine Frage gestellt. Schreibe etwas nach der Erwähnung!",
+		"cooldown": "Warte {seconds} Sek., bevor du mich erneut fragst.",
+		"not_configured": "❌ KI-Antworten sind auf diesem Server noch nicht eingerichtet. Ein Administrator muss einen Gemini-API-Schlüssel festlegen.",
+		"network_error": "❌ Der KI-Dienst konnte nicht erreicht werden. Versuche es später erneut.",
+		"generic_error": "❌ Die KI konnte keine Antwort liefern. Versuche es später erneut.",
+		"voice_cog_missing": "❌ Das Sprachmodul ist auf diesem Bot nicht verfügbar.",
+		"blacklist": "❌ Du darfst die KI auf diesem Server nicht verwenden.",
+		"ask_response": "🎙️ **{name}:** {text}\n(zur Sprachwarteschlange hinzugefügt, Position: **{position}**)",
+		"memory_deleted": "✅ Gesprächsverlauf mit der KI gelöscht.",
+		"key_tutorial": "❌ Ungültiger Gemini-API-Schlüssel.\nStelle sicher, dass du einen **API Key** und nicht den Projektnamen oder ein anderes Token eingefügt hast.\nDu kannst hier einen API-Schlüssel erhalten oder erstellen: [hier](https://aistudio.google.com/app/api-keys).",
+		"key_updated": "✅ Gemini-API-Schlüssel erfolgreich festgelegt.",
+		"key_deleted": "✅ Gemini-API-Schlüssel erfolgreich gelöscht.",
+        "signal_title": "🚩 Verdächtiger KI-Prompt",
+        "signal_member": "Benutzer",
+        "signal_guild": "Server",
+        "signal_channel": "Kanal",
+        "signal_prompt": "Prompt",
+        "signal_answer": "Antwort des Modells",
+        "signal_attachments": "Anhänge"
+	},
+	"language_cmd": {
+		"set": "✅ Die Sprache des Bots auf diesem Server wurde geändert zu: **{language}**."
+	},
+    "avatar_cmd": {
+        "title": "{name} server avatar",
+        "global_title": "{name} globales avatar"
+    },
+    "preview_cmd": {
+        "no_thumbnail": "Das Vorschaubild dieses Videos konnte nicht abgerufen werden.",
+        "download_error": "Das Vorschaubild konnte nicht heruntergeladen werden.",
+        "invalid_video": "Informationen zum Video konnten nicht abgerufen werden.",
+        "error": "Beim Abrufen des Vorschaubilds ist ein Fehler aufgetreten: {e}"
+    },
+    "slowmode_cmd": {
+        "max_duration": "Die maximale Slowmode-Dauer beträgt 6 Stunden.",
+        "invalid_channel": "Dieser Kanal unterstützt keinen Slowmode.",
+        "success": "Der Slowmode für {channel} wurde auf {time} gesetzt.",
+        "no_permission": "Ich habe keine Berechtigung, den Slowmode in diesem Kanal zu ändern.",
+        "error": "Der Slowmode konnte nicht geändert werden: {error}"
+    },
+	"giveaway_cog": {
+		"button_name": "Teilnehmen",
+		"button_success": "🎉 Du nimmst jetzt am Gewinnspiel teil!",
+		"button_leave_success": "Du hast deine Teilnahme am Gewinnspiel beendet.",
+		"giveaway_ended": "❌ Dieses Gewinnspiel ist bereits beendet.",
+		"giveaway_title": "🎉 Gewinnspiel: {name}",
+		"giveaway_description": "Preis: **{prize}**\nGewinner: **{winners}**\nTeilnehmer: **{members}**\nVeranstalter: {host}\nEndet: {end}\n\nKlicke auf die Schaltfläche unten, um teilzunehmen!",
+		"giveaway_id_footer": "Gewinnspiel-ID: {id}",
+		"giveaway_created": "✅ Gewinnspiel wurde im Kanal {channel} erstellt.",
+		"invalid_duration": "❌ Ungültige Dauer. {error}",
+		"duration_must_be_finite": "❌ Ein Gewinnspiel kann nicht „für immer“ laufen – gib eine endliche Dauer an, z. B. 30s, 10m, 2h.",
+		"no_permission": "❌ Du hast keine Berechtigung, Gewinnspiele zu verwalten.",
+		"not_found": "❌ Gewinnspiel mit der angegebenen ID wurde auf diesem Server nicht gefunden.",
+		"already_ended": "❌ Dieses Gewinnspiel ist bereits beendet.",
+		"ending": "⏳ Gewinnspiel wird beendet und Gewinner werden ermittelt …",
+		"not_ended_yet": "❌ Dieses Gewinnspiel ist noch nicht beendet.",
+		"rerolling": "🎲 Neue Gewinner werden ausgewählt …",
+		"no_active": "Auf diesem Server gibt es derzeit keine aktiven Gewinnspiele.",
+		"list_title": "🎉 Aktive Gewinnspiele",
+		"list_entry": "• **{name}** (ID {id}) — endet {end}",
+		"giveaway_ended_title": "🎉 Gewinnspiel beendet: {name}",
+		"giveaway_ended_description": "Teilnehmer: **{members}**\nGewinner: {winners}",
+		"no_winners": "keine Gewinner",
+		"winners_announcement": "🎉 Glückwunsch {winners}! Du hast **{prize}** gewonnen!",
+		"reroll_announcement": "🎲 Neue Gewinner: {winners}! Preis: **{prize}**!",
+		"no_participants": "😢 Niemand hat am Gewinnspiel **{prize}** teilgenommen, daher gibt es keine Gewinner."
+	},
+	"music_cog": {
+		"not_connected": "❌ Der Bot ist mit keinem Sprachkanal verbunden.",
+		"extract_failed": "❌ Titel konnte nicht gefunden/heruntergeladen werden: {error}",
+		"track_added_queue": "➕ Zur Warteschlange hinzugefügt: **{title}**",
+		"track_loaded": "🎵 Geladen: **{title}**",
+		"paused": "⏸️ Pausiert.",
+		"resumed": "▶️ Wiedergabe wird fortgesetzt.",
+		"nothing_playing": "Derzeit wird nichts abgespielt.",
+		"skipped": "⏭️ Titel übersprungen.",
+		"stopped": "⏹️ Wiedergabe gestoppt, Warteschlange geleert.",
+		"now_playing_announce": "▶️ Jetzt läuft: **{title}**",
+		"track_skipped_no_voice": "❌ Der Bot ist mit keinem Sprachkanal verbunden – Titel **{title}** wurde übersprungen. Führe zuerst /join aus.",
+		"playback_error": "❌ Wiedergabe von **{title}** konnte nicht gestartet werden: {error}\nStelle sicher, dass ffmpeg installiert und im PATH verfügbar ist (`ffmpeg -version` in der Konsole) und dass das Paket PyNaCl installiert ist.",
+		"untitled_track": "Ohne Titel",
+		"queue_now_playing": "▶️ Jetzt läuft: [{title}]({url})",
+		"queue_loop_status": "Wiederholung: {emoji} {label}",
+		"queue_upcoming_header": "\n📜 Als Nächstes:",
+		"queue_empty": "Die Warteschlange ist leer.",
+		"loop_set": "{emoji} Wiederholungsmodus: **{label}**",
+		"loop": {
+			"off": "aus",
+			"track": "aktueller Titel",
+			"queue": "gesamte Warteschlange"
+		},
+		"modal": {
+			"title": "Titel hinzufügen",
+			"label": "Link oder Name",
+			"placeholder": "https://youtube.com/... oder Songtitel"
+		},
+		"interface": {
+			"title": "🎶 Player-Steuerung",
+			"now_playing_label": "Jetzt läuft:",
+			"nothing_playing": "nichts wird abgespielt",
+			"loop_label": "Wiederholung:",
+			"help": "➕ **Titel hinzufügen** — Eingabefenster für Link/Name öffnen\n⏯️ **Pause / Fortsetzen** — Wiedergabe umschalten\n⏭️ **Überspringen** — nächsten Titel aus der Warteschlange abspielen\n🔁 **Wiederholung** — Modus wechseln (aus / Titel / Warteschlange)\n📜 **Warteschlange** — aktuelle Liste der Titel anzeigen\n⏹️ **Stopp** — Wiedergabe stoppen und Warteschlange leeren",
+			"button_play": "Titel hinzufügen",
+			"button_pause_resume": "Pause / Fortsetzen",
+			"button_skip": "Überspringen",
+			"button_loop": "Wiederholung",
+			"button_queue": "Warteschlange",
+			"button_stop": "Stopp"
+		},
+        "logs": {
+            "play": "➕ Titel hinzugefügt",
+            "pause": "⏸️ Wiedergabe pausiert",
+            "resume": "▶️ Wiedergabe fortgesetzt",
+            "skip": "⏭️ Titel übersprungen",
+            "stop": "⏹️ Wiedergabe gestoppt",
+            "queue": "📜 Warteschlange angezeigt",
+            "loop": "🔁 Wiederholungsmodus geändert",
+            "field_user": "Benutzer",
+            "field_track": "Titel",
+            "field_mode": "Modus",
+            "field_cleared": "Aus der Warteschlange entfernt"
+        }
+	},
+    "developer_cog": {
+        "invalid_id": "❌ Die Server-ID muss eine Zahl sein.",
+        "not_found": "❌ Server mit der ID `{id}` wurde nicht gefunden.",
+        "forbidden": "❌ Kein Zugriff auf den Server mit der ID `{id}`.",
+        "http_error": "❌ Fehler bei der Anfrage an die Discord-API: {error}",
+        "title_stats": "📊 Statistik",
+        "title_channels": "📺 Kanäle, Widget und Medien",
+        "field_owner": "Besitzer",
+        "field_created": "Erstellt",
+        "field_verification": "Verifizierungsstufe",
+        "field_nsfw": "NSFW-Stufe",
+        "field_content_filter": "Inhaltsfilter",
+        "field_mfa": "MFA-Stufe",
+        "field_locale": "Standardsprache",
+        "field_vanity": "Vanity-URL",
+        "field_features": "Funktionen (Features)",
+        "field_members": "Mitglieder",
+        "field_approx_online": "Online (ungefähr)",
+        "field_max_members": "Maximale Mitgliederzahl",
+        "field_max_presences": "Maximale Presence-Zahl",
+        "field_large": "Großer Server",
+        "field_boost_tier": "Boost-Stufe",
+        "field_boost_count": "Anzahl der Boosts",
+        "field_roles": "Rollen",
+        "field_emojis": "Emojis",
+        "field_stickers": "Sticker",
+        "field_text_channels": "Textkanäle",
+        "field_voice_channels": "Sprachkanäle",
+        "field_categories": "Kategorien",
+        "field_stage_channels": "Bühnenkanäle",
+        "field_forum_channels": "Forumkanäle",
+        "field_total_channels": "Kanäle insgesamt",
+        "field_system_channel": "Systemkanal",
+        "field_rules_channel": "Regelkanal",
+        "field_updates_channel": "Discord-Updates-Kanal",
+        "field_afk_channel": "AFK-Kanal",
+        "field_afk_timeout": "AFK-Timeout",
+        "field_widget": "Widget aktiviert",
+        "field_media": "Medien",
+        "media_icon": "Symbol",
+        "media_banner": "Banner",
+        "media_splash": "Splash",
+        "media_discovery_splash": "Discovery-Splash",
+        "field_invite": "Einladung",
+        "invite_expiry_note": "Gültig für 30 Minuten, einmalige Verwendung",
+        "invite_no_channel": "❌ Einladung konnte nicht erstellt werden: kein verfügbarer Kanal mit Einladungsrecht.",
+        "invite_no_member": "❌ Einladung konnte nicht erstellt werden: Bot-Mitgliedsobjekt auf diesem Server konnte nicht ermittelt werden."
+    },
+    "birthday_cog": {
+        "months": {
+            "01": "01 | Januar",
+            "02": "02 | Februar",
+            "03": "03 | März",
+            "04": "04 | April",
+            "05": "05 | Mai",
+            "06": "06 | Juni",
+            "07": "07 | Juli",
+            "08": "08 | August",
+            "09": "09 | September",
+            "10": "10 | Oktober",
+            "11": "11 | November",
+            "12": "12 | Dezember"
+        },
+        "date_format": "{day}. {month}",
+        "invalid_date": "❌ Dieses Datum existiert nicht — prüfe Tag und Monat.",
+        "set_success": "🎂 Geburtstag gespeichert: **{date}**.",
+        "not_set": "{target} hat keinen Geburtstag hinterlegt.",
+        "check_result": "🎂 Geburtstag von {target}: **{date}**.",
+        "removed": "🗑️ Der Geburtstag von {target} wurde entfernt.",
+        "channel_set": "✅ Kanal für Geburtstagsglückwünsche auf {channel} gesetzt.",
+        "channel_removed": "✅ Geburtstagsglückwünsche sind auf diesem Server jetzt deaktiviert.",
+        "log_channel_set_title": "🎂 Geburtstagskanal geändert",
+        "log_channel_removed_title": "🎂 Geburtstagskanal deaktiviert",
+        "dm_congratulation": "🎉 Alles Gute zum Geburtstag, {name}! Möge dieses Jahr dir viel Gutes bringen!",
+        "server_congratulation": "🎉 {mention} hat heute Geburtstag! Herzlichen Glückwunsch! 🎂",
+        "test_triggered": "🧪 Test für {target} ausgeführt. DM zugestellt: {dm}. Server-Pings gesendet: {servers}.",
+        "test_failed": ":x: Test fehlgeschlagen. Keine Daten empfangen. Benutzer nicht verwendet `/birthday set`"
+    },
+    "top_gg_cog": {
+        "voting": "⭐ **Unterstütze {bot_mention} mit deiner Stimme!**\n\nStimme auf Top.gg für Devi ab und erhalte **12 Stunden lang verbesserte Limits**!\n\n### 🚀 Was du bekommst:\n🤖 **KI**\n• Cooldown für KI-Anfragen: **{AI_COOLDOWN_SECONDS} → {AI_COOLDOWN_SECONDS_VOTED}**\n• KI-Nachrichtenspeicher: **{AI_MAX_MESSAGES} → {AI_MAX_MESSAGES_VOTED}**\n\n🧹 **Nachrichten löschen**\n• Maximum für `/clear`: **{CLEAR_MAX} → {CLEAR_MAX_VOTED} Nachrichten**\n\n📢 **Erwähnungen**\n• Maximale Erwähnungen bei `/mention`: **{MENTIONS_MAX_MESSAGES} → {MENTIONS_MAX_MESSAGES_VOTED}**\n• `/mention`-Cooldown: **{MENTIONS_COOLDOWN_TIME} → {MENTIONS_COOLDOWN_TIME_VOTED}**\n\n⚡ **Trigger**\n• Cooldown für Trigger-Antworten: **{TRIGGERS_RESPONSE_COOLDOWN} → {TRIGGERS_RESPONSE_COOLDOWN_VOTED}**\n\n🔊 **TTS**\n• Maximale `/tts`-Länge: **{MAX_TTS_LENGTH} → {MAX_TTS_LENGTH_VOTED} Zeichen**\n\n❤️ **Deine Stimme hilft Devi bei der Weiterentwicklung und du erhältst dafür mehr Möglichkeiten!**",
+        "voted": ":white_check_mark: Du hast für {bot_mention} abgestimmt!",
+        "not_voted": ":x: Du hast noch nicht für {bot_mention} abgestimmt.",
+        "voting_link": "[Abstimmungslink](https://top.gg/bot/1230603137253900339/vote)",
+        "voting_ad": "Erhöhe die Limits für einige Befehle (mehr Infos in /vote)",
+        "locked_command": "Dieser Befehl ist gesperrt. Stimme auf top.gg ab, um diesen Befehl freizuschalten\n\n{link} (mehr über die Vorteile des Abstimmens: /vote)"
+    },
+    "temp_voices_cog": {
+        "not_in_voice": "❌ Du musst dich in einem Sprachkanal befinden.",
+        "not_a_temp_channel": "❌ Der Kanal, in dem du dich befindest, ist kein temporärer Kanal.",
+        "not_owner": "❌ Nur der Kanalinhaber oder ein Administrator kann diesen Kanal verwalten.",
+        "channel_gone": "❌ Der Kanal existiert nicht mehr.",
+        "name_set": "✅ Kanalname geändert zu: **{name}**.",
+        "edit_failed": "❌ Kanal konnte nicht geändert werden: {error}",
+        "limit_set": "✅ Mitgliederlimit festgelegt auf: **{limit}**.",
+        "limit_unlimited": "✅ Mitgliederlimit entfernt (unbegrenzt).",
+        "unlimited": "unbegrenzt",
+        "invalid_limit": "❌ Das Limit muss eine Zahl zwischen 0 und 99 sein.",
+        "locked": "🔒 Der Kanal ist jetzt für alle geschlossen.",
+        "unlocked": "🔓 Der Kanal ist jetzt für alle geöffnet.",
+        "allowed": "✅ {target} kann dem Kanal jetzt beitreten.",
+        "banned": "⛔ {target} kann dem Kanal nicht mehr beitreten.",
+        "member_not_found": "❌ Benutzer auf diesem Server nicht gefunden.",
+        "kicked": "🚪 {target} wurde aus dem Kanal geworfen.",
+        "member_not_in_channel": "❌ Dieser Benutzer befindet sich nicht in deinem Kanal.",
+        "transferred": "👑 Kanalinhaberschaft an {target} übertragen.",
+        "claimed": "👑 Du bist jetzt Besitzer von {channel}.",
+        "must_be_in_channel": "❌ Du musst dich in diesem Kanal befinden, um ihn zu übernehmen.",
+        "owner_still_present": "❌ Der aktuelle Besitzer befindet sich noch im Kanal — die Übernahme ist nicht möglich.",
+        "bitrate_set": "✅ Bitrate festgelegt auf: **{kbps} kbit/s**.",
+        "invalid_bitrate": "❌ Die Bitrate muss eine Zahl sein.",
+        "invalid_bitrate_range": "❌ Die Bitrate muss zwischen 8 und {max} kbit/s liegen (abhängig von der Boost-Stufe des Servers).",
+        "region_set": "✅ Sprachregion festgelegt auf: **{region}**.",
+        "region_automatic": "✅ Sprachregion auf automatisch gesetzt.",
+        "region_automatic_label": "automatisch",
+        "setup_done": "✅ Lobby-Kanal für temporäre Sprachkanäle festgelegt auf: {channel}.",
+        "interface_title": "🎙️ Kanalverwaltung: {name}",
+        "field_owner": "Besitzer",
+        "field_limit": "Limit",
+        "field_status": "Status",
+        "field_bitrate": "Bitrate",
+        "field_region": "Region",
+        "button_lock_unlock": "Öffnen/Schließen",
+        "button_claim": "Übernehmen",
+        "button_rename": "Umbenennen",
+        "button_limit": "Limit",
+        "button_bitrate": "Bitrate",
+        "select_region_placeholder": "Sprachregion auswählen…",
+        "select_manage_placeholder": "Mitglied verwalten…",
+        "select_member_placeholder": "Mitglied auswählen…",
+        "select_member_prompt": "Wähle das Mitglied für diese Aktion aus.",
+        "action_kick": "Rauswerfen",
+        "action_allow": "Erlauben",
+        "action_ban": "Bannen",
+        "action_transfer": "Inhaberschaft übertragen",
+        "modal_name_title": "Kanal umbenennen",
+        "modal_name_label": "Neuer Kanalname",
+        "modal_limit_title": "Mitgliederlimit",
+        "modal_limit_label": "Limit (0-99, 0 = unbegrenzt)",
+        "modal_bitrate_title": "Kanal-Bitrate",
+        "modal_bitrate_label": "Bitrate in kbit/s (8-384)",
+        "logs": {
+            "rename": "✍️ Kanal umbenannt",
+            "limit": "👤 Benutzerlimit geändert",
+            "lock": "🔒 Kanal gesperrt",
+            "unlock": "🔓 Kanal entsperrt",
+            "allow": "✅ Mitglied zugelassen",
+            "ban": "❌ Mitglied gebannt",
+            "kick": "🥾 Mitglied gekickt",
+            "transfer": "👑 Besitz übertragen",
+            "claim": "👑 Besitz übernommen",
+            "bitrate": "🔊 Bitrate geändert",
+            "region": "🗺️ Region geändert",
+            "field_user": "Benutzer",
+            "field_channel": "Kanal",
+            "field_target": "Mitglied",
+            "field_new_name": "Neuer Name",
+            "field_limit": "Limit",
+            "field_bitrate": "Bitrate",
+            "field_region": "Region",
+            "field_previous_owner": "Vorheriger Besitzer"
+        }
+    }
+}

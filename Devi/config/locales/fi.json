@@ -1,0 +1,1166 @@
+{
+    "_meta": {
+        "name": "Suomi",
+        "flag": "🇫🇮"
+    },
+    "duration_utils": {
+        "invalid_format": ":x:: `{invalid}`\n:white_check_mark:: {examples}.",
+        "duration_units_chars": {
+            "year": "y",
+            "week": "v",
+            "day": "p",
+            "hour": "t",
+            "minute": "m",
+            "second": "s"
+        },
+        "duration_units": {
+            "year": "vuosi",
+            "week": "viikko",
+            "day": "päivä",
+            "hour": "tunti",
+            "minute": "minuutti",
+            "second": "sekunti"
+        }
+    },
+    "commands": {
+        "common": {
+            "action_add": "Lisää",
+            "action_remove": "Poista",
+            "action_check": "Tarkista",
+            "yes": "Kyllä",
+            "no": "Ei",
+            "access_denied": "Pääsy evätty. Vaaditut oikeudet: `{permission}`.\n\n```---- OHJE ----```\n`guild.permission` - Discordin oma oikeus.\n`bot.permission` - botin oma oikeus.\n`/` = TAI | `&` = JA\n`[NO]` - oikeuden pitää **puuttua**."
+        },
+        "help": {
+            "description": "Näyttää botin komentojen listan",
+            "param_show_descriptions": "Näytetäänkö komentojen kuvaukset?",
+            "param_show_descriptions_name": "näytä_kuvaukset",
+            "param_command": "Mihin komentoon tarvitset apua?",
+            "param_command_name": "komento"
+        },
+        "permissions": {
+            "description": "Hallinnoi palvelimen oikeuksia"
+        },
+        "permissions_manage": {
+            "description": "Interaktiivinen oikeuksien hallinta: kohteen valinta ja oikeuksien vaihtaminen",
+            "choices": {
+                "manage_mention": "Mainintojen hallinta (bot.ManageMention)",
+                "mention_blacklist": "Mainintojen mustalista (bot.MentionBlacklist)",
+                "manage_triggers": "Triggerien hallinta (bot.ManageTriggers)",
+                "tts": "Botin puhesyntetisointi (bot.TTS)",
+                "send_dm": "Yksityisviestien lähetys (bot.SendDM)",
+                "admin_all": "Kaikki oikeudet (bot.Admin)",
+                "ai_blacklist": "Tekoälyn mustalista (bot.AiBlackList)",
+                "giveaways": "Arvonnat (bot.Giveaways)",
+                "warnings": "Varoitukset (bot.Warnings)",
+                "music_blacklist": "Musiikin mustalista (bot.MusicBlackList)"
+            }
+        },
+        "permissions_list": {
+            "description": "Näyttää kaikki palvelimelle myönnetyt oikeudet"
+        },
+        "send": {
+            "description": "Lähettää viestin botin nimissä"
+        },
+        "send_message": {
+            "description": "Lähettää viestin botin nimissä kanavalle",
+            "param_message": "Viestin teksti",
+            "param_message_name": "viesti",
+            "param_reply_to": "Viestin ID, johon vastataan",
+            "param_reply_to_name": "vastaa_viestiin",
+            "param_mention_author": "Mainitaanko viestin kirjoittaja vastattaessa",
+            "param_mention_author_name": "mainitse_kirjoittaja",
+            "param_channel": "Kanava, jolle viesti lähetetään",
+            "param_channel_name": "kanava"
+        },
+        "send_dm": {
+            "description": "Lähetä yksityisviesti botin nimissä käyttäjälle",
+            "param_user": "Käyttäjä, jolle viesti lähetetään",
+            "param_user_name": "käyttäjä",
+            "param_message": "Viestin teksti",
+            "param_message_name": "viesti"
+        },
+        "send_sticky": {
+            "description": "Lähetä kiinnitetty viesti kanavalle",
+            "param_message_name": "viesti",
+            "param_message": "Lähetettävä viesti (jätä tyhjäksi poistaaksesi nykyisen viestin)",
+            "param_channel_name": "kanava",
+            "param_channel": "Kanava, jolle viesti lähetetään (oletuksena nykyinen kanava)"
+        },
+        "send_allow": {
+            "description": "Sallii/estää muiden kuin järjestelmäviestien lähettämisen yksityisviesteinä",
+            "param_allow_name": "salli",
+            "param_allow": "Sallitko ylläpitäjien lähettää sinulle yksityisviestejä botin kautta?"
+        },
+        "set_log_channel": {
+            "description": "Asettaa lokijärjestelmän kanavan",
+            "param_channel": "Kanava, johon lokit lähetetään",
+            "param_channel_name": "kanava"
+        },
+        "warn_role": {
+            "description": "Lisää/poistaa roolin, joka voi antaa ja poistaa varoituksia"
+        },
+        "warn_role_add": {
+            "description": "Lisää roolin, joka voi antaa ja poistaa varoituksia",
+            "param_role": "Rooli, jolle oikeus annetaan",
+            "param_role_name": "rooli"
+        },
+        "warn_role_remove": {
+            "description": "Poistaa roolin, joka voi antaa ja poistaa varoituksia",
+            "param_role": "Rooli, jolta oikeus poistetaan",
+            "param_role_name": "rooli"
+        },
+        "reload": {
+            "description": "Lataa triggerit ja käyttöoikeuslistat uudelleen tiedostoista"
+        },
+        "clear": {
+            "description": "Poistaa määritetyn määrän viestejä kanavalta",
+            "param_count": "Poistettavien viestien määrä",
+            "param_count_name": "määrä",
+            "param_duration": "Valinnainen: poista vain tämän ajanjakson viestit, esim. 30s, 10m, 2t",
+            "param_duration_name": "ajanjakso",
+            "param_member": "Valinnainen: poista viestit vain tältä jäseneltä",
+            "param_member_name": "jäsen"
+        },
+        "random": {
+            "description": "Generoi satunnaisluvun",
+            "param_min": "Pienin arvo",
+            "param_min_name": "minimi",
+            "param_max": "Suurin arvo",
+            "param_max_name": "maksimi",
+            "param_count": "Kuinka monta kertaa luku generoidaan",
+            "param_count_name": "määrä"
+        },
+        "coin": {
+            "description": "Heittää kolikkoa",
+            "param_count": "Kuinka monta kertaa kolikkoa heitetään",
+            "param_count_name": "määrä"
+        },
+        "ball": {
+            "description": "Salaperäinen pallo, joka vastaa kysymyksiin",
+            "param_question": "Kysymys, jonka haluat esittää pallolle",
+            "param_question_name": "kysymys"
+        },
+        "mention": {
+            "description": "Käyttäjien/roolien massamaininta"
+        },
+        "mention_user": {
+            "description": "Mainitsee käyttäjän määritetyn määrän kertoja",
+            "param_count": "Kuinka monta mainintaa lähetetään",
+            "param_count_name": "määrä",
+            "param_member": "Kenet mainitaan",
+            "param_member_name": "jäsen",
+            "param_message": "Lisäteksti viestiin",
+            "param_message_name": "viesti",
+            "param_delay": "Viive mainintojen välillä sekunteina (vähintään 0.1)",
+            "param_delay_name": "viive"
+        },
+        "mention_role": {
+            "description": "Mainitsee roolin määritetyn määrän kertoja",
+            "param_count": "Kuinka monta mainintaa lähetetään",
+            "param_count_name": "määrä",
+            "param_role": "Mikä rooli mainitaan",
+            "param_role_name": "rooli",
+            "param_message": "Lisäteksti viestiin",
+            "param_message_name": "viesti",
+            "param_delay": "Viive mainintojen välillä sekunteina (vähintään 0.1)",
+            "param_delay_name": "viive"
+        },
+        "mention_stop": {
+            "description": "Pysäyttää mention- ja mention_role-komennot pakolla"
+        },
+        "temp_role": {
+            "description": "Antaa jäsenelle roolin rajoitetuksi ajaksi",
+            "param_member": "Jäsen, jolle rooli annetaan",
+            "param_member_name": "jäsen",
+            "param_role": "Annettava rooli",
+            "param_role_name": "rooli",
+            "param_duration": "Esim.: 30s, 10m, 2t",
+            "param_duration_name": "kesto"
+        },
+        "trigger": {
+            "description": "Lisää, muokkaa tai poistaa automaattisen vastauksen",
+            "param_trigger": "Sana tai lause, johon botti reagoi (tukee Regexiä)",
+            "param_trigger_name": "triggeri",
+            "param_action": "Valitse toiminto",
+            "param_action_name": "toiminto",
+            "param_response": "Botin vastauksen teksti (tarvitaan lisäystä/muokkausta varten)",
+            "param_response_name": "vastaus",
+            "choices": {
+                "add": "Lisää / Muokkaa",
+                "remove": "Poista"
+            }
+        },
+        "join": {
+            "description": "Yhdistää botin äänikanavaan",
+            "param_channel": "Äänikanava, johon botti yhdistetään (oletuksena nykyinen kanavasi)",
+            "param_channel_name": "kanava"
+        },
+        "leave": {
+            "description": "Katkaisee botin yhteyden äänikanavaan"
+        },
+        "tts": {
+            "description": "Lue teksti ääneen",
+            "param_text": "Teksti, joka luetaan ääneen",
+            "param_text_name": "teksti"
+        },
+        "warn": {
+            "description": "Komentoryhmä varoitusten hallintaan"
+        },
+        "warn_add": {
+            "description": "Antaa käyttäjälle varoituksen",
+            "param_member": "Jäsen, jolle varoitus annetaan",
+            "param_member_name": "jäsen",
+            "param_reason": "Varoituksen syy",
+            "param_reason_name": "syy",
+            "param_duration": "Esim.: 30s, 10m, 2t",
+            "param_duration_name": "kesto"
+        },
+        "warn_show": {
+            "description": "Näyttää käyttäjän varoitukset",
+            "param_member": "Jäsen, jonka varoitukset näytetään",
+            "param_member_name": "jäsen"
+        },
+        "warn_remove": {
+            "description": "Poistaa varoituksen ID:n perusteella",
+            "param_case_id": "Poistettavan varoituksen ID",
+            "param_case_id_name": "varoituksen_id"
+        },
+        "warn_obsolete": {
+            "description": "Merkitsee varoituksen vanhentuneeksi",
+            "param_case_id": "Vanhentuneeksi merkittävän varoituksen ID",
+            "param_case_id_name": "varoituksen_id"
+        },
+        "ai_ask_text": {
+            "description": "Kysyy botilta ja lähettää vastauksen tekstikanavalle",
+            "param_text": "Mitä kysytään",
+            "param_text_name": "kysymys",
+            "param_hidden": "Lähetetäänkö vastaus piilotettuna?",
+            "param_hidden_name": "piilotettu_vastaus",
+            "param_image_name": "kuva",
+            "param_image": "Kuva, jonka tekoäly näkee"
+        },
+        "ai_ask_voice": {
+            "description": "Kysyy botilta ja lukee vastauksen ääneen äänikanavalla",
+            "param_text": "Mitä kysytään",
+            "param_text_name": "kysymys"
+        },
+        "language": {
+            "description": "Asettaa botin kielen tälle palvelimelle",
+            "param_language": "Valitse kieli",
+            "param_language_name": "kieli"
+        },
+        "ai_clear": {
+            "description": "Poistaa tekoälykeskustelun historian",
+            "param_delete_from_all_servers": "Poistetaanko historia kaikilta palvelimilta?",
+            "param_delete_from_all_servers_name": "poista_kaikilta_palvelimilta"
+        },
+        "ai_key": {
+            "description": "Asettaa tekoälytoimintoihin tarvittavan Gemini API-avaimen",
+            "param_key": "Gemini API-avain",
+            "param_key_name": "api-avain"
+        },
+        "command_id": {
+            "description": "Palauttaa Devi-komennon ID:n",
+            "param_command": "Komento, jonka ID haetaan",
+            "param_command_name": "komento",
+            "unknown_command": "Tuntematon komento"
+        },
+        "giveaway": {
+            "description": "Palvelimen arvontojen hallinta"
+        },
+        "giveaway_start": {
+            "description": "Käynnistää uuden arvonnan",
+            "param_name": "Arvonnan nimi",
+            "param_name_name": "nimi",
+            "param_duration": "Esim.: 30s, 10m, 2t",
+            "param_duration_name": "kesto",
+            "param_winners": "Voittajien määrä",
+            "param_winners_name": "voittajat",
+            "param_prize": "Arvonnan palkinto",
+            "param_prize_name": "palkinto",
+            "param_channel": "Kanava, jolla arvonta julkaistaan (oletuksena nykyinen kanava)",
+            "param_channel_name": "kanava"
+        },
+        "giveaway_end": {
+            "description": "Päättää arvonnan ennenaikaisesti ja arpoo voittajat",
+            "param_message_id": "Arvontaviestin ID",
+            "param_message_id_name": "viestin_id"
+        },
+        "giveaway_reroll": {
+            "description": "Arpoo uudet voittajat jo päättyneelle arvonnalle",
+            "param_message_id": "Arvontaviestin ID",
+            "param_message_id_name": "viestin_id"
+        },
+        "giveaway_list": {
+            "description": "Näyttää palvelimen aktiiviset arvonnat"
+        },
+        "music": {
+            "description": "Komentoryhmä musiikin hallintaan"
+        },
+        "music_play": {
+            "description": "Toistaa YouTube-äänen linkin tai nimen perusteella",
+            "param_query": "Linkki kappaleeseen/soittolistaan tai hakusana",
+            "param_query_name": "kappale"
+        },
+        "music_pause": {
+            "description": "Keskeyttää toiston"
+        },
+        "music_resume": {
+            "description": "Jatkaa toistoa"
+        },
+        "music_skip": {
+            "description": "Ohittaa nykyisen kappaleen"
+        },
+        "music_queue": {
+            "description": "Näyttää kappalejonon"
+        },
+        "music_stop": {
+            "description": "Pysäyttää toiston ja tyhjentää jonon"
+        },
+        "music_loop": {
+            "description": "Vaihtaa toistotilaa",
+            "param_mode": "Toistotila (jos ei määritetty — vaihtaa seuraavaan kiertäen)",
+            "param_mode_name": "tila"
+        },
+        "music_interface": {
+            "description": "Näyttää soittimen hallintapaneelin painikkeineen"
+        },
+        "triggers": {
+            "description": "Näyttää kaikki palvelimen triggerit"
+        },
+        "guild_info": {
+            "description": "Näyttää kaiken saatavilla olevan tiedon palvelimesta sen ID:n perusteella",
+            "param_guild_id_name": "palvelimen_id",
+            "param_guild_id": "Palvelimen ID, josta tietoa tarvitaan",
+            "param_create_invite_name": "luo_kutsu",
+            "param_create_invite": "Luo kertakäyttöinen kutsu palvelimelle (voimassa 30 minuuttia)"
+        },
+        "avatar": {
+            "description": "Näyttää käyttäjän avatarin",
+            "param_user_name": "käyttäjä",
+            "param_user": "Käyttäjä, jonka avatar haetaan"
+        },
+        "qr": {
+            "description": "Luo QR-koodin linkistä",
+            "param_link_name": "linkki",
+            "param_link": "Linkki, joka muunnetaan QR-koodiksi"
+        },
+        "preview": {
+            "description": "Hakee YouTube-videon esikatselukuvan",
+            "param_link_name": "linkki",
+            "param_link": "Linkki YouTube-videoon"
+        },
+        "slowmode": {
+            "description": "Asettaa kanavan hidastustilan",
+            "param_time_name": "aika",
+            "param_time": "Viive viestien välillä (esim. 10s, 5m, 1h)",
+            "param_channel_name": "kanava",
+            "param_channel": "Kanava, jolle hidastustila asetetaan"
+        },
+        "birthday": {
+            "description": "Syntymäpäivien hallinta"
+        },
+        "birthday_set": {
+            "description": "Aseta oma syntymäpäiväsi",
+            "param_day_name": "päivä",
+            "param_day": "Kuukauden päivä (1–31)",
+            "param_month_name": "kuukausi",
+            "param_month": "Syntymäkuukausi",
+            "param_ping_on_servers_name": "onnittele_palvelimilla",
+            "param_ping_on_servers": "Lähetetäänkö erillinen onnitteluviesti kanavalle palvelimilla (yksityisviestin lisäksi)",
+            "param_user_name": "käyttäjä",
+            "param_user": "Kenelle syntymäpäivä asetetaan? Oletuksena itselle; toisen syntymäpäivää voi muuttaa vain kehittäjä"
+        },
+        "birthday_check": {
+            "description": "Näytä syntymäpäivän päivämäärä",
+            "param_user_name": "käyttäjä",
+            "param_user": "Kenen syntymäpäivä näytetään (oletuksena oma)"
+        },
+        "birthday_remove": {
+            "description": "Poista tallennettu syntymäpäivä",
+            "param_user_name": "käyttäjä",
+            "param_user": "Kenen syntymäpäivä poistetaan (oletuksena oma; toisen vain ylläpitäjille)"
+        },
+        "birthday_channel": {
+            "description": "Määritä palvelimen onnittelukanava",
+            "param_channel_name": "kanava",
+            "param_channel": "Kanava onnitteluille (jätä tyhjäksi poistaaksesi onnittelut käytöstä palvelimella)"
+        },
+        "birthday_congratulate": {
+            "description": "[Testi] Käynnistä käyttäjän onnittelu manuaalisesti",
+            "param_user_name": "käyttäjä",
+            "param_user": "Kenet onnitellaan (oletuksena itsesi)"
+        },
+        "vote": {
+            "description": "Lue lisää top.gg:ssä äänestämisen eduista"
+        },
+        "voice": {
+            "description": "Väliaikaisten äänikanavien hallinta"
+        },
+        "voice_setup": {
+            "description": "Määrittää lobbykanavan väliaikaisten äänikanavien luomista varten",
+            "param_lobby_channel_name": "lobbykanava",
+            "param_lobby_channel": "Äänikanava, jolle liittyminen luo väliaikaisen kanavan",
+            "param_category_name": "kategoria",
+            "param_category": "Kategoria, jossa uudet väliaikaiset kanavat luodaan (oletuksena lobbyn kategoria)",
+            "param_name_template_name": "nimimalli",
+            "param_name_template": "Uusien kanavien nimimalli, [user] korvataan omistajan nimimerkillä"
+        },
+        "voice_interface": {
+            "description": "Näyttää väliaikaisen äänikanavasi hallintapaneelin"
+        },
+        "voice_name": {
+            "description": "Nimeää väliaikaisen äänikanavasi uudelleen",
+            "param_name_name": "nimi",
+            "param_name": "Kanavan uusi nimi"
+        },
+        "voice_limit": {
+            "description": "Asettaa väliaikaisen kanavasi jäsenrajan",
+            "param_limit_name": "raja",
+            "param_limit": "Jäsenraja (0 = rajoittamaton)"
+        },
+        "voice_open": {
+            "description": "Avaa kanavan kaikille (@everyone)"
+        },
+        "voice_close": {
+            "description": "Sulkee kanavan kaikilta (@everyone)"
+        },
+        "voice_allow": {
+            "description": "Sallii käyttäjän liittyä kanavallesi",
+            "param_user_name": "käyttäjä",
+            "param_user": "Käyttäjä, jolle pääsy myönnetään"
+        },
+        "voice_ban": {
+            "description": "Estää käyttäjää liittymästä kanavallesi",
+            "param_user_name": "käyttäjä",
+            "param_user": "Käyttäjä, jolta pääsy evätään"
+        },
+        "voice_kick": {
+            "description": "Poistaa käyttäjän väliaikaiselta kanavaltasi",
+            "param_user_name": "käyttäjä",
+            "param_user": "Kuka poistetaan kanavalta"
+        },
+        "voice_transfer": {
+            "description": "Siirtää kanavan omistajuuden toiselle käyttäjälle",
+            "param_user_name": "käyttäjä",
+            "param_user": "Uusi kanavan omistaja (on oltava kanavalla)"
+        },
+        "voice_claim": {
+            "description": "Ottaa kanavan omistajuuden, jos edellinen omistaja on poistunut"
+        },
+        "voice_bitrate": {
+            "description": "Asettaa väliaikaisen kanavasi bittinopeuden",
+            "param_kbps_name": "kbps",
+            "param_kbps": "Bittinopeus kbps:nä"
+        },
+        "voice_region": {
+            "description": "Asettaa väliaikaisen kanavasi äänialueen",
+            "param_region_name": "alue",
+            "param_region": "Äänialue"
+        }
+    },
+    "help": {
+        "title": "📚 Botin komentolista",
+        "intro": "Palvelimen kieli: {server_locale}\n\nAlla on luettelo kaikista komennoista ja niiden toiminnoista:",
+        "footer": "Botti online-tilassa",
+        "parameters": "Parametrit",
+        "optional_parameters": "\n-# Valinnaiset parametrit",
+        "unknown_command": ":x: Tuntematon komento",
+        "outro": {
+            "title": ":blue_book: Hyödyllistä tietoa",
+            "value": "[Tukipalvelin](https://discord.gg/ftUm7FbJDw) | [Tietosuojakäytäntö](https://gist.github.com/security-camera/c1c4ffc74fb2407b06044e4ab8607e71) | [Käyttöehdot](https://gist.github.com/security-camera/147e20418f9528e2e64d5e9e87c40977)"
+        },
+        "monitorings": {
+            "title": ":mag: Botti seurantapalveluissa",
+            "value": "[top.gg](https://top.gg/bot/1230603137253900339#reviews) (/vote)"
+        },
+        "sections": {
+            "mention": {
+                "name": "📣 Maininnat",
+                "value": "• /mention_user\n• /mention_role\n• /mention_stop"
+            },
+            "triggers": {
+                "name": "💬 Automaattivastaukset (Triggerit)",
+                "value": "• /trigger\n• /triggers"
+            },
+            "utils": {
+                "name": ":globe_with_meridians: Työkalut",
+                "value": "• /random\n• /coin\n• /ball\n• /avatar\n• /qr\n• /preview"
+            },
+            "messages": {
+                "name": "💬 Viestit",
+                "value": "• /send_message\n• /send_dm\n• /send_sticky\n• /send_allow"
+            },
+            "voice": {
+                "name": "🎙️ Ääni",
+                "value": "• /join\n• /leave\n• /tts"
+            },
+            "ai": {
+                "name": "🧠 Tekoäly",
+                "value": "• /ai_ask_text (<@{bot_id}>)\n• /ai_ask_voice\n• /ai_clear\n• /ai_key"
+            },
+            "admin": {
+                "name": "⚙️ Ylläpito",
+                "value": "• /clear\n• /set_log_channel\n• /language\n• /command_id\n• /temp_role\n• /slowmode"
+            },
+            "permissions": {
+                "name": ":file_folder:  Oikeudet",
+                "value": "• /permissions manage\n• /permissions list"
+            },
+            "warns": {
+                "name": "⚠️ Varoitukset",
+                "value": "• /warn_add\n• /warn_show\n• /warn_remove\n• /warn_obsolete"
+            },
+            "giveaway": {
+                "name": "🎉 Arvonnat",
+                "value": "• /giveaway_start\n• /giveaway_end\n• /giveaway_reroll\n• /giveaway_list"
+            },
+            "music": {
+                "name": ":musical_note: Musiikki",
+                "value": "• /music interface\n• /music play\n• /music pause\n• /music loop\n• /music queue\n• /music resume\n• /music skip\n• /music stop"
+            },
+            "birthdays": {
+                "name": ":partying_face: Syntymäpäivät",
+                "value": "• /birthday set\n• /birthday check\n• /birthday remove\n• /birthday channel"
+            },
+            "temp_voices": {
+                "name": "⌛ Väliaikaiset äänikanavat",
+                "value": "• /voice setup\n• /voice interface\n• /voice name\n• /voice open\n• /voice close\n• /voice allow\n• /voice ban\n• /voice kick\n• /voice limit\n• /voice bitrate\n• /voice region"
+            },
+            "developer": {
+                "name": "Kehittäjä",
+                "value": "• /guild_info\n• /ai_debug\n• /birthday_congratulate\n• /reload"
+            }
+        }
+    },
+    "permissions_cmd": {
+        "granted": "✅ Kohde {target} sai oikeuden `{permission}`.",
+        "revoked": "❌ Kohteelta {target} poistettiin oikeus `{permission}`.",
+        "check_yes": "✅ Kohteella {target} on oikeus `{permission}`.",
+        "check_no": "❌ Kohteella {target} ei ole oikeutta `{permission}`.",
+        "list_title": "📋 Kohteen {target} oikeudet:\n{permissions}",
+        "list_empty": "Kohteella ei ole myönnettyjä oikeuksia.",
+        "list_all_title": "📋 Kaikki palvelimen oikeudet",
+        "list_all_empty": "Palvelimelle ei ole myönnetty yhtään oikeutta.",
+        "list_all_too_long": "❌ Liian monta myönnettyä oikeutta — tulos ei mahdu yhteen viestiin. Ota yhteyttä kehittäjään sivutuksen lisäämiseksi.",
+        "section_guild": "Palvelin",
+        "section_users": "Käyttäjät",
+        "section_roles": "Roolit",
+        "section_channels": "Kanavat",
+        "unknown_user": "ei löydy palvelimelta",
+        "unknown_role": "rooli poistettu",
+        "unknown_channel": "kanava poistettu",
+        "manage_type_user": "Käyttäjä",
+        "manage_type_role": "Rooli",
+        "manage_type_channel": "Kanava",
+        "manage_type_guild": "Palvelin",
+        "manage_select_type_prompt": "Valitse kohteen tyyppi, jolle oikeuksia hallitaan.",
+        "manage_select_type_placeholder": "Kohteen tyyppi…",
+        "manage_select_object_prompt": "Valitse nyt itse kohde.",
+        "manage_select_user_placeholder": "Valitse käyttäjä…",
+        "manage_select_role_placeholder": "Valitse rooli…",
+        "manage_select_channel_placeholder": "Valitse kanava…",
+        "manage_toggle_placeholder": "Valitse oikeus ottaaksesi sen käyttöön/pois käytöstä…",
+        "manage_panel_title": "⚙️ Oikeuksien hallinta",
+        "manage_panel_target": "Kohde: {target}",
+        "manage_panel_current": "Nykyiset oikeudet",
+        "manage_panel_current_empty": "Oikeuksia ei ole myönnetty.",
+        "manage_panel_footer": "Oikeuden valitseminen alla olevasta valikosta myöntää tai poistaa sen välittömästi.",
+        "manage_not_your_session": "❌ Tätä oikeuksienhallintaistuntoa et avannut sinä.",
+        "manage_back_button": "Takaisin"
+    },
+    "send_message_cmd": {
+        "message_not_found": "Viestiä annetulla ID:llä ei löytynyt.",
+        "invalid_id": "{value} ei ole kokonaisluku.",
+        "sent": "Viesti lähetetty.",
+        "warning": "-# Tämän viestin on lähettänyt ihminen komennon kautta, ei botti.",
+        "forbidden": "❌ Viestin lähettäminen epäonnistui."
+    },
+    "send_dm_cmd": {
+        "sent": "✅ Viesti lähetetty käyttäjälle {user}.",
+        "forbidden": "❌ Viestin lähettäminen epäonnistui. Käyttäjän yksityisviestit voivat olla suljettuina.",
+        "error": "❌ Virhe: `{error}`",
+        "received_message": "{user} lähetti sinulle viestin: {message}",
+        "message_title": "Muu kuin järjestelmäviesti",
+        "allowed": ":white_check_mark: Voit nyt vastaanottaa muita kuin järjestelmäviestejä yksityisviesteinä",
+        "denied": ":x: Et voi nyt vastaanottaa muita kuin järjestelmäviestejä yksityisviesteinä",
+        "view": {
+            "deny": "Napsauta estääksesi muut kuin järjestelmä-DM:t (tai käytä /send allow)",
+            "allow": "Napsauta salliaksesi muut kuin järjestelmä-DM:t (tai käytä /send allow)"
+        }
+    },
+    "send_sticky_cmd": {
+        "sticky_message": "Kiinnitetty viesti",
+        "removed": "✅ Kiinnitetty viesti poistettu kanavalta {channel}",
+        "nothing_to_remove": "❌ Kanavalla {channel} ei ole poistettavaa kiinnitettyä viestiä",
+        "forbidden": "❌ Botilla ei ole riittäviä oikeuksia. Tarkista Viestien hallinta -oikeus ja pääsy kanavalle",
+        "set": "✅ Kiinnitetty viesti lähetetty kanavalle {channel}"
+    },
+    "log_channel_cmd": {
+        "set": "✅ Lokikanava asetettu: {channel}",
+        "removed": "✅ Lokikanava poistettu"
+    },
+    "warn_role_cmd": {
+        "added": "✅ Rooli {role} voi nyt antaa ja hallita varoituksia.",
+        "removed": "❌ Rooli {role} ei voi enää antaa tai hallita varoituksia."
+    },
+    "reload_cmd": {
+        "success": "✅ Tiedot ladattu uudelleen tiedostoista onnistuneesti!\n• **Triggerit:** {trigger_count}\n• **Varoitusroolit:** {warn_role_count}"
+    },
+    "clear_cmd": {
+        "invalid_count": "Anna suurempi kuin 0 oleva määrä.",
+        "count_too_high": "Liian suuri määrä kerralla (enintään {max}).",
+        "wrong_channel_type": "Tätä komentoa voi käyttää vain tekstikanavilla.",
+        "forbidden": "Botilla ei ole oikeuksia poistaa viestejä tällä kanavalla (vaaditaan `Manage Messages` -oikeus).",
+        "http_error": "Virhe viestejä poistettaessa: {error}",
+        "done": "🧹 Poistettuja viestejä: {count}.",
+        "log_title": "🧹 Viestejä siivottiin",
+        "log_channel": "Kanava",
+        "log_moderator": "Moderaattori",
+        "log_requested": "Pyydetty",
+        "log_deleted": "Poistettu todellisuudessa",
+        "log_member_filter": "Jäsensuodatin",
+        "log_duration_filter": "Ajanjaksosuodatin",
+        "log_none": "—"
+    },
+    "random_cmd": {
+        "invalid_count": "Anna määrä väliltä 1–100"
+    },
+    "random": {
+        "coin": {
+            "sides": [
+                "Klaava",
+                "Kruuna"
+            ]
+        },
+        "ball": {
+            "intros": [
+                "Pallo näkee:",
+                "Pallo näyttää:",
+                "Pallo vastaa:",
+                "Pallo ennustaa:",
+                "Pallo kuiskaa:",
+                "Pallo paljastaa:",
+                "Pallo avaa:",
+                "Pallo ilmoittaa:",
+                "Pallo osoittaa:",
+                "Pallo vihjaa:",
+                "Sumu näyttää:",
+                "Sumu hälvenee:",
+                "Kohtalo sanoo:",
+                "Kohtalo vastaa:",
+                "Kohtalo on päättänyt:",
+                "Kohtalon langat osoittavat:",
+                "Tähdet sanovat:",
+                "Tähdet vihjaavat:",
+                "Tähdistöt ovat kohdanneet:",
+                "Kuu todistaa:",
+                "Henget vihjaavat:",
+                "Henget vastaavat:",
+                "Muinaiset henget kuiskaavat:",
+                "Varjot sanovat:",
+                "Varjot varoittavat:",
+                "Oraakkeli vastaa:",
+                "Oraakkeli ennustaa:",
+                "Ennustus kertoo:",
+                "Korkeammat voimat sanovat:",
+                "Korkeammat voimat neuvovat:",
+                "Universumi vastaa:",
+                "Universumi vihjaa:",
+                "Kosmos kuiskaa:",
+                "Maailman energia sanoo:",
+                "Riimut näyttävät:",
+                "Riimut asettuvat:",
+                "Kohtalonkortit osoittavat:",
+                "Merkit ovat selvät:",
+                "Vastaus saapuu:",
+                "Pitkän pohdinnan jälkeen:",
+                "Lyhyen hiljaisuuden jälkeen:",
+                "Kristallipallo loistaa:",
+                "Kristallipallo näyttää:",
+                "Maaginen usva kertoo:",
+                "Ikuisuuden kaiku vastaa:",
+                "Muinainen taika sanoo:",
+                "Menneisyyden äänet kuiskaavat:",
+                "Tuonpuoleiset voimat ilmoittavat:",
+                "Enne osoittaa:",
+                "Totuus paljastuu:"
+            ],
+            "answers": [
+                "Kyllä.",
+                "Ehdottomasti kyllä.",
+                "Epäilemättä.",
+                "Kiistatta.",
+                "Ehdottomasti.",
+                "Totta kai.",
+                "Juuri niin.",
+                "Kyllä, ilman epäilystä.",
+                "Todennäköisesti kyllä.",
+                "Hyvin todennäköistä.",
+                "Melko todennäköistä.",
+                "Todennäköisemmin kyllä kuin ei.",
+                "Näyttää siltä, että kyllä.",
+                "Lähes varmasti.",
+                "Todennäköisyys on korkea.",
+                "Ei.",
+                "Ehdottomasti ei.",
+                "Epäilemättä ei.",
+                "Kiistatta ei.",
+                "Ehdottomasti ei.",
+                "Ei missään nimessä.",
+                "Todennäköisesti ei.",
+                "Todennäköisemmin ei kuin kyllä.",
+                "Epätodennäköistä.",
+                "Näyttää siltä, että ei.",
+                "Käytännössä poissuljettu.",
+                "Mahdollisuudet ovat erittäin pienet.",
+                "Ehkä.",
+                "Voi olla.",
+                "Luultavasti.",
+                "Ei ole poissuljettu.",
+                "On mahdollisuus.",
+                "Mahdollisuudet ovat tasan.",
+                "Lopputulos on epäselvä.",
+                "Toistaiseksi ei tiedossa.",
+                "Vaikea sanoa.",
+                "En pysty määrittämään.",
+                "Vastaus ei ole selvillä.",
+                "Todennäköisyys on viisikymmentä-viisikymmentä.",
+                "Epäselvää.",
+                "Kaikki on mahdollista.",
+                "Sekä kyllä että ei."
+            ]
+        }
+    },
+    "logs_cog": {
+        "titles": {
+            "stage_joined": "🎙️ Jäsen liittyi lavakanavalle",
+            "voice_joined": "🔊 Jäsen liittyi äänikanavalle",
+            "stage_left": "🎙️ Jäsen poistui lavakanavalta",
+            "voice_left": "🔇 Jäsen poistui äänikanavalta",
+            "voice_moved": "↔️ Jäsen siirtyi toiselle äänikanavalle",
+            "stage_opened": "🟣 Lava avattu",
+            "stage_closed": "⚫ Lava suljettu",
+            "stage_updated": "🟣 Lavaa päivitetty",
+            "dm_received": "🤖 Botti sai yksityisviestin",
+            "message_edited": "✏️ Viestiä muokattiin",
+            "message_deleted": "🗑️ Viesti poistettiin",
+            "member_joined": "📥 Uusi jäsen liittyi",
+            "member_kicked": "👢 Jäsen potkittiin ulos",
+            "member_left": "📤 Jäsen poistui palvelimelta",
+            "member_banned": "🔨 Jäsen bannattiin",
+            "member_unbanned": "🔓 Jäsenen banni poistettiin",
+            "nickname_changed": "📝 Jäsenen nimimerkki vaihdettiin",
+            "roles_updated": "🎭 Jäsenen roolit päivitettiin",
+            "member_muted": "🔇 Jäsen mykistettiin",
+            "member_unmuted": "🔊 Jäsenen mykistys poistettiin",
+            "command_used": "🤖 Botin komennon käyttö",
+            "bot_added": "🤖 Botti lisättiin palvelimelle",
+            "bot_removed": "🤖 Botti poistui palvelimelta"
+        },
+        "fields": {
+            "member": "Jäsen",
+            "channel": "Kanava",
+            "role": "Rooli",
+            "moderator": "Moderaattori",
+            "topic": "Aihe",
+            "opened_by": "Avaaja",
+            "closed_by": "Sulkija",
+            "old_topic": "Vanha aihe",
+            "new_topic": "Uusi aihe",
+            "updated_by": "Päivittäjä",
+            "from_channel": "Kanavalta",
+            "to_channel": "Kanavalle",
+            "text": "Teksti",
+            "attachments": "Liitteet",
+            "author": "Kirjoittaja",
+            "before": "Ennen",
+            "after": "Jälkeen",
+            "link": "Linkki",
+            "content": "Sisältö",
+            "deleted_by": "Poistaja",
+            "account_created": "Tili luotu",
+            "kicked_by": "Poistaja",
+            "banned_by": "Bannaaja",
+            "unbanned_by": "Bannin poistaja",
+            "old_nickname": "Vanha nimimerkki",
+            "new_nickname": "Uusi nimimerkki",
+            "changed_by_nickname": "Muuttaja",
+            "added": "Lisätty",
+            "removed": "Poistettu",
+            "changed_by_roles": "Muuttaja",
+            "muted_by": "Mykistäjä",
+            "unmuted_by": "Mykistyksen poistaja",
+            "command": "Komento",
+            "user": "Käyttäjä",
+            "params": "Parametrit",
+            "server": "Palvelin",
+            "members_count": "Jäseniä"
+        },
+        "common": {
+            "unknown": "Tuntematon",
+            "dash": "—",
+            "unknown_not_cached": "Tuntematon (ei ollut välimuistissa)",
+            "content_not_cached": "*(ei saatavilla — viestiä ei ollut tallennettu välimuistiin)*",
+            "message_author": "Viestin kirjoittaja",
+            "unknown_or_self": "Tuntematon/jäsen itse",
+            "unknown_or_expired": "Tuntematon/vanhentunut",
+            "jump_to_message": "[Siirry viestiin]({jump_url})"
+        }
+    },
+    "mentions_cog": {
+        "max_count_exceeded": "Kerralla voi lähettää enintään {max} mainintaa.",
+        "invalid_count": "Anna suurempi kuin 0 oleva mainintojen määrä.",
+        "banned_words": "Viesti sisältää kiellettyjä sanoja eikä sitä voi lähettää.",
+        "mention_forbidden": "Tätä käyttäjää tai roolia ei saa mainita.",
+        "role_forbidden": "Et voi mainita tätä roolia.",
+        "cooldown": "Odota {seconds} sek. ennen komennon käyttämistä uudelleen.",
+        "stopped": "Spämmi pysäytettiin pakolla.",
+        "started_member": "Aloitettiin {count} maininnan lähetys käyttäjälle {member}...",
+        "started_role": "Aloitettiin {count} maininnan lähetys roolille {role}...",
+        "stop_signal_sent": "Pysäytyssignaali lähetetty!"
+    },
+    "temp_role_cmd": {
+        "role_too_high_for_bot": "Botti ei voi antaa tätä roolia — se on korkeampi tai yhtä korkea kuin botin oma ylin rooli.",
+        "role_too_high_for_user": "Et voi antaa roolia, joka on korkeampi tai yhtä korkea kuin oma roolisi.",
+        "forbidden": "Botilla ei ole tarpeeksi oikeuksia antaa tätä roolia.",
+        "http_error": "Virhe roolia annettaessa: {error}",
+        "success": "✅ {member} sai roolin {role} asti {expires_full} ({expires_relative}).",
+        "log_expired_title": "⏳ Väliaikainen rooli poistettu (aika päättyi)",
+        "log_granted_title": "⏳ Jäsenelle annettiin väliaikainen rooli",
+        "field_expires": "Päättyy"
+    },
+    "triggers_cog": {
+        "missing_response": "Anna triggerille vastaus.",
+        "saved": "✅ Triggeri `{trigger}` tallennettu.",
+        "not_found": "❌ Triggeriä `{trigger}` ei löytynyt.",
+        "not_found_response": "❌ Vastausta `{response}` ei löytynyt triggerille `{trigger}`.",
+        "found_response": "✅ Vastaus `{response}` triggerille `{trigger}` löytyi, sen ID on **{id}**.",
+        "already_exists_response": "❌ Triggeri `{trigger}` vastauksella `{response}` on jo olemassa.",
+        "all_responses": "Kaikki vastaukset triggerille `{trigger}`:",
+        "removed": "✅ Triggeri `{trigger}` poistettu.",
+        "invalid_regex": "❌ Regex-virhe:\n`{error}`",
+        "empty_regex": "Regex-lauseke ei voi olla tyhjä.",
+        "no_guild_triggers": "Tällä palvelimella ei ole triggereitä."
+    },
+    "voice_cog": {
+        "no_channel_specified": "Määritä äänikanava tai liity sellaiseen.",
+        "joined": "Liityttiin kanavalle **{channel}**.",
+        "not_in_voice": "Botti ei ole äänikanavalla.",
+        "left": "Poistuttiin äänikanavalta.",
+        "too_long": "Viesti on liian pitkä (enintään {max} merkkiä).",
+        "queued": "Viesti lisätty jonoon. Sijainti: **{position}**",
+        "log_auto_left_title": "🔇 Botti poistui äänikanavalta automaattisesti (kukaan ei jäänyt)",
+        "join_failed": "❌ Äänikanavaan liittyminen epäonnistui: {error}"
+    },
+    "warns_cog": {
+        "forever": "ikuisesti",
+        "expires_relative": "asti {relative}",
+        "line": "{status_emoji} **ID {id}** | tila: `{status}`\nSyy: {reason}\nKesto: {duration}\nModeraattori: {moderator} | annettu: {created}\nAktiivisia varoituksia: {active_warns}",
+        "log_expired_title": "🔕 Varoitus vanhentui (aika päättyi)",
+        "field_case_id": "Varoituksen ID",
+        "field_reason": "Syy",
+        "field_duration": "Kesto",
+        "warn_success": "⚠️ {member} sai varoituksen (ID {id}).\nSyy: {reason}\nKesto: {duration}",
+        "log_warn_title": "⚠️ Jäsen sai varoituksen",
+        "no_warns": "Jäsenellä {member} ei ole varoituksia.",
+        "show_title": "Varoitukset: {name}",
+        "show_description": "Aktiivisia: **{active}** | Merkintöjä yhteensä: **{total}**",
+        "not_found": "Varoitusta ID:llä {id} ei löytynyt tältä palvelimelta.",
+        "removed": "Varoitus ID {id} (käyttäjä {user}) poistettu.",
+        "log_removed_title": "🔕 Varoitus poistettiin",
+        "field_removed_by": "Poistaja",
+        "field_original_reason": "Varoituksen syy",
+        "already_old": "Varoitus ID {id} on jo merkitty vanhentuneeksi.",
+        "marked_old": "Varoitus ID {id} (käyttäjä {user}) merkitty vanhentuneeksi.",
+        "log_marked_manual_title": "🔕 Varoitus merkittiin vanhentuneeksi (manuaalisesti)",
+        "field_marked_by": "Merkitsijä"
+    },
+    "ai_cog": {
+        "empty_prompt": "Mainitsit minut, mutta et kirjoittanut kysymystä. Kirjoita jotain maininnan jälkeen!",
+        "cooldown": "Odota {seconds} sek. ennen kuin puhut minulle uudelleen.",
+        "not_configured": "❌ Tekoälyvastauksia ei ole vielä määritetty tälle palvelimelle. Ylläpitäjän tulee asettaa Gemini API-avain.",
+        "network_error": "❌ Yhteyttä tekoälypalveluun ei saatu. Yritä myöhemmin uudelleen.",
+        "generic_error": "❌ Vastausta tekoälyltä ei saatu. Yritä myöhemmin uudelleen.",
+        "voice_cog_missing": "❌ Äänimoduuli ei ole käytettävissä tässä botissa.",
+        "blacklist": "❌ Et voi käyttää tekoälyä tällä palvelimella.",
+        "ask_response": "🎙️ **{name}:** {text}\n(lisätty puhejonoon, sijainti: **{position}**)",
+        "memory_deleted": "✅ Tekoälykeskustelun historia poistettu.",
+        "key_tutorial": "❌ Virheellinen Gemini API-avain.\nVarmista, että liitit **API Key** -arvon, et projektin nimeä tai muuta tunnistetta.\nAvaimen voi hakea tai luoda [täältä](https://aistudio.google.com/app/api-keys).",
+        "key_updated": "✅ Gemini API-avain asetettu onnistuneesti.",
+        "key_deleted": "✅ Gemini API-avain poistettu onnistuneesti.",
+        "signal_title": "🚩 Epäilyttävä tekoälypyyntö",
+        "signal_member": "Käyttäjä",
+        "signal_guild": "Palvelin",
+        "signal_channel": "Kanava",
+        "signal_prompt": "Pyyntö",
+        "signal_answer": "Mallin vastaus",
+        "signal_attachments": "Liitteet"
+    },
+    "language_cmd": {
+        "set": "✅ Botin kieli tällä palvelimella vaihdettu: **{language}**."
+    },
+    "avatar_cmd": {
+        "title": "{name}:n palvelinavatar",
+        "global_title": "{name}:n yleinen avatar"
+    },
+    "preview_cmd": {
+        "no_thumbnail": "Tämän videon esikatselukuvaa ei saatu haettua.",
+        "download_error": "Esikatselukuvan lataaminen epäonnistui.",
+        "invalid_video": "Videon tietoja ei saatu haettua.",
+        "error": "Esikatselua haettaessa tapahtui virhe: {e}"
+    },
+    "slowmode_cmd": {
+        "max_duration": "Hidastustilan enimmäiskesto on 6 tuntia.",
+        "invalid_channel": "Tämä kanava ei tue hidastustilaa.",
+        "success": "Kanavan {channel} hidastustila asetettu arvoon {time}.",
+        "no_permission": "Minulla ei ole oikeuksia muuttaa tämän kanavan hidastustilaa.",
+        "error": "Hidastustilan muuttaminen epäonnistui: {error}"
+    },
+    "giveaway_cog": {
+        "button_name": "Osallistu",
+        "button_success": "🎉 Osallistuit arvontaan!",
+        "button_leave_success": "Peruit osallistumisesi arvontaan.",
+        "giveaway_ended": "❌ Tämä arvonta on jo päättynyt.",
+        "giveaway_title": "🎉 Arvonta: {name}",
+        "giveaway_description": "Palkinto: **{prize}**\nVoittajia: **{winners}**\nOsallistujia: **{members}**\nJärjestäjä: {host}\nPäättyy: {end}\n\nPaina alla olevaa painiketta osallistuaksesi!",
+        "giveaway_id_footer": "Arvonnan ID: {id}",
+        "giveaway_created": "✅ Arvonta luotu kanavalle {channel}.",
+        "invalid_duration": "❌ Virheellinen kesto. {error}",
+        "duration_must_be_finite": "❌ Arvonta ei voi kestää \"ikuisesti\" — anna päättyvä kesto, esim.: 30s, 10m, 2t",
+        "no_permission": "❌ Sinulla ei ole oikeuksia hallita arvontoja.",
+        "not_found": "❌ Arvontaa annetulla ID:llä ei löytynyt tältä palvelimelta.",
+        "already_ended": "❌ Tämä arvonta on jo päättynyt.",
+        "ending": "⏳ Päätetään arvontaa ja arvotaan voittajat...",
+        "not_ended_yet": "❌ Tämä arvonta ei ole vielä päättynyt.",
+        "rerolling": "🎲 Arvotaan uudet voittajat...",
+        "no_active": "Tällä palvelimella ei ole tällä hetkellä aktiivisia arvontoja.",
+        "list_title": "🎉 Aktiiviset arvonnat",
+        "list_entry": "• **{name}** (ID {id}) — päättyy {end}",
+        "giveaway_ended_title": "🎉 Arvonta päättyi: {name}",
+        "giveaway_ended_description": "Osallistujia oli: **{members}**\nVoittajat: {winners}",
+        "no_winners": "ei voittajia",
+        "winners_announcement": "🎉 Onnittelut {winners}! Voitit palkinnon **{prize}**!",
+        "reroll_announcement": "🎲 Uudet voittajat: {winners}! Palkinto: **{prize}**!",
+        "no_participants": "😢 Kukaan ei osallistunut arvontaan **{prize}**, voittajia ei ole."
+    },
+    "music_cog": {
+        "not_connected": "❌ Botti ei ole yhteydessä äänikanavaan.",
+        "extract_failed": "❌ Kappaletta ei löytynyt/ladattu: {error}",
+        "track_added_queue": "➕ Lisätty jonoon: **{title}**",
+        "track_loaded": "🎵 Ladattu: **{title}**",
+        "paused": "⏸️ Tauko.",
+        "resumed": "▶️ Jatketaan.",
+        "nothing_playing": "Mikään ei soi juuri nyt.",
+        "skipped": "⏭️ Kappale ohitettu.",
+        "stopped": "⏹️ Pysäytetty, jono tyhjennetty.",
+        "now_playing_announce": "▶️ Nyt soi: **{title}**",
+        "track_skipped_no_voice": "❌ Botti ei ole äänikanavalla — kappale **{title}** ohitettiin. Suorita ensin /join.",
+        "playback_error": "❌ Kappaleen **{title}** toistoa ei saatu käynnistettyä: {error}\nVarmista, että ffmpeg on asennettu ja löytyy PATH-muuttujasta (`ffmpeg -version` konsolissa) ja että PyNaCl-paketti on asennettu.",
+        "untitled_track": "Nimetön kappale",
+        "queue_now_playing": "▶️ Nyt soi: [{title}]({url})",
+        "queue_loop_status": "Toisto: {emoji} {label}",
+        "queue_upcoming_header": "\n📜 Seuraavaksi jonossa:",
+        "queue_empty": "Jono on tyhjä.",
+        "loop_set": "{emoji} Toistotila: **{label}**",
+        "loop": {
+            "off": "pois päältä",
+            "track": "nykyinen kappale",
+            "queue": "koko jono"
+        },
+        "modal": {
+            "title": "Lisää kappale",
+            "label": "Linkki tai nimi",
+            "placeholder": "https://youtube.com/... tai kappaleen nimi"
+        },
+        "interface": {
+            "title": "🎶 Soittimen hallintapaneeli",
+            "now_playing_label": "Nyt soi:",
+            "nothing_playing": "mikään ei soi",
+            "loop_label": "Toisto:",
+            "help": "➕ **Lisää kappale** — avaa linkin/nimen syöttöikkuna\n⏯️ **Tauko / Jatka** — vaihda toistotilaa\n⏭️ **Ohita** — seuraava kappale jonosta\n🔁 **Toisto** — vaihda tilaa (pois / kappale / jono)\n📜 **Jono** — näytä nykyinen kappalelista\n⏹️ **Pysäytä** — pysäytä ja tyhjennä jono",
+            "button_play": "Lisää kappale",
+            "button_pause_resume": "Tauko / Jatka",
+            "button_skip": "Ohita",
+            "button_loop": "Toisto",
+            "button_queue": "Jono",
+            "button_stop": "Pysäytä"
+        },
+        "logs": {
+            "play": "➕ Kappale lisätty",
+            "pause": "⏸️ Toisto keskeytetty",
+            "resume": "▶️ Toisto jatkettu",
+            "skip": "⏭️ Kappale ohitettu",
+            "stop": "⏹️ Toisto pysäytetty",
+            "queue": "📜 Jonoa tarkasteltu",
+            "loop": "🔁 Toistotilaa muutettu",
+            "field_user": "Käyttäjä",
+            "field_track": "Kappale",
+            "field_mode": "Tila",
+            "field_cleared": "Poistettu jonosta"
+        }
+    },
+    "developer_cog": {
+        "invalid_id": "❌ Palvelimen ID:n täytyy olla numero.",
+        "not_found": "❌ Palvelinta ID:llä `{id}` ei löytynyt.",
+        "forbidden": "❌ Ei pääsyä palvelimelle ID:llä `{id}`.",
+        "http_error": "❌ Virhe Discord API -pyynnössä: {error}",
+        "title_stats": "📊 Tilastot",
+        "title_channels": "📺 Kanavat, widget ja media",
+        "field_owner": "Omistaja",
+        "field_created": "Luotu",
+        "field_verification": "Vahvistustaso",
+        "field_nsfw": "NSFW-taso",
+        "field_content_filter": "Sisältösuodatin",
+        "field_mfa": "MFA-taso",
+        "field_locale": "Oletuskieli",
+        "field_vanity": "Vanity URL",
+        "field_features": "Ominaisuudet (features)",
+        "field_members": "Jäseniä",
+        "field_approx_online": "Paikalla (arvio)",
+        "field_max_members": "Jäsenten enimmäismäärä",
+        "field_max_presences": "Presence-enimmäismäärä",
+        "field_large": "Suuri palvelin",
+        "field_boost_tier": "Boost-taso",
+        "field_boost_count": "Boostien määrä",
+        "field_roles": "Rooleja",
+        "field_emojis": "Emojeja",
+        "field_stickers": "Tarroja",
+        "field_text_channels": "Tekstikanavia",
+        "field_voice_channels": "Äänikanavia",
+        "field_categories": "Kategorioita",
+        "field_stage_channels": "Lavakanavia",
+        "field_forum_channels": "Foorumikanavia",
+        "field_total_channels": "Kanavia yhteensä",
+        "field_system_channel": "Järjestelmäkanava",
+        "field_rules_channel": "Sääntökanava",
+        "field_updates_channel": "Discordin päivityskanava",
+        "field_afk_channel": "AFK-kanava",
+        "field_afk_timeout": "AFK-aikakatkaisu",
+        "field_widget": "Widget käytössä",
+        "field_media": "Media",
+        "media_icon": "Kuvake",
+        "media_banner": "Banneri",
+        "media_splash": "Splash",
+        "media_discovery_splash": "Discovery-splash",
+        "field_invite": "Kutsu",
+        "invite_expiry_note": "Voimassa 30 minuuttia, yksi käyttökerta",
+        "invite_no_channel": "❌ Kutsua ei voitu luoda: yhtään kutsuoikeudellista kanavaa ei löytynyt.",
+        "invite_no_member": "❌ Kutsua ei voitu luoda: botin jäsentietoja ei saatu selvitettyä palvelimella."
+    },
+    "birthday_cog": {
+        "months": {
+            "01": "01 | tammikuuta",
+            "02": "02 | helmikuuta",
+            "03": "03 | maaliskuuta",
+            "04": "04 | huhtikuuta",
+            "05": "05 | toukokuuta",
+            "06": "06 | kesäkuuta",
+            "07": "07 | heinäkuuta",
+            "08": "08 | elokuuta",
+            "09": "09 | syyskuuta",
+            "10": "10 | lokakuuta",
+            "11": "11 | marraskuuta",
+            "12": "12 | joulukuuta"
+        },
+        "date_format": "{day}. {month}",
+        "invalid_date": "❌ Tällaista päivämäärää ei ole olemassa — tarkista päivä ja kuukausi.",
+        "set_success": "🎂 Syntymäpäivä tallennettu: **{date}**.",
+        "not_set": "Käyttäjälle {target} ei ole asetettu syntymäpäivää.",
+        "check_result": "🎂 {target}:n syntymäpäivä: **{date}**.",
+        "removed": "🗑️ {target}:n syntymäpäivä poistettu.",
+        "channel_set": "✅ Syntymäpäiväonnittelujen kanavaksi asetettu: {channel}.",
+        "channel_removed": "✅ Syntymäpäiväonnittelut on nyt poistettu käytöstä tällä palvelimella.",
+        "log_channel_set_title": "🎂 Syntymäpäiväkanava vaihdettu",
+        "log_channel_removed_title": "🎂 Syntymäpäiväkanava poistettu käytöstä",
+        "dm_congratulation": "🎉 Hyvää syntymäpäivää, {name}! Toivottavasti tämä vuosi tuo paljon hyvää!",
+        "server_congratulation": "🎉 Tänään on {mention}:n syntymäpäivä! Onnea! 🎂",
+        "test_triggered": "🧪 Testi suoritettu käyttäjälle {target}. Yksityisviesti toimitettu: {dm}. Palvelinpingejä lähetetty: {servers}.",
+        "test_failed": ":x: Testi epäonnistui. Käyttäjä ei ole käyttänyt komentoa `/birthday set`"
+    },
+    "top_gg_cog": {
+        "voting": "⭐ **Tue {bot_mention}a äänestämällä!**\n\nÄänestä Deviä Top.gg:ssä ja saat **paremmat rajoitukset 12 tunniksi**!\n\n### 🚀 Mitä saat:\n🤖 **Tekoäly**\n• Tekoälypyyntöjen aikarajoitus: **{AI_COOLDOWN_SECONDS} → {AI_COOLDOWN_SECONDS_VOTED}**\n• Tekoälyn viestimuisti: **{AI_MAX_MESSAGES} → {AI_MAX_MESSAGES_VOTED}**\n\n🧹 **Viestien poisto**\n• `/clear`-enimmäismäärä: **{CLEAR_MAX} → {CLEAR_MAX_VOTED} viestiä**\n\n📢 **Maininnat**\n• `/mention`-mainintojen enimmäismäärä: **{MENTIONS_MAX_MESSAGES} → {MENTIONS_MAX_MESSAGES_VOTED}**\n• `/mention`-aikarajoitus: **{MENTIONS_COOLDOWN_TIME} → {MENTIONS_COOLDOWN_TIME_VOTED}**\n\n⚡ **Triggerit**\n• Triggerivastausten aikarajoitus: **{TRIGGERS_RESPONSE_COOLDOWN} → {TRIGGERS_RESPONSE_COOLDOWN_VOTED}**\n\n🔊 **TTS**\n• `/tts`-enimmäispituus: **{MAX_TTS_LENGTH} → {MAX_TTS_LENGTH_VOTED} merkkiä**\n\n❤️ **Äänesi auttaa Deviä kehittymään, ja saat vastineeksi enemmän ominaisuuksia!**",
+        "voted": ":white_check_mark: Äänestit {bot_mention}ia!",
+        "not_voted": ":x: Et ole äänestänyt {bot_mention}ia.",
+        "voting_link": "[Äänestyslinkki](https://top.gg/bot/1230603137253900339/vote)",
+        "voting_ad": "Laajenna joidenkin komentojen rajoituksia (lisätietoja komennolla /vote)",
+        "locked_command": "Tämä komento on lukittu. Äänestä top.gg:ssä avataksesi tämän komennon\n\n{link} (lisätietoja äänestämisen eduista: /vote)"
+    },
+    "temp_voices_cog": {
+        "not_in_voice": "❌ Sinun täytyy olla äänikanavalla.",
+        "not_a_temp_channel": "❌ Kanava, jolla olet, ei ole väliaikainen kanava.",
+        "not_owner": "❌ Vain kanavan omistaja tai ylläpitäjä voi hallita sitä.",
+        "channel_gone": "❌ Kanavaa ei enää ole.",
+        "name_set": "✅ Kanavan nimi vaihdettu: **{name}**.",
+        "edit_failed": "❌ Kanavan muokkaaminen epäonnistui: {error}",
+        "limit_set": "✅ Jäsenraja asetettu: **{limit}**.",
+        "limit_unlimited": "✅ Jäsenraja poistettu (rajoittamaton).",
+        "unlimited": "rajoittamaton",
+        "invalid_limit": "❌ Rajan täytyy olla luku väliltä 0–99.",
+        "locked": "🔒 Kanava on nyt suljettu kaikilta.",
+        "unlocked": "🔓 Kanava on nyt avoin kaikille.",
+        "allowed": "✅ {target} voi nyt liittyä kanavalle.",
+        "banned": "⛔ {target} ei voi enää liittyä kanavalle.",
+        "member_not_found": "❌ Käyttäjää ei löytynyt tältä palvelimelta.",
+        "kicked": "🚪 {target} poistettiin kanavalta.",
+        "member_not_in_channel": "❌ Tämä käyttäjä ei ole kanavallasi.",
+        "transferred": "👑 Kanavan omistajuus siirretty käyttäjälle {target}.",
+        "claimed": "👑 Olet nyt kanavan {channel} omistaja.",
+        "must_be_in_channel": "❌ Sinun täytyy olla tällä kanavalla ottaaksesi sen omistukseesi.",
+        "owner_still_present": "❌ Nykyinen omistaja on yhä kanavalla — omistajuutta ei voi ottaa.",
+        "bitrate_set": "✅ Bittinopeus asetettu: **{kbps} kbps**.",
+        "invalid_bitrate": "❌ Bittinopeuden täytyy olla luku.",
+        "invalid_bitrate_range": "❌ Bittinopeuden täytyy olla väliltä 8–{max} kbps (riippuu palvelimen boost-tasosta).",
+        "region_set": "✅ Äänialue asetettu: **{region}**.",
+        "region_automatic": "✅ Äänialue asetettu automaattiseksi.",
+        "region_automatic_label": "automaattinen",
+        "setup_done": "✅ Väliaikaisten äänikanavien lobbykanavaksi asetettu: {channel}.",
+        "interface_title": "🎙️ Kanavan hallinta: {name}",
+        "field_owner": "Omistaja",
+        "field_limit": "Raja",
+        "field_status": "Tila",
+        "field_bitrate": "Bittinopeus",
+        "field_region": "Alue",
+        "button_lock_unlock": "Avaa/Sulje",
+        "button_claim": "Ota omistukseen",
+        "button_rename": "Nimeä uudelleen",
+        "button_limit": "Raja",
+        "button_bitrate": "Bittinopeus",
+        "select_region_placeholder": "Valitse äänialue…",
+        "select_manage_placeholder": "Hallitse jäsentä…",
+        "select_member_placeholder": "Valitse jäsen…",
+        "select_member_prompt": "Valitse jäsen tätä toimintoa varten.",
+        "action_kick": "Poista",
+        "action_allow": "Salli",
+        "action_ban": "Estä",
+        "action_transfer": "Siirrä omistajuus",
+        "modal_name_title": "Nimeä kanava uudelleen",
+        "modal_name_label": "Kanavan uusi nimi",
+        "modal_limit_title": "Jäsenraja",
+        "modal_limit_label": "Raja (0-99, 0 = rajoittamaton)",
+        "modal_bitrate_title": "Kanavan bittinopeus",
+        "modal_bitrate_label": "Bittinopeus kbps:nä (8-384)",
+        "logs": {
+            "rename": "✍️ Kanava nimetty uudelleen",
+            "limit": "👤 Käyttäjäraja muutettu",
+            "lock": "🔒 Kanava lukittu",
+            "unlock": "🔓 Kanava avattu",
+            "allow": "✅ Jäsenelle myönnetty pääsy",
+            "ban": "❌ Jäsen estetty",
+            "kick": "🥾 Jäsen potkittu",
+            "transfer": "👑 Omistajuus siirretty",
+            "claim": "👑 Omistajuus otettu",
+            "bitrate": "🔊 Bittinopeus muutettu",
+            "region": "🗺️ Alue muutettu",
+            "field_user": "Käyttäjä",
+            "field_channel": "Kanava",
+            "field_target": "Jäsen",
+            "field_new_name": "Uusi nimi",
+            "field_limit": "Raja",
+            "field_bitrate": "Bittinopeus",
+            "field_region": "Alue",
+            "field_previous_owner": "Aiempi omistaja"
+        }
+    }
+}

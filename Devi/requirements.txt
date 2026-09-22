@@ -1,0 +1,9 @@
+disnake
+python-dotenv
+PyNaCl
+dave.py
+edge-tts
+aiohttp
+yt-dlp
+qrcode[pil]
+cryptography

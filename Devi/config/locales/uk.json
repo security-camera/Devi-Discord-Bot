@@ -1,0 +1,1166 @@
+{
+    "_meta": {
+        "name": "Українська",
+        "flag": "🇺🇦"
+    },
+    "duration_utils": {
+        "invalid_format": ":x:: `{invalid}`\n:white_check_mark:: {examples}.",
+        "duration_units_chars": {
+            "year": "р",
+            "week": "т",
+            "day": "д",
+            "hour": "ч",
+            "minute": "х",
+            "second": "с"
+        },
+        "duration_units": {
+            "year": "рік",
+            "week": "тиждень",
+            "day": "день",
+            "hour": "година",
+            "minute": "хвилина",
+            "second": "секунда"
+        }
+    },
+    "commands": {
+        "common": {
+            "action_add": "Додати",
+            "action_remove": "Видалити",
+            "action_check": "Перевірити",
+            "yes": "Так",
+            "no": "Ні",
+            "access_denied": "Відмовлено в доступі. Необхідні права: `{permission}`.\n\n```---- ДОВІДКА ----```\n`guild.permission` - право від самого дискорду.\n`bot.permission` - кастомне право від бота.\n`/` = АБО | `&` = І\n`[NO]` - право має **бути відсутнім**."
+        },
+        "help": {
+            "description": "Показує список команд бота",
+            "param_show_descriptions": "Показувати описи команд?",
+            "param_show_descriptions_name": "показувати_описи",
+            "param_command": "З якою командою потрібна допомога?",
+            "param_command_name": "команда"
+        },
+        "permissions": {
+            "description": "Керує правами на сервері"
+        },
+        "permissions_manage": {
+            "description": "Інтерактивне керування правами: вибір об'єкта та перемикання дозволів",
+            "choices": {
+                "manage_mention": "Керування Mention (bot.ManageMention)",
+                "mention_blacklist": "Чорний список Mention (bot.MentionBlacklist)",
+                "manage_triggers": "Керування тригерами (bot.ManageTriggers)",
+                "tts": "Озвучення слів ботом (bot.TTS)",
+                "send_dm": "Надсилання ОП (bot.SendDM)",
+                "admin_all": "Усі права (bot.Admin)",
+                "ai_blacklist": "Чорний список ШІ (bot.AiBlackList)",
+                "giveaways": "Розіграші (bot.Giveaways)",
+                "warnings": "Попередження (bot.Warnings)",
+                "music_blacklist": "Чорний список музики (bot.MusicBlackList)"
+            }
+        },
+        "permissions_list": {
+            "description": "Показує всі призначені права на сервері"
+        },
+        "send": {
+            "description": "Надсилає повідомлення від імені бота"
+        },
+        "send_message": {
+            "description": "Надсилає повідомлення від імені бота в канал",
+            "param_message": "Текст повідомлення",
+            "param_message_name": "повідомлення",
+            "param_reply_to": "ID повідомлення, на яке потрібно відповісти",
+            "param_reply_to_name": "відповісти_на",
+            "param_mention_author": "Згадати автора повідомлення при відповіді",
+            "param_mention_author_name": "згадати_автора",
+            "param_channel": "Канал для надсилання",
+            "param_channel_name": "канал"
+        },
+        "send_dm": {
+            "description": "Надіслати особисте повідомлення від імені бота користувачу",
+            "param_user": "Користувач, якому потрібно надіслати повідомлення",
+            "param_user_name": "користувач",
+            "param_message": "Текст повідомлення",
+            "param_message_name": "повідомлення"
+        },
+        "send_sticky": {
+            "description": "Надіслати закріплене повідомлення в канал",
+            "param_message_name": "повідомлення",
+            "param_message": "Повідомлення для надсилання (залиште порожнім, щоб видалити наявне)",
+            "param_channel_name": "канал",
+            "param_channel": "Канал для надсилання (за замовчуванням — поточний)"
+        },
+        "send_allow": {
+            "description": "Дозволяє/забороняє надсилання несистемних приватних повідомлень",
+            "param_allow_name": "дозволити",
+            "param_allow": "Дозволити адміністраторам надсилати вам приватні повідомлення через бота?"
+        },
+        "set_log_channel": {
+            "description": "Встановлює канал для системи логів",
+            "param_channel": "Канал, в який будуть надсилатися логи",
+            "param_channel_name": "канал"
+        },
+        "warn_role": {
+            "description": "Додає/видаляє роль, яка може видавати та знімати попередження"
+        },
+        "warn_role_add": {
+            "description": "Додає роль, яка може видавати та знімати попередження",
+            "param_role": "Роль, якій потрібно видати доступ",
+            "param_role_name": "роль"
+        },
+        "warn_role_remove": {
+            "description": "Видаляє роль, яка може видавати та знімати попередження",
+            "param_role": "Роль, у якої потрібно забрати доступ",
+            "param_role_name": "роль"
+        },
+        "reload": {
+            "description": "Перезавантажує тригери та списки доступу з файлів"
+        },
+        "clear": {
+            "description": "Видаляє вказану кількість повідомлень у каналі",
+            "param_count": "Кількість повідомлень для видалення",
+            "param_count_name": "кількість",
+            "param_duration": "Опційно: видалити лише повідомлення за цей період, наприклад 30с, 10м, 2г",
+            "param_duration_name": "період",
+            "param_member": "Опційно: видалити повідомлення лише цього учасника",
+            "param_member_name": "учасник"
+        },
+        "random": {
+            "description": "Генерує випадкове число",
+            "param_min": "Мінімальне значення",
+            "param_min_name": "мінімум",
+            "param_max": "Максимальне значення",
+            "param_max_name": "максимум",
+            "param_count": "Скільки разів згенерувати число",
+            "param_count_name": "кількість"
+        },
+        "coin": {
+            "description": "Підкидає монетку",
+            "param_count": "Скільки разів підкинути монетку",
+            "param_count_name": "кількість"
+        },
+        "ball": {
+            "description": "Таємничий шар, що відповідає на запитання",
+            "param_question": "Питання, яке ви хочете поставити шару",
+            "param_question_name": "питання"
+        },
+        "mention": {
+            "description": "Масове згадування користувачів/ролей"
+        },
+        "mention_user": {
+            "description": "Згадує користувача вказану кількість разів",
+            "param_count": "Скільки разів надіслати згадку",
+            "param_count_name": "кількість",
+            "param_member": "Кого згадати",
+            "param_member_name": "учасник",
+            "param_message": "Додатковий текст повідомлення",
+            "param_message_name": "повідомлення",
+            "param_delay": "Затримка між згадками в секундах (мінімум 0.1)",
+            "param_delay_name": "затримка"
+        },
+        "mention_role": {
+            "description": "Згадує роль вказану кількість разів",
+            "param_count": "Скільки разів надіслати згадку",
+            "param_count_name": "кількість",
+            "param_role": "Яку роль згадати",
+            "param_role_name": "роль",
+            "param_message": "Додатковий текст повідомлення",
+            "param_message_name": "повідомлення",
+            "param_delay": "Затримка між згадками в секундах (мінімум 0.1)",
+            "param_delay_name": "затримка"
+        },
+        "mention_stop": {
+            "description": "Примусово зупиняє mention і mention_role"
+        },
+        "temp_role": {
+            "description": "Видає роль учаснику на обмежений час",
+            "param_member": "Учасник, якому потрібно видати роль",
+            "param_member_name": "учасник",
+            "param_role": "Роль, яку потрібно видати",
+            "param_role_name": "роль",
+            "param_duration": "Наприклад: 30с, 10м, 2г",
+            "param_duration_name": "тривалість"
+        },
+        "trigger": {
+            "description": "Додає, змінює або видаляє автовідповідь",
+            "param_trigger": "Слово або фраза, на яку бот реагуватиме (підтримує Regex)",
+            "param_trigger_name": "тригер",
+            "param_action": "Виберіть дію",
+            "param_action_name": "дія",
+            "param_response": "Текст відповіді бота (потрібен для додавання/зміни)",
+            "param_response_name": "відповідь",
+            "choices": {
+                "add": "Додати / Змінити",
+                "remove": "Видалити"
+            }
+        },
+        "join": {
+            "description": "Підключає бота до голосового каналу",
+            "param_channel": "Голосовий канал, до якого потрібно підключитися (за замовчуванням — ваш поточний канал)",
+            "param_channel_name": "канал"
+        },
+        "leave": {
+            "description": "Відключає бота від голосового каналу"
+        },
+        "tts": {
+            "description": "Озвучити текст",
+            "param_text": "Текст, який потрібно озвучити",
+            "param_text_name": "текст"
+        },
+        "warn": {
+            "description": "Група команд для керування попередженнями"
+        },
+        "warn_add": {
+            "description": "Видає попередження користувачу",
+            "param_member": "Учасник, якому потрібно видати попередження",
+            "param_member_name": "учасник",
+            "param_reason": "Причина попередження",
+            "param_reason_name": "причина",
+            "param_duration": "Наприклад: 30с, 10м, 2г",
+            "param_duration_name": "тривалість"
+        },
+        "warn_show": {
+            "description": "Показує попередження користувача",
+            "param_member": "Учасник, чиї попередження потрібно показати",
+            "param_member_name": "учасник"
+        },
+        "warn_remove": {
+            "description": "Видаляє попередження за ID",
+            "param_case_id": "ID попередження, яке потрібно видалити",
+            "param_case_id_name": "id_попередження"
+        },
+        "warn_obsolete": {
+            "description": "Позначає попередження як старе (старий випадок)",
+            "param_case_id": "ID попередження, яке потрібно позначити як старе",
+            "param_case_id_name": "id_попередження"
+        },
+        "ai_ask_text": {
+            "description": "Запитує бота і надсилає його відповідь у текстовому каналі",
+            "param_text": "Що запитати",
+            "param_text_name": "питання",
+            "param_hidden": "Надіслати відповідь як приховану?",
+            "param_hidden_name": "прихована_відповідь",
+            "param_image_name": "зображення",
+            "param_image": "Зображення, яке побачить ШІ"
+        },
+        "ai_ask_voice": {
+            "description": "Запитує бота і озвучує його відповідь у голосовому каналі",
+            "param_text": "Що запитати",
+            "param_text_name": "питання"
+        },
+        "language": {
+            "description": "Встановлює мову бота для цього сервера",
+            "param_language": "Виберіть мову",
+            "param_language_name": "мова"
+        },
+        "ai_clear": {
+            "description": "Видаляє історію спілкування з ШІ",
+            "param_delete_from_all_servers": "Видалити історію спілкування на всіх серверах?",
+            "param_delete_from_all_servers_name": "видалити_на_всіх_серверах"
+        },
+        "ai_key": {
+            "description": "Встановлює Gemini API-ключ, необхідний для роботи ШІ-функцій",
+            "param_key": "Gemini API-ключ",
+            "param_key_name": "api-ключ"
+        },
+        "command_id": {
+            "description": "Повертає ID команди Devi",
+            "param_command": "Команда для отримання ID",
+            "param_command_name": "команда",
+            "unknown_command": "Невідома команда"
+        },
+        "giveaway": {
+            "description": "Керування розіграшами на сервері"
+        },
+        "giveaway_start": {
+            "description": "Запускає новий розіграш",
+            "param_name": "Назва розіграшу",
+            "param_name_name": "назва",
+            "param_duration": "Наприклад: 30с, 10м, 2г",
+            "param_duration_name": "тривалість",
+            "param_winners": "Кількість переможців",
+            "param_winners_name": "переможці",
+            "param_prize": "Приз розіграшу",
+            "param_prize_name": "приз",
+            "param_channel": "Канал, у якому буде опубліковано розіграш (за замовчуванням — поточний канал)",
+            "param_channel_name": "канал"
+        },
+        "giveaway_end": {
+            "description": "Достроково завершує розіграш і визначає переможців",
+            "param_message_id": "ID повідомлення розіграшу",
+            "param_message_id_name": "id_повідомлення"
+        },
+        "giveaway_reroll": {
+            "description": "Заново обирає переможців для вже завершеного розіграшу",
+            "param_message_id": "ID повідомлення розіграшу",
+            "param_message_id_name": "id_повідомлення"
+        },
+        "giveaway_list": {
+            "description": "Показує список активних розіграшів на сервері"
+        },
+        "music": {
+            "description": "Група команд для керування музикою"
+        },
+        "music_play": {
+            "description": "Відтворити аудіо з YouTube за посиланням або назвою",
+            "param_query": "Посилання на трек/плейлист або пошуковий запит",
+            "param_query_name": "трек"
+        },
+        "music_pause": {
+            "description": "Поставити відтворення на паузу"
+        },
+        "music_resume": {
+            "description": "Продовжити відтворення"
+        },
+        "music_skip": {
+            "description": "Пропустити поточний трек"
+        },
+        "music_queue": {
+            "description": "Показати чергу треків"
+        },
+        "music_stop": {
+            "description": "Зупинити відтворення і очистити чергу"
+        },
+        "music_loop": {
+            "description": "Перемкнути режим повтору",
+            "param_mode": "Режим повтору (якщо не вказано — перемикання по колу)",
+            "param_mode_name": "режим"
+        },
+        "music_interface": {
+            "description": "Показати панель керування плеєром з кнопками"
+        },
+        "triggers": {
+            "description": "Показує всі тригери сервера"
+        },
+        "guild_info": {
+            "description": "Показує всю доступну інформацію про сервер за його ID",
+            "param_guild_id_name": "id_сервера",
+            "param_guild_id": "ID сервера, про який потрібна інформація",
+            "param_create_invite_name": "створити_запрошення",
+            "param_create_invite": "Створити одноразове запрошення на сервер (діє 30 хвилин)"
+        },
+        "avatar": {
+            "description": "Показує аватар користувача",
+            "param_user_name": "користувач",
+            "param_user": "Користувач для отримання аватара"
+        },
+        "qr": {
+            "description": "Генерує QR-код з посилання",
+            "param_link_name": "посилання",
+            "param_link": "Посилання для перетворення на QR-код"
+        },
+        "preview": {
+            "description": "Отримує прев'ю відео з YouTube",
+            "param_link_name": "посилання",
+            "param_link": "Посилання на відео YouTube"
+        },
+        "slowmode": {
+            "description": "Встановлює повільний режим каналу",
+            "param_time_name": "час",
+            "param_time": "Затримка між повідомленнями (наприклад, 10s, 5m, 1h)",
+            "param_channel_name": "канал",
+            "param_channel": "Канал, для якого встановити повільний режим"
+        },
+        "birthday": {
+            "description": "Керування днями народження"
+        },
+        "birthday_set": {
+            "description": "Встановити свій день народження",
+            "param_day_name": "день",
+            "param_day": "День місяця (1–31)",
+            "param_month_name": "місяць",
+            "param_month": "Місяць народження",
+            "param_ping_on_servers_name": "вітати_на_серверах",
+            "param_ping_on_servers": "Чи вітати окремим повідомленням у каналі на серверах (окрім ОП)",
+            "param_user_name": "користувач",
+            "param_user": "Кому встановити ДН? За замовчуванням — собі; змінювати чужий ДН може лише розробник"
+        },
+        "birthday_check": {
+            "description": "Показати дату дня народження",
+            "param_user_name": "користувач",
+            "param_user": "Чий день народження подивитися (за замовчуванням — свій)"
+        },
+        "birthday_remove": {
+            "description": "Видалити збережений день народження",
+            "param_user_name": "користувач",
+            "param_user": "Чий день народження видалити (за замовчуванням — свій; чужий — лише для адмінів)"
+        },
+        "birthday_channel": {
+            "description": "Налаштувати канал для привітань на сервері",
+            "param_channel_name": "канал",
+            "param_channel": "Канал для привітань (не вказувати — вимкнути привітання на сервері)"
+        },
+        "birthday_congratulate": {
+            "description": "[Тест] Вручну запустити привітання користувача",
+            "param_user_name": "користувач",
+            "param_user": "Кого привітати (за замовчуванням — себе)"
+        },
+        "vote": {
+            "description": "Дізнайся більше про переваги голосування на top.gg"
+        },
+        "voice": {
+            "description": "Керування тимчасовими голосовими каналами"
+        },
+        "voice_setup": {
+            "description": "Налаштовує канал-лобі для створення тимчасових голосових каналів",
+            "param_lobby_channel_name": "канал_лобі",
+            "param_lobby_channel": "Голосовий канал, при вході в який створюється тимчасовий канал",
+            "param_category_name": "категорія",
+            "param_category": "Категорія, в якій створюються тимчасові канали (за замовчуванням — категорія лобі)",
+            "param_name_template_name": "шаблон_імені",
+            "param_name_template": "Шаблон імені нового каналу, [user] заміниться на нік власника"
+        },
+        "voice_interface": {
+            "description": "Показує панель керування вашим тимчасовим голосовим каналом"
+        },
+        "voice_name": {
+            "description": "Перейменовує ваш тимчасовий голосовий канал",
+            "param_name_name": "імя",
+            "param_name": "Нове ім'я каналу"
+        },
+        "voice_limit": {
+            "description": "Встановлює ліміт учасників вашого тимчасового каналу",
+            "param_limit_name": "ліміт",
+            "param_limit": "Ліміт учасників (0 — без обмежень)"
+        },
+        "voice_open": {
+            "description": "Відкриває канал для всіх (@everyone)"
+        },
+        "voice_close": {
+            "description": "Закриває канал для всіх (@everyone)"
+        },
+        "voice_allow": {
+            "description": "Дозволяє користувачу підключатися до вашого каналу",
+            "param_user_name": "користувач",
+            "param_user": "Користувач, якому потрібно дозволити доступ"
+        },
+        "voice_ban": {
+            "description": "Забороняє користувачу підключатися до вашого каналу",
+            "param_user_name": "користувач",
+            "param_user": "Користувач, якому потрібно заборонити доступ"
+        },
+        "voice_kick": {
+            "description": "Виганяє користувача з вашого тимчасового каналу",
+            "param_user_name": "користувач",
+            "param_user": "Кого вигнати з каналу"
+        },
+        "voice_transfer": {
+            "description": "Передає володіння каналом іншому користувачу",
+            "param_user_name": "користувач",
+            "param_user": "Новий власник каналу (має бути в каналі)"
+        },
+        "voice_claim": {
+            "description": "Забирає володіння каналом, якщо попередній власник вийшов"
+        },
+        "voice_bitrate": {
+            "description": "Встановлює бітрейт вашого тимчасового каналу",
+            "param_kbps_name": "кбіт_с",
+            "param_kbps": "Бітрейт у кбіт/с"
+        },
+        "voice_region": {
+            "description": "Встановлює голосовий регіон вашого тимчасового каналу",
+            "param_region_name": "регіон",
+            "param_region": "Голосовий регіон"
+        }
+    },
+    "help": {
+        "title": "📚 Список команд бота",
+        "intro": "Мова сервера: {server_locale}\n\nНижче наведено перелік усіх команд та їх функцій:",
+        "footer": "Бот онлайн з",
+        "parameters": "Параметри",
+        "optional_parameters": "\n-# Необов'язкові параметри",
+        "unknown_command": ":x: Невідома команда",
+        "outro": {
+            "title": ":blue_book: Корисна інформація",
+            "value": "[Сервер підтримки](https://discord.gg/ftUm7FbJDw) | [Політика конфіденційності](https://gist.github.com/security-camera/c1c4ffc74fb2407b06044e4ab8607e71) | [Умови користування](https://gist.github.com/security-camera/147e20418f9528e2e64d5e9e87c40977)"
+        },
+        "monitorings": {
+            "title": ":mag: Бот на моніторингах",
+            "value": "[top.gg](https://top.gg/bot/1230603137253900339#reviews) (/vote)"
+        },
+        "sections": {
+            "mention": {
+                "name": "📣 Згадки",
+                "value": "• /mention_user\n• /mention_role\n• /mention_stop"
+            },
+            "triggers": {
+                "name": "💬 Автовідповіді (Тригери)",
+                "value": "• /trigger\n• /triggers"
+            },
+            "utils": {
+                "name": ":globe_with_meridians: Утиліти",
+                "value": "• /random\n• /coin\n• /ball\n• /avatar\n• /qr\n• /preview"
+            },
+            "messages": {
+                "name": "💬 Повідомлення",
+                "value": "• /send_message\n• /send_dm\n• /send_allow"
+            },
+            "voice": {
+                "name": "🎙️ Голосові",
+                "value": "• /join\n• /leave\n• /tts"
+            },
+            "ai": {
+                "name": "🧠 ШІ",
+                "value": "• /ai_ask_text (<@{bot_id}>)\n• /ai_ask_voice\n• /ai_clear\n• /ai_key"
+            },
+            "admin": {
+                "name": "⚙️ Адміністративні",
+                "value": "• /clear\n• /set_log_channel\n• /language\n• /command_id\n• /temp_role\n• /slowmode"
+            },
+            "permissions": {
+                "name": ":file_folder:  Права",
+                "value": "• /permissions manage\n• /permissions list"
+            },
+            "warns": {
+                "name": "⚠️ Попередження",
+                "value": "• /warn_add\n• /warn_show\n• /warn_remove\n• /warn_obsolete"
+            },
+            "giveaway": {
+                "name": "🎉 Розіграші",
+                "value": "• /giveaway_start\n• /giveaway_end\n• /giveaway_reroll\n• /giveaway_list"
+            },
+            "temp_voices": {
+                "name": "⌛ Тимчасові голосові",
+                "value": "• /voice setup\n• /voice interface\n• /voice name\n• /voice open\n• /voice close\n• /voice allow\n• /voice ban\n• /voice kick\n• /voice limit\n• /voice bitrate\n• /voice region"
+            },
+            "music": {
+                "name": ":musical_note: Музика",
+                "value": "• /music interface\n• /music play\n• /music pause\n• /music loop\n• /music queue\n• /music resume\n• /music skip\n• /music stop"
+            },
+            "birthdays": {
+                "name": ":partying_face: Дні народження",
+                "value": "• /birthday set\n• /birthday check\n• /birthday remove\n• /birthday channel"
+            },
+            "developer": {
+                "name": "Розробник",
+                "value": "• /guild_info\n• /ai_debug\n• /birthday_congratulate\n• /reload"
+            }
+        }
+    },
+    "permissions_cmd": {
+        "granted": "✅ Об'єкт {target} отримав право `{permission}`.",
+        "revoked": "❌ У Об'єкта {target} забрано право `{permission}`.",
+        "check_yes": "✅ У Об'єкта {target} є право `{permission}`.",
+        "check_no": "❌ У Об'єкта {target} немає права `{permission}`.",
+        "list_title": "📋 Права об'єкта {target}:\n{permissions}",
+        "list_empty": "У об'єкта немає призначених прав.",
+        "list_all_title": "📋 Усі права на сервері",
+        "list_all_empty": "На сервері не призначено жодного права.",
+        "list_all_too_long": "❌ Забагато призначених прав — вивід не вміщується в одне повідомлення. Зверніться до розробника для додавання пагінації.",
+        "section_guild": "Сервер",
+        "section_users": "Користувачі",
+        "section_roles": "Ролі",
+        "section_channels": "Канали",
+        "unknown_user": "не знайдений на сервері",
+        "unknown_role": "роль видалена",
+        "unknown_channel": "канал видалено",
+        "manage_type_user": "Користувач",
+        "manage_type_role": "Роль",
+        "manage_type_channel": "Канал",
+        "manage_type_guild": "Сервер",
+        "manage_select_type_prompt": "Виберіть тип об'єкта, для якого потрібно налаштувати права.",
+        "manage_select_type_placeholder": "Тип об'єкта…",
+        "manage_select_object_prompt": "Тепер виберіть сам об'єкт.",
+        "manage_select_user_placeholder": "Виберіть користувача…",
+        "manage_select_role_placeholder": "Виберіть роль…",
+        "manage_select_channel_placeholder": "Виберіть канал…",
+        "manage_toggle_placeholder": "Виберіть право, щоб увімкнути/вимкнути його…",
+        "manage_panel_title": "⚙️ Керування правами",
+        "manage_panel_target": "Об'єкт: {target}",
+        "manage_panel_current": "Поточні права",
+        "manage_panel_current_empty": "Прав не призначено.",
+        "manage_panel_footer": "Вибір права в меню нижче миттєво видає або забирає його.",
+        "manage_not_your_session": "❌ Ця сесія керування правами відкрита не вами.",
+        "manage_back_button": "Назад"
+    },
+    "send_message_cmd": {
+        "message_not_found": "Повідомлення з вказаним ID не знайдено.",
+        "invalid_id": "{value} не є цілим числом.",
+        "sent": "Повідомлення надіслано.",
+        "warning": "-# Це повідомлення надіслано людиною через команду, не ботом.",
+        "forbidden": "❌ Не вдалося надіслати повідомлення."
+    },
+    "send_dm_cmd": {
+        "sent": "✅ Повідомлення надіслано користувачу {user}.",
+        "forbidden": "❌ Не вдалося надіслати повідомлення. Можливо, у користувача закриті особисті повідомлення.",
+        "error": "❌ Помилка: `{error}`",
+        "received_message": "{user} надіслав вам повідомлення: {message}",
+        "message_title": "Несистемне повідомлення",
+        "allowed": ":white_check_mark: Тепер ви можете отримувати несистемні приватні повідомлення",
+        "denied": ":x: Тепер ви не можете отримувати несистемні приватні повідомлення",
+        "view": {
+            "deny": "Натисніть, щоб заборонити несистемні ПП (або використайте /send allow)",
+            "allow": "Натисніть, щоб дозволити несистемні ПП (або використайте /send allow)"
+        }
+    },
+    "send_sticky_cmd": {
+        "sticky_message": "Закріплене повідомлення",
+        "removed": "✅ Закріплене повідомлення видалено з каналу {channel}",
+        "nothing_to_remove": "❌ У каналі {channel} немає закріпленого повідомлення для видалення",
+        "forbidden": "❌ У бота недостатньо прав. Перевірте право керування повідомленнями та доступ до каналу",
+        "set": "✅ Закріплене повідомлення надіслано в канал {channel}"
+    },
+    "log_channel_cmd": {
+        "set": "✅ Канал логів встановлено: {channel}",
+        "removed": "✅ Канал логів видалено"
+    },
+    "warn_role_cmd": {
+        "added": "✅ Роль {role} тепер може видавати та керувати попередженнями.",
+        "removed": "❌ Роль {role} більше не може видавати та керувати попередженнями."
+    },
+    "reload_cmd": {
+        "success": "✅ Дані успішно перезавантажено з файлів!\n• **Тригерів:** {trigger_count}\n• **Ролі для варнів:** {warn_role_count}"
+    },
+    "clear_cmd": {
+        "invalid_count": "Вкажіть кількість більше 0.",
+        "count_too_high": "Занадто велика кількість за раз (максимум {max}).",
+        "wrong_channel_type": "Цю команду можна використовувати лише в текстових каналах.",
+        "forbidden": "У бота немає прав на видалення повідомлень у цьому каналі (потрібне право `Manage Messages`).",
+        "http_error": "Помилка під час видалення повідомлень: {error}",
+        "done": "🧹 Видалено повідомлень: {count}.",
+        "log_title": "🧹 Повідомлення були очищені",
+        "log_channel": "Канал",
+        "log_moderator": "Модератор",
+        "log_requested": "Запитано",
+        "log_deleted": "Видалено фактично",
+        "log_member_filter": "Фільтр за учасником",
+        "log_duration_filter": "Фільтр за періодом",
+        "log_none": "—"
+    },
+    "random_cmd": {
+        "invalid_count": "Вкажіть кількість від 1 до 100"
+    },
+    "random": {
+        "coin": {
+            "sides": [
+                "Орел",
+                "Решка"
+            ]
+        },
+        "ball": {
+            "intros": [
+                "Куля бачить:",
+                "Куля показує:",
+                "Куля відповідає:",
+                "Куля пророкує:",
+                "Куля шепоче:",
+                "Куля відкриває:",
+                "Куля розкриває:",
+                "Куля повідомляє:",
+                "Куля вказує:",
+                "Куля натякає:",
+                "Туман показує:",
+                "Туман розсіюється:",
+                "Доля каже:",
+                "Доля відповідає:",
+                "Доля вирішила:",
+                "Нитки долі вказують:",
+                "Зорі кажуть:",
+                "Зорі підказують:",
+                "Сузір'я зійшлися:",
+                "Місяць свідчить:",
+                "Духи підказують:",
+                "Духи відповідають:",
+                "Древні духи шепочуть:",
+                "Тіні кажуть:",
+                "Тіні попереджають:",
+                "Оракул відповідає:",
+                "Оракул пророкує:",
+                "Пророцтво свідчить:",
+                "Вищі сили кажуть:",
+                "Вищі сили радять:",
+                "Всесвіт відповідає:",
+                "Всесвіт натякає:",
+                "Космос шепоче:",
+                "Енергія світу каже:",
+                "Руни показують:",
+                "Руни складаються:",
+                "Карти долі вказують:",
+                "Знаки очевидні:",
+                "Відповідь приходить:",
+                "Після довгих роздумів:",
+                "Після недовгого мовчання:",
+                "Кришталева куля сяє:",
+                "Кришталева куля показує:",
+                "Магічна імла повідомляє:",
+                "Луна вічності відповідає:",
+                "Древня магія каже:",
+                "Голоси минулого шепочуть:",
+                "Потойбічні сили повідомляють:",
+                "Знамення вказує:",
+                "Істина відкривається:"
+            ],
+            "answers": [
+                "Так.",
+                "Однозначно так.",
+                "Безумовно.",
+                "Безсумнівно.",
+                "Абсолютно.",
+                "Звісно.",
+                "Саме так.",
+                "Так, без сумнівів.",
+                "Скоріше так.",
+                "Дуже ймовірно.",
+                "Вельми ймовірно.",
+                "Імовірніше так, ніж ні.",
+                "Схоже, що так.",
+                "Майже напевно.",
+                "Висока ймовірність.",
+                "Ні.",
+                "Однозначно ні.",
+                "Безумовно ні.",
+                "Безсумнівно ні.",
+                "Абсолютно ні.",
+                "Ні в якому разі.",
+                "Скоріше ні.",
+                "Імовірніше ні, ніж так.",
+                "Малоймовірно.",
+                "Схоже, що ні.",
+                "Практично виключено.",
+                "Шанси вкрай малі.",
+                "Можливо.",
+                "Може бути.",
+                "Напевно.",
+                "Не виключено.",
+                "Є ймовірність.",
+                "Шанси рівні.",
+                "Результат неясний.",
+                "Поки невідомо.",
+                "Важко сказати.",
+                "Не можу визначити.",
+                "Відповідь не визначена.",
+                "Ймовірність п'ятдесят на п'ятдесят.",
+                "Незрозуміло.",
+                "Все можливо.",
+                "І так, і ні."
+            ]
+        }
+    },
+    "logs_cog": {
+        "titles": {
+            "stage_joined": "🎙️ Учасник зайшов у канал трибуни",
+            "voice_joined": "🔊 Учасник зайшов у голосовий канал",
+            "stage_left": "🎙️ Учасник покинув канал трибуни",
+            "voice_left": "🔇 Учасник покинув голосовий канал",
+            "voice_moved": "↔️ Учасник перейшов до іншого голосового каналу",
+            "stage_opened": "🟣 Трибуну відкрито",
+            "stage_closed": "⚫ Трибуну закрито",
+            "stage_updated": "🟣 Трибуну оновлено",
+            "dm_received": "🤖 Бот отримав повідомлення в ОП",
+            "message_edited": "✏️ Повідомлення було відредаговано",
+            "message_deleted": "🗑️ Повідомлення було видалено",
+            "member_joined": "📥 Приєднався новий учасник",
+            "member_kicked": "👢 Учасника було вигнано",
+            "member_left": "📤 Учасник покинув сервер",
+            "member_banned": "🔨 Учасника було забанено",
+            "member_unbanned": "🔓 Учасника було розбанено",
+            "nickname_changed": "📝 Нікнейм учасника було змінено",
+            "roles_updated": "🎭 Оновлено ролі учасника",
+            "member_muted": "🔇 Учасника було замучено",
+            "member_unmuted": "🔊 Учасника було розмучено",
+            "command_used": "🤖 Використання команди бота",
+            "bot_added": "🤖 Бота було додано на сервер",
+            "bot_removed": "🤖 Бот покинув сервер"
+        },
+        "fields": {
+            "member": "Учасник",
+            "channel": "Канал",
+            "role": "Роль",
+            "moderator": "Модератор",
+            "topic": "Тема",
+            "opened_by": "Ким відкрито",
+            "closed_by": "Ким закрито",
+            "old_topic": "Стара тема",
+            "new_topic": "Нова тема",
+            "updated_by": "Ким оновлено",
+            "from_channel": "З каналу",
+            "to_channel": "У канал",
+            "text": "Текст",
+            "attachments": "Вкладення",
+            "author": "Автор",
+            "before": "До",
+            "after": "Після",
+            "link": "Посилання",
+            "content": "Вміст",
+            "deleted_by": "Ким видалено",
+            "account_created": "Акаунт створено",
+            "kicked_by": "Ким вигнано",
+            "banned_by": "Ким забанено",
+            "unbanned_by": "Ким розбанено",
+            "old_nickname": "Старий нікнейм",
+            "new_nickname": "Новий нікнейм",
+            "changed_by_nickname": "Ким змінено",
+            "added": "Додані",
+            "removed": "Прибрані",
+            "changed_by_roles": "Ким змінено",
+            "muted_by": "Ким замучено",
+            "unmuted_by": "Ким розмучено",
+            "command": "Команда",
+            "user": "Користувач",
+            "params": "Параметри",
+            "server": "Сервер",
+            "members_count": "Учасників"
+        },
+        "common": {
+            "unknown": "Невідомо",
+            "dash": "—",
+            "unknown_not_cached": "Невідомо (не було в кеші)",
+            "content_not_cached": "*(недоступно — повідомлення не було закешовано)*",
+            "message_author": "Автор повідомлення",
+            "unknown_or_self": "Невідомо/сам учасник",
+            "unknown_or_expired": "Невідомо/термін минув",
+            "jump_to_message": "[Перейти до повідомлення]({jump_url})"
+        }
+    },
+    "mentions_cog": {
+        "max_count_exceeded": "Максимум можна надіслати {max} пінгів за раз.",
+        "invalid_count": "Вкажіть кількість пінгів більше 0.",
+        "banned_words": "Повідомлення містить заборонені слова і не може бути надіслане.",
+        "mention_forbidden": "Цього користувача або роль заборонено згадувати.",
+        "role_forbidden": "Ви не можете згадувати цю роль.",
+        "cooldown": "Зачекайте {seconds} сек. перед повторним використанням команди.",
+        "stopped": "Спам було примусово зупинено.",
+        "started_member": "Запущено надсилання {count} пінгів для {member}...",
+        "started_role": "Запущено надсилання {count} пінгів для ролі {role}...",
+        "stop_signal_sent": "Сигнал зупинки надіслано!"
+    },
+    "temp_role_cmd": {
+        "role_too_high_for_bot": "Бот не може видати цю роль — вона вища або дорівнює його власній найвищій ролі.",
+        "role_too_high_for_user": "Ви не можете видати роль, яка вища або дорівнює вашій власній.",
+        "forbidden": "У бота недостатньо прав, щоб видати цю роль.",
+        "http_error": "Помилка під час видачі ролі: {error}",
+        "success": "✅ {member} отримав роль {role} до {expires_full} ({expires_relative}).",
+        "log_expired_title": "⏳ Тимчасову роль знято (термін минув)",
+        "log_granted_title": "⏳ Учаснику тимчасово видано роль",
+        "field_expires": "Закінчується"
+    },
+    "triggers_cog": {
+        "missing_response": "Вкажіть відповідь для тригера.",
+        "saved": "✅ Тригер `{trigger}` збережено.",
+        "not_found": "❌ Тригер `{trigger}` не знайдено.",
+        "not_found_response": "❌ Відповідь `{response}` не знайдено для тригера `{trigger}`.",
+        "found_response": "✅ Відповідь `{response}` для тригера `{trigger}` знайдено, вона має ID **{id}**.",
+        "already_exists_response": "❌ Тригер `{trigger}` з відповіддю `{response}` вже існує.",
+        "all_responses": "Усі відповіді на тригер `{trigger}`:",
+        "removed": "✅ Тригер `{trigger}` видалено.",
+        "invalid_regex": "❌ Помилка Regex:\n`{error}`",
+        "empty_regex": "Вираз Regex не може бути порожнім.",
+        "no_guild_triggers": "У цього сервера немає тригерів."
+    },
+    "voice_cog": {
+        "no_channel_specified": "Вкажіть голосовий канал або зайдіть у нього.",
+        "joined": "Підключився до **{channel}**.",
+        "not_in_voice": "Бот не перебуває в голосовому каналі.",
+        "left": "Відключився від голосового каналу.",
+        "too_long": "Повідомлення занадто довге (максимум {max} символів).",
+        "queued": "Повідомлення додано до черги. Позиція: **{position}**",
+        "log_auto_left_title": "🔇 Бот автоматично покинув голосовий канал (нікого не залишилося)",
+        "join_failed": "❌ Не вдалося підключитися до голосового каналу: {error}"
+    },
+    "warns_cog": {
+        "forever": "назавжди",
+        "expires_relative": "до {relative}",
+        "line": "{status_emoji} **ID {id}** | статус: `{status}`\nПричина: {reason}\nТривалість: {duration}\nМодератор: {moderator} | видано: {created}\nАктивних попереджень: {active_warns}",
+        "log_expired_title": "🔕 Попередження стало старим (термін минув)",
+        "field_case_id": "ID попередження",
+        "field_reason": "Причина",
+        "field_duration": "Тривалість",
+        "warn_success": "⚠️ {member} отримав попередження (ID {id}).\nПричина: {reason}\nТривалість: {duration}",
+        "log_warn_title": "⚠️ Учасник отримав попередження",
+        "no_warns": "У {member} немає попереджень.",
+        "show_title": "Попередження: {name}",
+        "show_description": "Активних: **{active}** | Усього записів: **{total}**",
+        "not_found": "Попередження з ID {id} не знайдено на цьому сервері.",
+        "removed": "Попередження ID {id} (користувач {user}) видалено.",
+        "log_removed_title": "🔕 Попередження було знято",
+        "field_removed_by": "Ким знято",
+        "field_original_reason": "Причина попередження",
+        "already_old": "Попередження ID {id} вже позначено як старе.",
+        "marked_old": "Попередження ID {id} (користувач {user}) позначено як старе.",
+        "log_marked_manual_title": "🔕 Попередження стало старим (вручну)",
+        "field_marked_by": "Ким позначено"
+    },
+    "ai_cog": {
+        "empty_prompt": "Ви згадали мене, але не написали питання. Напишіть щось після згадки!",
+        "cooldown": "Зачекайте {seconds} сек., перш ніж знову звернутися до мене.",
+        "not_configured": "❌ ШІ-відповіді ще не налаштовані на цьому сервері. Адміністратор має вказати Gemini API-ключ.",
+        "network_error": "❌ Не вдалося зв'язатися зі ШІ-сервісом. Спробуйте ще раз трохи пізніше.",
+        "generic_error": "❌ Не вдалося отримати відповідь від ШІ. Спробуйте ще раз трохи пізніше.",
+        "voice_cog_missing": "❌ Голосовий модуль недоступний на цьому боті.",
+        "blacklist": "❌ Ви не можете використовувати ШІ на цьому сервері.",
+        "ask_response": "🎙️ **{name}:** {text}\n(додано до черги озвучення, позиція: **{position}**)",
+        "memory_deleted": "✅ Історію спілкування з ШІ видалено.",
+        "key_tutorial": "❌ Некоректний Gemini API-ключ.\nПереконайтеся, що ви вставили **API Key**, а не назву проєкту або інший токен.\nОтримати або створити API-ключ можна [тут](https://aistudio.google.com/app/api-keys).",
+        "key_updated": "✅ Gemini API-ключ успішно встановлено.",
+        "key_deleted": "✅ Gemini API-ключ успішно видалено.",
+        "signal_title": "🚩 Підозрілий AI-промпт",
+        "signal_member": "Користувач",
+        "signal_guild": "Сервер",
+        "signal_channel": "Канал",
+        "signal_prompt": "Промпт",
+        "signal_answer": "Відповідь моделі",
+        "signal_attachments": "Вкладення"
+    },
+    "language_cmd": {
+        "set": "✅ Мову бота на цьому сервері змінено на: **{language}**."
+    },
+    "avatar_cmd": {
+        "title": "Серверний аватар {name}",
+        "global_title": "Глобальний аватар {name}"
+    },
+    "preview_cmd": {
+        "no_thumbnail": "Не вдалося отримати прев'ю цього відео.",
+        "download_error": "Не вдалося завантажити зображення прев'ю.",
+        "invalid_video": "Не вдалося отримати інформацію про відео.",
+        "error": "Сталася помилка під час отримання прев'ю: {e}"
+    },
+    "slowmode_cmd": {
+        "max_duration": "Максимальна тривалість слоумоду — 6 годин.",
+        "invalid_channel": "Цей канал не підтримує повільний режим.",
+        "success": "Повільний режим для {channel} встановлено на {time}.",
+        "no_permission": "У мене немає прав для зміни повільного режиму цього каналу.",
+        "error": "Не вдалося змінити повільний режим: {error}"
+    },
+    "giveaway_cog": {
+        "button_name": "Взяти участь",
+        "button_success": "🎉 Ви взяли участь у розіграші!",
+        "button_leave_success": "Ви скасували участь у розіграші.",
+        "giveaway_ended": "❌ Цей розіграш вже завершено.",
+        "giveaway_title": "🎉 Розіграш: {name}",
+        "giveaway_description": "Приз: **{prize}**\nПереможців: **{winners}**\nУчасників: **{members}**\nОрганізатор: {host}\nЗавершиться: {end}\n\nНатисніть кнопку нижче, щоб взяти участь!",
+        "giveaway_id_footer": "ID розіграшу: {id}",
+        "giveaway_created": "✅ Розіграш створено в каналі {channel}.",
+        "invalid_duration": "❌ Некоректна тривалість. {error}",
+        "duration_must_be_finite": "❌ Розіграш не може тривати «назавжди» — вкажіть кінцеву тривалість, наприклад: 30с, 10м, 2г.",
+        "no_permission": "❌ У вас немає прав для керування розіграшами.",
+        "not_found": "❌ Розіграш із вказаним ID не знайдено на цьому сервері.",
+        "already_ended": "❌ Цей розіграш вже завершено.",
+        "ending": "⏳ Завершую розіграш і визначаю переможців...",
+        "not_ended_yet": "❌ Цей розіграш ще не завершено.",
+        "rerolling": "🎲 Обираю нових переможців...",
+        "no_active": "На цьому сервері зараз немає активних розіграшів.",
+        "list_title": "🎉 Активні розіграші",
+        "list_entry": "• **{name}** (ID {id}) — завершиться {end}",
+        "giveaway_ended_title": "🎉 Розіграш завершено: {name}",
+        "giveaway_ended_description": "Учасників було: **{members}**\nПереможці: {winners}",
+        "no_winners": "немає переможців",
+        "winners_announcement": "🎉 Вітаємо {winners}! Ви виграли **{prize}**!",
+        "reroll_announcement": "🎲 Нові переможці: {winners}! Приз: **{prize}**!",
+        "no_participants": "😢 Ніхто не взяв участі в розіграші **{prize}**, переможців немає."
+    },
+    "music_cog": {
+        "not_connected": "❌ Бот не підключений до голосового каналу.",
+        "extract_failed": "❌ Не вдалося знайти/завантажити трек: {error}",
+        "track_added_queue": "➕ Додано до черги: **{title}**",
+        "track_loaded": "🎵 Завантажено: **{title}**",
+        "paused": "⏸️ Пауза.",
+        "resumed": "▶️ Продовжую.",
+        "nothing_playing": "Зараз нічого не грає.",
+        "skipped": "⏭️ Трек пропущено.",
+        "stopped": "⏹️ Зупинено, чергу очищено.",
+        "now_playing_announce": "▶️ Зараз грає: **{title}**",
+        "track_skipped_no_voice": "❌ Бот не підключений до голосового каналу — трек **{title}** пропущено. Спочатку виконайте /join.",
+        "playback_error": "❌ Не вдалося запустити відтворення **{title}**: {error}\nПеревірте, що ffmpeg встановлено і видно в PATH (`ffmpeg -version` у консолі), і що встановлено пакет PyNaCl.",
+        "untitled_track": "Без назви",
+        "queue_now_playing": "▶️ Зараз грає: [{title}]({url})",
+        "queue_loop_status": "Повтор: {emoji} {label}",
+        "queue_upcoming_header": "\n📜 Далі в черзі:",
+        "queue_empty": "Черга порожня.",
+        "loop_set": "{emoji} Режим повтору: **{label}**",
+        "loop": {
+            "off": "вимкнено",
+            "track": "поточний трек",
+            "queue": "уся черга"
+        },
+        "modal": {
+            "title": "Додати трек",
+            "label": "Посилання або назва",
+            "placeholder": "https://youtube.com/... або назва пісні"
+        },
+        "interface": {
+            "title": "🎶 Панель керування плеєром",
+            "now_playing_label": "Зараз грає:",
+            "nothing_playing": "нічого не грає",
+            "loop_label": "Повтор:",
+            "help": "➕ **Додати трек** — відкрити вікно введення посилання/назви\n⏯️ **Пауза / Продовжити** — перемкнути відтворення\n⏭️ **Пропустити** — наступний трек із черги\n🔁 **Повтор** — перемкнути режим (вимк / трек / черга)\n📜 **Черга** — показати поточний список треків\n⏹️ **Стоп** — зупинити і очистити чергу",
+            "button_play": "Додати трек",
+            "button_pause_resume": "Пауза / Продовжити",
+            "button_skip": "Пропустити",
+            "button_loop": "Повтор",
+            "button_queue": "Черга",
+            "button_stop": "Стоп"
+        },
+        "logs": {
+            "play": "➕ Трек додано",
+            "pause": "⏸️ Відтворення призупинено",
+            "resume": "▶️ Відтворення продовжено",
+            "skip": "⏭️ Трек пропущено",
+            "stop": "⏹️ Відтворення зупинено",
+            "queue": "📜 Переглянуто чергу",
+            "loop": "🔁 Режим повтору змінено",
+            "field_user": "Користувач",
+            "field_track": "Трек",
+            "field_mode": "Режим",
+            "field_cleared": "Видалено з черги"
+        }
+    },
+    "developer_cog": {
+        "invalid_id": "❌ ID сервера має бути числом.",
+        "not_found": "❌ Сервер з ID `{id}` не знайдено.",
+        "forbidden": "❌ Немає доступу до сервера з ID `{id}`.",
+        "http_error": "❌ Помилка під час запиту до Discord API: {error}",
+        "title_stats": "📊 Статистика",
+        "title_channels": "📺 Канали, віджет і медіа",
+        "field_owner": "Власник",
+        "field_created": "Створено",
+        "field_verification": "Рівень верифікації",
+        "field_nsfw": "Рівень NSFW",
+        "field_content_filter": "Фільтр контенту",
+        "field_mfa": "Рівень MFA",
+        "field_locale": "Мова за замовчуванням",
+        "field_vanity": "Vanity URL",
+        "field_features": "Можливості (features)",
+        "field_members": "Учасників",
+        "field_approx_online": "Онлайн (приблизно)",
+        "field_max_members": "Максимум учасників",
+        "field_max_presences": "Максимум presence",
+        "field_large": "Великий сервер",
+        "field_boost_tier": "Рівень бусту",
+        "field_boost_count": "Кількість бустів",
+        "field_roles": "Ролей",
+        "field_emojis": "Емодзі",
+        "field_stickers": "Стікерів",
+        "field_text_channels": "Текстових каналів",
+        "field_voice_channels": "Голосових каналів",
+        "field_categories": "Категорій",
+        "field_stage_channels": "Stage-каналів",
+        "field_forum_channels": "Форум-каналів",
+        "field_total_channels": "Усього каналів",
+        "field_system_channel": "Системний канал",
+        "field_rules_channel": "Канал правил",
+        "field_updates_channel": "Канал оновлень Discord",
+        "field_afk_channel": "AFK канал",
+        "field_afk_timeout": "AFK таймаут",
+        "field_widget": "Віджет увімкнено",
+        "field_media": "Медіа",
+        "media_icon": "Іконка",
+        "media_banner": "Банер",
+        "media_splash": "Splash",
+        "media_discovery_splash": "Discovery splash",
+        "field_invite": "Запрошення",
+        "invite_expiry_note": "Дійсне 30 хвилин, одне використання",
+        "invite_no_channel": "❌ Не вдалося створити запрошення: немає доступного каналу з правом на запрошення.",
+        "invite_no_member": "❌ Не вдалося створити запрошення: не вдалося визначити учасника-бота на сервері."
+    },
+    "birthday_cog": {
+        "months": {
+            "01": "01 | січня",
+            "02": "02 | лютого",
+            "03": "03 | березня",
+            "04": "04 | квітня",
+            "05": "05 | травня",
+            "06": "06 | червня",
+            "07": "07 | липня",
+            "08": "08 | серпня",
+            "09": "09 | вересня",
+            "10": "10 | жовтня",
+            "11": "11 | листопада",
+            "12": "12 | грудня"
+        },
+        "date_format": "{day} {month}",
+        "invalid_date": "❌ Такої дати не існує — перевірте день і місяць.",
+        "set_success": "🎂 День народження збережено: **{date}**.",
+        "not_set": "У {target} день народження не вказано.",
+        "check_result": "🎂 День народження {target}: **{date}**.",
+        "removed": "🗑️ День народження {target} видалено.",
+        "channel_set": "✅ Канал для привітань з днем народження встановлено: {channel}.",
+        "channel_removed": "✅ Привітання з днем народження на цьому сервері вимкнено.",
+        "log_channel_set_title": "🎂 Канал для привітань змінено",
+        "log_channel_removed_title": "🎂 Канал для привітань вимкнено",
+        "dm_congratulation": "🎉 З днем народження, {name}! Нехай цей рік принесе багато хорошого!",
+        "server_congratulation": "🎉 Сьогодні день народження у {mention}! Вітаємо! 🎂",
+        "test_triggered": "🧪 Тест виконано для {target}. ОП доставлено: {dm}. Пінгів на серверах: {servers}.",
+        "test_failed": ":x: Тест провалено. Користувач не використовував `/birthday set`"
+    },
+    "top_gg_cog": {
+        "voting": "⭐ **Підтримай {bot_mention} своїм голосом!**\n\nПроголосуй за Devi на Top.gg та отримай **покращені ліміти на 12 годин**!\n\n### 🚀 Що ти отримаєш:\n🤖 **ШІ**\n• Кулдаун звернень до ШІ: **{AI_COOLDOWN_SECONDS} → {AI_COOLDOWN_SECONDS_VOTED}**\n• Пам'ять повідомлень ШІ: **{AI_MAX_MESSAGES} → {AI_MAX_MESSAGES_VOTED}**\n\n🧹 **Очищення повідомлень**\n• Максимум для `/clear`: **{CLEAR_MAX} → {CLEAR_MAX_VOTED} повідомлень**\n\n📢 **Згадки**\n• Максимум згадок у `/mention`: **{MENTIONS_MAX_MESSAGES} → {MENTIONS_MAX_MESSAGES_VOTED}**\n• Кулдаун `/mention`: **{MENTIONS_COOLDOWN_TIME} → {MENTIONS_COOLDOWN_TIME_VOTED}**\n\n⚡ **Тригери**\n• Кулдаун відповіді на тригери: **{TRIGGERS_RESPONSE_COOLDOWN} → {TRIGGERS_RESPONSE_COOLDOWN_VOTED}**\n\n🔊 **TTS**\n• Максимальна довжина `/tts`: **{MAX_TTS_LENGTH} → {MAX_TTS_LENGTH_VOTED} символів**\n\n❤️ **Твій голос допомагає Devi розвиватися, а ти отримуєш більше можливостей!**",
+        "voted": ":white_check_mark: Ти проголосував за {bot_mention}!",
+        "not_voted": ":x: Ти не голосував за {bot_mention}.",
+        "voting_link": "[Посилання для голосування](https://top.gg/bot/1230603137253900339/vote)",
+        "voting_ad": "Розшир ліміти для деяких команд (детальніше в /vote)",
+        "locked_command": "Ця команда заблокована. Проголосуйте на top.gg, щоб розблокувати цю команду\n\n{link} (більше про переваги голосування: /vote)"
+    },
+    "temp_voices_cog": {
+        "not_in_voice": "❌ Ви маєте перебувати в голосовому каналі.",
+        "not_a_temp_channel": "❌ Канал, у якому ви перебуваєте, не є тимчасовим.",
+        "not_owner": "❌ Керувати цим каналом може лише його власник або адміністратор.",
+        "channel_gone": "❌ Каналу більше не існує.",
+        "name_set": "✅ Ім'я каналу змінено на: **{name}**.",
+        "edit_failed": "❌ Не вдалося змінити канал: {error}",
+        "limit_set": "✅ Ліміт учасників встановлено: **{limit}**.",
+        "limit_unlimited": "✅ Ліміт учасників знято (без обмежень).",
+        "unlimited": "без обмежень",
+        "invalid_limit": "❌ Ліміт має бути числом від 0 до 99.",
+        "locked": "🔒 Канал закрито для всіх.",
+        "unlocked": "🔓 Канал відкрито для всіх.",
+        "allowed": "✅ {target} тепер може підключатися до каналу.",
+        "banned": "⛔ {target} більше не може підключатися до каналу.",
+        "member_not_found": "❌ Користувача не знайдено на сервері.",
+        "kicked": "🚪 {target} вигнано з каналу.",
+        "member_not_in_channel": "❌ Цей користувач не перебуває у вашому каналі.",
+        "transferred": "👑 Володіння каналом передано {target}.",
+        "claimed": "👑 Ви стали новим власником каналу {channel}.",
+        "must_be_in_channel": "❌ Ви маєте перебувати в цьому каналі, щоб забрати його.",
+        "owner_still_present": "❌ Поточний власник все ще в каналі — забрати володіння не можна.",
+        "bitrate_set": "✅ Бітрейт встановлено: **{kbps} кбіт/с**.",
+        "invalid_bitrate": "❌ Бітрейт має бути числом.",
+        "invalid_bitrate_range": "❌ Бітрейт має бути від 8 до {max} кбіт/с (залежить від рівня бусту сервера).",
+        "region_set": "✅ Голосовий регіон встановлено: **{region}**.",
+        "region_automatic": "✅ Голосовий регіон встановлено автоматично.",
+        "region_automatic_label": "автоматично",
+        "setup_done": "✅ Канал-лобі для тимчасових голосових каналів встановлено: {channel}.",
+        "interface_title": "🎙️ Керування каналом: {name}",
+        "field_owner": "Власник",
+        "field_limit": "Ліміт",
+        "field_status": "Статус",
+        "field_bitrate": "Бітрейт",
+        "field_region": "Регіон",
+        "button_lock_unlock": "Відкрити/Закрити",
+        "button_claim": "Забрати",
+        "button_rename": "Перейменувати",
+        "button_limit": "Ліміт",
+        "button_bitrate": "Бітрейт",
+        "select_region_placeholder": "Виберіть голосовий регіон…",
+        "select_manage_placeholder": "Керування учасником…",
+        "select_member_placeholder": "Виберіть учасника…",
+        "select_member_prompt": "Виберіть учасника для цієї дії.",
+        "action_kick": "Вигнати",
+        "action_allow": "Дозволити",
+        "action_ban": "Забанити",
+        "action_transfer": "Передати володіння",
+        "modal_name_title": "Перейменувати канал",
+        "modal_name_label": "Нове ім'я каналу",
+        "modal_limit_title": "Ліміт учасників",
+        "modal_limit_label": "Ліміт (0-99, 0 = без обмежень)",
+        "modal_bitrate_title": "Бітрейт каналу",
+        "modal_bitrate_label": "Бітрейт у кбіт/с (8-384)",
+        "logs": {
+            "rename": "✍️ Канал перейменовано",
+            "limit": "👤 Ліміт учасників змінено",
+            "lock": "🔒 Канал закрито",
+            "unlock": "🔓 Канал відкрито",
+            "allow": "✅ Учаснику дозволено вхід",
+            "ban": "❌ Учаснику заборонено вхід",
+            "kick": "🥾 Учасника вигнано з каналу",
+            "transfer": "👑 Володіння каналом передано",
+            "claim": "👑 Володіння каналом отримано",
+            "bitrate": "🔊 Бітрейт змінено",
+            "region": "🗺️ Регіон змінено",
+            "field_user": "Користувач",
+            "field_channel": "Канал",
+            "field_target": "Учасник",
+            "field_new_name": "Нова назва",
+            "field_limit": "Ліміт",
+            "field_bitrate": "Бітрейт",
+            "field_region": "Регіон",
+            "field_previous_owner": "Попередній власник"
+        }
+    }
+}
