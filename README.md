@@ -1,5 +1,3 @@
-from permissions import validate_permissions
-
 # Devi
 
 A multifunctional Discord bot built on [disnake](https://github.com/DisnakeDev/disnake), providing moderation, automation, an AI assistant, voice features, giveaways and a flexible permission system. Has own [site](https://github.com/security-camera/Devi-Site).
