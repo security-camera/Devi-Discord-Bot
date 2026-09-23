@@ -7,25 +7,27 @@ from i18n import LocaleObject
 
 
 def get_discord_locale_map() -> dict[str, disnake.Locale]:
-    """Creates a mapping: locale code -> disnake.Locale
-    Only locales that exist in i18n and are supported by disnake are included."""
-    available = set(i18n.available_locales())
+    """Creates a mapping: Discord locale code -> disnake.Locale.
+    Includes both real locale files and configured aliases.
+    """
+    supported = set(i18n.available_locale_codes())
 
     return {
         locale.value: locale
         for locale in disnake.Locale
-        if locale.value in available
+        if locale.value in supported
     }
 
 
 def discord_localizations(key: str) -> dict[disnake.Locale, str]:
-    """Builds a Discord locale -> translated string mapping."""
+    """Builds a Discord locale -> translated string mapping.
+    Aliases use the translation file of their target locale.
+    """
     locale_map = get_discord_locale_map()
 
     return {
         locale_map[code]: i18n.t(key, locale=code)
-        for code in i18n.available_locales()
-        if code in locale_map
+        for code in locale_map
     }
 
 

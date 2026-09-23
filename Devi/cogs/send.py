@@ -383,12 +383,9 @@ class SendCog(commands.Cog):
             return await inter.response.send_message(i18n.t("send_dm_cmd.forbidden", locale=gid), ephemeral=True)
 
         try:
-            embed = disnake.Embed(
-                title=i18n.t("send_dm_cmd.message_title", locale=gid),
-                description=i18n.t("send_dm_cmd.received_message", locale=gid, user=inter.author.mention, message=message)
-            )
+            text = i18n.t("send_dm_cmd.message_title", locale=gid) + "\n\n" + i18n.t("send_dm_cmd.received_message", locale=gid, user=inter.author.mention, message=message)
 
-            await user.send(embed=embed, view=DenySendDmView(self, gid) if status == DmOptOutStatus.Waiting else None)
+            await user.send(text, view=DenySendDmView(self, gid) if status == DmOptOutStatus.Waiting else None)
 
             await inter.response.send_message(
                 i18n.t("send_dm_cmd.sent", locale=gid, user=user.mention),

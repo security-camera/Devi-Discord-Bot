@@ -1,0 +1,1166 @@
+{
+    "_meta": {
+        "name": "Español (Latinoamérica)",
+        "flag": "🌎"
+    },
+    "duration_utils": {
+        "invalid_format": ":x:: `{invalid}`\n:white_check_mark:: {examples}.",
+        "duration_units_chars": {
+            "year": "a",
+            "week": "sem",
+            "day": "d",
+            "hour": "h",
+            "minute": "m",
+            "second": "s"
+        },
+        "duration_units": {
+            "year": "años",
+            "week": "semana",
+            "day": "día",
+            "hour": "hora",
+            "minute": "minuto",
+            "second": "segundo"
+        }
+    },
+    "commands": {
+        "common": {
+            "action_add": "Agregar",
+            "action_remove": "Eliminar",
+            "action_check": "Verificar",
+            "yes": "Sí",
+            "no": "No",
+            "access_denied": "Acceso denegado. Permiso requerido: `{permission}`.\n\n```---- AYUDA ----```\n`guild.permission` - permiso del propio Discord.\n`bot.permission` - permiso personalizado del bot.\n`/` = O | `&` = Y\n`[NO]` - el permiso debe estar **ausente**."
+        },
+        "help": {
+            "description": "Muestra la lista de comandos del bot",
+            "param_show_descriptions": "¿Mostrar las descripciones de los comandos?",
+            "param_show_descriptions_name": "mostrar_descripciones",
+            "param_command": "¿Sobre qué comando necesitas ayuda?",
+            "param_command_name": "comando"
+        },
+        "permissions": {
+            "description": "Administra los permisos en el servidor"
+        },
+        "permissions_manage": {
+            "description": "Administración interactiva de permisos: elige un objeto y activa o desactiva permisos",
+            "choices": {
+                "manage_mention": "Administración de Mention (bot.ManageMention)",
+                "mention_blacklist": "Lista negra de Mention (bot.MentionBlacklist)",
+                "manage_triggers": "Administración de disparadores (bot.ManageTriggers)",
+                "tts": "Voz del bot (bot.TTS)",
+                "send_dm": "Envío de MD (bot.SendDM)",
+                "admin_all": "Todos los permisos (bot.Admin)",
+                "ai_blacklist": "Lista negra de IA (bot.AiBlackList)",
+                "giveaways": "Sorteos (bot.Giveaways)",
+                "warnings": "Advertencias (bot.Warnings)",
+                "music_blacklist": "Lista negra de música (bot.MusicBlackList)"
+            }
+        },
+        "permissions_list": {
+            "description": "Muestra todos los permisos asignados en el servidor"
+        },
+        "send": {
+            "description": "Envía un mensaje en nombre del bot"
+        },
+        "send_message": {
+            "description": "Envía un mensaje a un canal en nombre del bot",
+            "param_message": "Texto del mensaje",
+            "param_message_name": "mensaje",
+            "param_reply_to": "ID del mensaje al que responder",
+            "param_reply_to_name": "responder_a",
+            "param_mention_author": "Mencionar al autor del mensaje al responder",
+            "param_mention_author_name": "mencionar_autor",
+            "param_channel": "Canal donde enviar el mensaje",
+            "param_channel_name": "canal"
+        },
+        "send_dm": {
+            "description": "Envía un mensaje directo a un usuario en nombre del bot",
+            "param_user": "Usuario al que enviar el mensaje",
+            "param_user_name": "usuario",
+            "param_message": "Texto del mensaje",
+            "param_message_name": "mensaje"
+        },
+        "send_sticky": {
+            "description": "Envía un mensaje sticky (siempre al final) al canal",
+            "param_message_name": "mensaje",
+            "param_message": "Mensaje a enviar (si se omite, se elimina el existente)",
+            "param_channel_name": "canal",
+            "param_channel": "Canal donde enviarlo (por defecto, el actual)"
+        },
+        "send_allow": {
+            "description": "Permite o prohíbe recibir MD no del sistema",
+            "param_allow_name": "permitir",
+            "param_allow": "¿Permitir que los administradores te envíen MD a través del bot?"
+        },
+        "set_log_channel": {
+            "description": "Establece el canal del sistema de registros",
+            "param_channel": "Canal al que se enviarán los registros",
+            "param_channel_name": "canal"
+        },
+        "warn_role": {
+            "description": "Agrega o quita un rol que puede poner y quitar advertencias"
+        },
+        "warn_role_add": {
+            "description": "Agrega un rol que puede poner y quitar advertencias",
+            "param_role": "Rol al que dar acceso",
+            "param_role_name": "rol"
+        },
+        "warn_role_remove": {
+            "description": "Quita un rol que puede poner y quitar advertencias",
+            "param_role": "Rol al que quitar el acceso",
+            "param_role_name": "rol"
+        },
+        "reload": {
+            "description": "Recarga los disparadores y las listas de acceso desde los archivos"
+        },
+        "clear": {
+            "description": "Elimina la cantidad indicada de mensajes del canal",
+            "param_count": "Cantidad de mensajes a eliminar",
+            "param_count_name": "cantidad",
+            "param_duration": "Opcional: borrar solo los mensajes de este periodo, p. ej. 30s, 10m, 2h",
+            "param_duration_name": "periodo",
+            "param_member": "Opcional: borrar solo los mensajes de este miembro",
+            "param_member_name": "miembro"
+        },
+        "random": {
+            "description": "Genera un número aleatorio",
+            "param_min": "Valor mínimo",
+            "param_min_name": "mínimo",
+            "param_max": "Valor máximo",
+            "param_max_name": "máximo",
+            "param_count": "Cuántas veces generar el número",
+            "param_count_name": "cantidad"
+        },
+        "coin": {
+            "description": "Lanza una moneda",
+            "param_count": "Cuántas veces lanzar la moneda",
+            "param_count_name": "cantidad"
+        },
+        "ball": {
+            "description": "Una bola misteriosa que responde a tus preguntas",
+            "param_question": "La pregunta que quieres hacerle a la bola",
+            "param_question_name": "pregunta"
+        },
+        "mention": {
+            "description": "Mención masiva de usuarios o roles"
+        },
+        "mention_user": {
+            "description": "Menciona a un usuario la cantidad de veces indicada",
+            "param_count": "Cuántas menciones enviar",
+            "param_count_name": "cantidad",
+            "param_member": "A quién mencionar",
+            "param_member_name": "miembro",
+            "param_message": "Texto adicional del mensaje",
+            "param_message_name": "mensaje",
+            "param_delay": "Pausa entre menciones en segundos (mínimo 0.1)",
+            "param_delay_name": "pausa"
+        },
+        "mention_role": {
+            "description": "Menciona un rol la cantidad de veces indicada",
+            "param_count": "Cuántas menciones enviar",
+            "param_count_name": "cantidad",
+            "param_role": "Qué rol mencionar",
+            "param_role_name": "rol",
+            "param_message": "Texto adicional del mensaje",
+            "param_message_name": "mensaje",
+            "param_delay": "Pausa entre menciones en segundos (mínimo 0.1)",
+            "param_delay_name": "pausa"
+        },
+        "mention_stop": {
+            "description": "Detiene a la fuerza mention y mention_role"
+        },
+        "temp_role": {
+            "description": "Da un rol a un miembro por tiempo limitado",
+            "param_member": "Miembro al que dar el rol",
+            "param_member_name": "miembro",
+            "param_role": "Rol que se va a dar",
+            "param_role_name": "rol",
+            "param_duration": "Por ejemplo: 30s, 10m, 2h, 7d, 4sem",
+            "param_duration_name": "duración"
+        },
+        "trigger": {
+            "description": "Agrega, modifica o elimina una respuesta automática",
+            "param_trigger": "Palabra o frase a la que reaccionará el bot (admite Regex)",
+            "param_trigger_name": "disparador",
+            "param_action": "Elige la acción",
+            "param_action_name": "acción",
+            "param_response": "Texto de la respuesta del bot (necesario para agregar o modificar)",
+            "param_response_name": "respuesta",
+            "choices": {
+                "add": "Agregar / Modificar",
+                "remove": "Eliminar"
+            }
+        },
+        "join": {
+            "description": "Conecta el bot a un canal de voz",
+            "param_channel": "Canal de voz al que conectarse (por defecto, tu canal actual)",
+            "param_channel_name": "canal"
+        },
+        "leave": {
+            "description": "Desconecta el bot del canal de voz"
+        },
+        "tts": {
+            "description": "Lee un texto en voz alta",
+            "param_text": "Texto que se debe leer en voz alta",
+            "param_text_name": "texto"
+        },
+        "warn": {
+            "description": "Grupo de comandos para administrar advertencias"
+        },
+        "warn_add": {
+            "description": "Pone una advertencia a un usuario",
+            "param_member": "Miembro al que poner la advertencia",
+            "param_member_name": "miembro",
+            "param_reason": "Motivo de la advertencia",
+            "param_reason_name": "motivo",
+            "param_duration": "Por ejemplo: 30s, 10m, 2h, 7d, 4sem, o 'para siempre'",
+            "param_duration_name": "duración"
+        },
+        "warn_show": {
+            "description": "Muestra las advertencias de un usuario",
+            "param_member": "Miembro cuyas advertencias mostrar",
+            "param_member_name": "miembro"
+        },
+        "warn_remove": {
+            "description": "Elimina una advertencia por su ID",
+            "param_case_id": "ID de la advertencia a eliminar",
+            "param_case_id_name": "id_advertencia"
+        },
+        "warn_obsolete": {
+            "description": "Marca una advertencia como antigua (caso antiguo)",
+            "param_case_id": "ID de la advertencia a marcar como antigua",
+            "param_case_id_name": "id_advertencia"
+        },
+        "ai_ask_text": {
+            "description": "Pregunta al bot y envía su respuesta al canal de texto",
+            "param_text": "Qué preguntar",
+            "param_text_name": "pregunta",
+            "param_hidden": "¿Enviar la respuesta como oculta?",
+            "param_hidden_name": "respuesta_oculta",
+            "param_image_name": "imagen",
+            "param_image": "Imagen que verá la IA"
+        },
+        "ai_ask_voice": {
+            "description": "Pregunta al bot y reproduce su respuesta en el canal de voz",
+            "param_text": "Qué preguntar",
+            "param_text_name": "pregunta"
+        },
+        "language": {
+            "description": "Establece el idioma del bot para este servidor",
+            "param_language": "Elige el idioma",
+            "param_language_name": "idioma"
+        },
+        "ai_clear": {
+            "description": "Elimina el historial de conversación con la IA",
+            "param_delete_from_all_servers": "¿Eliminar el historial en todos los servidores?",
+            "param_delete_from_all_servers_name": "borrar_en_todos_los_servidores"
+        },
+        "ai_key": {
+            "description": "Establece la clave de API de Gemini necesaria para las funciones de IA",
+            "param_key": "Clave de API de Gemini",
+            "param_key_name": "clave-api"
+        },
+        "command_id": {
+            "description": "Devuelve el ID de un comando de Devi",
+            "param_command": "Comando del que obtener el ID",
+            "param_command_name": "comando",
+            "unknown_command": "Comando desconocido"
+        },
+        "giveaway": {
+            "description": "Administración de sorteos en el servidor"
+        },
+        "giveaway_start": {
+            "description": "Inicia un nuevo sorteo",
+            "param_name": "Nombre del sorteo",
+            "param_name_name": "nombre",
+            "param_duration": "Por ejemplo: 30s, 10m, 2h, 7d, 4sem",
+            "param_duration_name": "duración",
+            "param_winners": "Número de ganadores",
+            "param_winners_name": "ganadores",
+            "param_prize": "Premio del sorteo",
+            "param_prize_name": "premio",
+            "param_channel": "Canal donde se publicará el sorteo (por defecto, el canal actual)",
+            "param_channel_name": "canal"
+        },
+        "giveaway_end": {
+            "description": "Finaliza un sorteo antes de tiempo y elige a los ganadores",
+            "param_message_id": "ID del mensaje del sorteo",
+            "param_message_id_name": "id_mensaje"
+        },
+        "giveaway_reroll": {
+            "description": "Vuelve a elegir ganadores de un sorteo ya finalizado",
+            "param_message_id": "ID del mensaje del sorteo",
+            "param_message_id_name": "id_mensaje"
+        },
+        "giveaway_list": {
+            "description": "Muestra la lista de sorteos activos en el servidor"
+        },
+        "music": {
+            "description": "Grupo de comandos para controlar la música"
+        },
+        "music_play": {
+            "description": "Reproduce audio de YouTube por enlace o por nombre",
+            "param_query": "Enlace de la canción o lista, o texto de búsqueda",
+            "param_query_name": "canción"
+        },
+        "music_pause": {
+            "description": "Pone la reproducción en pausa"
+        },
+        "music_resume": {
+            "description": "Reanuda la reproducción"
+        },
+        "music_skip": {
+            "description": "Salta la canción actual"
+        },
+        "music_queue": {
+            "description": "Muestra la cola de canciones"
+        },
+        "music_stop": {
+            "description": "Detiene la reproducción y vacía la cola"
+        },
+        "music_loop": {
+            "description": "Cambia el modo de repetición",
+            "param_mode": "Modo de repetición (si no se indica, cambia de uno a otro en orden)",
+            "param_mode_name": "modo"
+        },
+        "music_interface": {
+            "description": "Muestra el panel de control del reproductor con botones"
+        },
+        "triggers": {
+            "description": "Muestra todos los disparadores del servidor"
+        },
+        "guild_info": {
+            "description": "Muestra toda la información disponible de un servidor por su ID",
+            "param_guild_id_name": "id_servidor",
+            "param_guild_id": "ID del servidor del que necesitas información",
+            "param_create_invite_name": "crear_invitación",
+            "param_create_invite": "Crear una invitación de un solo uso al servidor (válida 30 minutos)"
+        },
+        "avatar": {
+            "description": "Muestra el avatar de un usuario",
+            "param_user_name": "usuario",
+            "param_user": "Usuario del que obtener el avatar"
+        },
+        "qr": {
+            "description": "Genera un código QR a partir de un enlace",
+            "param_link_name": "enlace",
+            "param_link": "Enlace que convertir en código QR"
+        },
+        "preview": {
+            "description": "Obtiene la miniatura de un video de YouTube",
+            "param_link_name": "enlace",
+            "param_link": "Enlace del video de YouTube"
+        },
+        "slowmode": {
+            "description": "Establece el modo lento de un canal",
+            "param_time_name": "tiempo",
+            "param_time": "Espera entre mensajes (por ejemplo, 10s, 5m, 1h)",
+            "param_channel_name": "canal",
+            "param_channel": "Canal en el que establecer el modo lento"
+        },
+        "birthday": {
+            "description": "Administración de cumpleaños"
+        },
+        "birthday_set": {
+            "description": "Establece tu cumpleaños",
+            "param_day_name": "día",
+            "param_day": "Día del mes (1–31)",
+            "param_month_name": "mes",
+            "param_month": "Mes de nacimiento",
+            "param_ping_on_servers_name": "felicitar_en_servidores",
+            "param_ping_on_servers": "¿Felicitar con un mensaje aparte en el canal de los servidores (además del MD)?",
+            "param_user_name": "usuario",
+            "param_user": "¿A quién se lo pones? Por defecto, a ti; el de otros solo lo cambia el desarrollador"
+        },
+        "birthday_check": {
+            "description": "Muestra la fecha de un cumpleaños",
+            "param_user_name": "usuario",
+            "param_user": "De quién ver el cumpleaños (por defecto, el tuyo)"
+        },
+        "birthday_remove": {
+            "description": "Elimina el cumpleaños guardado",
+            "param_user_name": "usuario",
+            "param_user": "De quién eliminar el cumpleaños (por defecto, el tuyo; el de otros, solo admins)"
+        },
+        "birthday_channel": {
+            "description": "Configura el canal de felicitaciones del servidor",
+            "param_channel_name": "canal",
+            "param_channel": "Canal para las felicitaciones (déjalo vacío para desactivarlas en el servidor)"
+        },
+        "birthday_congratulate": {
+            "description": "[Prueba] Lanza manualmente la felicitación a un usuario",
+            "param_user_name": "usuario",
+            "param_user": "A quién felicitar (por defecto, a ti)"
+        },
+        "vote": {
+            "description": "Descubre las ventajas de votar en top.gg"
+        },
+        "voice": {
+            "description": "Administración de canales de voz temporales"
+        },
+        "voice_setup": {
+            "description": "Configura el canal lobby para crear canales de voz temporales",
+            "param_lobby_channel_name": "canal_lobby",
+            "param_lobby_channel": "Canal de voz que crea un canal temporal al entrar en él",
+            "param_category_name": "categoría",
+            "param_category": "Categoría donde se crean los canales temporales (por defecto, la del lobby)",
+            "param_name_template_name": "plantilla_nombre",
+            "param_name_template": "Plantilla del nombre del canal nuevo; [user] se sustituye por el apodo del dueño"
+        },
+        "voice_interface": {
+            "description": "Muestra el panel de control de tu canal de voz temporal"
+        },
+        "voice_name": {
+            "description": "Cambia el nombre de tu canal de voz temporal",
+            "param_name_name": "nombre",
+            "param_name": "Nuevo nombre del canal"
+        },
+        "voice_limit": {
+            "description": "Establece el límite de miembros de tu canal temporal",
+            "param_limit_name": "límite",
+            "param_limit": "Límite de miembros (0 = sin límite)"
+        },
+        "voice_open": {
+            "description": "Abre el canal para todos (@everyone)"
+        },
+        "voice_close": {
+            "description": "Cierra el canal para todos (@everyone)"
+        },
+        "voice_allow": {
+            "description": "Permite a un usuario conectarse a tu canal",
+            "param_user_name": "usuario",
+            "param_user": "Usuario al que permitir el acceso"
+        },
+        "voice_ban": {
+            "description": "Prohíbe a un usuario conectarse a tu canal",
+            "param_user_name": "usuario",
+            "param_user": "Usuario al que prohibir el acceso"
+        },
+        "voice_kick": {
+            "description": "Expulsa a un usuario de tu canal temporal",
+            "param_user_name": "usuario",
+            "param_user": "A quién expulsar del canal"
+        },
+        "voice_transfer": {
+            "description": "Transfiere la propiedad del canal a otro usuario",
+            "param_user_name": "usuario",
+            "param_user": "Nuevo dueño del canal (debe estar en el canal)"
+        },
+        "voice_claim": {
+            "description": "Reclama la propiedad del canal si el dueño anterior se fue"
+        },
+        "voice_bitrate": {
+            "description": "Establece la tasa de bits de tu canal temporal",
+            "param_kbps_name": "kbps",
+            "param_kbps": "Tasa de bits en kbps"
+        },
+        "voice_region": {
+            "description": "Establece la región de voz de tu canal temporal",
+            "param_region_name": "región",
+            "param_region": "Región de voz"
+        }
+    },
+    "help": {
+        "title": "📚 Lista de comandos del bot",
+        "intro": "Idioma del servidor: {server_locale}\n\nA continuación tienes la lista de todos los comandos y sus funciones:",
+        "footer": "Bot en línea desde",
+        "parameters": "Parámetros",
+        "optional_parameters": "\n-# Parámetros opcionales",
+        "unknown_command": ":x: Comando desconocido",
+        "outro": {
+            "title": ":blue_book: Información útil",
+            "value": "[Servidor de soporte](https://discord.gg/ftUm7FbJDw) | [Política de privacidad](https://gist.github.com/security-camera/c1c4ffc74fb2407b06044e4ab8607e71) | [Términos de uso](https://gist.github.com/security-camera/147e20418f9528e2e64d5e9e87c40977) | [Github](https://github.com/security-camera/Devi-Discord-Bot)"
+        },
+        "monitorings": {
+            "title": ":mag: Bot en listados",
+            "value": "[top.gg](https://top.gg/bot/1230603137253900339#reviews) (/vote)"
+        },
+        "sections": {
+            "mention": {
+                "name": "📣 Menciones",
+                "value": "• /mention_user\n• /mention_role\n• /mention_stop"
+            },
+            "triggers": {
+                "name": "💬 Respuestas automáticas (Disparadores)",
+                "value": "• /trigger\n• /triggers"
+            },
+            "utils": {
+                "name": ":globe_with_meridians: Utilidades",
+                "value": "• /random\n• /coin\n• /ball\n• /avatar\n• /qr\n• /preview"
+            },
+            "messages": {
+                "name": "💬 Mensajes",
+                "value": "• /send_message\n• /send_dm\n• /send_sticky\n• /send_allow"
+            },
+            "voice": {
+                "name": "🎙️ Voz",
+                "value": "• /join\n• /leave\n• /tts"
+            },
+            "ai": {
+                "name": "🧠 IA",
+                "value": "• /ai_ask_text (<@{bot_id}>)\n• /ai_ask_voice\n• /ai_clear\n• /ai_key"
+            },
+            "admin": {
+                "name": "⚙️ Administración",
+                "value": "• /clear\n• /set_log_channel\n• /language\n• /command_id\n• /temp_role\n• /slowmode"
+            },
+            "permissions": {
+                "name": ":file_folder:  Permisos",
+                "value": "• /permissions manage\n• /permissions list"
+            },
+            "warns": {
+                "name": "⚠️ Advertencias",
+                "value": "• /warn_add\n• /warn_show\n• /warn_remove\n• /warn_obsolete"
+            },
+            "giveaway": {
+                "name": "🎉 Sorteos",
+                "value": "• /giveaway_start\n• /giveaway_end\n• /giveaway_reroll\n• /giveaway_list"
+            },
+            "music": {
+                "name": ":musical_note: Música",
+                "value": "• /music interface\n• /music play\n• /music pause\n• /music loop\n• /music queue\n• /music resume\n• /music skip\n• /music stop"
+            },
+            "birthdays": {
+                "name": ":partying_face: Cumpleaños",
+                "value": "• /birthday set\n• /birthday check\n• /birthday remove\n• /birthday channel"
+            },
+            "temp_voices": {
+                "name": "⌛ Canales de voz temporales",
+                "value": "• /voice setup\n• /voice interface\n• /voice name\n• /voice open\n• /voice close\n• /voice allow\n• /voice ban\n• /voice kick\n• /voice limit\n• /voice bitrate\n• /voice region"
+            },
+            "developer": {
+                "name": "Desarrollador",
+                "value": "• /guild_info\n• /ai_debug\n• /birthday_congratulate\n• /reload"
+            }
+        }
+    },
+    "permissions_cmd": {
+        "granted": "✅ El objeto {target} ha recibido el permiso `{permission}`.",
+        "revoked": "❌ Al objeto {target} se le ha retirado el permiso `{permission}`.",
+        "check_yes": "✅ El objeto {target} tiene el permiso `{permission}`.",
+        "check_no": "❌ El objeto {target} no tiene el permiso `{permission}`.",
+        "list_title": "📋 Permisos del objeto {target}:\n{permissions}",
+        "list_empty": "El objeto no tiene permisos asignados.",
+        "list_all_title": "📋 Todos los permisos del servidor",
+        "list_all_empty": "No hay ningún permiso asignado en el servidor.",
+        "list_all_too_long": "❌ Hay demasiados permisos asignados: la salida no cabe en un solo mensaje. Contacta con el desarrollador para que agregue paginación.",
+        "section_guild": "Servidor",
+        "section_users": "Usuarios",
+        "section_roles": "Roles",
+        "section_channels": "Canales",
+        "unknown_user": "no encontrado en el servidor",
+        "unknown_role": "rol eliminado",
+        "unknown_channel": "canal eliminado",
+        "manage_type_user": "Usuario",
+        "manage_type_role": "Rol",
+        "manage_type_channel": "Canal",
+        "manage_type_guild": "Servidor",
+        "manage_select_type_prompt": "Elige el tipo de objeto cuyos permisos quieres configurar.",
+        "manage_select_type_placeholder": "Tipo de objeto…",
+        "manage_select_object_prompt": "Ahora elige el objeto.",
+        "manage_select_user_placeholder": "Elige un usuario…",
+        "manage_select_role_placeholder": "Elige un rol…",
+        "manage_select_channel_placeholder": "Elige un canal…",
+        "manage_toggle_placeholder": "Elige un permiso para activarlo o desactivarlo…",
+        "manage_panel_title": "⚙️ Administración de permisos",
+        "manage_panel_target": "Objeto: {target}",
+        "manage_panel_current": "Permisos actuales",
+        "manage_panel_current_empty": "No hay permisos asignados.",
+        "manage_panel_footer": "Al elegir un permiso en el menú de abajo, se concede o se retira al instante.",
+        "manage_not_your_session": "❌ Esta sesión de administración de permisos no la has abierto tú.",
+        "manage_back_button": "Atrás"
+    },
+    "send_message_cmd": {
+        "message_not_found": "No se encontró el mensaje con el ID indicado.",
+        "invalid_id": "{value} no es un número entero.",
+        "sent": "Mensaje enviado.",
+        "warning": "-# Este mensaje lo ha enviado una persona mediante un comando, no el bot.",
+        "forbidden": "❌ No se pudo enviar el mensaje."
+    },
+    "send_dm_cmd": {
+        "sent": "✅ Mensaje enviado al usuario {user}.",
+        "forbidden": "❌ No se pudo enviar el mensaje. Es posible que el usuario tenga los mensajes directos cerrados o que haya prohibido los mensajes no del sistema.",
+        "error": "❌ Error: `{error}`",
+        "received_message": "{user} te ha enviado un mensaje: {message}",
+        "message_title": "Mensaje no del sistema",
+        "allowed": "✅ Ahora podrás recibir MD no del sistema",
+        "denied": "❌ Ahora no podrás recibir MD no del sistema",
+        "view": {
+            "deny": "Presiona para prohibir los MD no del sistema (o usa /send allow)",
+            "allow": "Presiona para permitir los MD no del sistema (o usa /send allow)"
+        }
+    },
+    "send_sticky_cmd": {
+        "sticky_message": "Mensaje sticky",
+        "removed": "✅ Mensaje sticky eliminado del canal {channel}",
+        "nothing_to_remove": "❌ En el canal {channel} no hay ningún mensaje sticky que eliminar",
+        "forbidden": "❌ El bot no tiene permisos suficientes. Verifica el permiso de administrar mensajes y el acceso al canal",
+        "set": "✅ Mensaje sticky enviado al canal {channel}"
+    },
+    "log_channel_cmd": {
+        "set": "✅ Canal de registros establecido: {channel}",
+        "removed": "✅ Canal de registros eliminado"
+    },
+    "warn_role_cmd": {
+        "added": "✅ El rol {role} ahora puede poner y administrar advertencias.",
+        "removed": "❌ El rol {role} ya no puede poner ni administrar advertencias."
+    },
+    "reload_cmd": {
+        "success": "✅ ¡Datos recargados correctamente desde los archivos!\n• **Disparadores:** {trigger_count}\n• **Roles de advertencias:** {warn_role_count}"
+    },
+    "clear_cmd": {
+        "invalid_count": "Indica una cantidad mayor que 0.",
+        "count_too_high": "Demasiados mensajes de una vez (máximo {max}).",
+        "wrong_channel_type": "Este comando solo se puede usar en canales de texto.",
+        "forbidden": "El bot no tiene permiso para eliminar mensajes en este canal (necesita el permiso `Manage Messages`).",
+        "http_error": "Error al eliminar los mensajes: {error}",
+        "done": "🧹 Mensajes eliminados: {count}.",
+        "log_title": "🧹 Se han borrado mensajes",
+        "log_channel": "Canal",
+        "log_moderator": "Moderador",
+        "log_requested": "Solicitados",
+        "log_deleted": "Eliminados realmente",
+        "log_member_filter": "Filtro por miembro",
+        "log_duration_filter": "Filtro por periodo",
+        "log_none": "—"
+    },
+    "random_cmd": {
+        "invalid_count": "Indica una cantidad del 1 al 100"
+    },
+    "random": {
+        "coin": {
+            "sides": [
+                "Cara",
+                "Cruz"
+            ]
+        },
+        "ball": {
+            "intros": [
+                "La bola ve:",
+                "La bola muestra:",
+                "La bola responde:",
+                "La bola predice:",
+                "La bola susurra:",
+                "La bola revela:",
+                "La bola desvela:",
+                "La bola comunica:",
+                "La bola señala:",
+                "La bola insinúa:",
+                "La niebla muestra:",
+                "La niebla se disipa:",
+                "El destino dice:",
+                "El destino responde:",
+                "El destino ha decidido:",
+                "Los hilos del destino señalan:",
+                "Las estrellas dicen:",
+                "Las estrellas sugieren:",
+                "Las constelaciones se alinean:",
+                "La luna atestigua:",
+                "Los espíritus sugieren:",
+                "Los espíritus responden:",
+                "Los antiguos espíritus susurran:",
+                "Las sombras hablan:",
+                "Las sombras advierten:",
+                "El oráculo responde:",
+                "El oráculo vaticina:",
+                "La profecía dice:",
+                "Las fuerzas superiores dicen:",
+                "Las fuerzas superiores aconsejan:",
+                "El universo responde:",
+                "El universo insinúa:",
+                "El cosmos susurra:",
+                "La energía del mundo habla:",
+                "Las runas muestran:",
+                "Las runas se ordenan:",
+                "Las cartas del destino indican:",
+                "Las señales son claras:",
+                "La respuesta llega:",
+                "Tras largas cavilaciones:",
+                "Tras un breve silencio:",
+                "La bola de cristal brilla:",
+                "La bola de cristal muestra:",
+                "La bruma mágica informa:",
+                "El eco de la eternidad responde:",
+                "La magia ancestral habla:",
+                "Las voces del pasado susurran:",
+                "Las fuerzas del más allá informan:",
+                "El presagio indica:",
+                "La verdad se revela:"
+            ],
+            "answers": [
+                "Sí.",
+                "Sin duda alguna.",
+                "Por supuesto.",
+                "Indudablemente.",
+                "Absolutamente.",
+                "Claro que sí.",
+                "Exactamente así.",
+                "Sí, sin dudas.",
+                "Más bien sí.",
+                "Muy probable.",
+                "Bastante probable.",
+                "Es más probable que sí que no.",
+                "Parece que sí.",
+                "Casi seguro.",
+                "Hay muchas probabilidades.",
+                "No.",
+                "Definitivamente no.",
+                "Por supuesto que no.",
+                "Indudablemente no.",
+                "Absolutamente no.",
+                "De ninguna manera.",
+                "Más bien no.",
+                "Es más probable que no que sí.",
+                "Poco probable.",
+                "Parece que no.",
+                "Prácticamente descartado.",
+                "Las probabilidades son mínimas.",
+                "Es posible.",
+                "Quizás.",
+                "Tal vez.",
+                "No se descarta.",
+                "Hay posibilidades.",
+                "Las probabilidades están igualadas.",
+                "El resultado no está claro.",
+                "Todavía se desconoce.",
+                "Es difícil de decir.",
+                "No puedo determinarlo.",
+                "La respuesta no está definida.",
+                "Cincuenta por ciento de probabilidad.",
+                "No está claro.",
+                "Todo es posible.",
+                "Sí y no."
+            ]
+        }
+    },
+    "logs_cog": {
+        "titles": {
+            "stage_joined": "🎙️ Un miembro ha entrado en un canal de escenario",
+            "voice_joined": "🔊 Un miembro ha entrado en un canal de voz",
+            "stage_left": "🎙️ Un miembro ha salido de un canal de escenario",
+            "voice_left": "🔇 Un miembro ha salido de un canal de voz",
+            "voice_moved": "↔️ Un miembro se ha movido a otro canal de voz",
+            "stage_opened": "🟣 Escenario abierto",
+            "stage_closed": "⚫ Escenario cerrado",
+            "stage_updated": "🟣 Escenario actualizado",
+            "dm_received": "🤖 El bot ha recibido un mensaje directo",
+            "message_edited": "✏️ Un mensaje ha sido editado",
+            "message_deleted": "🗑️ Un mensaje ha sido eliminado",
+            "member_joined": "📥 Se ha unido un nuevo miembro",
+            "member_kicked": "👢 Un miembro ha sido expulsado",
+            "member_left": "📤 Un miembro ha abandonado el servidor",
+            "member_banned": "🔨 Un miembro ha sido baneado",
+            "member_unbanned": "🔓 Un miembro ha sido desbaneado",
+            "nickname_changed": "📝 Se ha cambiado el apodo de un miembro",
+            "roles_updated": "🎭 Se han actualizado los roles de un miembro",
+            "member_muted": "🔇 Un miembro ha sido silenciado",
+            "member_unmuted": "🔊 Un miembro ha dejado de estar silenciado",
+            "command_used": "🤖 Uso de un comando del bot",
+            "bot_added": "🤖 El bot ha sido agregado a un servidor",
+            "bot_removed": "🤖 El bot ha abandonado un servidor"
+        },
+        "fields": {
+            "member": "Miembro",
+            "channel": "Canal",
+            "role": "Rol",
+            "moderator": "Moderador",
+            "topic": "Tema",
+            "opened_by": "Abierto por",
+            "closed_by": "Cerrado por",
+            "old_topic": "Tema anterior",
+            "new_topic": "Tema nuevo",
+            "updated_by": "Actualizado por",
+            "from_channel": "Del canal",
+            "to_channel": "Al canal",
+            "text": "Texto",
+            "attachments": "Adjuntos",
+            "author": "Autor",
+            "before": "Antes",
+            "after": "Después",
+            "link": "Enlace",
+            "content": "Contenido",
+            "deleted_by": "Eliminado por",
+            "account_created": "Cuenta creada",
+            "kicked_by": "Expulsado por",
+            "banned_by": "Baneado por",
+            "unbanned_by": "Desbaneado por",
+            "old_nickname": "Apodo anterior",
+            "new_nickname": "Apodo nuevo",
+            "changed_by_nickname": "Cambiado por",
+            "added": "Agregados",
+            "removed": "Quitados",
+            "changed_by_roles": "Cambiado por",
+            "muted_by": "Silenciado por",
+            "unmuted_by": "Dejó de estar silenciado por",
+            "command": "Comando",
+            "user": "Usuario",
+            "params": "Parámetros",
+            "server": "Servidor",
+            "members_count": "Miembros"
+        },
+        "common": {
+            "unknown": "Desconocido",
+            "dash": "—",
+            "unknown_not_cached": "Desconocido (no estaba en caché)",
+            "content_not_cached": "*(no disponible: el mensaje no estaba en caché)*",
+            "message_author": "Autor del mensaje",
+            "unknown_or_self": "Desconocido / el propio miembro",
+            "unknown_or_expired": "Desconocido / caducado",
+            "jump_to_message": "[Ir al mensaje]({jump_url})"
+        }
+    },
+    "mentions_cog": {
+        "max_count_exceeded": "Solo se pueden enviar como máximo {max} menciones de una vez.",
+        "invalid_count": "Indica una cantidad de menciones mayor que 0.",
+        "banned_words": "El mensaje contiene palabras prohibidas y no se puede enviar.",
+        "mention_forbidden": "Está prohibido mencionar a este usuario o rol.",
+        "role_forbidden": "No puedes mencionar este rol.",
+        "cooldown": "Espera {seconds} s antes de volver a usar el comando.",
+        "stopped": "El spam se ha detenido a la fuerza.",
+        "started_member": "Se inició el envío de {count} menciones a {member}...",
+        "started_role": "Se inició el envío de {count} menciones al rol {role}...",
+        "stop_signal_sent": "¡Señal de parada enviada!"
+    },
+    "temp_role_cmd": {
+        "role_too_high_for_bot": "El bot no puede dar este rol: es igual o superior a su rol más alto.",
+        "role_too_high_for_user": "No puedes dar un rol igual o superior a tu propio rol más alto.",
+        "forbidden": "El bot no tiene permisos suficientes para dar este rol.",
+        "http_error": "Error al dar el rol: {error}",
+        "success": "✅ {member} ha recibido el rol {role} hasta {expires_full} ({expires_relative}).",
+        "log_expired_title": "⏳ Rol temporal retirado (ha caducado)",
+        "log_granted_title": "⏳ Se ha dado un rol temporal a un miembro",
+        "field_expires": "Caduca"
+    },
+    "triggers_cog": {
+        "missing_response": "Indica la respuesta del disparador.",
+        "saved": "✅ Disparador `{trigger}` guardado.",
+        "not_found": "❌ No se encontró el disparador `{trigger}`.",
+        "not_found_response": "❌ No se encontró la respuesta `{response}` para el disparador `{trigger}`.",
+        "found_response": "✅ La respuesta `{response}` para el disparador `{trigger}` existe y tiene el ID **{id}**.",
+        "already_exists_response": "❌ El disparador `{trigger}` con la respuesta `{response}` ya existe.",
+        "all_responses": "Todas las respuestas al disparador `{trigger}`:",
+        "removed": "✅ Disparador `{trigger}` eliminado.",
+        "invalid_regex": "❌ Error de Regex:\n`{error}`",
+        "empty_regex": "La expresión Regex no puede estar vacía.",
+        "no_guild_triggers": "Este servidor no tiene disparadores."
+    },
+    "voice_cog": {
+        "no_channel_specified": "Indica un canal de voz o entra en uno.",
+        "joined": "Conectado a **{channel}**.",
+        "not_in_voice": "El bot no está en ningún canal de voz.",
+        "left": "Desconectado del canal de voz.",
+        "too_long": "El mensaje es demasiado largo (máximo {max} caracteres).",
+        "queued": "Mensaje agregado a la cola. Posición: **{position}**",
+        "log_auto_left_title": "🔇 El bot ha salido automáticamente del canal de voz (se quedó sin nadie)",
+        "join_failed": "❌ No se pudo conectar al canal de voz: {error}"
+    },
+    "warns_cog": {
+        "forever": "para siempre",
+        "expires_relative": "hasta {relative}",
+        "line": "{status_emoji} **ID {id}** | estado: `{status}`\nMotivo: {reason}\nDuración: {duration}\nModerador: {moderator} | puesta: {created}\nAdvertencias activas: {active_warns}",
+        "log_expired_title": "🔕 La advertencia ha pasado a ser antigua (ha caducado)",
+        "field_case_id": "ID de la advertencia",
+        "field_reason": "Motivo",
+        "field_duration": "Duración",
+        "warn_success": "⚠️ {member} ha recibido una advertencia (ID {id}).\nMotivo: {reason}\nDuración: {duration}",
+        "log_warn_title": "⚠️ Un miembro ha recibido una advertencia",
+        "no_warns": "{member} no tiene advertencias.",
+        "show_title": "Advertencias: {name}",
+        "show_description": "Activas: **{active}** | Total de registros: **{total}**",
+        "not_found": "No se encontró la advertencia con ID {id} en este servidor.",
+        "removed": "Advertencia ID {id} (usuario {user}) eliminada.",
+        "log_removed_title": "🔕 Se ha retirado una advertencia",
+        "field_removed_by": "Retirada por",
+        "field_original_reason": "Motivo de la advertencia",
+        "already_old": "La advertencia ID {id} ya está marcada como antigua.",
+        "marked_old": "La advertencia ID {id} (usuario {user}) se ha marcado como antigua.",
+        "log_marked_manual_title": "🔕 La advertencia ha pasado a ser antigua (manualmente)",
+        "field_marked_by": "Marcada por"
+    },
+    "ai_cog": {
+        "empty_prompt": "Me has mencionado, pero no has escrito ninguna pregunta. ¡Escribe algo después de la mención!",
+        "cooldown": "Espera {seconds} s antes de volver a dirigirte a mí.",
+        "not_configured": "❌ Las respuestas de IA aún no están configuradas en este servidor. Un administrador debe indicar una clave de API de Gemini.",
+        "network_error": "❌ No se pudo contactar con el servicio de IA. Inténtalo de nuevo en unos minutos.",
+        "generic_error": "❌ No se pudo obtener una respuesta de la IA. Inténtalo de nuevo en unos minutos.",
+        "voice_cog_missing": "❌ El módulo de voz no está disponible en este bot.",
+        "blacklist": "❌ No puedes usar la IA en este servidor.",
+        "ask_response": "🎙️ **{name}:** {text}\n(agregado a la cola de voz, posición: **{position}**)",
+        "memory_deleted": "✅ Historial de conversación con la IA eliminado.",
+        "key_tutorial": "❌ Clave de API de Gemini no válida.\nAsegúrate de haber pegado la **API Key** y no el nombre del proyecto u otro token.\nPuedes obtener o crear una clave de API [aquí](https://aistudio.google.com/app/api-keys).",
+        "key_updated": "✅ Clave de API de Gemini establecida correctamente.",
+        "key_deleted": "✅ Clave de API de Gemini eliminada correctamente.",
+        "signal_title": "🚩 Prompt de IA sospechoso",
+        "signal_member": "Usuario",
+        "signal_guild": "Servidor",
+        "signal_channel": "Canal",
+        "signal_prompt": "Prompt",
+        "signal_answer": "Respuesta del modelo",
+        "signal_attachments": "Adjuntos"
+    },
+    "language_cmd": {
+        "set": "✅ El idioma del bot en este servidor ahora es: **{language}**."
+    },
+    "avatar_cmd": {
+        "title": "Avatar de servidor de {name}",
+        "global_title": "Avatar global de {name}"
+    },
+    "preview_cmd": {
+        "no_thumbnail": "No se pudo obtener la miniatura de este video.",
+        "download_error": "No se pudo descargar la imagen de la miniatura.",
+        "invalid_video": "No se pudo obtener información del video.",
+        "error": "Se ha producido un error al obtener la miniatura: {e}"
+    },
+    "slowmode_cmd": {
+        "max_duration": "La duración máxima del modo lento es de 6 horas.",
+        "invalid_channel": "Este canal no admite el modo lento.",
+        "success": "El modo lento de {channel} se ha establecido en {time}.",
+        "no_permission": "No tengo permisos para cambiar el modo lento de este canal.",
+        "error": "No se pudo cambiar el modo lento: {error}"
+    },
+    "giveaway_cog": {
+        "button_name": "Participar",
+        "button_success": "🎉 ¡Estás participando en el sorteo!",
+        "button_leave_success": "Has cancelado tu participación en el sorteo.",
+        "giveaway_ended": "❌ Este sorteo ya ha finalizado.",
+        "giveaway_title": "🎉 Sorteo: {name}",
+        "giveaway_description": "Premio: **{prize}**\nGanadores: **{winners}**\nParticipantes: **{members}**\nOrganizador: {host}\nFinaliza: {end}\n\n¡Presiona el botón de abajo para participar!",
+        "giveaway_id_footer": "ID del sorteo: {id}",
+        "giveaway_created": "✅ Sorteo creado en el canal {channel}.",
+        "invalid_duration": "❌ Duración no válida. {error}",
+        "duration_must_be_finite": "❌ Un sorteo no puede durar «para siempre»: indica una duración finita, por ejemplo: 30s, 10m, 2h, 7d, 4sem.",
+        "no_permission": "❌ No tienes permisos para administrar sorteos.",
+        "not_found": "❌ No se encontró en este servidor un sorteo con el ID indicado.",
+        "already_ended": "❌ Este sorteo ya ha finalizado.",
+        "ending": "⏳ Finalizando el sorteo y eligiendo a los ganadores...",
+        "not_ended_yet": "❌ Este sorteo aún no ha finalizado.",
+        "rerolling": "🎲 Eligiendo nuevos ganadores...",
+        "no_active": "Ahora mismo no hay sorteos activos en este servidor.",
+        "list_title": "🎉 Sorteos activos",
+        "list_entry": "• **{name}** (ID {id}) — finaliza {end}",
+        "giveaway_ended_title": "🎉 Sorteo finalizado: {name}",
+        "giveaway_ended_description": "Participantes: **{members}**\nGanadores: {winners}",
+        "no_winners": "sin ganadores",
+        "winners_announcement": "🎉 ¡Felicidades, {winners}! ¡Ganaron **{prize}**!",
+        "reroll_announcement": "🎲 ¡Nuevos ganadores: {winners}! ¡Premio: **{prize}**!",
+        "no_participants": "😢 Nadie ha participado en el sorteo de **{prize}**, así que no hay ganadores."
+    },
+    "music_cog": {
+        "not_connected": "❌ El bot no está conectado a un canal de voz.",
+        "extract_failed": "❌ No se pudo encontrar o cargar la canción: {error}",
+        "track_added_queue": "➕ Agregada a la cola: **{title}**",
+        "track_loaded": "🎵 Cargada: **{title}**",
+        "paused": "⏸️ En pausa.",
+        "resumed": "▶️ Reanudando.",
+        "nothing_playing": "Ahora mismo no suena nada.",
+        "skipped": "⏭️ Canción saltada.",
+        "stopped": "⏹️ Detenido y cola vaciada.",
+        "now_playing_announce": "▶️ Suena ahora: **{title}**",
+        "track_skipped_no_voice": "❌ El bot no está conectado a un canal de voz: se ha saltado la canción **{title}**. Ejecuta antes /join.",
+        "playback_error": "❌ No se pudo iniciar la reproducción de **{title}**: {error}\nVerifica que ffmpeg está instalado y accesible en el PATH (`ffmpeg -version` en la consola) y que el paquete PyNaCl está instalado.",
+        "untitled_track": "Sin título",
+        "queue_now_playing": "▶️ Suena ahora: [{title}]({url})",
+        "queue_loop_status": "Repetición: {emoji} {label}",
+        "queue_upcoming_header": "\n📜 A continuación en la cola:",
+        "queue_empty": "La cola está vacía.",
+        "loop_set": "{emoji} Modo de repetición: **{label}**",
+        "loop": {
+            "off": "desactivada",
+            "track": "canción actual",
+            "queue": "toda la cola"
+        },
+        "modal": {
+            "title": "Agregar canción",
+            "label": "Enlace o nombre",
+            "placeholder": "https://youtube.com/... o el nombre de la canción"
+        },
+        "interface": {
+            "title": "🎶 Panel de control del reproductor",
+            "now_playing_label": "Suena ahora:",
+            "nothing_playing": "no suena nada",
+            "loop_label": "Repetición:",
+            "help": "➕ **Agregar canción** — abre la ventana para escribir un enlace o nombre\n⏯️ **Pausa / Reanudar** — alterna la reproducción\n⏭️ **Saltar** — siguiente canción de la cola\n🔁 **Repetir** — cambia el modo (desactivada / canción / cola)\n📜 **Cola** — muestra la lista actual de canciones\n⏹️ **Parar** — detiene y vacía la cola",
+            "button_play": "Agregar canción",
+            "button_pause_resume": "Pausa / Reanudar",
+            "button_skip": "Saltar",
+            "button_loop": "Repetir",
+            "button_queue": "Cola",
+            "button_stop": "Parar"
+        },
+        "logs": {
+            "play": "➕ Canción agregada",
+            "pause": "⏸️ Reproducción en pausa",
+            "resume": "▶️ Reproducción reanudada",
+            "skip": "⏭️ Canción saltada",
+            "stop": "⏹️ Reproducción detenida",
+            "queue": "📜 Consulta de la cola",
+            "loop": "🔁 Modo de repetición cambiado",
+            "field_user": "Usuario",
+            "field_track": "Canción",
+            "field_mode": "Modo",
+            "field_cleared": "Eliminadas de la cola"
+        }
+    },
+    "developer_cog": {
+        "invalid_id": "❌ El ID del servidor debe ser un número.",
+        "not_found": "❌ No se encontró el servidor con el ID `{id}`.",
+        "forbidden": "❌ No hay acceso al servidor con el ID `{id}`.",
+        "http_error": "❌ Error al consultar la API de Discord: {error}",
+        "title_stats": "📊 Estadísticas",
+        "title_channels": "📺 Canales, widget y multimedia",
+        "field_owner": "Propietario",
+        "field_created": "Creado",
+        "field_verification": "Nivel de verificación",
+        "field_nsfw": "Nivel NSFW",
+        "field_content_filter": "Filtro de contenido",
+        "field_mfa": "Nivel de MFA",
+        "field_locale": "Idioma por defecto",
+        "field_vanity": "URL personalizada",
+        "field_features": "Características (features)",
+        "field_members": "Miembros",
+        "field_approx_online": "En línea (aprox.)",
+        "field_max_members": "Máximo de miembros",
+        "field_max_presences": "Máximo de presencias",
+        "field_large": "Servidor grande",
+        "field_boost_tier": "Nivel de boost",
+        "field_boost_count": "Cantidad de boosts",
+        "field_roles": "Roles",
+        "field_emojis": "Emojis",
+        "field_stickers": "Stickers",
+        "field_text_channels": "Canales de texto",
+        "field_voice_channels": "Canales de voz",
+        "field_categories": "Categorías",
+        "field_stage_channels": "Canales de escenario",
+        "field_forum_channels": "Canales de foro",
+        "field_total_channels": "Total de canales",
+        "field_system_channel": "Canal del sistema",
+        "field_rules_channel": "Canal de reglas",
+        "field_updates_channel": "Canal de actualizaciones de Discord",
+        "field_afk_channel": "Canal AFK",
+        "field_afk_timeout": "Tiempo de AFK",
+        "field_widget": "Widget activado",
+        "field_media": "Multimedia",
+        "media_icon": "Icono",
+        "media_banner": "Banner",
+        "media_splash": "Splash",
+        "media_discovery_splash": "Discovery splash",
+        "field_invite": "Invitación",
+        "invite_expiry_note": "Válida 30 minutos, un solo uso",
+        "invite_no_channel": "❌ No se pudo crear la invitación: no hay ningún canal disponible con permiso para crear invitaciones.",
+        "invite_no_member": "❌ No se pudo crear la invitación: no se pudo determinar el miembro bot en el servidor."
+    },
+    "birthday_cog": {
+        "months": {
+            "01": "01 | enero",
+            "02": "02 | febrero",
+            "03": "03 | marzo",
+            "04": "04 | abril",
+            "05": "05 | mayo",
+            "06": "06 | junio",
+            "07": "07 | julio",
+            "08": "08 | agosto",
+            "09": "09 | septiembre",
+            "10": "10 | octubre",
+            "11": "11 | noviembre",
+            "12": "12 | diciembre"
+        },
+        "date_format": "{day} de {month}",
+        "invalid_date": "❌ Esa fecha no existe: verifica el día y el mes.",
+        "set_success": "🎂 Cumpleaños guardado: **{date}**.",
+        "not_set": "{target} no ha indicado su cumpleaños.",
+        "check_result": "🎂 Cumpleaños de {target}: **{date}**.",
+        "removed": "🗑️ Cumpleaños de {target} eliminado.",
+        "channel_set": "✅ Canal de felicitaciones de cumpleaños establecido: {channel}.",
+        "channel_removed": "✅ Las felicitaciones de cumpleaños están desactivadas en este servidor.",
+        "log_channel_set_title": "🎂 Canal de felicitaciones cambiado",
+        "log_channel_removed_title": "🎂 Canal de felicitaciones desactivado",
+        "dm_congratulation": "🎉 ¡Feliz cumpleaños, {name}! ¡Que este año te traiga muchas cosas buenas!",
+        "server_congratulation": "🎉 ¡Hoy es el cumpleaños de {mention}! ¡Felicidades! 🎂",
+        "test_triggered": "🧪 Prueba realizada para {target}. MD entregado: {dm}. Menciones en servidores: {servers}.",
+        "test_failed": ":x: La prueba ha fallado. El usuario no ha usado `/birthday set`"
+    },
+    "top_gg_cog": {
+        "voting": "⭐ **¡Apoya a {bot_mention} con tu voto!**\n\nVota por Devi en Top.gg y obtén **límites mejorados durante 12 horas**.\n\n### 🚀 Qué obtienes:\n🤖 **IA**\n• Tiempo de espera entre consultas a la IA: **{AI_COOLDOWN_SECONDS} → {AI_COOLDOWN_SECONDS_VOTED}**\n• Memoria de mensajes con la IA: **{AI_MAX_MESSAGES} → {AI_MAX_MESSAGES_VOTED}**\n\n🧹 **Limpieza de mensajes**\n• Máximo de `/clear`: **{CLEAR_MAX} → {CLEAR_MAX_VOTED} mensajes**\n\n📢 **Menciones**\n• Máximo de menciones en `/mention`: **{MENTIONS_MAX_MESSAGES} → {MENTIONS_MAX_MESSAGES_VOTED}**\n• Tiempo de espera de `/mention`: **{MENTIONS_COOLDOWN_TIME} → {MENTIONS_COOLDOWN_TIME_VOTED}**\n\n⚡ **Disparadores**\n• Tiempo de espera de respuesta a disparadores: **{TRIGGERS_RESPONSE_COOLDOWN} → {TRIGGERS_RESPONSE_COOLDOWN_VOTED}**\n\n🔊 **TTS**\n• Longitud máxima de `/tts`: **{MAX_TTS_LENGTH} → {MAX_TTS_LENGTH_VOTED} caracteres**\n\n❤️ **Tu voto ayuda a Devi a crecer, ¡y tú obtienes más posibilidades!**",
+        "voted": ":white_check_mark: ¡Has votado por {bot_mention}!",
+        "not_voted": ":x: No has votado por {bot_mention}.",
+        "voting_link": "[Enlace para votar](https://top.gg/bot/1230603137253900339/vote)",
+        "voting_ad": "Amplía los límites de algunos comandos (más información en /vote)",
+        "locked_command": "Este comando está bloqueado. Vota en top.gg para desbloquearlo\n\n{link} (más sobre las ventajas de votar: /vote)"
+    },
+    "temp_voices_cog": {
+        "not_in_voice": "❌ Debes estar en un canal de voz.",
+        "not_a_temp_channel": "❌ El canal en el que estás no es temporal.",
+        "not_owner": "❌ Solo el dueño del canal o un administrador puede administrarlo.",
+        "channel_gone": "❌ El canal ya no existe.",
+        "name_set": "✅ Nombre del canal cambiado a: **{name}**.",
+        "edit_failed": "❌ No se pudo modificar el canal: {error}",
+        "limit_set": "✅ Límite de miembros establecido: **{limit}**.",
+        "limit_unlimited": "✅ Límite de miembros retirado (sin límite).",
+        "unlimited": "sin límite",
+        "invalid_limit": "❌ El límite debe ser un número de 0 a 99.",
+        "locked": "🔒 Canal cerrado para todos.",
+        "unlocked": "🔓 Canal abierto para todos.",
+        "allowed": "✅ {target} ahora puede conectarse al canal.",
+        "banned": "⛔ {target} ya no puede conectarse al canal.",
+        "member_not_found": "❌ Usuario no encontrado en el servidor.",
+        "kicked": "🚪 {target} ha sido expulsado del canal.",
+        "member_not_in_channel": "❌ Este usuario no está en tu canal.",
+        "transferred": "👑 La propiedad del canal se ha transferido a {target}.",
+        "claimed": "👑 Ahora eres el nuevo dueño del canal {channel}.",
+        "must_be_in_channel": "❌ Debes estar en este canal para reclamarlo.",
+        "owner_still_present": "❌ El dueño actual sigue en el canal: no se puede reclamar la propiedad.",
+        "bitrate_set": "✅ Tasa de bits establecida: **{kbps} kbps**.",
+        "invalid_bitrate": "❌ La tasa de bits debe ser un número.",
+        "invalid_bitrate_range": "❌ La tasa de bits debe estar entre 8 y {max} kbps (depende del nivel de boost del servidor).",
+        "region_set": "✅ Región de voz establecida: **{region}**.",
+        "region_automatic": "✅ Región de voz establecida en automático.",
+        "region_automatic_label": "automática",
+        "setup_done": "✅ Canal lobby para canales de voz temporales establecido: {channel}.",
+        "interface_title": "🎙️ Administración del canal: {name}",
+        "field_owner": "Dueño",
+        "field_limit": "Límite",
+        "field_status": "Estado",
+        "field_bitrate": "Tasa de bits",
+        "field_region": "Región",
+        "button_lock_unlock": "Abrir/Cerrar",
+        "button_claim": "Reclamar",
+        "button_rename": "Renombrar",
+        "button_limit": "Límite",
+        "button_bitrate": "Tasa de bits",
+        "select_region_placeholder": "Elige una región de voz…",
+        "select_manage_placeholder": "Administrar miembro…",
+        "select_member_placeholder": "Elige un miembro…",
+        "select_member_prompt": "Elige el miembro para esta acción.",
+        "action_kick": "Expulsar",
+        "action_allow": "Permitir",
+        "action_ban": "Banear",
+        "action_transfer": "Transferir propiedad",
+        "modal_name_title": "Renombrar canal",
+        "modal_name_label": "Nuevo nombre del canal",
+        "modal_limit_title": "Límite de miembros",
+        "modal_limit_label": "Límite (0-99, 0 = sin límite)",
+        "modal_bitrate_title": "Tasa de bits del canal",
+        "modal_bitrate_label": "Tasa de bits en kbps (8-384)",
+        "logs": {
+            "rename": "✍️ Canal renombrado",
+            "limit": "👤 Límite de miembros cambiado",
+            "lock": "🔒 Canal cerrado",
+            "unlock": "🔓 Canal abierto",
+            "allow": "✅ Acceso permitido a un miembro",
+            "ban": "❌ Acceso prohibido a un miembro",
+            "kick": "🥾 Miembro expulsado del canal",
+            "transfer": "👑 Propiedad del canal transferida",
+            "claim": "👑 Propiedad del canal reclamada",
+            "bitrate": "🔊 Tasa de bits cambiada",
+            "region": "🗺️ Región cambiada",
+            "field_user": "Usuario",
+            "field_channel": "Canal",
+            "field_target": "Miembro",
+            "field_new_name": "Nombre nuevo",
+            "field_limit": "Límite",
+            "field_bitrate": "Tasa de bits",
+            "field_region": "Región",
+            "field_previous_owner": "Dueño anterior"
+        }
+    }
+}
