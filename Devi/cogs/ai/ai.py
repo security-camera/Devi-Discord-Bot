@@ -32,7 +32,7 @@ GEMINI_API_URL = "https://generativelanguage.googleapis.com/v1beta/models/{model
 
 # Cheap, high-quota model: normal chat + vision (it can read images the user attaches).
 # This is what handles every regular message, so it should NOT be the scarce image model.
-GEMINI_TEXT_MODEL = env_var("GEMINI_IMAGE_MODEL", "gemini-3.1-flash-lite")
+GEMINI_TEXT_MODEL = env_var("GEMINI_TEXT_MODEL", "gemini-3.1-flash-lite")
 # Only called when the text model decides an image is actually needed
 GEMINI_IMAGE_MODEL = env_var("GEMINI_IMAGE_MODEL", "gemini-3.1-flash-lite-image")
 
