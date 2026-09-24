@@ -11,7 +11,6 @@ CONFIG_DIR: Path = CORE_DIR / "config"
 COGS_DIR: Path = CORE_DIR / "cogs"
 AI_COG_DIR: Path = COGS_DIR / "ai"
 LOCALES_DIR: Path = CONFIG_DIR / "locales"
-DB_FILE: Path = CONFIG_DIR / "bot.db"
 ENV_FILE: Path = CONFIG_DIR / ".env"
 
 def init():
