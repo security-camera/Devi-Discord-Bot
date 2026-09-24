@@ -40,6 +40,7 @@ The bot is configured via `config/.env`. Two parallel sets of values are support
 | `TECHNICAL_SUPPORT_SERVER` / `TECHNICAL_SUPPORT_SERVER_TEST` | Guild ID used for support-related features.                                                                                     |
 | `AI_SIGNAL_CHANNEL` / `AI_SIGNAL_CHANNEL_TEST`               | Channel ID the AI cog uses for status/signal messages.                                                                          |
 | `TEST_SERVER`                                                | Guild ID used to register commands instantly while developing (guild-scoped commands sync immediately, unlike global commands). |
+| `DATABASE_URL`                                               | URL to PostgreSQL DB                                                                                                            |
 | `ENCRYPTION_KEY`                                             | Key for [encryption](#-data-parsing-and-encryption)                                                                             |
 | `TOP_GG_TOKEN`                                               | [Top.gg API token](#-other-apis-integration)                                                                                    |
 
@@ -225,25 +226,64 @@ data = load_json_safe(_locale_file_path(locale), None)
 
 ### Work with the Database (`db.py`)
 
-#### `init_db()`
-Initializes the database once, from `main.py`.
+Devi stores its data in PostgreSQL. Access goes through [psycopg 3](https://www.psycopg.org/psycopg3/) with a connection pool (`psycopg_pool`). The connection string is read from the `DATABASE_URL` environment variable (see [Configuration](#configuration)):
 
-#### `get_connection()`
-Returns a connection to the SQLite3 database.
+```env
+DATABASE_URL=postgresql://botuser:password@localhost:5432/botdb
+```
+
+How it works:
+
+- The pool is created lazily on the first query (1 to 10 connections) and is thread-safe.
+- Autocommit is off. Changes are saved only when a cursor is opened with `commit=True`.
+- Rows are returned as `Row` objects that can be accessed by index and by column name, like `sqlite3.Row`.
+- All calls are blocking (synchronous), so keep queries short inside event handlers and commands.
+
+#### `get_dsn() -> str`
+
+Returns the connection string from `DATABASE_URL`
 
 #### `db_cursor(commit: bool = False)`
-Context manager that yields a cursor and closes the connection afterward. Pass `commit=True` for any operation that writes data.
+
+Context manager that yields a cursor and returns the connection to the pool afterwards. Pass `commit=True` for any operation that writes data.
 
 ```python
-# init_db() must already have run
+# Read
+with db_cursor() as cur:
+    cur.execute("SELECT channel_id FROM log_channels WHERE guild_id = %s", (guild_id,))
+    row = cur.fetchone()
+    if row:
+        channel_id = row["channel_id"]  # same as row[0]
 
+# Write
 with db_cursor(commit=True) as cur:
     cur.execute("DELETE FROM log_channels")
     cur.executemany(
-        "INSERT INTO log_channels (guild_id, channel_id) VALUES (?, ?)",
+        "INSERT INTO log_channels (guild_id, channel_id) VALUES (%s, %s)",
         list(log_channels.items()),
     )
 ```
+
+#### `Row`
+
+Result row type. It is a `tuple` subclass that also supports access by column name:
+
+```python
+row[0]              # by index
+row["channel_id"]   # by column name
+row.keys()          # list of column names
+dict(row)           # {"guild_id": ..., "channel_id": ...}
+```
+
+Accessing a column that does not exist raises `IndexError`.
+
+#### `get_connection() -> psycopg.Connection`
+
+Opens a standalone (non-pooled) connection that returns `Row` objects. The caller is responsible for closing it.
+
+#### `close()`
+
+Closes the connection pool. Call it when the bot shuts down. It is safe to call even if the pool was never opened.
 
 ---
 
