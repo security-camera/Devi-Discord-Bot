@@ -1,7 +1,7 @@
 /Devi/config/bot.db
 /Devi/config/bot_test.db
 /Devi/config/.env
-merge_memories.py
+/migrate.py
 /token.md
 
 __pycache__/

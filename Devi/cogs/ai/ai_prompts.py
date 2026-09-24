@@ -141,7 +141,7 @@ def save_instructions():
         cur.execute("DELETE FROM ai_custom_user_instructions")
 
         cur.executemany(
-            """INSERT INTO ai_custom_user_instructions (user_id, instruction) VALUES (?, ?)""",
+            """INSERT INTO ai_custom_user_instructions (user_id, instruction) VALUES (%s, %s)""",
             list(CUSTOM_USER_INSTRUCTIONS.items()),
         )
 

@@ -24,7 +24,7 @@ def load_giveaways() -> dict:
         )
         giveaway_rows = cur.fetchall()
         cur.execute(
-            "SELECT giveaway_message_id, user_id FROM giveaway_participants ORDER BY giveaway_message_id, rowid"
+            "SELECT giveaway_message_id, user_id FROM giveaway_participants ORDER BY giveaway_message_id"
         )
         participant_rows = cur.fetchall()
 
@@ -57,7 +57,7 @@ def save_giveaways(data: dict) -> None:
                 """INSERT INTO giveaways
                        (message_id, guild_id, channel_id, host_id, name, prize,
                         winners_count, end_time, ended)
-                   VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)""",
+                   VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)""",
                 (
                     int(message_id_str),
                     g["guild_id"],
@@ -73,7 +73,7 @@ def save_giveaways(data: dict) -> None:
             participants = g.get("participants", [])
             if participants:
                 cur.executemany(
-                    "INSERT INTO giveaway_participants (giveaway_message_id, user_id) VALUES (?, ?)",
+                    "INSERT INTO giveaway_participants (giveaway_message_id, user_id) VALUES (%s, %s)",
                     [(int(message_id_str), uid) for uid in participants],
                 )
 

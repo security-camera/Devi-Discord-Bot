@@ -28,7 +28,8 @@ def save_temp_roles(records: list):
             """INSERT INTO temp_roles
                    (id, guild_id, user_id, role_id, moderator_id, created_at, expires_at)
                VALUES
-                   (:id, :guild_id, :user_id, :role_id, :moderator_id, :created_at, :expires_at)""",
+                   (%(id)s, %(guild_id)s, %(user_id)s, %(role_id)s, %(moderator_id)s,
+                    %(created_at)s, %(expires_at)s)""",
             records,
         )
 

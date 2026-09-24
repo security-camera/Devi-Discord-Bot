@@ -17,7 +17,7 @@ def _save_localizations(localizations: dict[int, str]):
     with db_cursor(commit=True) as cur:
         cur.execute("DELETE FROM guild_locale")
         cur.executemany(
-            "INSERT INTO guild_locale (guild_id, localization) VALUES (?, ?)",
+            "INSERT INTO guild_locale (guild_id, localization) VALUES (%s, %s)",
             list(localizations.items()),
         )
 

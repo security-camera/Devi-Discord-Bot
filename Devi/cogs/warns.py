@@ -29,8 +29,8 @@ def save_warns(warns: list):
                    (id, guild_id, user_id, moderator_id, reason, duration_raw,
                     created_at, expires_at, status)
                VALUES
-                   (:id, :guild_id, :user_id, :moderator_id, :reason, :duration_raw,
-                    :created_at, :expires_at, :status)""",
+                   (%(id)s, %(guild_id)s, %(user_id)s, %(moderator_id)s, %(reason)s,
+                    %(duration_raw)s, %(created_at)s, %(expires_at)s, %(status)s)""",
             warns,
         )
 

@@ -74,7 +74,7 @@ async def log_voice(
 def get_guild_config(guild_id: int) -> dict | None:
     with db_cursor() as cur:
         cur.execute(
-            "SELECT lobby_channel_id, category_id, name_template FROM temp_voice_config WHERE guild_id = ?",
+            "SELECT lobby_channel_id, category_id, name_template FROM temp_voice_config WHERE guild_id = %s",
             (guild_id,),
         )
         row = cur.fetchone()
@@ -93,7 +93,7 @@ def set_guild_config(guild_id: int, lobby_channel_id: int, category_id: int | No
     with db_cursor(commit=True) as cur:
         cur.execute(
             """INSERT INTO temp_voice_config (guild_id, lobby_channel_id, category_id, name_template)
-               VALUES (?, ?, ?, ?)
+               VALUES (%s, %s, %s, %s)
                ON CONFLICT(guild_id) DO UPDATE SET
                    lobby_channel_id = excluded.lobby_channel_id,
                    category_id = excluded.category_id,
@@ -105,7 +105,7 @@ def set_guild_config(guild_id: int, lobby_channel_id: int, category_id: int | No
 def get_temp_channel(channel_id: int) -> dict | None:
     with db_cursor() as cur:
         cur.execute(
-            "SELECT guild_id, owner_id, created_at FROM temp_voice_channels WHERE channel_id = ?",
+            "SELECT guild_id, owner_id, created_at FROM temp_voice_channels WHERE channel_id = %s",
             (channel_id,),
         )
         row = cur.fetchone()
@@ -126,25 +126,25 @@ def all_temp_channels() -> list[dict]:
 def save_temp_channel(channel_id: int, guild_id: int, owner_id: int):
     with db_cursor(commit=True) as cur:
         cur.execute(
-            "INSERT INTO temp_voice_channels (channel_id, guild_id, owner_id, created_at) VALUES (?, ?, ?, ?)",
+            "INSERT INTO temp_voice_channels (channel_id, guild_id, owner_id, created_at) VALUES (%s, %s, %s, %s)",
             (channel_id, guild_id, owner_id, datetime.now(timezone.utc).isoformat()),
         )
 
 
 def set_temp_channel_owner(channel_id: int, owner_id: int):
     with db_cursor(commit=True) as cur:
-        cur.execute("UPDATE temp_voice_channels SET owner_id = ? WHERE channel_id = ?", (owner_id, channel_id))
+        cur.execute("UPDATE temp_voice_channels SET owner_id = %s WHERE channel_id = %s", (owner_id, channel_id))
 
 
 def remove_temp_channel(channel_id: int):
     with db_cursor(commit=True) as cur:
-        cur.execute("DELETE FROM temp_voice_channels WHERE channel_id = ?", (channel_id,))
+        cur.execute("DELETE FROM temp_voice_channels WHERE channel_id = %s", (channel_id,))
 
 
 def get_user_settings(user_id: int) -> dict:
     with db_cursor() as cur:
         cur.execute(
-            "SELECT name, user_limit, locked, bitrate, rtc_region FROM temp_voice_user_settings WHERE user_id = ?",
+            "SELECT name, user_limit, locked, bitrate, rtc_region FROM temp_voice_user_settings WHERE user_id = %s",
             (user_id,),
         )
         row = cur.fetchone()
@@ -170,7 +170,7 @@ def save_user_setting(user_id: int, **fields):
     with db_cursor(commit=True) as cur:
         cur.execute(
             """INSERT INTO temp_voice_user_settings (user_id, name, user_limit, locked, bitrate, rtc_region)
-               VALUES (?, ?, ?, ?, ?, ?)
+               VALUES (%s, %s, %s, %s, %s, %s)
                ON CONFLICT(user_id) DO UPDATE SET
                    name = excluded.name,
                    user_limit = excluded.user_limit,
@@ -190,7 +190,7 @@ def save_user_setting(user_id: int, **fields):
 
 def get_user_overwrites(user_id: int) -> dict[int, bool]:
     with db_cursor() as cur:
-        cur.execute("SELECT target_id, allowed FROM temp_voice_user_overwrites WHERE user_id = ?", (user_id,))
+        cur.execute("SELECT target_id, allowed FROM temp_voice_user_overwrites WHERE user_id = %s", (user_id,))
         rows = cur.fetchall()
     return {row["target_id"]: bool(row["allowed"]) for row in rows}
 
@@ -198,7 +198,7 @@ def get_user_overwrites(user_id: int) -> dict[int, bool]:
 def save_user_overwrite(user_id: int, target_id: int, allowed: bool):
     with db_cursor(commit=True) as cur:
         cur.execute(
-            """INSERT INTO temp_voice_user_overwrites (user_id, target_id, allowed) VALUES (?, ?, ?)
+            """INSERT INTO temp_voice_user_overwrites (user_id, target_id, allowed) VALUES (%s, %s, %s)
                ON CONFLICT(user_id, target_id) DO UPDATE SET allowed = excluded.allowed""",
             (user_id, target_id, int(allowed)),
         )

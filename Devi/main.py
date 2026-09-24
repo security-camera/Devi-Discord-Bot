@@ -68,6 +68,8 @@ async def on_ready():
     print(platform.system())
     print(platform.machine())
 
-
 if __name__ == "__main__":
-    bot.run(TOKEN)
+    try:
+        bot.run(TOKEN)
+    finally:
+        db.close()

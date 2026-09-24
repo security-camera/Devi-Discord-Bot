@@ -41,7 +41,7 @@ def save_dm_opt_out(records: dict[int, DmOptOutStatus]):
     with db_cursor(commit=True) as cur:
         cur.execute("DELETE FROM dm_opt_out")
         cur.executemany(
-            "INSERT INTO dm_opt_out (user_id, allow_dm) VALUES (?, ?)",
+            "INSERT INTO dm_opt_out (user_id, allow_dm) VALUES (%s, %s)",
             [(int(user_id), int(allow_dm)) for user_id, allow_dm in records.items()],
         )
 
@@ -76,7 +76,7 @@ def save_sticky_messages(records: dict[int, dict]):
     with db_cursor(commit=True) as cur:
         cur.execute("DELETE FROM sticky_messages")
         cur.executemany(
-            "INSERT INTO sticky_messages (channel_id, guild_id, content, message_id, created_by) VALUES (?, ?, ?, ?, ?)",
+            "INSERT INTO sticky_messages (channel_id, guild_id, content, message_id, created_by) VALUES (%s, %s, %s, %s, %s)",
             [
                 (channel_id, r["guild_id"], r["content"], r["message_id"], r["created_by"])
                 for channel_id, r in records.items()

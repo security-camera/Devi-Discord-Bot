@@ -7,3 +7,4 @@ aiohttp
 yt-dlp
 qrcode[pil]
 cryptography
+psycopg[binary,pool]

@@ -20,7 +20,7 @@ def load_memory(guild_id: int, user_id: int) -> list:
     """
     with db_cursor() as cur:
         cur.execute(
-            "SELECT role, content FROM ai_memory WHERE guild_id = ? AND user_id = ? ORDER BY id",
+            "SELECT role, content FROM ai_memory WHERE guild_id = %s AND user_id = %s ORDER BY id",
             (guild_id, user_id),
         )
         rows = cur.fetchall()
@@ -42,9 +42,9 @@ async def save_memory(guild_id: int, user_id: int, messages: list):
     max_messages = MAX_MESSAGES_VOTED if await is_voted(user_id) else MAX_MESSAGES
     trimmed = messages[-max_messages:]
     with db_cursor(commit=True) as cur:
-        cur.execute("DELETE FROM ai_memory WHERE guild_id = ? AND user_id = ?", (guild_id, user_id))
+        cur.execute("DELETE FROM ai_memory WHERE guild_id = %s AND user_id = %s", (guild_id, user_id))
         cur.executemany(
-            "INSERT INTO ai_memory (guild_id, user_id, role, content) VALUES (?, ?, ?, ?)",
+            "INSERT INTO ai_memory (guild_id, user_id, role, content) VALUES (%s, %s, %s, %s)",
             [(guild_id, user_id, m["role"], json.dumps(m["parts"], ensure_ascii=False)) for m in trimmed],
         )
 
@@ -64,6 +64,6 @@ async def add_message(guild_id: int, user_id: int, role: str, parts: list):
 def clear_memory(user_id: int, guild_id: int | None = None):
     with db_cursor(commit=True) as cur:
         if guild_id:
-            cur.execute("DELETE FROM ai_memory WHERE guild_id = ? AND user_id = ?", (guild_id, user_id))
+            cur.execute("DELETE FROM ai_memory WHERE guild_id = %s AND user_id = %s", (guild_id, user_id))
         else:
-            cur.execute("DELETE FROM ai_memory WHERE user_id = ?", (user_id,))
+            cur.execute("DELETE FROM ai_memory WHERE user_id = %s", (user_id,))

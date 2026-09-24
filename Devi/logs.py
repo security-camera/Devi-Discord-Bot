@@ -33,7 +33,7 @@ def _save_log_channels(log_channels: dict[int, int]):
     with db_cursor(commit=True) as cur:
         cur.execute("DELETE FROM log_channels")
         cur.executemany(
-            "INSERT INTO log_channels (guild_id, channel_id) VALUES (?, ?)",
+            "INSERT INTO log_channels (guild_id, channel_id) VALUES (%s, %s)",
             list(log_channels.items()),
         )
 

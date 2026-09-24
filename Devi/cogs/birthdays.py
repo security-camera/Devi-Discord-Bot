@@ -47,7 +47,7 @@ def save_birthday(user_id: int, day: int, month: int, ping_on_servers: bool):
     with db_cursor(commit=True) as cur:
         cur.execute(
             """INSERT INTO birthdays (user_id, day, month, ping_on_servers)
-               VALUES (?, ?, ?, ?)
+               VALUES (%s, %s, %s, %s)
                ON CONFLICT(user_id) DO UPDATE SET
                    day = excluded.day,
                    month = excluded.month,
@@ -59,7 +59,7 @@ def save_birthday(user_id: int, day: int, month: int, ping_on_servers: bool):
 def get_birthday(user_id: int) -> tuple[int, int, bool] | None:
     with db_cursor() as cur:
         cur.execute(
-            "SELECT day, month, ping_on_servers FROM birthdays WHERE user_id = ?",
+            "SELECT day, month, ping_on_servers FROM birthdays WHERE user_id = %s",
             (user_id,),
         )
         row = cur.fetchone()
@@ -73,7 +73,7 @@ def get_birthday(user_id: int) -> tuple[int, int, bool] | None:
 def remove_birthday(user_id: int) -> bool:
     """Returns True if record was deleted"""
     with db_cursor(commit=True) as cur:
-        cur.execute("DELETE FROM birthdays WHERE user_id = ?", (user_id,))
+        cur.execute("DELETE FROM birthdays WHERE user_id = %s", (user_id,))
         return cur.rowcount > 0
 
 
@@ -82,7 +82,7 @@ def remove_birthday(user_id: int) -> bool:
 
 def get_birthday_channel(guild_id: int) -> int | None:
     with db_cursor() as cur:
-        cur.execute("SELECT channel_id FROM birthday_channels WHERE guild_id = ?", (guild_id,))
+        cur.execute("SELECT channel_id FROM birthday_channels WHERE guild_id = %s", (guild_id,))
         row = cur.fetchone()
     return row["channel_id"] if row else None
 
@@ -90,7 +90,7 @@ def get_birthday_channel(guild_id: int) -> int | None:
 def set_birthday_channel(guild_id: int, channel_id: int):
     with db_cursor(commit=True) as cur:
         cur.execute(
-            """INSERT INTO birthday_channels (guild_id, channel_id) VALUES (?, ?)
+            """INSERT INTO birthday_channels (guild_id, channel_id) VALUES (%s, %s)
                ON CONFLICT(guild_id) DO UPDATE SET channel_id = excluded.channel_id""",
             (guild_id, channel_id),
         )
@@ -98,7 +98,7 @@ def set_birthday_channel(guild_id: int, channel_id: int):
 
 def remove_birthday_channel(guild_id: int) -> bool:
     with db_cursor(commit=True) as cur:
-        cur.execute("DELETE FROM birthday_channels WHERE guild_id = ?", (guild_id,))
+        cur.execute("DELETE FROM birthday_channels WHERE guild_id = %s", (guild_id,))
         return cur.rowcount > 0
 
 

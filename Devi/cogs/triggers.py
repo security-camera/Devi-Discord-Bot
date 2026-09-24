@@ -48,13 +48,13 @@ def save_triggers(triggers: dict[int, dict[str, list[str]]]):
         for guild_id, guild_triggers in triggers.items():
             for order, (pattern, responses) in enumerate(guild_triggers.items()):
                 cur.execute(
-                    "INSERT INTO triggers (guild_id, pattern, sort_order) VALUES (?, ?, ?)",
+                    "INSERT INTO triggers (guild_id, pattern, sort_order) VALUES (%s, %s, %s) RETURNING id",
                     (guild_id, pattern, order),
                 )
-                trigger_id = cur.lastrowid
+                trigger_id = cur.fetchone()["id"]
                 if responses:
                     cur.executemany(
-                        "INSERT INTO trigger_responses (trigger_id, response, sort_order) VALUES (?, ?, ?)",
+                        "INSERT INTO trigger_responses (trigger_id, response, sort_order) VALUES (%s, %s, %s)",
                         [(trigger_id, response, i) for i, response in enumerate(responses)],
                     )
 
