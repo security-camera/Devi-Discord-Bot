@@ -355,14 +355,14 @@ bot_project/
     │   └──topgg_utils.py
     ├── config/                    # Bot data
     │   ├── .env                   # Environment variables
-    │   ├── locales/               # Localizations
-    │   │   ├── ru.json
-    │   │   ├── en-US.json
-    │   │   ├── fi.json
-    │   │   ├── uk.json
-    │   │   ├── bg.json
-    │   │   └── de.json
-    │   └── bot.db                 # Database
+    │   └── locales/               # Localizations
+    │       ├── ru.json
+    │       ├── en-US.json
+    │       ├── fi.json
+    │       ├── uk.json
+    │       ├── bg.json
+    │       ├── es-419.json
+    │       └── de.json
     └── cogs/
         ├── ai/
         │   ├── ai_memory.py           # Context for ai.py
