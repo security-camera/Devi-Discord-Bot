@@ -386,5 +386,7 @@ bot_project/
         ├── music.py                   # /music commands + logic
         ├── topgg.py                   # /vote
         ├── temp_voices.py             # /voice commands + temp voices logic
+        ├── temp_bans.py               # /temp_ban + logic
+        ├── traps.py                   # /trap commands + logic
         └── voice.py                   # /join, /leave, /tts
 ```
