@@ -11,55 +11,79 @@ from db import db_cursor
 from permissions import validate_permissions
 
 
-def load_temp_roles() -> list:
+def insert_temp_role(record: dict) -> int:
+    with db_cursor(commit=True) as cur:
+        cur.execute(
+            """INSERT INTO temp_roles (guild_id, user_id, role_id, moderator_id, created_at, expires_at)
+               VALUES (%(guild_id)s, %(user_id)s, %(role_id)s, %(moderator_id)s, %(created_at)s, %(expires_at)s)
+               RETURNING id""",
+            record,
+        )
+        return cur.fetchone()["id"]
+
+
+def fetch_expired_temp_roles(now: datetime) -> list:
     with db_cursor() as cur:
         cur.execute(
-            """SELECT id, guild_id, user_id, role_id, moderator_id, created_at, expires_at
-               FROM temp_roles ORDER BY id"""
+            """SELECT id, guild_id, user_id, role_id FROM temp_roles WHERE expires_at <= %s""",
+            (now.isoformat(),),
         )
         rows = cur.fetchall()
     return [dict(row) for row in rows]
 
 
-def save_temp_roles(records: list):
+def delete_temp_roles(ids: list[int]):
+    """Remove a batch of expired temp role records in a single query."""
+    if not ids:
+        return
     with db_cursor(commit=True) as cur:
-        cur.execute("DELETE FROM temp_roles")
-        cur.executemany(
-            """INSERT INTO temp_roles
-                   (id, guild_id, user_id, role_id, moderator_id, created_at, expires_at)
-               VALUES
-                   (%(id)s, %(guild_id)s, %(user_id)s, %(role_id)s, %(moderator_id)s,
-                    %(created_at)s, %(expires_at)s)""",
-            records,
-        )
+        cur.execute("DELETE FROM temp_roles WHERE id = ANY(%s)", (ids,))
 
 
 class TempRolesCog(commands.Cog):
     def __init__(self, bot: commands.Bot):
         self.bot = bot
-        self.temp_roles_db = load_temp_roles()
         self.expire_temp_roles_loop.start()
 
     def cog_unload(self):
         self.expire_temp_roles_loop.cancel()
 
-    def next_temp_role_id(self) -> int:
-        if not self.temp_roles_db:
-            return 1
-        return max(r["id"] for r in self.temp_roles_db) + 1
+    @staticmethod
+    async def grant_temp_role(guild: disnake.Guild, member: disnake.Member, role: disnake.Role, duration_seconds: int, moderator_id: int, reason: str | None = None) -> dict:
+        """Grant a temporary role to a member and schedule its automatic removal.
+
+        Raises disnake.Forbidden / disnake.HTTPException if the role could
+        not be added; the record is only persisted on success."""
+        await member.add_roles(
+            role,
+            reason=reason or f"Temporary role granted by moderator {moderator_id} for {duration_seconds}s",
+        )
+
+        expires_at = datetime.now(timezone.utc) + timedelta(seconds=duration_seconds)
+
+        record = {
+            "guild_id": guild.id,
+            "user_id": member.id,
+            "role_id": role.id,
+            "moderator_id": moderator_id,
+            "created_at": datetime.now(timezone.utc).isoformat(),
+            "expires_at": expires_at.isoformat(),
+        }
+        record["id"] = insert_temp_role(record)
+
+        return record
 
     @tasks.loop(minutes=1)
     async def expire_temp_roles_loop(self):
         now = datetime.now(timezone.utc)
-        still_active = []
-        changed = False
+        expired = fetch_expired_temp_roles(now)
 
-        for record in self.temp_roles_db:
-            if datetime.fromisoformat(record["expires_at"]) > now:
-                still_active.append(record)
-                continue
+        if not expired:
+            return
 
-            changed = True
+        processed_ids = []
+
+        for record in expired:
             gid = record["guild_id"]
             guild = self.bot.get_guild(gid)
             if guild is not None:
@@ -67,7 +91,7 @@ class TempRolesCog(commands.Cog):
                 role = guild.get_role(record["role_id"])
                 if member is not None and role is not None and role in member.roles:
                     try:
-                        await member.remove_roles(role, reason="Истек срок временной роли")
+                        await member.remove_roles(role, reason="Temp role expired")
                     except (disnake.Forbidden, disnake.HTTPException):
                         pass
 
@@ -81,9 +105,9 @@ class TempRolesCog(commands.Cog):
                     ]
                 )
 
-        if changed:
-            self.temp_roles_db[:] = still_active
-            save_temp_roles(self.temp_roles_db)
+            processed_ids.append(record["id"])
+
+        delete_temp_roles(processed_ids)
 
     @expire_temp_roles_loop.before_loop
     async def before_expire_temp_roles_loop(self):
@@ -131,7 +155,14 @@ class TempRolesCog(commands.Cog):
             return await inter.response.send_message(error, ephemeral=True)
 
         try:
-            await member.add_roles(role, reason=f"Временная роль от {inter.author} на {duration}")
+            record = await self.grant_temp_role(
+                guild=inter.guild,
+                member=member,
+                role=role,
+                duration_seconds=seconds,
+                moderator_id=inter.author.id,
+                reason=f"Временная роль от {inter.author} на {duration}",
+            )
         except disnake.Forbidden:
             return await inter.response.send_message(
                 i18n.t("temp_role_cmd.forbidden", locale=gid), ephemeral=True
@@ -141,7 +172,7 @@ class TempRolesCog(commands.Cog):
                 i18n.t("temp_role_cmd.http_error", locale=gid, error=e), ephemeral=True
             )
 
-        expires_at = datetime.now(timezone.utc) + timedelta(seconds=seconds)
+        expires_at = datetime.fromisoformat(record["expires_at"])
 
         embed = disnake.Embed(
             description=i18n.t(
@@ -154,17 +185,6 @@ class TempRolesCog(commands.Cog):
             ),
             color=LogColor.Member
         )
-        record = {
-            "id": self.next_temp_role_id(),
-            "guild_id": inter.guild.id,
-            "user_id": member.id,
-            "role_id": role.id,
-            "moderator_id": inter.author.id,
-            "created_at": datetime.now(timezone.utc).isoformat(),
-            "expires_at": expires_at.isoformat(),
-        }
-        self.temp_roles_db.append(record)
-        save_temp_roles(self.temp_roles_db)
 
         await inter.response.send_message(embed=embed, ephemeral=False)
 

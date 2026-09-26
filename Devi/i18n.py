@@ -226,6 +226,17 @@ def t(key: str, locale: LocaleObject = None, **kwargs) -> str:
         logger.warning("Error of formating value of key '%s' (locale '%s'): %s",key, resolved_locale, e)
         return value
 
+def try_t(key: str, locale: LocaleObject = None, **kwargs) -> str:
+    """Return the translation for key, or empty string if it's missing/untranslated."""
+    try:
+        text = t(key, locale=locale, **kwargs)
+    except Exception:
+        return ""
+
+    if not text or text == f"[{key}]":
+        return ""
+
+    return text
 
 def ensure_locale_files_exist() -> None:
     """Creates the locales/ folder and the DEFAULT_LOCALE template

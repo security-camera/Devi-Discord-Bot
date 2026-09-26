@@ -458,18 +458,46 @@
             "description": "Sets the voice region of your temporary channel",
             "param_region_name": "region",
             "param_region": "Voice region"
+        },
+        "trap": {
+            "description": "Configure trap channels."
+        },
+        "trap_channel": {
+            "description": "Set or remove a trap channel.",
+            "param_channel_name": "channel",
+            "param_channel": "The channel to use as a trap channel."
+        },
+        "trap_punishment": {
+            "description": "Configure the punishment for sending a message in a trap channel.",
+            "param_punishment_type_name": "punishment",
+            "param_punishment_type": "The punishment type for sending a message in a trap channel.",
+            "param_duration_name": "duration",
+            "param_duration": "Punishment duration. For bans: 0 means kick.",
+            "param_role_name": "role",
+            "param_role": "The role to assign to the offender."
+        },
+        "temp_ban": {
+            "description": "Temporarily ban a member",
+            "param_member_name": "member",
+            "param_member": "The member to temporarily ban",
+            "param_duration_name": "duration",
+            "param_duration": "Ban duration (e.g. 1h, 3d, 30m)",
+            "param_reason_name": "reason",
+            "param_reason": "Reason for the ban"
         }
     },
     "help": {
         "title": "📚 Bot Command List",
-        "intro": "Server language: {server_locale}\n\nBelow is a list of all available commands:",
+        "intro": "Server language: {server_locale}",
         "footer": "Online since",
         "parameters": "Parameters",
         "optional_parameters": "\n-# Optional parameters",
         "unknown_command": ":x: Unknown command",
+        "select_placeholder": "Select a command category",
+        "additional_field": "Additional info",
         "outro": {
             "title": ":blue_book: Useful information",
-            "value": "[Support Server](https://discord.gg/ftUm7FbJDw) | [Privacy Policy](https://gist.github.com/security-camera/c1c4ffc74fb2407b06044e4ab8607e71) | [Terms of Service](https://gist.github.com/security-camera/147e20418f9528e2e64d5e9e87c40977) | [Github](https://github.com/security-camera/Devi-Discord-Bot)"
+            "value": "[Support Server](https://discord.gg/ftUm7FbJDw) | [Privacy Policy](https://gist.github.com/security-camera/c1c4ffc74fb2407b06044e4ab8607e71) | [Terms of Service](https://gist.github.com/security-camera/147e20418f9528e2e64d5e9e87c40977) | [Github](https://github.com/security-camera/Devi-Discord-Bot) | [Site](https://devi-discord-bot.duckdns.org:8443/)"
         },
         "monitorings": {
             "title": ":mag: Bot on monitorings",
@@ -485,7 +513,7 @@
                 "value": "• /trigger\n• /triggers"
             },
             "utils": {
-                "name": ":globe_with_meridians: Utilities",
+                "name": "🌐 Utilities",
                 "value": "• /random\n• /coin\n• /ball\n• /avatar\n• /qr\n• /preview"
             },
             "messages": {
@@ -502,7 +530,7 @@
             },
             "admin": {
                 "name": "⚙️ Administration",
-                "value": "• /clear\n• /set_log_channel\n• /language\n• /command_id\n• /slowmode\n• /temp_role"
+                "value": "• /clear\n• /set_log_channel\n• /language\n• /command_id\n• /slowmode\n• /temp_role\n• /temp_ban"
             },
             "warns": {
                 "name": "⚠️ Warnings",
@@ -513,20 +541,27 @@
                 "value": "• /giveaway_start\n• /giveaway_end\n• /giveaway_reroll\n• /giveaway_list"
             },
             "music": {
-                "name": ":musical_note: Music",
-                "value": "• /music interface\n• /music play\n• /music pause\n• /music loop\n• /music queue\n• /music resume\n• /music skip\n• /music stop"
+                "name": "🎵 Music",
+                "value": "• /music interface\n• /music play\n• /music pause\n• /music loop\n• /music queue\n• /music resume\n• /music skip\n• /music stop",
+                "additional": "**How to setup interface?**\n1. Create/pick a channel for music interface.\n2. Send music interface via /music interface\n3. Configure bot.MusicBlackList permission (optional)\n\n**Supported platforms:**\nYoutube"
             },
             "permissions": {
-                "name": ":file_folder:  Permissions",
+                "name": "📁 Permissions",
                 "value": "• /permissions manage\n• /permissions list"
             },
             "birthdays": {
-                "name": ":partying_face: Birthdays",
-                "value": "• /birthday set\n• /birthday check\n• /birthday remove\n• /birthday channel"
+                "name": "🥳 Birthdays",
+                "value": "• /birthday set\n• /birthday check\n• /birthday remove\n• /birthday channel",
+                "additional": "**How to set up birthdays?**\n1. Create/pick a channel for birthday greetings.\n2. Set the channel using /birthday channel\n\nThe bot will now automatically congratulate users who set their birthday using /birthday set on this server."
             },
             "temp_voices": {
                 "name": "⌛ Temporary voices",
-                "value": "• /voice setup\n• /voice interface\n• /voice name\n• /voice open\n• /voice close\n• /voice allow\n• /voice ban\n• /voice kick\n• /voice limit\n• /voice bitrate\n• /voice region"
+                "value": "• /voice setup\n• /voice interface\n• /voice name\n• /voice open\n• /voice close\n• /voice allow\n• /voice ban\n• /voice kick\n• /voice limit\n• /voice bitrate\n• /voice region",
+                "additional": "**What are temporary voice channels?**\nTemporary voice channels are channels created by users when they join a lobby channel. The owner of a temporary voice channel can configure their own channel.\n\n**How to set up temporary voice channels?**\n1. Create/pick a lobby channel\n2. Set the lobby channel using /voice setup\n\nMake sure the bot has sufficient permissions"
+            },
+            "security": {
+                "name": "🛡️ Security",
+                "value": "• /trap channel\n• /trap punishment"
             },
             "developer": {
                 "name": "Developer",
@@ -568,7 +603,8 @@
         "manage_panel_current_empty": "No permissions assigned.",
         "manage_panel_footer": "Picking a permission below instantly grants or revokes it.",
         "manage_not_your_session": "❌ This permission management session wasn't opened by you.",
-        "manage_back_button": "Back"
+        "manage_back_button": "Back",
+        "page_not_yours": "Only the person who ran this command can navigate the pages."
     },
     "send_message_cmd": {
         "message_not_found": "No message found with the given ID.",
@@ -796,7 +832,8 @@
             "user": "User",
             "params": "Parameters",
             "server": "Server",
-            "members_count": "Members"
+            "members_count": "Members",
+            "reason": "Reason"
         },
         "common": {
             "unknown": "Unknown",
@@ -1162,5 +1199,31 @@
             "field_region": "Region",
             "field_previous_owner": "Previous owner"
         }
+    },
+    "trap_cog": {
+        "sticky": "⚠️ This channel is a trap channel. Sending any message here will result in punishment.",
+        "punish_reason": "Sent a message in a trap channel.",
+        "nothing_to_remove": "❌ No trap channel is configured.",
+        "permission_error": "❌ Failed to change the trap channel. The bot does not have sufficient permissions.",
+        "channel_removed": "✅ Trap channel removed.",
+        "channel_set": "✅ Trap channel set to {channel}.",
+        "channel_not_set": "❌ Set up a trap channel first.",
+        "invalid_timeout": "❌ Invalid timeout duration. Maximum duration: {max_duration}.",
+        "role_required": "❌ You must specify a role when using role punishment.",
+        "punishment_set": "✅ Punishment set to: {punishment}.\nDuration: {duration}.\nRole: {role}.",
+        "punishment_types": {
+            "00": "Timeout",
+            "01": "Ban / Kick",
+            "02": "Role"
+        }
+    },
+    "temp_ban_cmd": {
+        "member_too_high_for_bot": "I can't ban this member — their role is higher than or equal to mine.",
+        "member_too_high_for_user": "You can't ban this member — their role is higher than or equal to yours.",
+        "forbidden": "I don't have permission to ban this member.",
+        "http_error": "Failed to ban the member: {error}",
+        "success": "{member} has been banned until {expires_full} ({expires_relative}).",
+        "log_banned_title": "Temporary ban issued",
+        "field_expires": "Expires"
     }
 }

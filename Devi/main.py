@@ -48,7 +48,9 @@ EXTENSIONS = [
     "cogs.developer",
     "cogs.birthdays",
     "cogs.topgg",
-    "cogs.temp_voices"
+    "cogs.temp_voices",
+    "cogs.traps",
+    "cogs.temp_bans"
 ]
 
 for extension in EXTENSIONS:

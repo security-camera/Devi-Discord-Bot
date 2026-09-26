@@ -458,18 +458,46 @@
             "description": "Legt die Sprachregion deines temporären Kanals fest",
             "param_region_name": "region",
             "param_region": "Sprachregion"
+        },
+        "trap": {
+            "description": "Fallenkanäle konfigurieren."
+        },
+        "trap_channel": {
+            "description": "Einen Fallenkanal festlegen oder entfernen.",
+            "param_channel_name": "kanal",
+            "param_channel": "Der Kanal, der als Fallenkanal verwendet werden soll."
+        },
+        "trap_punishment": {
+            "description": "Die Bestrafung für Nachrichten in einem Fallenkanal konfigurieren.",
+            "param_punishment_type_name": "bestrafung",
+            "param_punishment_type": "Die Art der Bestrafung für Nachrichten in einem Fallenkanal.",
+            "param_duration_name": "dauer",
+            "param_duration": "Dauer der Bestrafung. Bei einem Bann: 0 bedeutet Kick.",
+            "param_role_name": "rolle",
+            "param_role": "Die Rolle, die dem Verstoßenden zugewiesen werden soll."
+        },
+        "temp_ban": {
+            "description": "Ein Mitglied vorübergehend bannen",
+            "param_member_name": "mitglied",
+            "param_member": "Das Mitglied, das vorübergehend gebannt werden soll",
+            "param_duration_name": "dauer",
+            "param_duration": "Dauer des Banns (z. B. 1h, 3d, 30m)",
+            "param_reason_name": "grund",
+            "param_reason": "Grund für den Bann"
         }
     },
 	"help": {
 		"title": "📚 Liste der Bot-Befehle",
-		"intro": "Serversprache: {server_locale}\n\nNachfolgend findest du eine Liste aller Befehle und ihrer Funktionen:",
+		"intro": "Serversprache: {server_locale}",
 		"footer": "Bot online seit",
 		"parameters": "Parameter",
 		"optional_parameters": "\n-# Optionale Parameter",
 		"unknown_command": ":x: Unbekannter Befehl",
+        "select_placeholder": "Wähle eine Befehlskategorie",
+        "additional_field": "Zusätzliche Informationen",
 		"outro": {
 			"title": ":blue_book: Nützliche Informationen",
-			"value": "[Support-Server](https://discord.gg/ftUm7FbJDw) | [Datenschutzerklärung](https://gist.github.com/security-camera/c1c4ffc74fb2407b06044e4ab8607e71) | [Nutzungsbedingungen](https://gist.github.com/security-camera/147e20418f9528e2e64d5e9e87c40977) | [Github](https://github.com/security-camera/Devi-Discord-Bot)"
+			"value": "[Support-Server](https://discord.gg/ftUm7FbJDw) | [Datenschutzerklärung](https://gist.github.com/security-camera/c1c4ffc74fb2407b06044e4ab8607e71) | [Nutzungsbedingungen](https://gist.github.com/security-camera/147e20418f9528e2e64d5e9e87c40977) | [Github](https://github.com/security-camera/Devi-Discord-Bot) | [Website](https://devi-discord-bot.duckdns.org:8443/)"
 		},
         "monitorings": {
             "title": ":mag: Bot über Überwachung",
@@ -485,7 +513,7 @@
 				"value": "• /trigger\n• /triggers"
 			},
 			"utils": {
-				"name": ":globe_with_meridians: Dienstprogramme",
+				"name": "🌐 Dienstprogramme",
 				"value": "• /random\n• /coin\n• /ball\n• /avatar\n• /qr\n• /preview"
 			},
 			"messages": {
@@ -502,10 +530,10 @@
 			},
 			"admin": {
 				"name": "⚙️ Administration",
-				"value": "• /clear\n• /set_log_channel\n• /language\n• /command_id\n• /slowmode\n• /temp_role"
+				"value": "• /clear\n• /set_log_channel\n• /language\n• /command_id\n• /slowmode\n• /temp_role\n• /temp_ban"
 			},
 			"permissions": {
-				"name": ":file_folder:  Berechtigungen",
+				"name": "📁 Berechtigungen",
 				"value": "• /permissions manage\n• /permissions list"
 			},
 			"warns": {
@@ -517,16 +545,22 @@
 				"value": "• /giveaway_start\n• /giveaway_end\n• /giveaway_reroll\n• /giveaway_list"
 			},
 			"music": {
-				"name": ":musical_note: Musik",
-				"value": "• /music interface\n• /music play\n• /music pause\n• /music loop\n• /music queue\n• /music resume\n• /music skip\n• /music stop"
+				"name": "🎵 Musik",
+				"value": "• /music interface\n• /music play\n• /music pause\n• /music loop\n• /music queue\n• /music resume\n• /music skip\n• /music stop",
+                "additional": "**Wie richte ich das Interface ein?**\n1. Erstelle/wähle einen Kanal für das Musik-Interface.\n2. Sende das Musik-Interface über /music interface\n3. Konfiguriere die bot.MusicBlackList-Berechtigung (optional)\n\n**Unterstützte Plattformen:**\nYouTube"
 			},
             "birthdays": {
-                "name": ":partying_face: Geburtstage",
-                "value": "• /birthday set\n• /birthday check\n• /birthday remove\n• /birthday channel"
+                "name": "🥳 Geburtstage",
+                "value": "• /birthday set\n• /birthday check\n• /birthday remove\n• /birthday channel",
+                "additional": "**Wie richtet man Geburtstage ein?**\n1. Erstelle/wähle einen Kanal für Geburtstagsgrüße.\n2. Lege den Kanal mit /birthday channel fest\n\nDer Bot wird nun auf diesem Server automatisch Benutzer beglückwünschen, die ihren Geburtstag mit /birthday set festgelegt haben."
             },
             "temp_voices": {
                 "name": "⌛ Temporäre Sprachkanäle",
                 "value": "• /voice setup\n• /voice interface\n• /voice name\n• /voice open\n• /voice close\n• /voice allow\n• /voice ban\n• /voice kick\n• /voice limit\n• /voice bitrate\n• /voice region"
+            },
+            "security": {
+                "name": "🛡️ Sicherheit",
+                "value": "• /trap channel\n• /trap punishment"
             },
             "developer": {
                 "name": "Entwickler",
@@ -568,7 +602,8 @@
         "manage_panel_current_empty": "Keine Berechtigungen zugewiesen.",
         "manage_panel_footer": "Die Auswahl einer Berechtigung unten erteilt oder entzieht sie sofort.",
         "manage_not_your_session": "❌ Diese Sitzung zur Rechteverwaltung wurde nicht von dir gestartet.",
-        "manage_back_button": "Zurück"
+        "manage_back_button": "Zurück",
+        "page_not_yours": "Nur die Person, die diesen Befehl ausgeführt hat, kann durch die Seiten blättern."
 	},
 	"send_message_cmd": {
 		"message_not_found": "Nachricht mit der angegebenen ID wurde nicht gefunden.",
@@ -796,7 +831,8 @@
 			"user": "Benutzer",
 			"params": "Parameter",
 			"server": "Server",
-			"members_count": "Mitglieder"
+			"members_count": "Mitglieder",
+            "reason": "Grund"
 		},
 		"common": {
 			"unknown": "Unbekannt",
@@ -1162,5 +1198,31 @@
             "field_region": "Region",
             "field_previous_owner": "Vorheriger Besitzer"
         }
+    },
+    "trap_cog": {
+        "sticky": "⚠️ Dieser Kanal ist eine Falle. Jede Nachricht in diesem Kanal führt zu einer Bestrafung.",
+        "punish_reason": "Nachricht in einem Fallenkanal gesendet.",
+        "nothing_to_remove": "❌ Es ist kein Fallenkanal eingerichtet.",
+        "permission_error": "❌ Der Fallenkanal konnte nicht geändert werden. Der Bot hat nicht genügend Berechtigungen.",
+        "channel_removed": "✅ Fallenkanal entfernt.",
+        "channel_set": "✅ Fallenkanal auf {channel} gesetzt.",
+        "channel_not_set": "❌ Richte zuerst einen Fallenkanal ein.",
+        "invalid_timeout": "❌ Ungültige Timeout-Dauer. Maximale Dauer: {max_duration}.",
+        "role_required": "❌ Für eine Bestrafung mit einer Rolle musst du eine Rolle angeben.",
+        "punishment_set": "✅ Bestrafung festgelegt: {punishment}.\nDauer: {duration}.\nRolle: {role}.",
+        "punishment_types": {
+            "00": "Timeout",
+            "01": "Ban / Kick",
+            "02": "Rolle"
+        }
+    },
+    "temp_ban_cmd": {
+        "member_too_high_for_bot": "Ich kann dieses Mitglied nicht bannen — seine Rolle ist höher als oder gleich meiner.",
+        "member_too_high_for_user": "Du kannst dieses Mitglied nicht bannen — seine Rolle ist höher als oder gleich deiner.",
+        "forbidden": "Mir fehlt die Berechtigung, dieses Mitglied zu bannen.",
+        "http_error": "Bann fehlgeschlagen: {error}",
+        "success": "{member} wurde bis {expires_full} ({expires_relative}) gebannt.",
+        "log_banned_title": "Temporärer Bann verhängt",
+        "field_expires": "Läuft ab"
     }
 }

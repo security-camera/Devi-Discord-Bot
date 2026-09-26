@@ -11,7 +11,7 @@
             "day": "д",
             "hour": "ч",
             "minute": "м",
-            "second": "c"
+            "second": "с"
         },
         "duration_units": {
             "year": "лет",
@@ -458,18 +458,46 @@
             "description": "Устанавливает голосовой регион вашего временного канала",
             "param_region_name": "регион",
             "param_region": "Голосовой регион"
+        },
+        "trap": {
+            "description": "Настроить каналы-ловушки."
+        },
+        "trap_channel": {
+            "description": "Установить или удалить канал-ловушку.",
+            "param_channel_name": "канал",
+            "param_channel": "Канал, который будет использоваться как канал-ловушка."
+        },
+        "trap_punishment": {
+            "description": "Настроить наказание за сообщение в канале-ловушке.",
+            "param_punishment_type_name": "наказание",
+            "param_punishment_type": "Тип наказания за сообщение в канале-ловушке.",
+            "param_duration_name": "длительность",
+            "param_duration": "Длительность наказания. Для бана: 0 — кик.",
+            "param_role_name": "роль",
+            "param_role": "Роль, которая будет выдана нарушителю."
+        },
+        "temp_ban": {
+            "description": "Забанить участника на определённый срок",
+            "param_member_name": "участник",
+            "param_member": "Участник, которого нужно временно забанить",
+            "param_duration_name": "срок",
+            "param_duration": "Длительность бана (например: 1h, 3d, 30m)",
+            "param_reason_name": "причина",
+            "param_reason": "Причина бана"
         }
     },
     "help": {
         "title": "📚 Список команд бота",
-        "intro": "Язык сервера: {server_locale}\n\nНиже приведен перечень всех команд и их функций:",
+        "intro": "Язык сервера: {server_locale}",
         "footer": "Бот онлайн с",
         "parameters": "Параметры",
         "optional_parameters": "\n-# Необязательные параметры",
         "unknown_command": ":x: Неизвестная команда",
+        "select_placeholder": "Выберите категорию команд",
+        "additional_field": "Дополнительно",
         "outro": {
             "title": ":blue_book: Полезная информация",
-            "value": "[Сервер поддержки](https://discord.gg/ftUm7FbJDw) | [Политика конфиденциальности](https://gist.github.com/security-camera/c1c4ffc74fb2407b06044e4ab8607e71) | [Условия пользования](https://gist.github.com/security-camera/147e20418f9528e2e64d5e9e87c40977) | [Github](https://github.com/security-camera/Devi-Discord-Bot)"
+            "value": "[Сервер поддержки](https://discord.gg/ftUm7FbJDw) | [Политика конфиденциальности](https://gist.github.com/security-camera/c1c4ffc74fb2407b06044e4ab8607e71) | [Условия пользования](https://gist.github.com/security-camera/147e20418f9528e2e64d5e9e87c40977) | [Github](https://github.com/security-camera/Devi-Discord-Bot) | [Сайт](https://devi-discord-bot.duckdns.org:8443/)"
         },
         "monitorings": {
             "title": ":mag: Бот на мониторингах",
@@ -485,7 +513,7 @@
                 "value": "• /trigger\n• /triggers"
             },
             "utils": {
-                "name": ":globe_with_meridians: Утилиты",
+                "name": "🌐 Утилиты",
                 "value": "• /random\n• /coin\n• /ball\n• /avatar\n• /qr\n• /preview"
             },
             "messages": {
@@ -502,10 +530,10 @@
             },
             "admin": {
                 "name": "⚙️ Админские",
-                "value": "• /clear\n• /set_log_channel\n• /language\n• /command_id\n• /temp_role\n• /slowmode"
+                "value": "• /clear\n• /set_log_channel\n• /language\n• /command_id\n• /temp_role\n• /slowmode\n• /temp_ban"
             },
             "permissions": {
-                "name": ":file_folder:  Права",
+                "name": "📁 Права",
                 "value": "• /permissions manage\n• /permissions list"
             },
             "warns": {
@@ -517,16 +545,23 @@
                 "value": "• /giveaway_start\n• /giveaway_end\n• /giveaway_reroll\n• /giveaway_list"
             },
             "music": {
-                "name": ":musical_note: Музыка",
-                "value": "• /music interface\n• /music play\n• /music pause\n• /music loop\n• /music queue\n• /music resume\n• /music skip\n• /music stop"
+                "name": "🎵 Музыка",
+                "value": "• /music interface\n• /music play\n• /music pause\n• /music loop\n• /music queue\n• /music resume\n• /music skip\n• /music stop",
+                "additional": "**Как настроить интерфейс?**\n1. Создайте/выберите канал для музыкального интерфейса.\n2. Отправьте музыкальный интерфейс через /music interface\n3. Настройте разрешение bot.MusicBlackList (необязательно)\n\n**Поддерживаемые платформы:**\nYouTube"
             },
             "birthdays": {
-                "name": ":partying_face: Дни рождения",
-                "value": "• /birthday set\n• /birthday check\n• /birthday remove\n• /birthday channel"
+                "name": "🥳 Дни рождения",
+                "value": "• /birthday set\n• /birthday check\n• /birthday remove\n• /birthday channel",
+                "additional": "**Как настроить дни рождения?**\n1. Создайте/выберите канал для поздравлений с днём рождения.\n2. Установите канал с помощью /birthday channel\n\nТеперь пользователей, которые установили день рождения с помощью /birthday set, бот автоматически поздравляет на этом сервере"
             },
             "temp_voices": {
                 "name": "⌛ Временные голосовые",
-                "value": "• /voice setup\n• /voice interface\n• /voice name\n• /voice open\n• /voice close\n• /voice allow\n• /voice ban\n• /voice kick\n• /voice limit\n• /voice bitrate\n• /voice region"
+                "value": "• /voice setup\n• /voice interface\n• /voice name\n• /voice open\n• /voice close\n• /voice allow\n• /voice ban\n• /voice kick\n• /voice limit\n• /voice bitrate\n• /voice region",
+                "additional": "**Что такое временные голосовые каналы?**\nВременные голосовые — это каналы, создаваемые пользователями в результате захода в лобби-канал. Владелец временного голосового канал может самостоятельно настраивать конкретно свой канал.\n\n**Как настроить временные голосовые каналы?**\n1. Создайте/выберите канал-лобби\n2. Установите канал лобби с помощью /voice setup\n\nУбедитесь, что у бота есть достаточно прав"
+            },
+            "security": {
+                "name": "🛡️ Безопасность",
+                "value": "• /trap channel\n• /trap punishment"
             },
             "developer": {
                 "name": "Разработчик",
@@ -568,7 +603,8 @@
         "manage_panel_current_empty": "Прав не назначено.",
         "manage_panel_footer": "Выбор права в меню ниже мгновенно выдаёт его или забирает.",
         "manage_not_your_session": "❌ Эта сессия управления правами открыта не вами.",
-        "manage_back_button": "Назад"
+        "manage_back_button": "Назад",
+        "page_not_yours": "Только автор команды может листать страницы."
     },
     "send_message_cmd": {
         "message_not_found": "Сообщение с указанным ID не найдено.",
@@ -796,7 +832,8 @@
             "user": "Пользователь",
             "params": "Параметры",
             "server": "Сервер",
-            "members_count": "Участников"
+            "members_count": "Участников",
+            "reason": "Причина"
         },
         "common": {
             "unknown": "Неизвестно",
@@ -1162,5 +1199,31 @@
             "field_region": "Регион",
             "field_previous_owner": "Предыдущий владелец"
         }
+    },
+    "trap_cog": {
+        "sticky": "⚠️ Этот канал является ловушкой. Любое сообщение в нём приведёт к наказанию.",
+        "punish_reason": "Отправка сообщения в канал-ловушку.",
+        "nothing_to_remove": "❌ Канал-ловушка не настроен.",
+        "permission_error": "❌ Не удалось изменить канал-ловушку. У бота недостаточно прав.",
+        "channel_removed": "✅ Канал-ловушка удалён.",
+        "channel_set": "✅ Канал-ловушка установлен: {channel}",
+        "channel_not_set": "❌ Сначала настройте канал-ловушку.",
+        "invalid_timeout": "❌ Недопустимая длительность timeout. Максимальная длительность: {max_duration}.",
+        "role_required": "❌ Для наказания ролью необходимо указать роль.",
+        "punishment_set": "✅ Наказание установлено: {punishment}.\nДлительность: {duration}.\nРоль: {role}.",
+        "punishment_types": {
+            "00": "Таймаут",
+            "01": "Бан / Кик",
+            "02": "Роль"
+        }
+    },
+    "temp_ban_cmd": {
+        "member_too_high_for_bot": "Я не могу забанить этого участника — его роль выше или равна моей.",
+        "member_too_high_for_user": "Вы не можете забанить этого участника — его роль выше или равна вашей.",
+        "forbidden": "У меня недостаточно прав, чтобы забанить этого участника.",
+        "http_error": "Не удалось забанить участника: {error}",
+        "success": "{member} забанен(а) до {expires_full} ({expires_relative}).",
+        "log_banned_title": "Временный бан выдан",
+        "field_expires": "Истекает"
     }
 }

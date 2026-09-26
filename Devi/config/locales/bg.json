@@ -458,18 +458,46 @@
             "description": "Задава гласовия регион на вашия временен канал",
             "param_region_name": "регион",
             "param_region": "Гласов регион"
+        },
+        "trap": {
+            "description": "Конфигуриране на канали-капани."
+        },
+        "trap_channel": {
+            "description": "Задаване или премахване на канал-капан.",
+            "param_channel_name": "канал",
+            "param_channel": "Каналът, който ще се използва като канал-капан."
+        },
+        "trap_punishment": {
+            "description": "Конфигуриране на наказанието за изпращане на съобщение в канал-капан.",
+            "param_punishment_type_name": "наказание",
+            "param_punishment_type": "Видът наказание за изпращане на съобщение в канал-капан.",
+            "param_duration_name": "продължителност",
+            "param_duration": "Продължителност на наказанието. При бан: 0 означава kick.",
+            "param_role_name": "роля",
+            "param_role": "Ролята, която ще бъде дадена на нарушителя."
+        },
+        "temp_ban": {
+            "description": "Временно баниране на потребител",
+            "param_member_name": "потребител",
+            "param_member": "Потребителят, който да бъде временно баннат",
+            "param_duration_name": "продължителност",
+            "param_duration": "Продължителност на бана (напр. 1h, 3d, 30m)",
+            "param_reason_name": "причина",
+            "param_reason": "Причина за бана"
         }
     },
     "help": {
         "title": "📚 Списък с командите на бота",
-        "intro": "Език на сървъра: {server_locale}\n\nПо-долу е даден списък с всички команди и техните функции:",
+        "intro": "Език на сървъра: {server_locale}",
         "footer": "Ботът е онлайн от",
         "parameters": "Параметри",
         "optional_parameters": "\n-# Незадължителни параметри",
         "unknown_command": ":x: Неизвестна команда",
+        "select_placeholder": "Изберете категория команди",
+        "additional_field": "Допълнителна информация",
         "outro": {
             "title": ":blue_book: Полезна информация",
-            "value": "[Сървър за поддръжка](https://discord.gg/ftUm7FbJDw) | [Политика за поверителност](https://gist.github.com/security-camera/c1c4ffc74fb2407b06044e4ab8607e71) | [Условия за ползване](https://gist.github.com/security-camera/147e20418f9528e2e64d5e9e87c40977) | [Github](https://github.com/security-camera/Devi-Discord-Bot)"
+            "value": "[Сървър за поддръжка](https://discord.gg/ftUm7FbJDw) | [Политика за поверителност](https://gist.github.com/security-camera/c1c4ffc74fb2407b06044e4ab8607e71) | [Условия за ползване](https://gist.github.com/security-camera/147e20418f9528e2e64d5e9e87c40977) | [Github](https://github.com/security-camera/Devi-Discord-Bot) | [Сайт](https://devi-discord-bot.duckdns.org:8443/)"
         },
         "monitorings": {
             "title": ":mag: Ботът в мониторингови сайтове",
@@ -485,7 +513,7 @@
                 "value": "• /trigger\n• /triggers"
             },
             "utils": {
-                "name": ":globe_with_meridians: Помощни",
+                "name": "🌐 Помощни",
                 "value": "• /random\n• /coin\n• /ball\n• /avatar\n• /qr\n• /preview"
             },
             "messages": {
@@ -502,10 +530,10 @@
             },
             "admin": {
                 "name": "⚙️ Административни",
-                "value": "• /clear\n• /set_log_channel\n• /language\n• /command_id\n• /temp_role\n• /slowmode"
+                "value": "• /clear\n• /set_log_channel\n• /language\n• /command_id\n• /temp_role\n• /slowmode\n• /temp_ban"
             },
             "permissions": {
-                "name": ":file_folder:  Права",
+                "name": "📁 Права",
                 "value": "• /permissions manage\n• /permissions list"
             },
             "warns": {
@@ -517,16 +545,23 @@
                 "value": "• /giveaway_start\n• /giveaway_end\n• /giveaway_reroll\n• /giveaway_list"
             },
             "music": {
-                "name": ":musical_note: Музика",
-                "value": "• /music interface\n• /music play\n• /music pause\n• /music loop\n• /music queue\n• /music resume\n• /music skip\n• /music stop"
+                "name": "🎵 Музика",
+                "value": "• /music interface\n• /music play\n• /music pause\n• /music loop\n• /music queue\n• /music resume\n• /music skip\n• /music stop",
+                "additional": "**Как да настроите интерфейса?**\n1. Създайте/изберете канал за музикалния интерфейс.\n2. Изпратете музикалния интерфейс чрез /music interface\n3. Конфигурирайте разрешението bot.MusicBlackList (по избор)\n\n**Поддържани платформи:**\nYouTube"
             },
             "birthdays": {
-                "name": ":partying_face: Рождени дни",
-                "value": "• /birthday set\n• /birthday check\n• /birthday remove\n• /birthday channel"
+                "name": "🥳 Рождени дни",
+                "value": "• /birthday set\n• /birthday check\n• /birthday remove\n• /birthday channel",
+                "additional": "**Как да настроите рождените дни?**\n1. Създайте/изберете канал за поздравления за рожден ден.\n2. Задайте канала чрез /birthday channel\n\nСега ботът автоматично ще поздравява в този сървър потребителите, които са задали рождения си ден чрез /birthday set."
             },
             "temp_voices": {
                 "name": "⌛ Временни гласови",
-                "value": "• /voice setup\n• /voice interface\n• /voice name\n• /voice open\n• /voice close\n• /voice allow\n• /voice ban\n• /voice kick\n• /voice limit\n• /voice bitrate\n• /voice region"
+                "value": "• /voice setup\n• /voice interface\n• /voice name\n• /voice open\n• /voice close\n• /voice allow\n• /voice ban\n• /voice kick\n• /voice limit\n• /voice bitrate\n• /voice region",
+                "additional": "**Какво представляват временните гласови канали?**\nВременните гласови канали са канали, създавани от потребителите при влизане в лоби канал. Собственикът на временния гласов канал може самостоятелно да настройва своя канал.\n\n**Как да настроите временните гласови канали?**\n1. Създайте/изберете лоби канал\n2. Задайте лоби канала чрез /voice setup\n\nУверете се, че ботът има достатъчно права"
+            },
+            "security": {
+                "name": "🛡️ Сигурност",
+                "value": "• /trap channel\n• /trap punishment"
             },
             "developer": {
                 "name": "Разработчик",
@@ -568,7 +603,8 @@
         "manage_panel_current_empty": "Няма зададени права.",
         "manage_panel_footer": "Избирането на право от менюто по-долу веднага го дава или отнема.",
         "manage_not_your_session": "❌ Тази сесия за управление на правата не е отворена от вас.",
-        "manage_back_button": "Назад"
+        "manage_back_button": "Назад",
+        "page_not_yours": "Само потребителят, изпълнил командата, може да разгръща страниците."
     },
     "send_message_cmd": {
         "message_not_found": "Съобщението с посоченото ID не е намерено.",
@@ -795,7 +831,8 @@
             "user": "Потребител",
             "params": "Параметри",
             "server": "Сървър",
-            "members_count": "Участници"
+            "members_count": "Участници",
+            "reason": "Причина"
         },
         "common": {
             "unknown": "Неизвестно",
@@ -1161,5 +1198,31 @@
             "field_region": "Регион",
             "field_previous_owner": "Предишен собственик"
         }
+    },
+    "trap_cog": {
+        "sticky": "⚠️ Този канал е капан. Всяко съобщение, изпратено тук, ще доведе до наказание.",
+        "punish_reason": "Изпращане на съобщение в канал-капан.",
+        "nothing_to_remove": "❌ Няма настроен канал-капан.",
+        "permission_error": "❌ Неуспешна промяна на канала-капан. Ботът няма достатъчно права.",
+        "channel_removed": "✅ Каналът-капан е премахнат.",
+        "channel_set": "✅ Каналът-капан е зададен: {channel}",
+        "channel_not_set": "❌ Първо настройте канал-капан.",
+        "invalid_timeout": "❌ Невалидна продължителност на timeout. Максимална продължителност: {max_duration}.",
+        "role_required": "❌ Трябва да посочите роля за наказание с роля.",
+        "punishment_set": "✅ Наказанието е зададено: {punishment}.\nПродължителност: {duration}.\nРоля: {role}.",
+        "punishment_types": {
+            "00": "Timeout",
+            "01": "Ban / Kick",
+            "02": "Роля"
+        }
+    },
+    "temp_ban_cmd": {
+        "member_too_high_for_bot": "Не мога да баня този потребител — ролята му е по-висока или равна на моята.",
+        "member_too_high_for_user": "Не можете да баните този потребител — ролята му е по-висока или равна на вашата.",
+        "forbidden": "Нямам права да баня този потребител.",
+        "http_error": "Банването не бе успешно: {error}",
+        "success": "{member} е баннат(а) до {expires_full} ({expires_relative}).",
+        "log_banned_title": "Издаден временен бан",
+        "field_expires": "Изтича"
     }
 }

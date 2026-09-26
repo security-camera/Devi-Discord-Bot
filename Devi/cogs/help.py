@@ -17,12 +17,20 @@ UPTIME = datetime.now(timezone.utc)
 COMMAND_PATTERN = re.compile(r"(?<![\w./-])/([a-zA-Z0-9_]+(?: [a-zA-Z0-9_]+)*)")
 COMMAND_MENTIONS = {}
 
+HELP_SECTIONS = [
+    "mention", "triggers", "utils", "messages", "voice", "ai", "admin",
+    "warns", "giveaway", "music", "birthdays", "temp_voices", "security",
+    "permissions",
+]
+
+
 class CommandMentionFormatException(Exception):
     PREFIX = "An error detected while formatting command mention: "
 
     def __init__(self, message: str):
         self.message = message
         super().__init__(self.PREFIX + message)
+
 
 def register_commands(cmds):
     for command in cmds:
@@ -52,6 +60,7 @@ def register_subcommands(options, path, command_id):
         if option.options:
             register_subcommands(option.options, full_name, command_id)
 
+
 def format_commands(text: str, guild_id: int, show_descriptions: bool) -> str:
     def replace(match: re.Match[str]) -> str:
         words = match.group(1).split(" ")
@@ -73,6 +82,7 @@ def format_commands(text: str, guild_id: int, show_descriptions: bool) -> str:
         raise CommandMentionFormatException(f"/{match.group(1)} not found in COMMAND_MENTIONS")
 
     return COMMAND_PATTERN.sub(replace, text)
+
 
 def find_command(cmds, query: str):
     query = query.strip("/").lower()
@@ -107,6 +117,7 @@ def _find_subcommand(parent, query: str, path: str, command_id: int):
 
     return None
 
+
 def add_chunked_field(embed: disnake.Embed, name: str, value: str, inline: bool) -> None:
     """Adds a field to the embed, splitting the value into multiple fields if it exceeds Discord's limit (1024 characters)."""
     max_field_length = 1024
@@ -134,6 +145,118 @@ def add_chunked_field(embed: disnake.Embed, name: str, value: str, inline: bool)
             value=chunk,
             inline=inline
         )
+
+def get_help_sections(author) -> list[str]:
+    sections = list(HELP_SECTIONS)
+
+    if has_permissions(author, None, Permission.Developer):
+        sections.append("developer")
+
+    return sections
+
+
+def build_section_embed(bot: commands.Bot, section: str, gid: int, show_descriptions: bool) -> disnake.Embed:
+    """Build the embed for a single help category (its commands + optional extra info)."""
+    embed_value = i18n.t(f"help.sections.{section}.value", locale=gid, bot_id=bot.user.id)
+
+    embed = disnake.Embed(
+        title=i18n.t(f"help.sections.{section}.name", locale=gid),
+        description=format_commands(embed_value, gid, show_descriptions),
+        color=disnake.Color.blue(),
+        timestamp=UPTIME,
+    )
+
+    additional = i18n.try_t(f"help.sections.{section}.additional", locale=gid)
+    if additional:
+        add_chunked_field(
+            embed,
+            name=i18n.t("help.additional_field", locale=gid),
+            value=format_commands(additional, gid, False),
+            inline=False,
+        )
+
+    embed.set_footer(text=i18n.t("help.footer", locale=gid))
+
+    return embed
+
+
+def build_main_embed(gid: int) -> disnake.Embed:
+    """Build the landing page embed shown when /help is called with no arguments."""
+    embed = disnake.Embed(
+        title=i18n.t("help.title", locale=gid),
+        description=i18n.t(
+            "help.intro",
+            locale=gid,
+            server_locale=f"**{get_locale_display_name(get_localization(gid), True)}**",
+        ),
+        color=disnake.Color.blue(),
+        timestamp=UPTIME,
+    )
+
+    embed.add_field(
+        name=i18n.t("help.outro.title", locale=gid),
+        value=i18n.t("help.outro.value", locale=gid),
+        inline=False,
+    )
+
+    embed.add_field(
+        name=i18n.t("help.monitorings.title", locale=gid),
+        value=format_commands(i18n.t("help.monitorings.value", locale=gid), gid, False),
+        inline=False,
+    )
+
+    embed.set_footer(text=i18n.t("help.footer", locale=gid))
+
+    return embed
+
+
+class HelpCategorySelect(disnake.ui.StringSelect):
+    def __init__(self, bot: commands.Bot, sections: list[str], gid: int, show_descriptions: bool):
+        options = [
+            disnake.SelectOption(
+                label=i18n.t(f"help.sections.{section}.name", locale=gid),
+                value=section,
+            )
+            for section in sections
+        ]
+
+        super().__init__(
+            placeholder=i18n.t("help.select_placeholder", locale=gid),
+            min_values=1,
+            max_values=1,
+            options=options,
+            custom_id="help_category_select",
+        )
+
+        self.bot = bot
+        self.gid = gid
+        self.show_descriptions = show_descriptions
+
+    async def callback(self, interaction: disnake.MessageInteraction):
+        section = self.values[0]
+        embed = build_section_embed(self.bot, section, self.gid, self.show_descriptions)
+
+        await interaction.response.edit_message(embed=embed, view=self.view)
+
+
+class HelpView(disnake.ui.View):
+    def __init__(self, bot: commands.Bot, sections: list[str], gid: int, show_descriptions: bool):
+        super().__init__(timeout=180)
+        self.message: disnake.Message | None = None
+        self.add_item(HelpCategorySelect(bot, sections, gid, show_descriptions))
+
+    async def on_timeout(self):
+        if self.message is None:
+            return
+
+        for item in self.children:
+            item.disabled = True
+
+        try:
+            await self.message.edit(view=self)
+        except disnake.HTTPException:
+            pass
+
 
 class HelpCog(commands.Cog):
     def __init__(self, bot: commands.Bot):
@@ -206,7 +329,6 @@ class HelpCog(commands.Cog):
                 title=mention,
                 color=disnake.Color.blue(),
                 timestamp=UPTIME,
-
             )
 
             if show_descriptions:
@@ -248,43 +370,16 @@ class HelpCog(commands.Cog):
                 embed=embed,
                 ephemeral=True
             )
-        else:
-            embed = disnake.Embed(
-                title=i18n.t("help.title", locale=gid),
-                description=i18n.t("help.intro", locale=gid, server_locale=f"**{get_locale_display_name(get_localization(gid), True)}**"),
-                color=disnake.Color.blue(),
-                timestamp=UPTIME
-            )
 
-            sections = ["mention", "triggers", "utils", "messages", "voice", "ai", "admin", "warns", "giveaway", "music", "birthdays", "temp_voices", "permissions"]
+        embed = build_main_embed(gid)
+        sections = get_help_sections(inter.author)
+        view = HelpView(self.bot, sections, gid, show_descriptions)
 
-            if has_permissions(inter.author, inter.channel, Permission.Developer):
-                sections.append("developer")
+        await inter.response.send_message(embed=embed, view=view, ephemeral=True)
+        view.message = await inter.original_response()
 
-            for section in sections:
-                embed_value = i18n.t(f"help.sections.{section}.value", locale=gid, bot_id=self.bot.user.id)
-                add_chunked_field(
-                    embed,
-                    name=i18n.t(f"help.sections.{section}.name", locale=gid),
-                    value=format_commands(embed_value, gid, show_descriptions),
-                    inline=not show_descriptions
-                )
+        return None
 
-        embed.add_field(
-            name=i18n.t("help.outro.title", locale=gid),
-            value=i18n.t("help.outro.value", locale=gid),
-            inline=False
-        )
-
-        embed.add_field(
-            name=i18n.t("help.monitorings.title", locale=gid),
-            value=format_commands(i18n.t("help.monitorings.value", locale=gid), gid, False),
-            inline=False
-        )
-
-        embed.set_footer(text=i18n.t("help.footer", locale=gid))
-
-        return await inter.response.send_message(embed=embed, ephemeral=True)
 
 def setup(bot: commands.Bot):
     bot.add_cog(HelpCog(bot))

@@ -458,18 +458,46 @@
             "description": "Asettaa väliaikaisen kanavasi äänialueen",
             "param_region_name": "alue",
             "param_region": "Äänialue"
+        },
+        "trap": {
+            "description": "Määritä ansakanavat."
+        },
+        "trap_channel": {
+            "description": "Aseta tai poista ansakanava.",
+            "param_channel_name": "kanava",
+            "param_channel": "Kanava, jota käytetään ansakanavana."
+        },
+        "trap_punishment": {
+            "description": "Määritä rangaistus ansakanavaan lähetetystä viestistä.",
+            "param_punishment_type_name": "rangaistus",
+            "param_punishment_type": "Rangaistuksen tyyppi ansakanavaan lähetetystä viestistä.",
+            "param_duration_name": "kesto",
+            "param_duration": "Rangaistuksen kesto. Bannissa 0 tarkoittaa kickiä.",
+            "param_role_name": "rooli",
+            "param_role": "Rooli, joka annetaan rikkojalle."
+        },
+        "temp_ban": {
+            "description": "Anna jäsenelle väliaikainen porttikielto",
+            "param_member_name": "jasen",
+            "param_member": "Jäsen, jolle annetaan väliaikainen porttikielto",
+            "param_duration_name": "kesto",
+            "param_duration": "Porttikiellon kesto (esim. 1h, 3d, 30m)",
+            "param_reason_name": "syy",
+            "param_reason": "Porttikiellon syy"
         }
     },
     "help": {
         "title": "📚 Botin komentolista",
-        "intro": "Palvelimen kieli: {server_locale}\n\nAlla on luettelo kaikista komennoista ja niiden toiminnoista:",
+        "intro": "Palvelimen kieli: {server_locale}",
         "footer": "Botti online-tilassa",
         "parameters": "Parametrit",
         "optional_parameters": "\n-# Valinnaiset parametrit",
         "unknown_command": ":x: Tuntematon komento",
+        "select_placeholder": "Valitse komentokategoria",
+        "additional_field": "Lisätietoa",
         "outro": {
             "title": ":blue_book: Hyödyllistä tietoa",
-            "value": "[Tukipalvelin](https://discord.gg/ftUm7FbJDw) | [Tietosuojakäytäntö](https://gist.github.com/security-camera/c1c4ffc74fb2407b06044e4ab8607e71) | [Käyttöehdot](https://gist.github.com/security-camera/147e20418f9528e2e64d5e9e87c40977) | [Github](https://github.com/security-camera/Devi-Discord-Bot)"
+            "value": "[Tukipalvelin](https://discord.gg/ftUm7FbJDw) | [Tietosuojakäytäntö](https://gist.github.com/security-camera/c1c4ffc74fb2407b06044e4ab8607e71) | [Käyttöehdot](https://gist.github.com/security-camera/147e20418f9528e2e64d5e9e87c40977) | [Github](https://github.com/security-camera/Devi-Discord-Bot) | [Sivusto](https://devi-discord-bot.duckdns.org:8443/)"
         },
         "monitorings": {
             "title": ":mag: Botti seurantapalveluissa",
@@ -485,7 +513,7 @@
                 "value": "• /trigger\n• /triggers"
             },
             "utils": {
-                "name": ":globe_with_meridians: Työkalut",
+                "name": "🌐 Työkalut",
                 "value": "• /random\n• /coin\n• /ball\n• /avatar\n• /qr\n• /preview"
             },
             "messages": {
@@ -502,10 +530,10 @@
             },
             "admin": {
                 "name": "⚙️ Ylläpito",
-                "value": "• /clear\n• /set_log_channel\n• /language\n• /command_id\n• /temp_role\n• /slowmode"
+                "value": "• /clear\n• /set_log_channel\n• /language\n• /command_id\n• /temp_role\n• /slowmode\n• /temp_ban"
             },
             "permissions": {
-                "name": ":file_folder:  Oikeudet",
+                "name": "📁 Oikeudet",
                 "value": "• /permissions manage\n• /permissions list"
             },
             "warns": {
@@ -517,16 +545,23 @@
                 "value": "• /giveaway_start\n• /giveaway_end\n• /giveaway_reroll\n• /giveaway_list"
             },
             "music": {
-                "name": ":musical_note: Musiikki",
-                "value": "• /music interface\n• /music play\n• /music pause\n• /music loop\n• /music queue\n• /music resume\n• /music skip\n• /music stop"
+                "name": "🎵 Musiikki",
+                "value": "• /music interface\n• /music play\n• /music pause\n• /music loop\n• /music queue\n• /music resume\n• /music skip\n• /music stop",
+                "additional": "**Kuinka käyttöliittymä otetaan käyttöön?**\n1. Luo/valitse kanava musiikkikäyttöliittymälle.\n2. Lähetä musiikkikäyttöliittymä komennolla /music interface\n3. Määritä bot.MusicBlackList-oikeus (valinnainen)\n\n**Tuetut alustat:**\nYouTube"
             },
             "birthdays": {
-                "name": ":partying_face: Syntymäpäivät",
-                "value": "• /birthday set\n• /birthday check\n• /birthday remove\n• /birthday channel"
+                "name": "🥳 Syntymäpäivät",
+                "value": "• /birthday set\n• /birthday check\n• /birthday remove\n• /birthday channel",
+                "additional": "**Kuinka syntymäpäivät otetaan käyttöön?**\n1. Luo/valitse kanava syntymäpäiväonnitteluille.\n2. Aseta kanava komennolla /birthday channel\n\nBot onnittelee nyt tällä palvelimella automaattisesti käyttäjiä, jotka ovat asettaneet syntymäpäivänsä komennolla /birthday set."
             },
             "temp_voices": {
                 "name": "⌛ Väliaikaiset äänikanavat",
-                "value": "• /voice setup\n• /voice interface\n• /voice name\n• /voice open\n• /voice close\n• /voice allow\n• /voice ban\n• /voice kick\n• /voice limit\n• /voice bitrate\n• /voice region"
+                "value": "• /voice setup\n• /voice interface\n• /voice name\n• /voice open\n• /voice close\n• /voice allow\n• /voice ban\n• /voice kick\n• /voice limit\n• /voice bitrate\n• /voice region",
+                "additional": "**Mitä väliaikaiset äänikanavat ovat?**\nVäliaikaiset äänikanavat ovat kanavia, jotka käyttäjät luovat liittymällä aulakanavaan. Väliaikaisen äänikanavan omistaja voi määrittää oman kanavansa asetukset.\n\n**Kuinka väliaikaiset äänikanavat otetaan käyttöön?**\n1. Luo/valitse aulakanava\n2. Aseta aulakanava komennolla /voice setup\n\nVarmista, että botilla on riittävät oikeudet"
+            },
+            "security": {
+                "name": "🛡️ Turvallisuus",
+                "value": "• /trap channel\n• /trap punishment"
             },
             "developer": {
                 "name": "Kehittäjä",
@@ -568,7 +603,8 @@
         "manage_panel_current_empty": "Oikeuksia ei ole myönnetty.",
         "manage_panel_footer": "Oikeuden valitseminen alla olevasta valikosta myöntää tai poistaa sen välittömästi.",
         "manage_not_your_session": "❌ Tätä oikeuksienhallintaistuntoa et avannut sinä.",
-        "manage_back_button": "Takaisin"
+        "manage_back_button": "Takaisin",
+        "page_not_yours": "Vain komennon suorittanut henkilö voi selata sivuja."
     },
     "send_message_cmd": {
         "message_not_found": "Viestiä annetulla ID:llä ei löytynyt.",
@@ -796,7 +832,8 @@
             "user": "Käyttäjä",
             "params": "Parametrit",
             "server": "Palvelin",
-            "members_count": "Jäseniä"
+            "members_count": "Jäseniä",
+            "reason": "Syy"
         },
         "common": {
             "unknown": "Tuntematon",
@@ -1162,5 +1199,31 @@
             "field_region": "Alue",
             "field_previous_owner": "Aiempi omistaja"
         }
+    },
+    "trap_cog": {
+        "sticky": "⚠️ Tämä kanava on ansa. Jokainen siihen lähetetty viesti johtaa rangaistukseen.",
+        "punish_reason": "Viesti lähetetty ansakanavaan.",
+        "nothing_to_remove": "❌ Ansakanavaa ei ole määritetty.",
+        "permission_error": "❌ Ansakanavan muuttaminen epäonnistui. Botilla ei ole riittäviä oikeuksia.",
+        "channel_removed": "✅ Ansakanava poistettu.",
+        "channel_set": "✅ Ansakanavaksi asetettu {channel}.",
+        "channel_not_set": "❌ Määritä ensin ansakanava.",
+        "invalid_timeout": "❌ Virheellinen timeout-kesto. Enimmäiskesto: {max_duration}.",
+        "role_required": "❌ Rangaistusta varten sinun on määritettävä rooli.",
+        "punishment_set": "✅ Rangaistukseksi asetettu: {punishment}.\nKesto: {duration}.\nRooli: {role}.",
+        "punishment_types": {
+            "00": "Timeout",
+            "01": "Ban / Kick",
+            "02": "Rooli"
+        }
+    },
+    "temp_ban_cmd": {
+        "member_too_high_for_bot": "En voi antaa tälle jäsenelle porttikieltoa — hänen roolinsa on korkeampi tai yhtä korkea kuin minun.",
+        "member_too_high_for_user": "Et voi antaa tälle jäsenelle porttikieltoa — hänen roolinsa on korkeampi tai yhtä korkea kuin sinun.",
+        "forbidden": "Minulla ei ole oikeuksia antaa tälle jäsenelle porttikieltoa.",
+        "http_error": "Porttikiellon antaminen epäonnistui: {error}",
+        "success": "{member} on porttikiellossa {expires_full} asti ({expires_relative}).",
+        "log_banned_title": "Väliaikainen porttikielto annettu",
+        "field_expires": "Päättyy"
     }
 }

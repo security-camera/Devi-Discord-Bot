@@ -161,10 +161,10 @@ class SendCog(commands.Cog):
             self._view_registered = True
 
     @staticmethod
-    def format_sticky(message: str, locale: LocaleObject):
+    def format_sticky(message: str, locale: LocaleObject, sent_by_user: bool = True):
         title = "***__" + i18n.t("send_sticky_cmd.sticky_message", locale=locale) + "__***"
         footer = i18n.t('send_message_cmd.warning', locale=locale)
-        return f"{title}\n\n{message}\n\n{footer}"
+        return f"{title}\n\n{message}" + (f"\n\n{footer}" if sent_by_user else "")
 
 
     # ------------------------------------------------------- sticky repost
@@ -188,7 +188,7 @@ class SendCog(commands.Cog):
                 raise RuntimeError(f"An HTTP error detected while reposting (deleting old) sticky message: {e}")
 
         try:
-            new_message = await message.channel.send(self.format_sticky(record["content"], locale=message.guild.id))
+            new_message = await message.channel.send(self.format_sticky(record["content"], locale=message.guild.id, sent_by_user=record["created_by"]!=str(self.bot.user.id)))
             update_sticky_message_id(message.channel.id, new_message.id)
         except (disnake.NotFound, disnake.Forbidden):
             pass

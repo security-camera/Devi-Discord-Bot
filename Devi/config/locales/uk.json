@@ -458,18 +458,46 @@
             "description": "Встановлює голосовий регіон вашого тимчасового каналу",
             "param_region_name": "регіон",
             "param_region": "Голосовий регіон"
+        },
+        "trap": {
+            "description": "Налаштувати канали-пастки."
+        },
+        "trap_channel": {
+            "description": "Встановити або видалити канал-пастку.",
+            "param_channel_name": "канал",
+            "param_channel": "Канал, який використовуватиметься як канал-пастка."
+        },
+        "trap_punishment": {
+            "description": "Налаштувати покарання за повідомлення в каналі-пастці.",
+            "param_punishment_type_name": "покарання",
+            "param_punishment_type": "Тип покарання за повідомлення в каналі-пастці.",
+            "param_duration_name": "тривалість",
+            "param_duration": "Тривалість покарання. Для бану: 0 — кі́к.",
+            "param_role_name": "роль",
+            "param_role": "Роль, яку буде надано порушнику."
+        },
+        "temp_ban": {
+            "description": "Забанити учасника на певний строк",
+            "param_member_name": "учасник",
+            "param_member": "Учасник, якого потрібно тимчасово забанити",
+            "param_duration_name": "тривалість",
+            "param_duration": "Тривалість бану (наприклад: 1h, 3d, 30m)",
+            "param_reason_name": "причина",
+            "param_reason": "Причина бану"
         }
     },
     "help": {
         "title": "📚 Список команд бота",
-        "intro": "Мова сервера: {server_locale}\n\nНижче наведено перелік усіх команд та їх функцій:",
+        "intro": "Мова сервера: {server_locale}",
         "footer": "Бот онлайн з",
         "parameters": "Параметри",
         "optional_parameters": "\n-# Необов'язкові параметри",
         "unknown_command": ":x: Невідома команда",
+        "select_placeholder": "Оберіть категорію команд",
+        "additional_field": "Додатково",
         "outro": {
             "title": ":blue_book: Корисна інформація",
-            "value": "[Сервер підтримки](https://discord.gg/ftUm7FbJDw) | [Політика конфіденційності](https://gist.github.com/security-camera/c1c4ffc74fb2407b06044e4ab8607e71) | [Умови користування](https://gist.github.com/security-camera/147e20418f9528e2e64d5e9e87c40977) | [Github](https://github.com/security-camera/Devi-Discord-Bot)"
+            "value": "[Сервер підтримки](https://discord.gg/ftUm7FbJDw) | [Політика конфіденційності](https://gist.github.com/security-camera/c1c4ffc74fb2407b06044e4ab8607e71) | [Умови користування](https://gist.github.com/security-camera/147e20418f9528e2e64d5e9e87c40977) | [Github](https://github.com/security-camera/Devi-Discord-Bot) | [Сайт](https://devi-discord-bot.duckdns.org:8443/)"
         },
         "monitorings": {
             "title": ":mag: Бот на моніторингах",
@@ -485,7 +513,7 @@
                 "value": "• /trigger\n• /triggers"
             },
             "utils": {
-                "name": ":globe_with_meridians: Утиліти",
+                "name": "🌐 Утиліти",
                 "value": "• /random\n• /coin\n• /ball\n• /avatar\n• /qr\n• /preview"
             },
             "messages": {
@@ -502,10 +530,10 @@
             },
             "admin": {
                 "name": "⚙️ Адміністративні",
-                "value": "• /clear\n• /set_log_channel\n• /language\n• /command_id\n• /temp_role\n• /slowmode"
+                "value": "• /clear\n• /set_log_channel\n• /language\n• /command_id\n• /temp_role\n• /slowmode\n• /temp_ban"
             },
             "permissions": {
-                "name": ":file_folder:  Права",
+                "name": "📁 Права",
                 "value": "• /permissions manage\n• /permissions list"
             },
             "warns": {
@@ -518,15 +546,22 @@
             },
             "temp_voices": {
                 "name": "⌛ Тимчасові голосові",
-                "value": "• /voice setup\n• /voice interface\n• /voice name\n• /voice open\n• /voice close\n• /voice allow\n• /voice ban\n• /voice kick\n• /voice limit\n• /voice bitrate\n• /voice region"
+                "value": "• /voice setup\n• /voice interface\n• /voice name\n• /voice open\n• /voice close\n• /voice allow\n• /voice ban\n• /voice kick\n• /voice limit\n• /voice bitrate\n• /voice region",
+                "additional": "**Що таке тимчасові голосові канали?**\nТимчасові голосові канали — це канали, які створюються користувачами після входу в канал-лобі. Власник тимчасового голосового каналу може самостійно налаштовувати свій канал.\n\n**Як налаштувати тимчасові голосові канали?**\n1. Створіть/виберіть канал-лобі\n2. Встановіть канал-лобі за допомогою /voice setup\n\nПереконайтеся, що бот має достатньо прав"
             },
             "music": {
-                "name": ":musical_note: Музика",
-                "value": "• /music interface\n• /music play\n• /music pause\n• /music loop\n• /music queue\n• /music resume\n• /music skip\n• /music stop"
+                "name": "🎵 Музика",
+                "value": "• /music interface\n• /music play\n• /music pause\n• /music loop\n• /music queue\n• /music resume\n• /music skip\n• /music stop",
+                "additional": "**Як налаштувати інтерфейс?**\n1. Створіть/виберіть канал для музичного інтерфейсу.\n2. Надішліть музичний інтерфейс через /music interface\n3. Налаштуйте дозвіл bot.MusicBlackList (необов'язково)\n\n**Підтримувані платформи:**\nYouTube"
             },
             "birthdays": {
-                "name": ":partying_face: Дні народження",
-                "value": "• /birthday set\n• /birthday check\n• /birthday remove\n• /birthday channel"
+                "name": "🥳 Дні народження",
+                "value": "• /birthday set\n• /birthday check\n• /birthday remove\n• /birthday channel",
+                                "additional": "**Як налаштувати дні народження?**\n1. Створіть/виберіть канал для привітань із днем народження.\n2. Встановіть канал за допомогою /birthday channel\n\nТепер бот автоматично вітатиме на цьому сервері користувачів, які встановили свій день народження за допомогою /birthday set."
+            },
+            "security": {
+                "name": "🛡️ Безпека",
+                "value": "• /trap channel\n• /trap punishment"
             },
             "developer": {
                 "name": "Розробник",
@@ -568,7 +603,8 @@
         "manage_panel_current_empty": "Прав не призначено.",
         "manage_panel_footer": "Вибір права в меню нижче миттєво видає або забирає його.",
         "manage_not_your_session": "❌ Ця сесія керування правами відкрита не вами.",
-        "manage_back_button": "Назад"
+        "manage_back_button": "Назад",
+        "page_not_yours": "Гортати сторінки може лише той, хто викликав цю команду."
     },
     "send_message_cmd": {
         "message_not_found": "Повідомлення з вказаним ID не знайдено.",
@@ -796,7 +832,8 @@
             "user": "Користувач",
             "params": "Параметри",
             "server": "Сервер",
-            "members_count": "Учасників"
+            "members_count": "Учасників",
+            "reason": "Причина"
         },
         "common": {
             "unknown": "Невідомо",
@@ -1162,5 +1199,31 @@
             "field_region": "Регіон",
             "field_previous_owner": "Попередній власник"
         }
+    },
+    "trap_cog": {
+        "sticky": "⚠️ Цей канал є каналом-пасткою. Будь-яке повідомлення в ньому призведе до покарання.",
+        "punish_reason": "Надсилання повідомлення в канал-пастку.",
+        "nothing_to_remove": "❌ Канал-пастка не налаштовано.",
+        "permission_error": "❌ Не вдалося змінити канал-пастку. Бот не має достатніх прав.",
+        "channel_removed": "✅ Канал-пастку видалено.",
+        "channel_set": "✅ Канал-пастку встановлено: {channel}",
+        "channel_not_set": "❌ Спочатку налаштуйте канал-пастку.",
+        "invalid_timeout": "❌ Неприпустима тривалість timeout. Максимальна тривалість: {max_duration}.",
+        "role_required": "❌ Для покарання роллю необхідно вказати роль.",
+        "punishment_set": "✅ Покарання встановлено: {punishment}. Тривалість: {duration}. Роль: {role}.",
+        "punishment_types": {
+            "00": "Timeout",
+            "01": "Ban / Kick",
+            "02": "Роль"
+        }
+    },
+    "temp_ban_cmd": {
+        "member_too_high_for_bot": "Я не можу забанити цього учасника — його роль вища або дорівнює моїй.",
+        "member_too_high_for_user": "Ви не можете забанити цього учасника — його роль вища або дорівнює вашій.",
+        "forbidden": "У мене недостатньо прав, щоб забанити цього учасника.",
+        "http_error": "Не вдалося забанити учасника: {error}",
+        "success": "{member} забанено до {expires_full} ({expires_relative}).",
+        "log_banned_title": "Тимчасовий бан видано",
+        "field_expires": "Закінчується"
     }
 }

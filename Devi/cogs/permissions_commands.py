@@ -308,6 +308,173 @@ class ManagePanelView(_AuthorGuardedView):
         view.message = inter.message
 
 
+def _split_long_line(line: str, max_length: int) -> list[str]:
+    """Split a single line that's too long to fit on one page.
+
+    Breaks on spaces (so comma/space-separated lists like guild
+    permissions don't get cut mid-word). If a single "word" is somehow
+    still longer than max_length on its own, hard-splits it by character
+    as a last resort so we never produce an oversized chunk.
+    """
+    if len(line) <= max_length:
+        return [line]
+
+    words = line.split(" ")
+    chunks: list[str] = []
+    current = ""
+
+    for word in words:
+        piece = f"{current} {word}" if current else word
+
+        if len(piece) > max_length:
+            if current:
+                chunks.append(current)
+                current = word
+            else:
+                for i in range(0, len(word), max_length):
+                    chunks.append(word[i:i + max_length])
+                current = ""
+        else:
+            current = piece
+
+    if current:
+        chunks.append(current)
+
+    return chunks
+
+def paginate_sections(sections: list[str], max_page_length: int = 3800) -> list[str]:
+    """Pack section blocks into pages within Discord's embed description limit.
+
+    Sections are kept whole when possible (joined with a blank line). If a
+    section is bigger than max_page_length, it's split by line; and if a
+    single line is itself bigger than max_page_length (e.g. one huge
+    comma-separated list with no newlines), that line is further split by
+    word so no page ever exceeds the limit.
+    """
+    pages: list[str] = []
+    current = ""
+
+    def flush():
+        nonlocal current
+        if current:
+            pages.append(current)
+            current = ""
+
+    for section in sections:
+        candidate = f"{current}\n\n{section}" if current else section
+
+        if len(candidate) <= max_page_length:
+            current = candidate
+            continue
+
+        flush()
+
+        if len(section) <= max_page_length:
+            current = section
+            continue
+
+        # Section itself is too big — split by line, expanding any
+        # individual line that's too long on its own.
+        lines: list[str] = []
+        for raw_line in section.split("\n"):
+            lines.extend(_split_long_line(raw_line, max_page_length))
+
+        chunk = ""
+
+        for line in lines:
+            piece = f"{chunk}\n{line}" if chunk else line
+
+            if len(piece) > max_page_length:
+                if chunk:
+                    pages.append(chunk)
+                chunk = line
+            else:
+                chunk = piece
+
+        if chunk:
+            current = chunk
+
+    flush()
+
+    return pages or [""]
+
+
+class PermissionsListView(disnake.ui.View):
+    def __init__(self, pages: list[str], title: str, gid: int, author_id: int):
+        super().__init__(timeout=180)
+        self.pages = pages
+        self.title = title
+        self.gid = gid
+        self.author_id = author_id
+        self.index = 0
+        self.message: disnake.Message | None = None
+
+        self.previous_button = disnake.ui.Button(
+            label="◀",
+            style=disnake.ButtonStyle.secondary,
+            custom_id="permissions_list_previous",
+        )
+        self.previous_button.callback = self.on_previous
+
+        self.next_button = disnake.ui.Button(
+            label="▶",
+            style=disnake.ButtonStyle.secondary,
+            custom_id="permissions_list_next",
+        )
+        self.next_button.callback = self.on_next
+
+        self.add_item(self.previous_button)
+        self.add_item(self.next_button)
+        self.update_buttons()
+
+    def update_buttons(self):
+        self.previous_button.disabled = self.index == 0
+        self.next_button.disabled = self.index >= len(self.pages) - 1
+
+    def build_embed(self) -> disnake.Embed:
+        embed = disnake.Embed(
+            title=self.title,
+            description=self.pages[self.index],
+            color=disnake.Color.blurple(),
+        )
+
+        if len(self.pages) > 1:
+            embed.set_footer(text=f"{self.index + 1}/{len(self.pages)}")
+
+        return embed
+
+    async def interaction_check(self, interaction: disnake.MessageInteraction) -> bool:
+        if interaction.author.id != self.author_id:
+            await interaction.response.send_message(
+                i18n.t("permissions_cmd.page_not_yours", locale=self.gid),
+                ephemeral=True,
+            )
+            return False
+
+        return True
+
+    async def on_previous(self, interaction: disnake.MessageInteraction):
+        self.index = max(0, self.index - 1)
+        self.update_buttons()
+        await interaction.response.edit_message(embed=self.build_embed(), view=self)
+
+    async def on_next(self, interaction: disnake.MessageInteraction):
+        self.index = min(len(self.pages) - 1, self.index + 1)
+        self.update_buttons()
+        await interaction.response.edit_message(embed=self.build_embed(), view=self)
+
+    async def on_timeout(self):
+        if self.message is None:
+            return
+
+        for item in self.children:
+            item.disabled = True
+
+        try:
+            await self.message.edit(view=self)
+        except disnake.HTTPException:
+            pass
+
 class PermissionCog(commands.Cog):
     def __init__(self, bot):
         self.bot: commands.Bot = bot
@@ -333,6 +500,7 @@ class PermissionCog(commands.Cog):
 
         await inter.response.send_message(embed=embed, view=view, ephemeral=True)
         view.message = await inter.original_message()
+        return None
 
     @permissions_command.sub_command(
         name="list",
@@ -380,21 +548,22 @@ class PermissionCog(commands.Cog):
                 ephemeral=True
             )
 
-        text = "\n\n".join(sections)
+        pages = paginate_sections(sections)
 
-        if len(text) > 4000:
-            return await inter.response.send_message(
-                i18n.t("permissions_cmd.list_all_too_long", locale=inter.guild_id),
-                ephemeral=True
-            )
-
-        embed = disnake.Embed(
+        view = PermissionsListView(
+            pages=pages,
             title=i18n.t("permissions_cmd.list_all_title", locale=inter.guild_id),
-            description=text,
-            color=disnake.Color.blurple()
+            gid=inter.guild_id,
+            author_id=inter.author.id,
         )
 
-        return await inter.response.send_message(embed=embed, ephemeral=True)
+        if len(pages) == 1:
+            return await inter.response.send_message(embed=view.build_embed(), ephemeral=True)
+
+        await inter.response.send_message(embed=view.build_embed(), view=view, ephemeral=True)
+        view.message = await inter.original_response()
+
+        return None
 
 
 def setup(bot):
