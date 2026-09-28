@@ -125,7 +125,7 @@ class TrapsCog(commands.Cog):
 
     @commands.Cog.listener()
     async def on_message(self, message: disnake.Message):
-        if not message.guild.id:
+        if not message.guild:
             return
 
         if self.bot.user and message.author.id == self.bot.user.id:

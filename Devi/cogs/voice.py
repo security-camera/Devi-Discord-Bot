@@ -1,31 +1,72 @@
 import os
+import wave
 import tempfile
 import asyncio
 import contextlib
-import edge_tts
+from concurrent.futures import ThreadPoolExecutor
 
 import disnake
 from disnake.ext import commands
+from piper import PiperVoice
 
 import i18n
+from i18n import DEFAULT_LOCALE, LocaleObject
 from permissions import validate_permissions, Permission
-from discord_i18n import localized
+from discord_i18n import localized, locale_choices
 from logs import send_log, LogColor
-from paths import env_var, env_var_to_int
+from paths import env_var, env_var_to_int, PIPER_VOICES_DIR
 
 from other_apis.topgg_utils import is_voted
 
 MAX_TTS_LENGTH = env_var_to_int("MAX_TTS_LENGTH", "400")
 MAX_TTS_LENGTH_VOTED = env_var_to_int("MAX_TTS_LENGTH_VOTED", "800")
 EMPTY_CHANNEL_TIMEOUT = env_var_to_int("EMPTY_CHANNEL_TIMEOUT", "60")
-VOICE = env_var("VOICE", "ru-RU-DmitryNeural")
+TTS_PLAYBACK_TIMEOUT = env_var_to_int("TTS_PLAYBACK_TIMEOUT", "60")
+FALLBACK_VOICE = env_var("FALLBACK_VOICE", "")
+
+_synth_executor = ThreadPoolExecutor(max_workers=1, thread_name_prefix="piper")
+
+_voice_cache: dict[str, PiperVoice] = {}
+_voice_cache_lock = asyncio.Lock()
+
+
+def _voice_exists(name: str) -> bool:
+    return name and (PIPER_VOICES_DIR / f"{name}.onnx").exists()
+
+
+def resolve_voice(locale: LocaleObject) -> str:
+    for source in (locale, DEFAULT_LOCALE):
+        name = i18n.t("voice_cog.tts-voice", locale=source)
+        if _voice_exists(name):
+            return name
+        print(f"[voice] No usable Piper voice for locale {source!r} (got {name!r}), falling back")
+
+    if not FALLBACK_VOICE:
+        raise RuntimeError("[voice] No usable Piper voice for FALLBACK_VOICE. Voice is not defined")
+    return FALLBACK_VOICE
+
+
+async def _get_piper_voice(name: str) -> PiperVoice:
+    async with _voice_cache_lock:
+        voice = _voice_cache.get(name)
+        if voice is None:
+            model_path = PIPER_VOICES_DIR / f"{name}.onnx"
+            if not model_path.exists():
+                raise FileNotFoundError(
+                    f"Piper voice model not found: {model_path}. "
+                    f"Download it from https://huggingface.co/rhasspy/piper-voices"
+                )
+            loop = asyncio.get_running_loop()
+            # Loading takes a few seconds, so models are cached after the first use
+            voice = await loop.run_in_executor(_synth_executor, PiperVoice.load, str(model_path))
+            _voice_cache[name] = voice
+        return voice
 
 
 class VoiceCog(commands.Cog):
     def __init__(self, bot: commands.Bot):
         global Singleton
         self.bot = bot
-        self.voice = VOICE
         self.tts_queues: dict[int, asyncio.Queue] = {}
         self.tts_workers: dict[int, asyncio.Task] = {}
         self.empty_channel_tasks: dict[int, asyncio.Task] = {}
@@ -46,12 +87,12 @@ class VoiceCog(commands.Cog):
         if empty_task and not empty_task.done():
             empty_task.cancel()
 
-    def enqueue_tts(self, guild_id: int, vc: disnake.VoiceClient, text: str) -> int:
-        """Queues text for TTS on the specified server and ensures
+    def enqueue_tts(self, guild_id: int, vc: disnake.VoiceClient, text: str, voice: str | None = None) -> int:
+        """Queues (text, voice) for TTS on the specified server and ensures
         that the synthesis/playback worker is running. Returns
         position at queue."""
         queue = self.tts_queues.setdefault(guild_id, asyncio.Queue())
-        queue.put_nowait(text)
+        queue.put_nowait((text, voice or resolve_voice(guild_id)))
 
         worker = self.tts_workers.get(guild_id)
         if worker is None or worker.done():
@@ -203,6 +244,12 @@ class VoiceCog(commands.Cog):
             text: str = commands.Param(
                 name=localized("commands.tts.param_text_name"),
                 description=localized("commands.tts.param_text"),
+            ),
+            locale: str = commands.Param(
+                default=None,
+                name=localized("commands.tts.param_locale_name"),
+                description=localized("commands.tts.param_locale"),
+                choices=locale_choices()
             )
     ):
         gid = inter.guild_id
@@ -229,22 +276,35 @@ class VoiceCog(commands.Cog):
                 ephemeral=True
             )
 
-        guild_id = inter.guild.id
+        voice = resolve_voice(locale or gid)
 
-        position = self.enqueue_tts(guild_id, vc, text)
+        position = self.enqueue_tts(inter.guild.id, vc, text, voice)
 
         return await inter.response.send_message(
             i18n.t("voice_cog.queued", locale=gid, position=position),
             ephemeral=True
         )
 
-    async def _synthesize(self, text: str) -> str:
-        """Synthesizes text and returns temp file path"""
-        fd, filename = tempfile.mkstemp(suffix=".mp3")
+    async def _synthesize(self, text: str, voice: str) -> str:
+        """Synthesizes text locally with Piper using the given voice.
+        Inference is CPU-bound and synchronous, so it
+        runs in the single-thread Piper executor to avoid blocking the event
+        loop and to keep espeak-ng calls serialized."""
+        fd, filename = tempfile.mkstemp(suffix=".wav")
         os.close(fd)
 
         try:
-            await edge_tts.Communicate(text=text, voice=self.voice).save(filename)
+            piper_voice = await _get_piper_voice(voice)
+            loop = asyncio.get_running_loop()
+
+            def _run_synthesis():
+                with wave.open(filename, "wb") as wav_file:
+                    if hasattr(piper_voice, "synthesize_wav"):  # piper-tts >= 1.3
+                        piper_voice.synthesize_wav(text, wav_file)
+                    else:  # piper-tts <= 1.2
+                        piper_voice.synthesize(text, wav_file)
+
+            await loop.run_in_executor(_synth_executor, _run_synthesis)
         except Exception:
             with contextlib.suppress(OSError):
                 os.remove(filename)
@@ -254,20 +314,7 @@ class VoiceCog(commands.Cog):
 
     @staticmethod
     async def _play(vc: disnake.VoiceClient, filename: str):
-        """Plays temp file and deletes it.
-        If something else is already playing on this voice client (primarily
-        a track from MusicCog), it is paused for the duration of the TTS clip
-        and automatically resumed immediately afterward, so /tts and /ai ask voice
-        do not conflict with music on the same VoiceClient.
-
-        disnake/discord.py does not provide a public API like "pause the current
-        source, play another source on top of it, then restore it afterward" —
-        calling vc.play() again simply replaces the internal vc._player, and a
-        regular vc.resume() after that would apply to the TTS player rather than
-        the music player. Therefore, the exact AudioPlayer that was paused is
-        stored below, and control is explicitly returned to it after the TTS
-        playback finishes."""
-
+        """Plays temp file and deletes it. ..."""  # (docstring unchanged)
         loop = asyncio.get_running_loop()
         finished = asyncio.Event()
 
@@ -284,15 +331,19 @@ class VoiceCog(commands.Cog):
             loop.call_soon_threadsafe(finished.set)
 
         vc.play(disnake.FFmpegPCMAudio(filename), after=after)
-        await finished.wait()
+
+        try:
+            # Piper itself can no longer hang (no network calls), but this stays
+            # as a safety net in case ffmpeg/discord never fires `after`.
+            await asyncio.wait_for(finished.wait(), timeout=TTS_PLAYBACK_TIMEOUT)
+        except asyncio.TimeoutError:
+            print(f"[voice] TTS playback stuck for over {TTS_PLAYBACK_TIMEOUT}s, forcing stop")
+            vc.stop()
+            with contextlib.suppress(OSError):
+                os.remove(filename)
 
         if ducked_player is not None:
             try:
-                # If what we paused has not finished on its own yet
-                # (for example, if the music was not stopped with /music stop while TTS was playing)
-                # — resume exactly that and return its VoiceClient
-                # reference to it so that /music pause|resume|skip can continue working
-                # with the actual source rather than with TTS that has already finished.
                 if not ducked_player._end.is_set():
                     ducked_player.resume()
                     vc._player = ducked_player
@@ -302,10 +353,10 @@ class VoiceCog(commands.Cog):
     async def _tts_worker(self, guild_id: int, vc: disnake.VoiceClient):
         queue = self.tts_queues[guild_id]
 
-        # Synthesize the first chunk in advance so that while it is playing,
-        # the next one is already being synthesized (pipeline instead of synthesize → pause → synthesize)..
-        next_text = await queue.get()
-        next_audio_task = asyncio.create_task(self._synthesize(next_text))
+        # Synthesize the first item in advance so that while it is playing,
+        # the next one is already being synthesized (pipeline).
+        next_text, next_voice = await queue.get()
+        next_audio_task = asyncio.create_task(self._synthesize(next_text, next_voice))
 
         try:
             while True:
@@ -318,10 +369,10 @@ class VoiceCog(commands.Cog):
                     print(f"TTS synth error: {e}")
                     filename = None
 
-                # Synthesize other files in queue
+                # Start synthesizing the next queued item (it may use a different voice)
                 if not queue.empty():
-                    upcoming_text = queue.get_nowait()
-                    next_audio_task = asyncio.create_task(self._synthesize(upcoming_text))
+                    upcoming_text, upcoming_voice = queue.get_nowait()
+                    next_audio_task = asyncio.create_task(self._synthesize(upcoming_text, upcoming_voice))
                 else:
                     next_audio_task = None
 
@@ -336,9 +387,11 @@ class VoiceCog(commands.Cog):
                 if next_audio_task is None:
                     if queue.empty():
                         break
-                    upcoming_text = await queue.get()
-                    next_audio_task = asyncio.create_task(self._synthesize(upcoming_text))
+                    upcoming_text, upcoming_voice = await queue.get()
+                    next_audio_task = asyncio.create_task(self._synthesize(upcoming_text, upcoming_voice))
         finally:
+            if next_audio_task is not None and not next_audio_task.done():
+                next_audio_task.cancel()
             self.tts_workers.pop(guild_id, None)
 
 

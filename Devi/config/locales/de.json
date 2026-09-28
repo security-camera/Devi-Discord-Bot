@@ -202,7 +202,9 @@
         "tts": {
             "description": "Text vorlesen",
             "param_text": "Text, der vorgelesen werden soll",
-            "param_text_name": "text"
+            "param_text_name": "text",
+            "param_locale": "Wähle die TTS-Sprache (standardmäßig die Sprache des Servers)",
+            "param_locale_name": "sprache"
         },
         "warn": {
             "description": "Befehlsgruppe zur Verwaltung von Verwarnungen"
@@ -888,7 +890,8 @@
 		"too_long": "Die Nachricht ist zu lang (maximal {max} Zeichen).",
 		"queued": "Nachricht zur Warteschlange hinzugefügt. Position: **{position}**",
 		"log_auto_left_title": "🔇 Bot hat den Sprachkanal automatisch verlassen (niemand mehr vorhanden)",
-        "join_failed": "❌ Verbindung zum Sprachkanal fehlgeschlagen: {error}"
+        "join_failed": "❌ Verbindung zum Sprachkanal fehlgeschlagen: {error}",
+        "tts-voice": "de_DE-thorsten-high"
 	},
 	"warns_cog": {
 		"forever": "für immer",

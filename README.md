@@ -11,6 +11,7 @@ A multifunctional Discord bot built on [disnake](https://github.com/DisnakeDev/d
 - [Data Persistence](#-work-with-data-saveload)
 - [Parsing & Encryption](#-data-parsing-and-encryption)
 - [APIs integration](#-other-apis-integration)
+- [Cogs details](#cogs-details)
 - [Project Structure](#-project-structure)
 
 ## Features
@@ -331,6 +332,67 @@ if await validate_vote(inter):
 
 ---
 
+## Cogs details
+
+### 🔊 Text-To-Speech (`cogs/voice.py`)
+
+`/tts` speaks text in the voice channel the bot is connected to. Synthesis is done **fully offline** by [Piper](https://github.com/OHF-voice/piper1-gpl) (`piper-tts`): no API keys, no network calls at runtime, no per-character costs.
+
+#### Commands
+
+| Command                  | Description                                                                            |
+|--------------------------|----------------------------------------------------------------------------------------|
+| `/join [channel]`        | Connects to the given voice channel (or the one the author is in)                      |
+| `/leave`                 | Disconnects and clears the TTS queue                                                   |
+| `/tts <text> [language]` | Queues `text` for speech. `language` is optional and defaults to the server's language |
+
+`/tts` requires the `TTS` permission (or Discord's `administrator`). Text length is limited to `MAX_TTS_LENGTH` characters, or `MAX_TTS_LENGTH_VOTED` for users who [voted on top.gg](#-other-apis-integration). The bot leaves automatically after `EMPTY_CHANNEL_TIMEOUT` seconds in an empty channel.
+
+#### How it works
+
+- Every guild has its own queue and a background worker. Items are `(text, voice)` pairs, so messages in the same queue can use different languages.
+- The next item is synthesized while the current one is playing.
+- If music is playing on the same voice client, it is paused for the TTS clip and resumed afterwards.
+- Loaded models are cached in memory (the first use of a voice takes a few seconds).
+- All Piper calls go through a **single-thread executor**: Piper phonemizes via espeak-ng, whose C API is not thread-safe.
+
+#### Voice selection
+
+The voice is a Piper model name (file name without `.onnx`) stored in each locale file under the `voice_cog.tts-voice` key:
+
+```json
+{
+    "voice_cog": {
+        "tts-voice": "en_US-ryan-high"
+    }
+}
+```
+
+Resolution order for a request:
+
+1. The `language` chosen in `/tts`, or the server's locale if none was chosen
+2. `DEFAULT_LOCALE`
+3. The `FALLBACK_VOICE` optional environment variable
+
+Each step is used only if the model file actually exists in `PIPER_VOICES_DIR`.
+
+#### Setup new voices
+
+1. Download voices from [rhasspy/piper-voices](https://huggingface.co/rhasspy/piper-voices/tree/main). **Both files** are required per voice: `<name>.onnx` and `<name>.onnx.json`. Put them into `PIPER_VOICES_DIR` (`config/voices` by default).
+2. Set `voice_cog.tts-voice` in every locale file you want to support.
+
+| Variable                 | Default  | Description                                                              |
+|--------------------------|----------|--------------------------------------------------------------------------|
+| `VOICE`                  | `(None)` | Fallback voice used when a locale has no usable voice                    |
+| `MAX_TTS_LENGTH`         | `400`    | Max text length for regular users                                        |
+| `MAX_TTS_LENGTH_VOTED`   | `800`    | Max text length for users who voted on top.gg                            |
+| `EMPTY_CHANNEL_TIMEOUT`  | `60`     | Seconds in an empty voice channel before the bot leaves                  |
+| `TTS_PLAYBACK_TIMEOUT`   | `60`     | Safety net: force-stops playback if the clip never reports completion    |
+
+> ⚠️ On Windows, keep the virtual environment (and preferably `PIPER_VOICES_DIR`) at a path with **only ASCII characters**. espeak-ng cannot read its data from paths with e.g. Cyrillic letters and fails with `Error processing file '...\phontab': No such file or directory`.
+
+---
+
 ## 📁 Project Structure
 
 ```
@@ -355,14 +417,14 @@ bot_project/
     │   └──topgg_utils.py
     ├── config/                    # Bot data
     │   ├── .env                   # Environment variables
+    │   ├── voices/                # TTS voices
+    │   │   ├── voice-1.onnx
+    │   │   ├── voice-1.onnx.json
+    │   │   └── ...
     │   └── locales/               # Localizations
-    │       ├── ru.json
-    │       ├── en-US.json
-    │       ├── fi.json
-    │       ├── uk.json
-    │       ├── bg.json
-    │       ├── es-419.json
-    │       └── de.json
+    │       ├── disnake-locale-code_1.json
+    │       ├── disnake-locale-code_2.json
+    │       └── ...
     └── cogs/
         ├── ai/
         │   ├── ai_memory.py           # Context for ai.py

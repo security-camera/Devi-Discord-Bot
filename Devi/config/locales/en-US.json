@@ -202,7 +202,9 @@
         "tts": {
             "description": "Speaks the given text",
             "param_text_name": "text",
-            "param_text": "The text to speak"
+            "param_text": "The text to speak",
+            "param_locale": "Choose the TTS language (defaults to the server's language)",
+            "param_locale_name": "language"
         },
         "warn": {
             "description": "Group of commands used for managing warnings"
@@ -889,7 +891,8 @@
         "too_long": "The message is too long (maximum {max} characters).",
         "queued": "Message added to the queue. Position: **{position}**",
         "log_auto_left_title": "🔇 The bot automatically left the voice channel (no one was left)",
-        "join_failed": "❌ Failed to join the voice channel: {error}"
+        "join_failed": "❌ Failed to join the voice channel: {error}",
+        "tts-voice": "en_US-ryan-high"
     },
     "warns_cog": {
         "forever": "forever",

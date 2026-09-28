@@ -202,7 +202,9 @@
         "tts": {
             "description": "Lee un texto en voz alta",
             "param_text": "Texto que se debe leer en voz alta",
-            "param_text_name": "texto"
+            "param_text_name": "texto",
+            "param_locale": "Elige el idioma del TTS (por defecto, el idioma del servidor)",
+            "param_locale_name": "idioma"
         },
         "warn": {
             "description": "Grupo de comandos para administrar advertencias"
@@ -889,7 +891,8 @@
         "too_long": "El mensaje es demasiado largo (máximo {max} caracteres).",
         "queued": "Mensaje agregado a la cola. Posición: **{position}**",
         "log_auto_left_title": "🔇 El bot ha salido automáticamente del canal de voz (se quedó sin nadie)",
-        "join_failed": "❌ No se pudo conectar al canal de voz: {error}"
+        "join_failed": "❌ No se pudo conectar al canal de voz: {error}",
+        "tts-voice": "es_MX-ald-medium"
     },
     "warns_cog": {
         "forever": "para siempre",

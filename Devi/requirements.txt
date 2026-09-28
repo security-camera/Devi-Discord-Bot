@@ -2,7 +2,7 @@ disnake
 python-dotenv
 PyNaCl
 dave.py
-edge-tts
+piper-tts
 aiohttp
 yt-dlp
 qrcode[pil]

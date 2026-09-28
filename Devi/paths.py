@@ -11,16 +11,19 @@ CONFIG_DIR: Path = CORE_DIR / "config"
 COGS_DIR: Path = CORE_DIR / "cogs"
 AI_COG_DIR: Path = COGS_DIR / "ai"
 LOCALES_DIR: Path = CONFIG_DIR / "locales"
+PIPER_VOICES_DIR: Path = CONFIG_DIR / "voices"
 ENV_FILE: Path = CONFIG_DIR / ".env"
 
 def init():
-    global CORE_DIR, COGS_DIR, CONFIG_DIR, LOCALES_DIR, AI_COG_DIR
+    global CORE_DIR, COGS_DIR, CONFIG_DIR, LOCALES_DIR, AI_COG_DIR, PIPER_VOICES_DIR
 
     if CORE_DIR:
         os.makedirs(CORE_DIR, exist_ok=True)
 
     os.makedirs(CONFIG_DIR, exist_ok=True)
     os.makedirs(COGS_DIR, exist_ok=True)
+    os.makedirs(AI_COG_DIR, exist_ok=True)
+    os.makedirs(PIPER_VOICES_DIR, exist_ok=True)
     os.makedirs(LOCALES_DIR, exist_ok=True)
 
 def env_var(var: str, default: Any = "") -> str:

@@ -202,7 +202,9 @@
         "tts": {
             "description": "Lue teksti ääneen",
             "param_text": "Teksti, joka luetaan ääneen",
-            "param_text_name": "teksti"
+            "param_text_name": "teksti",
+            "param_locale": "Valitse TTS-kieli (oletuksena palvelimen kieli)",
+            "param_locale_name": "kieli"
         },
         "warn": {
             "description": "Komentoryhmä varoitusten hallintaan"
@@ -889,7 +891,8 @@
         "too_long": "Viesti on liian pitkä (enintään {max} merkkiä).",
         "queued": "Viesti lisätty jonoon. Sijainti: **{position}**",
         "log_auto_left_title": "🔇 Botti poistui äänikanavalta automaattisesti (kukaan ei jäänyt)",
-        "join_failed": "❌ Äänikanavaan liittyminen epäonnistui: {error}"
+        "join_failed": "❌ Äänikanavaan liittyminen epäonnistui: {error}",
+        "tts-voice": "fi_FI-harri-medium"
     },
     "warns_cog": {
         "forever": "ikuisesti",

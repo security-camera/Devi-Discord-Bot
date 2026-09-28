@@ -421,7 +421,7 @@ class AiCog(commands.Cog):
         remaining = await self._check_cooldown(user_id)
         if remaining:
             vote_ad = "" if await is_voted(user_id) else "\n\n" + i18n.t("top_gg_cog.voting_ad", locale=gid)
-            await message.reply(i18n.t("ai_cog.cooldown" + vote_ad, locale=gid, seconds=remaining))
+            await message.reply(i18n.t("ai_cog.cooldown", locale=gid, seconds=remaining) + vote_ad)
             await self.bot.process_commands(message)
             return
 
