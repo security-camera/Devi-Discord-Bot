@@ -1,4 +1,4 @@
-Voice models is heavy and not included into a repo. You can download all voices (.onnx & .onnx.json) from [rhassy/piper-voices](https://huggingface.co/rhasspy/piper-voices/tree/main)
+Voice models are heavy and not included into a repo. You can download all voices (.onnx & .onnx.json) from [rhassy/piper-voices](https://huggingface.co/rhasspy/piper-voices/tree/main)
 
 # Direct links
 
