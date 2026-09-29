@@ -2,6 +2,7 @@ from enum import IntEnum
 
 import disnake
 import i18n
+from i18n import available_locales, get_locale_display_name
 from discord_i18n import localized
 from disnake.ext import commands
 
@@ -80,7 +81,7 @@ class TrapsCog(commands.Cog):
             # never end up with two stickies competing in the same channel.
             await self._delete_sticky_message(channel.id)
 
-            content = i18n.t("trap_cog.sticky", locale=guild_id)
+            content = "\n\n".join([f"**{get_locale_display_name(locale)}**\n{i18n.t('trap_cog.sticky', locale=locale)}" for locale in available_locales()])
             sent = await channel.send(SendCog.format_sticky(content, locale=guild_id, sent_by_user=False))
             set_sticky_message(channel.id, guild_id, content, sent.id, self.bot.user.id)
 
