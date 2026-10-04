@@ -276,7 +276,7 @@ CREATE TABLE IF NOT EXISTS sticky_messages (
     created_by BIGINT NOT NULL
 );
 
-CREATE TABLE IF NOT EXISTS trap_channels (
+CREATE TABLE IF NOT EXISTS honeypot_channels (
     guild_id BIGINT PRIMARY KEY,
     channel_id BIGINT NOT NULL,
     punishment_type SMALLINT NOT NULL DEFAULT 0,

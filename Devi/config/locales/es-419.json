@@ -461,15 +461,15 @@
             "param_region_name": "región",
             "param_region": "Región de voz"
         },
-        "trap": {
+        "honeypot": {
             "description": "Configurar canales trampa."
         },
-        "trap_channel": {
+        "honeypot_channel": {
             "description": "Establecer o eliminar un canal trampa.",
             "param_channel_name": "canal",
             "param_channel": "El canal que se usará como canal trampa."
         },
-        "trap_punishment": {
+        "honeypot_punishment": {
             "description": "Configurar el castigo por enviar un mensaje en un canal trampa.",
             "param_punishment_type_name": "castigo",
             "param_punishment_type": "El tipo de castigo por enviar un mensaje en un canal trampa.",
@@ -563,7 +563,7 @@
             },
             "security": {
                 "name": "🛡️ Seguridad",
-                "value": "• /trap channel\n• /trap punishment"
+                "value": "• /honeypot channel\n• /honeypot punishment"
             },
             "developer": {
                 "name": "Desarrollador",
@@ -1203,7 +1203,7 @@
             "field_previous_owner": "Dueño anterior"
         }
     },
-    "trap_cog": {
+    "honeypot_cog": {
         "sticky": "⚠️ Este canal es una trampa. Cualquier mensaje enviado aquí resultará en un castigo.",
         "punish_reason": "Mensaje enviado en un canal trampa.",
         "nothing_to_remove": "❌ No hay ningún canal trampa configurado.",

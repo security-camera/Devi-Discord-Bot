@@ -461,18 +461,18 @@
             "param_region_name": "region",
             "param_region": "Voice region"
         },
-        "trap": {
-            "description": "Configure trap channels."
+        "honeypot": {
+            "description": "Configure honeypot channels."
         },
-        "trap_channel": {
-            "description": "Set or remove a trap channel.",
+        "honeypot_channel": {
+            "description": "Set or remove a honeypot channel.",
             "param_channel_name": "channel",
-            "param_channel": "The channel to use as a trap channel."
+            "param_channel": "The channel to use as a honeypot channel."
         },
-        "trap_punishment": {
-            "description": "Configure the punishment for sending a message in a trap channel.",
+        "honeypot_punishment": {
+            "description": "Configure the punishment for sending a message in a honeypot channel.",
             "param_punishment_type_name": "punishment",
-            "param_punishment_type": "The punishment type for sending a message in a trap channel.",
+            "param_punishment_type": "The punishment type for sending a message in a honeypot channel.",
             "param_duration_name": "duration",
             "param_duration": "Punishment duration. For bans: 0 means kick.",
             "param_role_name": "role",
@@ -563,7 +563,7 @@
             },
             "security": {
                 "name": "🛡️ Security",
-                "value": "• /trap channel\n• /trap punishment"
+                "value": "• /honeypot channel\n• /honeypot punishment"
             },
             "developer": {
                 "name": "Developer",
@@ -1203,14 +1203,14 @@
             "field_previous_owner": "Previous owner"
         }
     },
-    "trap_cog": {
-        "sticky": "⚠️ This channel is a trap channel. Sending any message here will result in punishment.",
-        "punish_reason": "Sent a message in a trap channel.",
-        "nothing_to_remove": "❌ No trap channel is configured.",
-        "permission_error": "❌ Failed to change the trap channel. The bot does not have sufficient permissions.",
-        "channel_removed": "✅ Trap channel removed.",
-        "channel_set": "✅ Trap channel set to {channel}.",
-        "channel_not_set": "❌ Set up a trap channel first.",
+    "honeypot_cog": {
+        "sticky": "⚠️ This channel is a honeypot channel. Sending any message here will result in punishment.",
+        "punish_reason": "Sent a message in a honeypot channel.",
+        "nothing_to_remove": "❌ No honeypot channel is configured.",
+        "permission_error": "❌ Failed to change the honeypot channel. The bot does not have sufficient permissions.",
+        "channel_removed": "✅ honeypot channel removed.",
+        "channel_set": "✅ honeypot channel set to {channel}.",
+        "channel_not_set": "❌ Set up a honeypot channel first.",
         "invalid_timeout": "❌ Invalid timeout duration. Maximum duration: {max_duration}.",
         "role_required": "❌ You must specify a role when using role punishment.",
         "punishment_set": "✅ Punishment set to: {punishment}.\nDuration: {duration}.\nRole: {role}.",

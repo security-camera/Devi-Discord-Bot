@@ -204,32 +204,35 @@ def get_raw(key: str, locale: LocaleObject = None):
     return value
 
 
-def t(key: str, locale: LocaleObject = None, **kwargs) -> str:
+def t(key: str, locale: LocaleObject = None, log_errors: bool = True, **kwargs) -> str:
     """Returns a translated string by key.
     Locale aliases are resolved automatically."""
     resolved_locale = _resolve_locale(locale)
 
     value = get_raw(key, locale=resolved_locale)
 
-    if value is None:
-        logger.warning("Localization missing '%s' (locale '%s').", key, resolved_locale)
+    if not value:
+        if log_errors:
+            logger.warning("Localization missing '%s' (locale '%s').", key, resolved_locale)
         return f"[{key}]"
 
     if not isinstance(value, str):
-        logger.warning("Value of the key '%s' in locale '%s' is not a string.",key, resolved_locale)
+        if log_errors:
+            logger.warning("Value of the key '%s' in locale '%s' is not a string.",key, resolved_locale)
         return f"[{key}]"
 
     try:
         return value.format(**kwargs)
 
     except (KeyError, IndexError) as e:
-        logger.warning("Error of formating value of key '%s' (locale '%s'): %s",key, resolved_locale, e)
+        if log_errors:
+            logger.warning("Error of formating value of key '%s' (locale '%s'): %s",key, resolved_locale, e)
         return value
 
 def try_t(key: str, locale: LocaleObject = None, **kwargs) -> str:
     """Return the translation for key, or empty string if it's missing/untranslated."""
     try:
-        text = t(key, locale=locale, **kwargs)
+        text = t(key, locale=locale, log_errors=False, **kwargs)
     except Exception:
         return ""
 

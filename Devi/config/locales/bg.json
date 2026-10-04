@@ -461,15 +461,15 @@
             "param_region_name": "регион",
             "param_region": "Гласов регион"
         },
-        "trap": {
+        "honeypot": {
             "description": "Конфигуриране на канали-капани."
         },
-        "trap_channel": {
+        "honeypot_channel": {
             "description": "Задаване или премахване на канал-капан.",
             "param_channel_name": "канал",
             "param_channel": "Каналът, който ще се използва като канал-капан."
         },
-        "trap_punishment": {
+        "honeypot_punishment": {
             "description": "Конфигуриране на наказанието за изпращане на съобщение в канал-капан.",
             "param_punishment_type_name": "наказание",
             "param_punishment_type": "Видът наказание за изпращане на съобщение в канал-капан.",
@@ -563,7 +563,7 @@
             },
             "security": {
                 "name": "🛡️ Сигурност",
-                "value": "• /trap channel\n• /trap punishment"
+                "value": "• /honeypot channel\n• /honeypot punishment"
             },
             "developer": {
                 "name": "Разработчик",
@@ -1202,7 +1202,7 @@
             "field_previous_owner": "Предишен собственик"
         }
     },
-    "trap_cog": {
+    "honeypot_cog": {
         "sticky": "⚠️ Този канал е капан. Всяко съобщение, изпратено тук, ще доведе до наказание.",
         "punish_reason": "Изпращане на съобщение в канал-капан.",
         "nothing_to_remove": "❌ Няма настроен канал-капан.",

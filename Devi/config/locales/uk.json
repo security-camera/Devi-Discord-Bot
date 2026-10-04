@@ -461,15 +461,15 @@
             "param_region_name": "регіон",
             "param_region": "Голосовий регіон"
         },
-        "trap": {
+        "honeypot": {
             "description": "Налаштувати канали-пастки."
         },
-        "trap_channel": {
+        "honeypot_channel": {
             "description": "Встановити або видалити канал-пастку.",
             "param_channel_name": "канал",
             "param_channel": "Канал, який використовуватиметься як канал-пастка."
         },
-        "trap_punishment": {
+        "honeypot_punishment": {
             "description": "Налаштувати покарання за повідомлення в каналі-пастці.",
             "param_punishment_type_name": "покарання",
             "param_punishment_type": "Тип покарання за повідомлення в каналі-пастці.",
@@ -563,7 +563,7 @@
             },
             "security": {
                 "name": "🛡️ Безпека",
-                "value": "• /trap channel\n• /trap punishment"
+                "value": "• /honeypot channel\n• /honeypot punishment"
             },
             "developer": {
                 "name": "Розробник",
@@ -1203,7 +1203,7 @@
             "field_previous_owner": "Попередній власник"
         }
     },
-    "trap_cog": {
+    "honeypot_cog": {
         "sticky": "⚠️ Цей канал є каналом-пасткою. Будь-яке повідомлення в ньому призведе до покарання.",
         "punish_reason": "Надсилання повідомлення в канал-пастку.",
         "nothing_to_remove": "❌ Канал-пастка не налаштовано.",

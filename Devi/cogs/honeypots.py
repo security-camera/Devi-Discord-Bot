@@ -12,7 +12,7 @@ from cogs.send import SendCog, get_sticky_message, remove_sticky_message, set_st
 from duration_utils import parse_duration_seconds
 from paths import env_var_to_int
 
-DEFAULT_TIMEOUT = env_var_to_int("TRAPS_DEFAULT_TIMEOUT", "300")
+DEFAULT_TIMEOUT = env_var_to_int("HONEYPOTS_DEFAULT_TIMEOUT", "300")
 MAX_TIMEOUT = 28 * 24 * 60 * 60
 
 
@@ -25,14 +25,14 @@ class PunishmentType(IntEnum):
 def punishment_choices() -> list[disnake.OptionChoice]:
     return [
         disnake.OptionChoice(
-            name=localized(f"trap_cog.punishment_types.{i:02d}"),
+            name=localized(f"honeypot_cog.punishment_types.{i:02d}"),
             value=i
         )
         for i in range(len(PunishmentType))
     ]
 
 
-class TrapsCog(commands.Cog):
+class HoneypotCog(commands.Cog):
     def __init__(self, bot: commands.Bot):
         self.bot = bot
 
@@ -41,7 +41,7 @@ class TrapsCog(commands.Cog):
         Delete the tracked sticky Discord message for a channel (if any) and
         drop its bookkeeping record.
 
-        Used both when a trap channel is removed and when a trap sticky is
+        Used both when a honeypot channel is removed and when a honeypot sticky is
         about to be replaced, so no orphaned sticky message is left behind
         for SendCog's on_message listener to keep reposting.
         """
@@ -61,10 +61,10 @@ class TrapsCog(commands.Cog):
         remove_sticky_message(channel_id)
 
     @staticmethod
-    def get_trap_channel(guild_id: int) -> tuple[int, PunishmentType, int, int] | None:
+    def get_honeypot_channel(guild_id: int) -> tuple[int, PunishmentType, int, int] | None:
         with db_cursor() as cur:
             cur.execute(
-                """SELECT channel_id, punishment_type, punishment_duration, role_id FROM trap_channels WHERE guild_id = %s""",
+                """SELECT channel_id, punishment_type, punishment_duration, role_id FROM honeypot_channels WHERE guild_id = %s""",
                 (guild_id,)
             )
             row = cur.fetchone()
@@ -74,20 +74,20 @@ class TrapsCog(commands.Cog):
 
         return row["channel_id"], PunishmentType(row["punishment_type"]), row["punishment_duration"], row["role_id"]
 
-    async def set_trap_channel(self, guild_id: int, channel: disnake.TextChannel, punishment_type: PunishmentType, punishment_duration: int = DEFAULT_TIMEOUT, role_id: int = 0) -> bool:
+    async def set_honeypot_channel(self, guild_id: int, channel: disnake.TextChannel, punishment_type: PunishmentType, punishment_duration: int = DEFAULT_TIMEOUT, role_id: int = 0) -> bool:
         try:
-            # Replace whatever sticky message (trap sticky or an unrelated
+            # Replace whatever sticky message (honeypot sticky or an unrelated
             # /send sticky) is currently tracked for this channel, so we
             # never end up with two stickies competing in the same channel.
             await self._delete_sticky_message(channel.id)
 
-            content = "\n\n".join([f"**{get_locale_display_name(locale)}**\n{i18n.t('trap_cog.sticky', locale=locale)}" for locale in available_locales()])
+            content = "\n\n".join([f"**{get_locale_display_name(locale)}**\n{i18n.t('honeypot_cog.sticky', locale=locale)}" for locale in available_locales()])
             sent = await channel.send(SendCog.format_sticky(content, locale=guild_id, sent_by_user=False))
             set_sticky_message(channel.id, guild_id, content, sent.id, self.bot.user.id)
 
             with db_cursor(commit=True) as cur:
                 cur.execute(
-                    """INSERT INTO trap_channels (guild_id, channel_id, punishment_type, punishment_duration, role_id)
+                    """INSERT INTO honeypot_channels (guild_id, channel_id, punishment_type, punishment_duration, role_id)
                     VALUES (%s, %s, %s, %s, %s)
                     ON CONFLICT (guild_id) DO UPDATE SET
                         channel_id = EXCLUDED.channel_id,
@@ -102,8 +102,8 @@ class TrapsCog(commands.Cog):
         except disnake.Forbidden:
             return False
 
-    async def remove_trap_channel(self, guild_id: int) -> bool:
-        config = self.get_trap_channel(guild_id)
+    async def remove_honeypot_channel(self, guild_id: int) -> bool:
+        config = self.get_honeypot_channel(guild_id)
 
         if not config:
             return False
@@ -115,7 +115,7 @@ class TrapsCog(commands.Cog):
 
             with db_cursor(commit=True) as cur:
                 cur.execute(
-                    "DELETE FROM trap_channels WHERE guild_id = %s",
+                    "DELETE FROM honeypot_channels WHERE guild_id = %s",
                     (guild_id,),
                 )
 
@@ -132,7 +132,7 @@ class TrapsCog(commands.Cog):
         if self.bot.user and message.author.id == self.bot.user.id:
             return
 
-        config = self.get_trap_channel(message.guild.id)
+        config = self.get_honeypot_channel(message.guild.id)
 
         if not config:
             return
@@ -142,7 +142,7 @@ class TrapsCog(commands.Cog):
         if message.channel.id != channel_id:
             return
 
-        reason = i18n.t("trap_cog.punish_reason", locale=message.guild.id)
+        reason = i18n.t("honeypot_cog.punish_reason", locale=message.guild.id)
 
         try:
             match punishment:
@@ -188,24 +188,24 @@ class TrapsCog(commands.Cog):
             print(e)
 
     @commands.slash_command(
-        name="trap",
-        description=localized("commands.trap.description"),
+        name="honeypot",
+        description=localized("commands.honeypot.description"),
     )
-    async def trap_command(self, inter: disnake.ApplicationCommandInteraction):
+    async def honeypot_command(self, inter: disnake.ApplicationCommandInteraction):
         # Command group
         pass
 
-    @trap_command.sub_command(
+    @honeypot_command.sub_command(
         name="channel",
-        description=localized("commands.trap_channel.description"),
+        description=localized("commands.honeypot_channel.description"),
     )
-    async def trap_channel(
+    async def honeypot_channel(
         self,
         inter: disnake.ApplicationCommandInteraction,
         channel: disnake.TextChannel = commands.Param(
             default=None,
-            name=localized("commands.trap_channel.param_channel_name"),
-            description=localized("commands.trap_channel.param_channel")
+            name=localized("commands.honeypot_channel.param_channel_name"),
+            description=localized("commands.honeypot_channel.param_channel")
         ),
     ):
         gid = inter.guild_id
@@ -213,21 +213,21 @@ class TrapsCog(commands.Cog):
         if await validate_permissions(inter, [{Permission.Admin: True}, {disnake.Permissions(administrator=True): True}]):
             return None
 
-        current = self.get_trap_channel(gid)
+        current = self.get_honeypot_channel(gid)
 
         if not channel:
             if not current:
-                return await inter.response.send_message(i18n.t("trap_cog.nothing_to_remove", locale=gid), ephemeral=True)
+                return await inter.response.send_message(i18n.t("honeypot_cog.nothing_to_remove", locale=gid), ephemeral=True)
 
-            if not await self.remove_trap_channel(gid):
-                return await inter.response.send_message(i18n.t("trap_cog.permission_error", locale=gid), ephemeral=True)
+            if not await self.remove_honeypot_channel(gid):
+                return await inter.response.send_message(i18n.t("honeypot_cog.permission_error", locale=gid), ephemeral=True)
 
-            return await inter.response.send_message(i18n.t("trap_cog.channel_removed", locale=gid), ephemeral=True)
+            return await inter.response.send_message(i18n.t("honeypot_cog.channel_removed", locale=gid), ephemeral=True)
 
         if current:
             old_channel_id, punishment_type, punishment_duration, role_id = current
             if old_channel_id != channel.id:
-                # The trap moved to a different channel: clean up the sticky
+                # The honeypot moved to a different channel: clean up the sticky
                 # that would otherwise be left behind in the old one.
                 await self._delete_sticky_message(old_channel_id)
         else:
@@ -235,34 +235,34 @@ class TrapsCog(commands.Cog):
             punishment_duration = DEFAULT_TIMEOUT
             role_id = 0
 
-        success = await self.set_trap_channel(gid, channel, punishment_type, punishment_duration, role_id)
+        success = await self.set_honeypot_channel(gid, channel, punishment_type, punishment_duration, role_id)
 
         if not success:
-            return await inter.response.send_message(i18n.t("trap_cog.permission_error", locale=gid), ephemeral=True)
+            return await inter.response.send_message(i18n.t("honeypot_cog.permission_error", locale=gid), ephemeral=True)
 
-        return await inter.response.send_message(i18n.t("trap_cog.channel_set", locale=gid, channel=channel.mention), ephemeral=True)
+        return await inter.response.send_message(i18n.t("honeypot_cog.channel_set", locale=gid, channel=channel.mention), ephemeral=True)
 
-    @trap_command.sub_command(
+    @honeypot_command.sub_command(
         name="punishment",
-        description=localized("commands.trap_punishment.description"),
+        description=localized("commands.honeypot_punishment.description"),
     )
-    async def trap_punishment(
+    async def honeypot_punishment(
         self,
         inter: disnake.ApplicationCommandInteraction,
         punishment_type: int = commands.Param(
-            name=localized("commands.trap_punishment.param_punishment_type_name"),
-            description=localized("commands.trap_punishment.param_punishment_type"),
+            name=localized("commands.honeypot_punishment.param_punishment_type_name"),
+            description=localized("commands.honeypot_punishment.param_punishment_type"),
             choices=punishment_choices(),
         ),
         duration: str = commands.Param(
             default="",
-            name=localized("commands.trap_punishment.param_duration_name"),
-            description=localized("commands.trap_punishment.param_duration"),
+            name=localized("commands.honeypot_punishment.param_duration_name"),
+            description=localized("commands.honeypot_punishment.param_duration"),
         ),
         role: disnake.Role = commands.Param(
             default=None,
-            name=localized("commands.trap_punishment.param_role_name"),
-            description=localized("commands.trap_punishment.param_role"),
+            name=localized("commands.honeypot_punishment.param_role_name"),
+            description=localized("commands.honeypot_punishment.param_role"),
         ),
     ):
         gid = inter.guild_id
@@ -271,10 +271,10 @@ class TrapsCog(commands.Cog):
         if error:
             return await inter.response.send_message(error, ephemeral=True)
 
-        current = self.get_trap_channel(gid)
+        current = self.get_honeypot_channel(gid)
 
         if not current:
-            return await inter.response.send_message(i18n.t("trap_cog.channel_not_set", locale=gid), ephemeral=True)
+            return await inter.response.send_message(i18n.t("honeypot_cog.channel_not_set", locale=gid), ephemeral=True)
 
         punishment = PunishmentType(punishment_type)
         role_id = 0
@@ -283,7 +283,7 @@ class TrapsCog(commands.Cog):
             case PunishmentType.Timeout:
                 if not 1 <= duration <= MAX_TIMEOUT:
                     max_duration = "28" + i18n.t("duration_utils.duration_chars.days", locale=gid)
-                    return await inter.response.send_message(i18n.t("trap_cog.invalid_timeout", locale=gid, max_duration=max_duration), ephemeral=True)
+                    return await inter.response.send_message(i18n.t("honeypot_cog.invalid_timeout", locale=gid, max_duration=max_duration), ephemeral=True)
 
             case PunishmentType.Ban:
                 # duration == 0 -> kick, duration > 0 -> temporary ban for that long
@@ -291,7 +291,7 @@ class TrapsCog(commands.Cog):
 
             case PunishmentType.Role:
                 if not role:
-                    return await inter.response.send_message(i18n.t("trap_cog.role_required", locale=gid), ephemeral=True)
+                    return await inter.response.send_message(i18n.t("honeypot_cog.role_required", locale=gid), ephemeral=True)
 
                 role_id = role.id
                 # duration == 0 -> permanent role, duration > 0 -> temporary role
@@ -299,15 +299,15 @@ class TrapsCog(commands.Cog):
 
         with db_cursor(commit=True) as cur:
             cur.execute(
-                """UPDATE trap_channels SET punishment_type = %s, punishment_duration = %s, role_id = %s WHERE guild_id = %s""",
+                """UPDATE honeypot_channels SET punishment_type = %s, punishment_duration = %s, role_id = %s WHERE guild_id = %s""",
                 (punishment_type, duration, role_id, gid),
             )
 
             if cur.rowcount == 0:
-                return await inter.response.send_message(i18n.t("trap_cog.channel_not_set", locale=gid), ephemeral=True)
+                return await inter.response.send_message(i18n.t("honeypot_cog.channel_not_set", locale=gid), ephemeral=True)
 
-        return await inter.response.send_message(i18n.t("trap_cog.punishment_set", locale=gid, punishment=punishment.name, duration=duration, role=role.mention if role else ":x:"), ephemeral=True)
+        return await inter.response.send_message(i18n.t("honeypot_cog.punishment_set", locale=gid, punishment=punishment.name, duration=duration, role=role.mention if role else ":x:"), ephemeral=True)
 
 
 def setup(bot):
-    bot.add_cog(TrapsCog(bot))
+    bot.add_cog(HoneypotCog(bot))

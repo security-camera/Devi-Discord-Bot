@@ -461,15 +461,15 @@
             "param_region_name": "alue",
             "param_region": "Äänialue"
         },
-        "trap": {
+        "honeypot": {
             "description": "Määritä ansakanavat."
         },
-        "trap_channel": {
+        "honeypot_channel": {
             "description": "Aseta tai poista ansakanava.",
             "param_channel_name": "kanava",
             "param_channel": "Kanava, jota käytetään ansakanavana."
         },
-        "trap_punishment": {
+        "honeypot_punishment": {
             "description": "Määritä rangaistus ansakanavaan lähetetystä viestistä.",
             "param_punishment_type_name": "rangaistus",
             "param_punishment_type": "Rangaistuksen tyyppi ansakanavaan lähetetystä viestistä.",
@@ -563,7 +563,7 @@
             },
             "security": {
                 "name": "🛡️ Turvallisuus",
-                "value": "• /trap channel\n• /trap punishment"
+                "value": "• /honeypot channel\n• /honeypot punishment"
             },
             "developer": {
                 "name": "Kehittäjä",
@@ -1203,7 +1203,7 @@
             "field_previous_owner": "Aiempi omistaja"
         }
     },
-    "trap_cog": {
+    "honeypot_cog": {
         "sticky": "⚠️ Tämä kanava on ansa. Jokainen siihen lähetetty viesti johtaa rangaistukseen.",
         "punish_reason": "Viesti lähetetty ansakanavaan.",
         "nothing_to_remove": "❌ Ansakanavaa ei ole määritetty.",

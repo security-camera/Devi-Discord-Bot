@@ -49,7 +49,7 @@ EXTENSIONS = [
     "cogs.birthdays",
     "cogs.topgg",
     "cogs.temp_voices",
-    "cogs.traps",
+    "cogs.honeypots",
     "cogs.temp_bans"
 ]
 

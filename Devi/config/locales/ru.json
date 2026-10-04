@@ -461,15 +461,15 @@
             "param_region_name": "регион",
             "param_region": "Голосовой регион"
         },
-        "trap": {
+        "honeypot": {
             "description": "Настроить каналы-ловушки."
         },
-        "trap_channel": {
+        "honeypot_channel": {
             "description": "Установить или удалить канал-ловушку.",
             "param_channel_name": "канал",
             "param_channel": "Канал, который будет использоваться как канал-ловушка."
         },
-        "trap_punishment": {
+        "honeypot_punishment": {
             "description": "Настроить наказание за сообщение в канале-ловушке.",
             "param_punishment_type_name": "наказание",
             "param_punishment_type": "Тип наказания за сообщение в канале-ловушке.",
@@ -563,7 +563,7 @@
             },
             "security": {
                 "name": "🛡️ Безопасность",
-                "value": "• /trap channel\n• /trap punishment"
+                "value": "• /honeypot channel\n• /honeypot punishment"
             },
             "developer": {
                 "name": "Разработчик",
@@ -1203,7 +1203,7 @@
             "field_previous_owner": "Предыдущий владелец"
         }
     },
-    "trap_cog": {
+    "honeypot_cog": {
         "sticky": "⚠️ Этот канал является ловушкой. Любое сообщение в нём приведёт к наказанию.",
         "punish_reason": "Отправка сообщения в канал-ловушку.",
         "nothing_to_remove": "❌ Канал-ловушка не настроен.",
