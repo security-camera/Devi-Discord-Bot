@@ -44,6 +44,8 @@ The bot is configured via `config/.env`. Two parallel sets of values are support
 | `DATABASE_URL`                                               | URL to PostgreSQL DB                                                                                                            |
 | `ENCRYPTION_KEY`                                             | Key for [encryption](#-data-parsing-and-encryption)                                                                             |
 | `TOP_GG_TOKEN`                                               | [Top.gg API token](#-other-apis-integration)                                                                                    |
+| `DASHBOARD_API_TOKEN`                                        | Shared secret of the [dashboard API](#-dashboard-api-cogsdashboard_apipy) (24+ characters). Empty — the API is off.             |
+| `DASHBOARD_API_HOST` / `DASHBOARD_API_PORT`                  | Address the dashboard API listens on. Default `127.0.0.1:8765`.                                                                 |
 
 > ⚠️ `TEST_ENABLED` is read as a raw string and compared case-insensitively against `1`/`true`/`yes`/`on`. Any other non-empty value (including the literal string `"False"`) is treated as **disabled** — double-check this variable if the bot boots in the wrong mode.
 
@@ -391,6 +393,34 @@ Each step is used only if the model file actually exists in `PIPER_VOICES_DIR`.
 
 > ⚠️ On Windows, keep the virtual environment (and preferably `PIPER_VOICES_DIR`) at a path with **only ASCII characters**. espeak-ng cannot read its data from paths with e.g. Cyrillic letters and fails with `Error processing file '...\phontab': No such file or directory`.
 
+### 🖥️ Dashboard API (`cogs/dashboard_api.py`)
+
+Internal HTTP API used by the [website](https://github.com/security-camera/Devi-Site) dashboard. The site signs users in with Discord OAuth2 and calls this API with a shared secret and the id of the signed-in user; it never touches the database or the bot token.
+
+Changes go through the same in-memory caches and checks as the slash commands (the bot keeps permissions, log channels and triggers in memory and rewrites the whole table on every save, so the site must not write to the database directly). Access mirrors the commands:
+
+| Dashboard section                         | Required                                   |
+|-------------------------------------------|--------------------------------------------|
+| Permissions, logs, birthdays, voice lobby | `bot.Admin` or Discord `Administrator`     |
+| Triggers                                  | `bot.ManageTriggers` or `Administrator`    |
+
+Every change is also written to the server's log channel.
+
+Enable it by setting `DASHBOARD_API_TOKEN` (24+ characters) in `config/.env`; use the same value as `BOT_API_TOKEN` on the site. The API has no TLS and no rate limiting — keep it on `127.0.0.1` or a private network.
+
+| Method and path                                                 | Description                                                                 |
+|-----------------------------------------------------------------|-----------------------------------------------------------------------------|
+| `POST /v1/access`                                               | Which of the given guilds have the bot and which sections the user may open |
+| `GET /v1/guilds/{id}`                                           | Settings, channels, roles and limits of one guild                           |
+| `PUT /v1/guilds/{id}/log-channel`                               | Set or clear the log channel                                                |
+| `PUT /v1/guilds/{id}/birthday-channel`                          | Set or clear the birthday channel                                           |
+| `PUT /v1/guilds/{id}/temp-voice`                                | Set or clear the lobby channel, category and name template                  |
+| `PATCH /v1/guilds/{id}/permissions`                             | Set permission masks for the server, roles, channels and users              |
+| `GET /v1/guilds/{id}/members?q=`                                | Search members by name or id                                                |
+| `POST/PUT /v1/guilds/{id}/triggers`, `POST .../triggers/delete` | Create, edit and delete triggers                                            |
+
+All requests need `Authorization: Bearer <token>` and `X-Discord-User-Id`. Snowflake ids are strings.
+
 ---
 
 ## 📁 Project Structure
@@ -450,5 +480,6 @@ bot_project/
         ├── temp_voices.py             # /voice commands + temp voices logic
         ├── temp_bans.py               # /temp_ban + logic
         ├── traps.py                   # /trap commands + logic
+        ├── dashboard_api.py           # Internal HTTP API for the website dashboar
         └── voice.py                   # /join, /leave, /tts
 ```

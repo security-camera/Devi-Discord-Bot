@@ -103,7 +103,7 @@ def save_permissions() -> None:
         cur.execute("DELETE FROM permission_grants")
         if rows:
             cur.executemany(
-                "INSERT INTO permission_grants (guild_id, target_type, target_id, value) VALUES (?, ?, ?, ?)",
+                "INSERT INTO permission_grants (guild_id, target_type, target_id, value) VALUES (%s, %s, %s, %s)",
                 rows,
             )
 
@@ -205,9 +205,15 @@ def _resolve_permission(channel: disnake.abc.GuildChannel, member: disnake.Membe
     if check_type == PermissionCheckType.Channel:
         return get_permissions(guild_id, PermissionCheckType.Channel, channel.id)
 
-    # NONE -> get_permissions(User) already includes guild + personal + role permissions; only add channel permissions
-    combined = get_permissions(guild_id, PermissionCheckType.User, member.id)
-    combined |= get_permissions(guild_id, PermissionCheckType.Channel, channel.id)
+    # NONE -> everything that applies to the member in this channel:
+    # guild-wide + personal + role + channel permissions.
+    # (get_permissions(User) returns the personal grant only, so the other scopes are added explicitly.)
+    combined = get_permissions(guild_id, PermissionCheckType.Guild, guild_id)
+    combined |= get_permissions(guild_id, PermissionCheckType.User, member.id)
+    gp = _permissions.get(guild_id)
+    if gp:
+        for role in member.roles:
+            combined |= gp["roles"].get(role.id, Permission.NONE)
 
     return combined
 

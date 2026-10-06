@@ -50,7 +50,8 @@ EXTENSIONS = [
     "cogs.topgg",
     "cogs.temp_voices",
     "cogs.honeypots",
-    "cogs.temp_bans"
+    "cogs.temp_bans",
+    "cogs.dashboard_api"
 ]
 
 for extension in EXTENSIONS:
