@@ -1228,5 +1228,17 @@
         "success": "{member} fue baneado(a) hasta {expires_full} ({expires_relative}).",
         "log_banned_title": "Baneo temporal aplicado",
         "field_expires": "Expira"
+    },
+    "dashboard_api_logs": {
+        "title": "Configuración modificada desde el panel web",
+        "section": "Sección",
+        "sections":
+        {
+            "permissions": "Permisos",
+            "logs": "Registros",
+            "birthdays": "Cumpleaños",
+            "voice": "Canales de voz temporales",
+            "triggers": "Disparadores"
+        }
     }
 }

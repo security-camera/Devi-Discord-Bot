@@ -1228,5 +1228,17 @@
         "success": "{member} забанено до {expires_full} ({expires_relative}).",
         "log_banned_title": "Тимчасовий бан видано",
         "field_expires": "Закінчується"
+    },
+    "dashboard_api_logs": {
+        "title": "Налаштування змінено в панелі керування на сайті",
+        "section": "Розділ",
+        "sections":
+        {
+            "permissions": "Права",
+            "logs": "Логи",
+            "birthdays": "Дні народження",
+            "voice": "Тимчасові голосові канали",
+            "triggers": "Тригери"
+        }
     }
 }

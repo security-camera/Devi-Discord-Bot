@@ -1227,5 +1227,17 @@
         "success": "{member} wurde bis {expires_full} ({expires_relative}) gebannt.",
         "log_banned_title": "Temporärer Bann verhängt",
         "field_expires": "Läuft ab"
+    },
+    "dashboard_api_logs": {
+        "title": "Einstellungen im Website-Dashboard geändert",
+        "section": "Bereich",
+        "sections":
+        {
+            "permissions": "Berechtigungen",
+            "logs": "Logs",
+            "birthdays": "Geburtstage",
+            "voice": "Temporäre Sprachkanäle",
+            "triggers": "Trigger"
+        }
     }
 }

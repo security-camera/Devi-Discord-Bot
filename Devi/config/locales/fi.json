@@ -1228,5 +1228,17 @@
         "success": "{member} on porttikiellossa {expires_full} asti ({expires_relative}).",
         "log_banned_title": "Väliaikainen porttikielto annettu",
         "field_expires": "Päättyy"
+    },
+    "dashboard_api_logs": {
+        "title": "Asetuksia muutettu verkkosivun hallintapaneelissa",
+        "section": "Osio",
+        "sections":
+        {
+            "permissions": "Oikeudet",
+            "logs": "Lokit",
+            "birthdays": "Syntymäpäivät",
+            "voice": "Väliaikaiset äänikanavat",
+            "triggers": "Triggerit"
+        }
     }
 }

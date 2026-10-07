@@ -1227,5 +1227,17 @@
         "success": "{member} е баннат(а) до {expires_full} ({expires_relative}).",
         "log_banned_title": "Издаден временен бан",
         "field_expires": "Изтича"
+    },
+    "dashboard_api_logs": {
+        "title": "Настройките са променени от таблото на сайта",
+        "section": "Раздел",
+        "sections":
+        {
+            "permissions": "Права",
+            "logs": "Логове",
+            "birthdays": "Рождени дни",
+            "voice": "Временни гласови канали",
+            "triggers": "Тригери"
+        }
     }
 }

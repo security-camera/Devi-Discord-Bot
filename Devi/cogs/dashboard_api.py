@@ -80,52 +80,6 @@ SCOPES = {
 }
 SCOPE_EMOJI = {"guild": "🌐", "role": "🎭", "channel": "📺", "user": "👤"}
 
-# Audit-log wording. Kept here so the cog works without touching the locale files.
-_AUDIT_TEXT = {
-    "en-US": {
-        "title": "Settings changed on the website dashboard",
-        "section": "Section",
-        "sections": {"permissions": "Permissions", "logs": "Logs", "birthdays": "Birthdays",
-                     "voice": "Temporary voice channels", "triggers": "Triggers"},
-    },
-    "ru": {
-        "title": "Настройки изменены через панель управления на сайте",
-        "section": "Раздел",
-        "sections": {"permissions": "Права", "logs": "Логи", "birthdays": "Дни рождения",
-                     "voice": "Временные голосовые каналы", "triggers": "Триггеры"},
-    },
-    "de": {
-        "title": "Einstellungen im Website-Dashboard geändert",
-        "section": "Bereich",
-        "sections": {"permissions": "Berechtigungen", "logs": "Logs", "birthdays": "Geburtstage",
-                     "voice": "Temporäre Sprachkanäle", "triggers": "Trigger"},
-    },
-    "fi": {
-        "title": "Asetuksia muutettu verkkosivun hallintapaneelissa",
-        "section": "Osio",
-        "sections": {"permissions": "Oikeudet", "logs": "Lokit", "birthdays": "Syntymäpäivät",
-                     "voice": "Väliaikaiset äänikanavat", "triggers": "Triggerit"},
-    },
-    "uk": {
-        "title": "Налаштування змінено в панелі керування на сайті",
-        "section": "Розділ",
-        "sections": {"permissions": "Права", "logs": "Логи", "birthdays": "Дні народження",
-                     "voice": "Тимчасові голосові канали", "triggers": "Тригери"},
-    },
-    "es-419": {
-        "title": "Configuración modificada desde el panel web",
-        "section": "Sección",
-        "sections": {"permissions": "Permisos", "logs": "Registros", "birthdays": "Cumpleaños",
-                     "voice": "Canales de voz temporales", "triggers": "Disparadores"},
-    },
-    "bg": {
-        "title": "Настройките са променени от таблото на сайта",
-        "section": "Раздел",
-        "sections": {"permissions": "Права", "logs": "Логове", "birthdays": "Рождени дни",
-                     "voice": "Временни гласови канали", "triggers": "Тригери"},
-    },
-}
-
 
 class ApiError(Exception):
     """Error that is returned to the website as {"error": code, "detail": ...}."""
@@ -150,7 +104,7 @@ _NO_CHANNEL = _NoChannel()
 
 
 def _sid(value) -> str | None:
-    return None if value is None else str(value)
+    return None if not value else str(value)
 
 
 def _parse_id(raw, *, code: str = "invalid_id") -> int:
@@ -182,18 +136,12 @@ def _channel_kind(channel) -> str | None:
 
 
 def _asset_url(asset, size: int = 64) -> str | None:
-    if asset is None:
+    if not asset:
         return None
     try:
         return asset.with_size(size).url
     except Exception:  # noqa: BLE001 - an avatar must never break an API answer
         return None
-
-
-def _locale_for(guild_id: int) -> str:
-    code = i18n.resolve_locale_code(get_localization(guild_id))
-    return code if code in _AUDIT_TEXT else "en-US"
-
 
 def _clip(text: str, limit: int = 1000) -> str:
     return text if len(text) <= limit else text[: limit - 1] + "…"
@@ -392,7 +340,7 @@ class DashboardApi:
 
     async def audit(self, guild, member, section: str, details: str) -> None:
         """Writes the change to the guild's log channel, like the slash commands do."""
-        text = _AUDIT_TEXT[_locale_for(guild.id)]
+        text = i18n.get_raw("dashboard_api_logs", locale=guild)
         try:
             await send_log(
                 guild,
@@ -409,7 +357,8 @@ class DashboardApi:
 
     # -- endpoints
 
-    async def ping(self, request: web.Request) -> web.Response:
+    @staticmethod
+    async def ping(request: web.Request) -> web.Response:
         return web.json_response({"ok": True})
 
     async def access(self, request: web.Request) -> web.Response:

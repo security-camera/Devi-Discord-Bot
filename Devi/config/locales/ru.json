@@ -1228,5 +1228,17 @@
         "success": "{member} забанен(а) до {expires_full} ({expires_relative}).",
         "log_banned_title": "Временный бан выдан",
         "field_expires": "Истекает"
+    },
+    "dashboard_api_logs": {
+        "title": "Настройки изменены через панель управления на сайте",
+        "section": "Раздел",
+        "sections":
+        {
+            "permissions": "Права",
+            "logs": "Логи",
+            "birthdays": "Дни рождения",
+            "voice": "Временные голосовые каналы",
+            "triggers": "Триггеры"
+        }
     }
 }

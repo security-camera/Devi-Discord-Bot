@@ -1228,5 +1228,17 @@
         "success": "{member} has been banned until {expires_full} ({expires_relative}).",
         "log_banned_title": "Temporary ban issued",
         "field_expires": "Expires"
+    },
+    "dashboard_api_logs": {
+        "title": "Settings changed on the website dashboard",
+        "section": "Section",
+        "sections":
+        {
+            "permissions": "Permissions",
+            "logs": "Logs",
+            "birthdays": "Birthdays",
+            "voice": "Temporary voice channels",
+            "triggers": "Triggers"
+        }
     }
 }
