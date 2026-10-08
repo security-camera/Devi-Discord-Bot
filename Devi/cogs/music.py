@@ -2,7 +2,7 @@ import asyncio
 import disnake
 from disnake import TextInputStyle
 from disnake.ext import commands
-from permissions import Permission, validate_permissions
+from permissions import Permission, require_permissions
 from cogs.voice import Singleton
 import i18n
 import yt_dlp
@@ -373,10 +373,8 @@ class MusicCog(commands.Cog):
     # Every handler logs to the guild's log channel AFTER the user has been
     # answered, so a slow log channel can never break the 3-second interaction limit.
 
+    @require_permissions({Permission.MusicBlackList: False})
     async def handle_play(self, inter: disnake.Interaction, query: str):
-        if await validate_permissions(inter, {Permission.MusicBlackList: False}):
-            return None
-
         gid = inter.guild_id
         voice_client = inter.guild.voice_client
 
@@ -416,10 +414,8 @@ class MusicCog(commands.Cog):
         )
         return await log_music(inter, "play", [track_field(gid, track)])
 
+    @require_permissions({Permission.MusicBlackList: False})
     async def handle_pause_resume(self, inter: disnake.Interaction):
-        if await validate_permissions(inter, {Permission.MusicBlackList: False}):
-            return None
-
         gid = inter.guild_id
         vc = inter.guild.voice_client
         if vc is None:
@@ -440,10 +436,8 @@ class MusicCog(commands.Cog):
         else:
             return await inter.response.send_message(i18n.t("music_cog.nothing_playing", locale=gid), ephemeral=True)
 
+    @require_permissions({Permission.MusicBlackList: False})
     async def handle_skip(self, inter: disnake.Interaction):
-        if await validate_permissions(inter, {Permission.MusicBlackList: False}):
-            return None
-
         gid = inter.guild_id
         vc = inter.guild.voice_client
         if vc and (vc.is_playing() or vc.is_paused()):
@@ -458,10 +452,8 @@ class MusicCog(commands.Cog):
         else:
             return await inter.response.send_message(i18n.t("music_cog.nothing_playing", locale=gid), ephemeral=True)
 
+    @require_permissions({Permission.MusicBlackList: False})
     async def handle_stop(self, inter: disnake.Interaction):
-        if await validate_permissions(inter, {Permission.MusicBlackList: False}):
-            return None
-
         gid = inter.guild_id
         state = self.get_state(gid)
 
@@ -486,10 +478,8 @@ class MusicCog(commands.Cog):
         log_fields.append((i18n.t("music_cog.logs.field_cleared", locale=gid), str(cleared)))
         return await log_music(inter, "stop", log_fields)
 
+    @require_permissions({Permission.MusicBlackList: False})
     async def handle_queue(self, inter: disnake.Interaction):
-        if await validate_permissions(inter, {Permission.MusicBlackList: False}):
-            return None
-
         gid = inter.guild_id
         state = self.get_state(gid)
         items = list(state.queue._queue)  # access to internal asyncio.Queue
@@ -522,10 +512,8 @@ class MusicCog(commands.Cog):
         await inter.response.send_message("\n".join(lines), ephemeral=True)
         return await log_music(inter, "queue")
 
+    @require_permissions({Permission.MusicBlackList: False})
     async def handle_loop(self, inter: disnake.Interaction, mode: str | None):
-        if await validate_permissions(inter, [{Permission.MusicBlackList: False}]):
-            return None
-
         gid = inter.guild_id
         state = self.get_state(gid)
 
@@ -631,10 +619,8 @@ class MusicCog(commands.Cog):
         name="interface",
         description=localized("commands.music_interface.description")
     )
+    @require_permissions([{Permission.Admin: True}, {disnake.Permissions(administrator=True): True}])
     async def interface(self, inter: disnake.ApplicationCommandInteraction):
-        if await validate_permissions(inter, [{Permission.Admin: True}, {disnake.Permissions(administrator=True): True}]):
-            return None
-
         state = self.get_state(inter.guild_id)
 
         await inter.response.send_message(

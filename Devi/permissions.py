@@ -5,6 +5,9 @@ from disnake.flags import flag_value
 from enum import IntFlag, IntEnum
 from typing import Optional
 
+import inspect
+from functools import wraps
+
 import disnake
 
 import i18n
@@ -261,8 +264,8 @@ async def validate_permissions(
     only if ALL conditions in it are satisfied). List elements are OR
     (the user is granted access if at least one group passes completely).
 
-    Returns True if access is DENIED (the interaction response has already been
-    sent — the calling code must immediately `return`). Returns False if at
+    Returns False if access is DENIED (the interaction response has already been
+    sent — the calling code must immediately `return`). Returns True if at
     least one group passes completely — no message is sent in this case.
 
     If access is denied, the message displays the COMPLETE requirements tree,
@@ -311,7 +314,7 @@ async def validate_permissions(
                 group_passed = False
 
         if group_passed:
-            return False  # This group (AND) passed completely -> access is granted, send nothing
+            return True  # This group (AND) passed completely -> access is granted, send nothing
 
         failed_groups.append(group_names)
 
@@ -329,7 +332,28 @@ async def validate_permissions(
     else:
         await inter.response.send_message(content=access_denied, ephemeral=True)
 
-    return True
+    return False
+
+def require_permissions(permissions, *, member: str | None = None, channel: str | None = None):
+    def decorator(func):
+        signature = inspect.signature(func)
+
+        @wraps(func)
+        async def wrapper(self, inter, *args, **kwargs):
+            bound = signature.bind(self, inter, *args, **kwargs)
+            bound.apply_defaults()
+
+            member_obj = bound.arguments.get(member) if member else None
+            channel_obj = bound.arguments.get(channel) if channel else None
+
+            if not await validate_permissions(inter, permissions, member=member_obj, channel=channel_obj):
+                return None
+
+            return await func(self, inter, *args, **kwargs)
+
+        return wrapper
+
+    return decorator
 
 def grant_permissions(
     guild_id: int,

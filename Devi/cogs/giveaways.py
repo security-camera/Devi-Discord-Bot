@@ -7,7 +7,7 @@ from disnake.ext import commands, tasks
 import i18n
 from discord_i18n import localized
 from duration_utils import parse_duration_seconds
-from permissions import validate_permissions, Permission
+from permissions import Permission, require_permissions
 from db import db_cursor
 
 CHECK_INTERVAL = 15
@@ -274,6 +274,7 @@ class GiveawayCog(commands.Cog):
         name="start",
         description=localized("commands.giveaway_start.description"),
     )
+    @require_permissions([{Permission.Giveaways: True}, {disnake.Permissions(administrator=True): True}], channel="channel")
     async def giveaway_start(
         self,
         inter: disnake.ApplicationCommandInteraction,
@@ -303,9 +304,6 @@ class GiveawayCog(commands.Cog):
         ),
     ):
         target_channel = channel or inter.channel
-
-        if await validate_permissions(inter, [{Permission.Giveaways: True}, {disnake.Permissions(administrator=True): True}], channel=target_channel):
-            return None
 
         if not duration.strip().lower():
             return await inter.response.send_message(
@@ -365,6 +363,7 @@ class GiveawayCog(commands.Cog):
         name="end",
         description=localized("commands.giveaway_end.description"),
     )
+    @require_permissions([{Permission.Giveaways: True}, {disnake.Permissions(administrator=True): True}])
     async def giveaway_end(
         self,
         inter: disnake.ApplicationCommandInteraction,
@@ -373,9 +372,6 @@ class GiveawayCog(commands.Cog):
             description=localized("commands.giveaway_end.param_message_id"),
         ),
     ):
-        if await validate_permissions(inter, [{Permission.Giveaways: True}, {disnake.Permissions(administrator=True): True}]):
-            return None
-
         data = self.giveaways.get(message_id)
         if data is None or data["guild_id"] != inter.guild.id:
             return await inter.response.send_message(
@@ -398,6 +394,7 @@ class GiveawayCog(commands.Cog):
         name="reroll",
         description=localized("commands.giveaway_reroll.description"),
     )
+    @require_permissions([{Permission.Giveaways: True}, {disnake.Permissions(administrator=True): True}])
     async def giveaway_reroll(
         self,
         inter: disnake.ApplicationCommandInteraction,
@@ -406,9 +403,6 @@ class GiveawayCog(commands.Cog):
             description=localized("commands.giveaway_reroll.param_message_id"),
         ),
     ):
-        if await validate_permissions(inter, [{Permission.Giveaways: True}, {disnake.Permissions(administrator=True): True}], channel=target_channel):
-            return None
-
         data = self.giveaways.get(message_id)
         if data is None or data["guild_id"] != inter.guild.id:
             return await inter.response.send_message(
@@ -431,10 +425,8 @@ class GiveawayCog(commands.Cog):
         name="list",
         description=localized("commands.giveaway_list.description"),
     )
+    @require_permissions([{Permission.Giveaways: True}, {disnake.Permissions(administrator=True): True}])
     async def giveaway_list(self, inter: disnake.ApplicationCommandInteraction):
-        if await validate_permissions(inter, [{Permission.Giveaways: True}, {disnake.Permissions(administrator=True): True}]):
-            return None
-
         active = [
             (mid, data)
             for mid, data in self.giveaways.items()

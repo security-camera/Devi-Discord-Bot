@@ -3,7 +3,7 @@ from disnake.ext import commands
 
 import permissions, i18n
 
-from permissions import grant_permissions, revoke_permissions, get_permissions, Permission, PermissionCheckType, all_permissions, validate_permissions
+from permissions import grant_permissions, revoke_permissions, get_permissions, Permission, PermissionCheckType, all_permissions, require_permissions
 from discord_i18n import localized
 
 
@@ -488,10 +488,8 @@ class PermissionCog(commands.Cog):
         name="manage",
         description=localized("commands.permissions_manage.description"),
     )
+    @require_permissions([{Permission.Admin: True}, {disnake.Permissions(administrator=True): True}])
     async def permissions_command_manage(self, inter: disnake.ApplicationCommandInteraction):
-        if await validate_permissions(inter, [{Permission.Admin: True}, {disnake.Permissions(administrator=True): True}]):
-            return None
-
         view = ObjectTypeSelectView(inter.author.id, inter.guild_id)
         embed = disnake.Embed(
             description=i18n.t("permissions_cmd.manage_select_type_prompt", locale=inter.guild_id),
@@ -506,10 +504,8 @@ class PermissionCog(commands.Cog):
         name="list",
         description=localized("commands.permissions_list.description")
     )
+    @require_permissions([{Permission.Admin: True}, {disnake.Permissions(administrator=True): True}])
     async def permissions_command_list(self, inter: disnake.ApplicationCommandInteraction):
-        if await validate_permissions(inter, [{Permission.Admin: True}, {disnake.Permissions(administrator=True): True}]):
-            return None
-
         snapshot = all_permissions(inter.guild_id)
 
         sections: list[str] = []

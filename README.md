@@ -1,6 +1,8 @@
+from other_apis.topgg_utils import vote_value
+
 # Devi
 
-A multifunctional Discord bot built on [disnake](https://github.com/DisnakeDev/disnake), providing moderation, automation, an AI assistant, voice features, giveaways and a flexible permission system. Has own [site](https://github.com/security-camera/Devi-Site).
+A multifunctional Discord bot built on [disnake](https://github.com/DisnakeDev/disnake), providing moderation, automation, an AI assistant, voice features, giveaways and a flexible permission system. It has own [site](https://github.com/security-camera/Devi-Site) with dashboard.
 
 ## Table of Contents
 
@@ -18,17 +20,18 @@ A multifunctional Discord bot built on [disnake](https://github.com/DisnakeDev/d
 
 |    |                                        |
 |----|----------------------------------------|
-| 📣 | User and role mention management       |
+| 📣 | User and role mentions                 |
 | 💬 | Auto-reply system (triggers)           |
 | ⚠️ | Warning system (Warns)                 |
-| 🎭 | Temporary roles                        |
+| 🎭 | Temporary roles and bans               |
 | 🔊 | Voice commands and TTS                 |
-| 🔐 | Flexible permission system             |
+| 🔐 | Flexible custom permission system      |
 | 📝 | Action logging                         |
 | 🎲 | Fun commands                           |
 | 🎉 | Giveaway system                        |
 | 🎂 | Birthday tracking                      |
 | 💬 | AI assistant powered by the Gemini API |
+| 🛡 | Honeypot channels                      |
 
 ## Configuration
 
@@ -80,10 +83,10 @@ The bot uses its own custom permission system, independent of Discord's native r
 ### Management functions
 
 #### `save()`
-Saves permissions to disk.
+Saves permissions to DB.
 
 #### `load()`
-Loads permissions from disk.
+Loads permissions from DB.
 
 #### `get_permissions(guild_id: int, object_type: PermissionCheckType, id: int)`
 Returns the permissions of object `id` (of type `object_type`) on guild `guild_id`.
@@ -120,7 +123,7 @@ Checks a list of permissions (of **any** type) and returns an error message if `
 **Example** — command proceeds only if the user can use AI and either has `TTS` or the `administrator` permission:
 
 ```python
-if await validate_permissions(inter, [
+if not await validate_permissions(inter, [
     {Permission.AiBlackList: False, Permission.TTS: True},
     {Permission.AiBlackList: False, disnake.Permissions(administrator=True): True},
 ]):
@@ -130,6 +133,9 @@ if await validate_permissions(inter, [
 ```
 
 > See `permissions.py` for the full documentation of this function.
+
+#### `@require_permissions(permissions, *, member: str | None = None, channel: str | None = None)`
+Method proceeds only if `validate_permissions(inter, permissions, member, channel)` is `true`
 
 ---
 
@@ -326,10 +332,24 @@ Returns a message `top_gg_cog.locked_command` if `is_voted` is `false`.
 **Example** — command proceeds only if the user is voted
 
 ```python
-if await validate_vote(inter):
+if not await validate_vote(inter):
     return None
 
 # command code...
+```
+
+#### `@require_vote`
+Method proceeds only if `validate_vote(inter.author)`
+
+#### `vote_value(user: disnake.User | disnake.Member | int, voted, not_voted, locale: LocaleObject = None) -> tuple[object, str]`
+Returns `(voted, None)` if `is_voted` is `true`. Returns `(not_voted, top_gg_cog.voting_ad message)` if `is_voted` is `false`.
+
+**Example**
+
+```python
+max_count, ad = await vote_value(user, MAX_COUNT_VOTED, MAX_COUNT, locale=locale)
+if count > max_count:
+    return inter.response.send_message(i18n.t("...", locale=locale) + ad)
 ```
 
 ---
@@ -383,15 +403,15 @@ Each step is used only if the model file actually exists in `PIPER_VOICES_DIR`.
 1. Download voices from [rhasspy/piper-voices](https://huggingface.co/rhasspy/piper-voices/tree/main). **Both files** are required per voice: `<name>.onnx` and `<name>.onnx.json`. Put them into `PIPER_VOICES_DIR` (`config/voices` by default).
 2. Set `voice_cog.tts-voice` in every locale file you want to support.
 
-| Variable                 | Default  | Description                                                              |
-|--------------------------|----------|--------------------------------------------------------------------------|
-| `VOICE`                  | `(None)` | Fallback voice used when a locale has no usable voice                    |
-| `MAX_TTS_LENGTH`         | `400`    | Max text length for regular users                                        |
-| `MAX_TTS_LENGTH_VOTED`   | `800`    | Max text length for users who voted on top.gg                            |
-| `EMPTY_CHANNEL_TIMEOUT`  | `60`     | Seconds in an empty voice channel before the bot leaves                  |
-| `TTS_PLAYBACK_TIMEOUT`   | `60`     | Safety net: force-stops playback if the clip never reports completion    |
+| Variable                | Default  | Description                                                              |
+|-------------------------|----------|--------------------------------------------------------------------------|
+| `FALLBACK_VOICE`        | `(None)` | Fallback voice used when a locale has no usable voice                    |
+| `MAX_TTS_LENGTH`        | `400`    | Max text length for regular users                                        |
+| `MAX_TTS_LENGTH_VOTED`  | `800`    | Max text length for users who voted on top.gg                            |
+| `EMPTY_CHANNEL_TIMEOUT` | `60`     | Seconds in an empty voice channel before the bot leaves                  |
+| `TTS_PLAYBACK_TIMEOUT`  | `60`     | Safety net: force-stops playback if the clip never reports completion    |
 
-> ⚠️ On Windows, keep the virtual environment (and preferably `PIPER_VOICES_DIR`) at a path with **only ASCII characters**. espeak-ng cannot read its data from paths with e.g. Cyrillic letters and fails with `Error processing file '...\phontab': No such file or directory`.
+> ⚠️ On Windows,  keep the virtual environment (and preferably `PIPER_VOICES_DIR`) at a path with **only ASCII characters**. espeak-ng cannot read its data from paths with e.g. Cyrillic letters and fails with `Error processing file '...\phontab': No such file or directory`.
 
 ### 🖥️ Dashboard API (`cogs/dashboard_api.py`)
 

@@ -3,7 +3,7 @@
 import json
 
 from db import db_cursor
-from other_apis.topgg_utils import is_voted
+from other_apis.topgg_utils import vote_value
 from paths import env_var_to_int
 
 # Multimodal history (text + images) is heavier than plain text, so we keep
@@ -39,7 +39,7 @@ def load_memory(guild_id: int, user_id: int) -> list:
 
 
 async def save_memory(guild_id: int, user_id: int, messages: list):
-    max_messages = MAX_MESSAGES_VOTED if await is_voted(user_id) else MAX_MESSAGES
+    max_messages, _ = await vote_value(user_id, MAX_MESSAGES_VOTED, MAX_MESSAGES)
     trimmed = messages[-max_messages:]
     with db_cursor(commit=True) as cur:
         cur.execute("DELETE FROM ai_memory WHERE guild_id = %s AND user_id = %s", (guild_id, user_id))

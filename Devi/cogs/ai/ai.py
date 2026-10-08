@@ -8,8 +8,9 @@ import disnake
 from disnake.ext import commands
 
 import i18n
+from i18n import LocaleObject
 from logs import send_log, LogColor
-from permissions import validate_permissions, Permission, has_permissions, DEVELOPER_LIST
+from permissions import Permission, has_permissions, DEVELOPER_LIST, require_permissions
 from discord_i18n import localized, yes_no_choices, add_remove_check_choices
 from cogs.voice import MAX_TTS_LENGTH, MAX_TTS_LENGTH_VOTED
 from cogs.ai.ai_memory import load_memory, add_message, clear_memory
@@ -20,7 +21,7 @@ from cogs.ai.ai_prompts import (
 )
 
 from storage import AI_SIGNAL_CHANNEL, TECHNICAL_SUPPORT_SERVER
-from other_apis.topgg_utils import is_voted
+from other_apis.topgg_utils import vote_value
 from paths import env_var_to_int, env_var
 from enum import IntEnum
 
@@ -101,17 +102,17 @@ class AiCog(commands.Cog):
         self.bot = bot
         self.cooldowns: dict[int, float] = {}
 
-    async def _check_cooldown(self, user_id: int) -> int | None:
+    async def _check_cooldown(self, user_id: int, locale: LocaleObject = None) -> tuple[int | None, str | None]:
         """Checks user cooldown"""
-        cooldown = COOLDOWN_SECONDS_VOTED if await is_voted(user_id) else COOLDOWN_SECONDS
+        cooldown, ad = await vote_value(user_id, COOLDOWN_SECONDS_VOTED, COOLDOWN_SECONDS, locale=locale)
 
         now = time.time()
         last_time = self.cooldowns.get(user_id, 0)
         if now - last_time < cooldown:
-            return int(cooldown - (now - last_time))
+            return int(cooldown - (now - last_time)), ad
 
         self.cooldowns[user_id] = now
-        return None
+        return None, ad
 
     def format_system_prompt(self, prompt_type: PromptType, user: int):
         prompt = PROMPTS_BY_TYPE[prompt_type][int(DEBUG_MODE if user in DEVELOPER_LIST else 0)].format(bot_name=self.bot.user.name, pronouns=PRONOUNS)
@@ -400,30 +401,25 @@ class AiCog(commands.Cog):
     @commands.Cog.listener()
     async def on_message(self, message: disnake.Message):
         if message.author.bot:
-            return
+            return None
 
-        if message.guild is None:
-            await self.bot.process_commands(message)
-            return
+        if not message.guild:
+            return await self.bot.process_commands(message)
 
         if self.bot.user not in message.mentions:
-            await self.bot.process_commands(message)
-            return
+            return await self.bot.process_commands(message)
 
         gid = message.guild.id
         user_id = message.author.id
 
         if has_permissions(message.author, message.channel, Permission.AiBlackList):
             await message.reply(i18n.t("ai_cog.blacklist", locale=gid))
-            await self.bot.process_commands(message)
-            return
+            return await self.bot.process_commands(message)
 
-        remaining = await self._check_cooldown(user_id)
+        remaining, ad = await self._check_cooldown(user_id, locale=gid)
         if remaining:
-            vote_ad = "" if await is_voted(user_id) else "\n\n" + i18n.t("top_gg_cog.voting_ad", locale=gid)
-            await message.reply(i18n.t("ai_cog.cooldown", locale=gid, seconds=remaining) + vote_ad)
-            await self.bot.process_commands(message)
-            return
+            await message.reply(i18n.t("ai_cog.cooldown", locale=gid, seconds=remaining) + ad)
+            return await self.bot.process_commands(message)
 
         # remove bot mentions from prompt
         prompt = message.content
@@ -435,15 +431,13 @@ class AiCog(commands.Cog):
 
         if not prompt and not images:
             await message.reply(i18n.t("ai_cog.empty_prompt", locale=gid))
-            await self.bot.process_commands(message)
-            return
+            return await self.bot.process_commands(message)
 
         key = get_api_key(gid)
 
         if not key:
             await message.reply(i18n.t("ai_cog.not_configured", locale=gid))
-            await self.bot.process_commands(message)
-            return
+            return await self.bot.process_commands(message)
 
         async with message.channel.typing():
             try:
@@ -460,20 +454,18 @@ class AiCog(commands.Cog):
             except (aiohttp.ClientError, TimeoutError) as e:
                 print(f"❌ Network AI error: {e}")
                 await message.reply(i18n.t("ai_cog.network_error", locale=gid))
-                await self.bot.process_commands(message)
-                return
+                return await self.bot.process_commands(message)
             except Exception as e:
                 print(f"❌ AI error: {e}")
                 await message.reply(i18n.t("ai_cog.generic_error", locale=gid))
-                await self.bot.process_commands(message)
-                return
+                return await self.bot.process_commands(message)
 
         if len(answer) > DISCORD_MESSAGE_LIMIT:
             answer = answer[:DISCORD_MESSAGE_LIMIT - 1] + "…"
 
         files = await self._build_discord_files(generated_images)
         await message.reply(content=answer or None, files=files)
-        await self.bot.process_commands(message)
+        return await self.bot.process_commands(message)
 
     @commands.slash_command(name="ai")
     async def ai_command(self, inter: disnake.ApplicationCommandInteraction):
@@ -506,6 +498,7 @@ class AiCog(commands.Cog):
         name="key",
         description=localized("commands.ai_key.description"),
     )
+    @require_permissions([{Permission.Admin: True}, {disnake.Permissions(administrator=True): True}])
     async def set_ai_key_command(
             self,
             inter: disnake.ApplicationCommandInteraction,
@@ -517,10 +510,7 @@ class AiCog(commands.Cog):
     ):
         gid = inter.guild_id
 
-        if await validate_permissions(inter, [{Permission.Admin: True}, {disnake.Permissions(administrator=True): True}]):
-            return None
-
-        old_key = None #get_api_key(gid)
+        old_key = get_api_key(gid)
 
         if key is None:
             if old_key is None:
@@ -548,6 +538,7 @@ class AiCog(commands.Cog):
         name="text",
         description=localized("commands.ai_ask_text.description"),
     )
+    @require_permissions([{Permission.AiBlackList: False}])
     async def ai_ask_text(
             self,
             inter: disnake.ApplicationCommandInteraction,
@@ -569,13 +560,9 @@ class AiCog(commands.Cog):
         gid = inter.guild_id
         user_id = inter.author.id
 
-        if await validate_permissions(inter, [{Permission.AiBlackList: False}]):
-            return None
-
-        remaining = await self._check_cooldown(user_id)
+        remaining, ad = await self._check_cooldown(user_id, locale=gid)
         if remaining:
-            vote_ad = "" if await is_voted(user_id) else "\n\n" + i18n.t("top_gg_cog.voting_ad", locale=gid)
-            return await inter.response.send_message(i18n.t("ai_cog.cooldown", locale=gid, seconds=remaining) + vote_ad, ephemeral=True)
+            return await inter.response.send_message(i18n.t("ai_cog.cooldown", locale=gid, seconds=remaining) + ad, ephemeral=True)
 
         key = get_api_key(gid)
 
@@ -614,6 +601,7 @@ class AiCog(commands.Cog):
         name="voice",
         description=localized("commands.ai_ask_voice.description"),
     )
+    @require_permissions([{Permission.AiBlackList: False, Permission.TTS: True}, {Permission.AiBlackList: False, disnake.Permissions(administrator=True): True}])
     async def ai_ask_voice(
             self,
             inter: disnake.ApplicationCommandInteraction,
@@ -624,14 +612,9 @@ class AiCog(commands.Cog):
     ):
         gid = inter.guild_id
 
-        if await validate_permissions(inter, [{Permission.AiBlackList: False, Permission.TTS: True}, {Permission.AiBlackList: False, disnake.Permissions(administrator=True): True}]):
-            return None
-
         vc = inter.guild.voice_client
-        if vc is None:
-            return await inter.response.send_message(
-                i18n.t("voice_cog.not_in_voice", locale=gid), ephemeral=True
-            )
+        if not vc:
+            return await inter.response.send_message(i18n.t("voice_cog.not_in_voice", locale=gid), ephemeral=True)
 
         key = get_api_key(gid)
 
@@ -646,12 +629,9 @@ class AiCog(commands.Cog):
                 i18n.t("ai_cog.voice_cog_missing", locale=gid), ephemeral=True
             )
 
-        remaining = await self._check_cooldown(inter.author.id)
+        remaining, ad = await self._check_cooldown(inter.author.id, locale=gid)
         if remaining:
-            vote_ad = "" if await is_voted(inter.author.id) else "\n\n" + i18n.t("top_gg_cog.voting_ad", locale=gid)
-            return await inter.response.send_message(
-                i18n.t("ai_cog.cooldown", locale=gid, seconds=remaining) + vote_ad, ephemeral=True
-            )
+            return await inter.response.send_message(i18n.t("ai_cog.cooldown", locale=gid, seconds=remaining) + ad, ephemeral=True)
 
         await inter.response.defer(ephemeral=False)
 
@@ -701,7 +681,7 @@ class AiCog(commands.Cog):
         await add_message(gid, user_id, "user", user_parts)
         await add_message(gid, user_id, "assistant", response_parts)
 
-        max_length = MAX_TTS_LENGTH_VOTED if await is_voted(user_id) else MAX_TTS_LENGTH
+        max_length, _ = await vote_value(user_id, MAX_TTS_LENGTH_VOTED, MAX_TTS_LENGTH, locale=gid)
 
         spoken_text = answer if len(answer) <= max_length else answer[:max_length - 1] + "…"
         position = voice_cog.enqueue_tts(inter.guild.id, vc, spoken_text)
@@ -711,6 +691,7 @@ class AiCog(commands.Cog):
         )
 
     @ai_command.sub_command(name="debug", description=localized("logs_cog.common.dash"))
+    @require_permissions({Permission.Developer: True})
     async def ai_debug(
             self,
             inter: disnake.ApplicationCommandInteraction,
@@ -724,8 +705,6 @@ class AiCog(commands.Cog):
                 }
             )
     ):
-        if await validate_permissions(inter, {Permission.Developer: True}):
-            return None
 
         global DEBUG_MODE
 
@@ -739,6 +718,7 @@ class AiCog(commands.Cog):
                 return await inter.response.send_message(f"Bro WTF?", ephemeral=True)
 
     # @ai_command.sub_command(name="instruction", description=localized("commands.ai_instruction.description"))
+    # @require_permissions({Permission.Developer: True})
     # TODO: fix command
     async def ai_instruction(
             self,
@@ -758,9 +738,6 @@ class AiCog(commands.Cog):
                 #description=localized("commands.ai_instruction.param_instruction")
             )
     ):
-        if not await validate_permissions(inter, {Permission.Developer: True}):
-            return None
-
         try:
             int_id = int(user_id)
         except ValueError:

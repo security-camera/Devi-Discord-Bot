@@ -8,8 +8,8 @@ import i18n
 from db import db_cursor
 from discord_i18n import localized
 from logs import send_log, LogColor
-from permissions import validate_permissions, has_permissions, Permission, PermissionCheckType
-from other_apis.topgg_utils import validate_vote
+from permissions import require_permissions, has_permissions, Permission, PermissionCheckType
+from other_apis.topgg_utils import require_vote
 from paths import env_var_to_bool, env_var
 
 DEFAULT_NAME_TEMPLATE = env_var("DEFAULT_NAME_TEMPLATE", "[user]`s channel")
@@ -783,12 +783,10 @@ class TempVoicesCog(commands.Cog):
         await inter.response.send_message(i18n.t("temp_voices_cog.transferred", locale=inter.guild_id, target=target.mention), ephemeral=True)
         return await log_voice(inter, "transfer", channel, [log_field(inter, "target", f"{target} ({target.id})")])
 
+    @require_vote
     async def action_claim(self, inter: disnake.Interaction, channel_id: int):
-        if await validate_vote(inter, inter.guild_id):
-            return None
-
         ctx = await self.resolve_by_id(inter, channel_id)
-        if ctx is None:
+        if not ctx:
             return None
         channel, record = ctx
 
@@ -855,6 +853,7 @@ class TempVoicesCog(commands.Cog):
         pass
 
     @voice_command.sub_command(name="setup", description=localized("commands.voice_setup.description"))
+    @require_permissions([{Permission.Admin: True}, {disnake.Permissions(administrator=True): True}])
     async def voice_setup(
             self,
             inter: disnake.ApplicationCommandInteraction,
@@ -873,9 +872,6 @@ class TempVoicesCog(commands.Cog):
                 description=localized("commands.voice_setup.param_name_template"),
             ),
     ):
-        if await validate_permissions(inter, [{Permission.Admin: True}, {disnake.Permissions(administrator=True): True}]):
-            return None
-
         set_guild_config(inter.guild_id, lobby_channel.id, category.id if category else None, name_template)
 
         return await inter.response.send_message(

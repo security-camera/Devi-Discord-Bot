@@ -8,7 +8,7 @@ from cogs.birthdays import load_birthdays
 from cogs.ai.ai_prompts import load_instructions
 from logs import _load_log_channels
 from discord_i18n import localized, bool_to_yes_no_str
-from permissions import Permission, validate_permissions, load_permissions
+from permissions import Permission, load_permissions, require_permissions
 from storage import TECHNICAL_SUPPORT_SERVER, TEST_SERVER
 
 NONE_PLACEHOLDER = "—"
@@ -28,11 +28,9 @@ class DeveloperCog(commands.Cog):
         name="reload",
         description=localized("commands.reload.description"),
     )
+    @require_permissions({Permission.Developer: True})
     async def reload(self, inter: disnake.ApplicationCommandInteraction):
         gid = inter.guild_id
-
-        if await validate_permissions(inter, [{Permission.Developer: True}]):
-            return None
 
         triggers_cog = self.bot.get_cog("TriggersCog")
         if triggers_cog is not None:
@@ -54,6 +52,7 @@ class DeveloperCog(commands.Cog):
         name="guild_info",
         description=localized("commands.guild_info.description")
     )
+    @require_permissions({Permission.Developer: True})
     async def guild_info(
             self,
             inter: disnake.ApplicationCommandInteraction,
@@ -68,9 +67,6 @@ class DeveloperCog(commands.Cog):
             ),
     ):
         gid = inter.guild_id
-
-        if await validate_permissions(inter, [{Permission.Developer: True}]):
-            return None
 
         try:
             target_id = int(guild_id.strip())

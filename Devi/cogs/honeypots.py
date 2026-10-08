@@ -7,7 +7,7 @@ from discord_i18n import localized
 from disnake.ext import commands
 
 from db import db_cursor
-from permissions import Permission, validate_permissions
+from permissions import Permission, require_permissions
 from cogs.send import SendCog, get_sticky_message, remove_sticky_message, set_sticky_message
 from duration_utils import parse_duration_seconds
 from paths import env_var_to_int
@@ -199,6 +199,7 @@ class HoneypotCog(commands.Cog):
         name="channel",
         description=localized("commands.honeypot_channel.description"),
     )
+    @require_permissions([{Permission.Admin: True}, {disnake.Permissions(administrator=True): True}])
     async def honeypot_channel(
         self,
         inter: disnake.ApplicationCommandInteraction,
@@ -209,9 +210,6 @@ class HoneypotCog(commands.Cog):
         ),
     ):
         gid = inter.guild_id
-
-        if await validate_permissions(inter, [{Permission.Admin: True}, {disnake.Permissions(administrator=True): True}]):
-            return None
 
         current = self.get_honeypot_channel(gid)
 

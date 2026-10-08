@@ -8,7 +8,7 @@ from i18n import LocaleObject
 from db import db_cursor
 from logs import send_log, LogColor
 from discord_i18n import localized, bool_to_yes_no_str
-from permissions import validate_permissions, Permission
+from permissions import validate_permissions, Permission, require_permissions
 from paths import env_var_to_int
 
 # Hour (UTC) to check birthdays
@@ -229,7 +229,8 @@ class BirthdayCog(commands.Cog):
 
         gid = inter.guild_id
 
-        if user != inter.author and await validate_permissions(inter, {Permission.Developer: True}):
+        # Only developer can change birthdays of other users
+        if user != inter.author and not await validate_permissions(inter, {Permission.Developer: True}):
             return None
 
         if not is_valid_day(day, month):
@@ -301,7 +302,7 @@ class BirthdayCog(commands.Cog):
         target = user or inter.author
 
         # Only developer can change birthdays of other users
-        if target.id != inter.author.id and await validate_permissions(inter, {Permission.Developer: True}):
+        if target.id != inter.author.id and not await validate_permissions(inter, {Permission.Developer: True}):
             return None
 
         removed = remove_birthday(target.id)
@@ -313,6 +314,7 @@ class BirthdayCog(commands.Cog):
         name="channel",
         description=localized("commands.birthday_channel.description"),
     )
+    @require_permissions([{Permission.Admin: True}, {disnake.Permissions(manage_guild=True): True}])
     async def birthday_channel(
             self,
             inter: disnake.ApplicationCommandInteraction,
@@ -322,9 +324,6 @@ class BirthdayCog(commands.Cog):
                 description=localized("commands.birthday_channel.param_channel"),
             ),
     ):
-        if await validate_permissions(inter, [{Permission.Admin: True}, {disnake.Permissions(administrator=True): True}]):
-            return None
-
         gid = inter.guild_id
 
         if not channel:
@@ -359,6 +358,7 @@ class BirthdayCog(commands.Cog):
         name="congratulate",
         description=localized("commands.birthday_congratulate.description"),
     )
+    @require_permissions({Permission.Developer: True})
     async def birthday_congratulate(
             self,
             inter: disnake.ApplicationCommandInteraction,
@@ -368,9 +368,6 @@ class BirthdayCog(commands.Cog):
                 description=localized("commands.birthday_congratulate.param_user"),
             ),
     ):
-        if await validate_permissions(inter, {Permission.Developer: True}):
-            return None
-
         gid = inter.guild_id
         target = user or inter.author
 

@@ -2,6 +2,8 @@ from datetime import datetime, timezone
 
 import aiohttp
 import disnake
+import inspect
+from functools import wraps
 
 import i18n
 from i18n import LocaleObject
@@ -63,17 +65,31 @@ async def is_voted(user: disnake.User | disnake.Member | int) -> bool:
     return datetime.now(timezone.utc) < expires_at
 
 async def validate_vote(inter: disnake.ApplicationCommandInteraction, locale: LocaleObject) -> bool:
-    """ Returns True if user ISN'T voted (the interaction response has already been
-    sent — the calling code must immediately `return`). Returns False if user is voted."""
     voted = await is_voted(inter.author)
 
-    link = i18n.t("top_gg_cog.voting_link", locale=locale)
-    text = i18n.t("top_gg_cog.locked_command", locale=locale, link=link)
+    if voted:
+        return True
+    else:
+        link = i18n.t("top_gg_cog.voting_link", locale=locale)
+        text = i18n.t("top_gg_cog.locked_command", locale=locale, link=link)
 
-    if not voted:
         if inter.response.is_done():
             await inter.edit_original_response(content=text, embed=None, embeds=[], components=[])
         else:
             await inter.response.send_message(content=text, ephemeral=True)
+        return False
 
-    return not voted
+def require_vote(func):
+    @wraps(func)
+    async def wrapper(self, inter, *args, **kwargs):
+        if not await validate_vote(inter, inter.guild_id):
+            return None
+
+        return await func(self, inter, *args, **kwargs)
+
+    return wrapper
+
+async def vote_value(user: disnake.User | disnake.Member | int, voted, not_voted, locale: LocaleObject = None) -> tuple[object, str | None]:
+    _voted = await is_voted(user)
+
+    return voted if _voted else not_voted, "" if _voted else "\n\n" + i18n.t("top_gg_cog.voting_ad", locale=locale)

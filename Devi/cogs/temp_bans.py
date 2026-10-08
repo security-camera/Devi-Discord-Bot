@@ -9,7 +9,8 @@ from discord_i18n import localized
 from logs import send_log, LogColor
 from db import db_cursor
 from duration_utils import parse_duration_seconds
-from permissions import validate_permissions
+from permissions import require_permissions
+
 
 def insert_temp_ban(record: dict) -> int:
     with db_cursor(commit=True) as cur:
@@ -115,6 +116,7 @@ class TempBansCog(commands.Cog):
         name="temp_ban",
         description=localized("commands.temp_ban.description"),
     )
+    @require_permissions({disnake.Permissions(ban_members=True): True})
     async def temp_ban(
             self,
             inter: disnake.ApplicationCommandInteraction,
@@ -133,9 +135,6 @@ class TempBansCog(commands.Cog):
             )
     ):
         gid = inter.guild_id
-
-        if await validate_permissions(inter, [{disnake.Permissions(ban_members=True): True}]):
-            return None
 
         if member.top_role >= inter.guild.me.top_role:
             return await inter.response.send_message(

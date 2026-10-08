@@ -4,7 +4,7 @@ from disnake.ext import commands
 import i18n
 
 from discord_i18n import localized, locale_choices
-from permissions import validate_permissions, Permission
+from permissions import Permission, require_permissions
 from logs import set_log_channel_id, remove_log_channel
 from localization import set_localization
 
@@ -17,6 +17,7 @@ class AdminCog(commands.Cog):
         name="set_log_channel",
         description=localized("commands.set_log_channel.description"),
     )
+    @require_permissions([{Permission.Admin: True}, {disnake.Permissions(administrator=True): True}])
     async def set_log_channel(
             self,
             inter: disnake.ApplicationCommandInteraction,
@@ -27,9 +28,6 @@ class AdminCog(commands.Cog):
             ),
     ):
         gid = inter.guild_id
-
-        if await validate_permissions(inter, [{Permission.Admin: True}, {disnake.Permissions(administrator=True): True}]):
-            return None
 
         if not channel:
             remove_log_channel(gid)
@@ -42,6 +40,7 @@ class AdminCog(commands.Cog):
         name="language",
         description=localized("commands.language.description"),
     )
+    @require_permissions([{Permission.Admin: True}, {disnake.Permissions(administrator=True): True}])
     async def language(
             self,
             inter: disnake.ApplicationCommandInteraction,
@@ -52,9 +51,6 @@ class AdminCog(commands.Cog):
             ),
     ):
         gid = inter.guild_id
-
-        if await validate_permissions(inter, [{Permission.Admin: True}, {disnake.Permissions(administrator=True): True}]):
-            return None
 
         set_localization(gid, language)
 

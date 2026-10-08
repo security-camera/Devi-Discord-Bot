@@ -7,8 +7,8 @@ import i18n
 from duration_utils import parse_timedelta
 from logs import send_log, LogColor
 from discord_i18n import localized
-from permissions import validate_permissions
-from other_apis.topgg_utils import is_voted
+from permissions import require_permissions
+from other_apis.topgg_utils import vote_value
 from paths import env_var_to_int
 
 purging_channels: set[int] = set() # Channel IDs where /clear is currently being executed
@@ -24,6 +24,7 @@ class ClearCog(commands.Cog):
         name="clear",
         description=localized("commands.clear.description"),
     )
+    @require_permissions({disnake.Permissions(manage_messages=True): True})
     async def clear_messages(
             self,
             inter: disnake.ApplicationCommandInteraction,
@@ -44,21 +45,16 @@ class ClearCog(commands.Cog):
     ):
         gid = inter.guild_id
 
-        if await validate_permissions(inter, [{disnake.Permissions(manage_messages=True): True}]):
-            return None
-
         if count <= 0:
             return await inter.response.send_message(i18n.t("clear_cmd.invalid_count", locale=gid), ephemeral=True)
 
-        voted = await is_voted(inter.author.id)
-        max_count = COUNT_VOTED if voted else COUNT
+        max_count, ad = await vote_value(inter.author, COUNT_VOTED, COUNT_VOTED, locale=gid)
 
         if count > max_count:
-            vote_ad = "" if voted else "\n\n" + i18n.t("top_gg_cog.voting_ad", locale=gid)
-            return await inter.response.send_message(i18n.t("clear_cmd.count_too_high", locale=gid, max=str(max_count)) + vote_ad, ephemeral=True)
+            return await inter.response.send_message(i18n.t("clear_cmd.count_too_high", locale=gid, max=str(max_count)) + ad, ephemeral=True)
 
         after_time = None
-        if duration is not None:
+        if duration:
             delta, error = parse_timedelta(duration, locale=gid)
             if error:
                 return await inter.response.send_message(error, ephemeral=True)

@@ -11,12 +11,12 @@ from piper import PiperVoice
 
 import i18n
 from i18n import DEFAULT_LOCALE, LocaleObject
-from permissions import validate_permissions, Permission
+from permissions import Permission, require_permissions
 from discord_i18n import localized, locale_choices
 from logs import send_log, LogColor
 from paths import env_var, env_var_to_int, PIPER_VOICES_DIR
 
-from other_apis.topgg_utils import is_voted
+from other_apis.topgg_utils import vote_value
 
 MAX_TTS_LENGTH = env_var_to_int("MAX_TTS_LENGTH", "400")
 MAX_TTS_LENGTH_VOTED = env_var_to_int("MAX_TTS_LENGTH_VOTED", "800")
@@ -238,6 +238,7 @@ class VoiceCog(commands.Cog):
         name="tts",
         description=localized("commands.tts.description"),
     )
+    @require_permissions([{Permission.TTS: True}, {disnake.Permissions(administrator=True): True}])
     async def tts(
             self,
             inter: disnake.ApplicationCommandInteraction,
@@ -254,9 +255,6 @@ class VoiceCog(commands.Cog):
     ):
         gid = inter.guild_id
 
-        if await validate_permissions(inter, [{Permission.TTS: True}, {disnake.Permissions(administrator=True): True}]):
-            return None
-
         vc = inter.guild.voice_client
 
         if vc is None:
@@ -265,14 +263,11 @@ class VoiceCog(commands.Cog):
                 ephemeral=True
             )
 
-        voted = await is_voted(inter.author.id)
-
-        max_length = MAX_TTS_LENGTH_VOTED if voted else MAX_TTS_LENGTH
+        max_length, ad = vote_value(inter.author.id, MAX_TTS_LENGTH_VOTED, MAX_TTS_LENGTH, locale=gid)
 
         if len(text) > max_length:
-            vote_ad = "" if voted else "\n\n" + i18n.t("top_gg_cog.voting_ad", locale=gid, format_command=True)
             return await inter.response.send_message(
-                i18n.t("voice_cog.too_long", locale=gid, max=max_length) + vote_ad,
+                i18n.t("voice_cog.too_long", locale=gid, max=max_length) + ad,
                 ephemeral=True
             )
 

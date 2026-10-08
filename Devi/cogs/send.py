@@ -4,7 +4,7 @@ from disnake.ext import commands
 import i18n
 from i18n import LocaleObject
 
-from permissions import Permission, validate_permissions
+from permissions import Permission, require_permissions
 from discord_i18n import localized, yes_no_choices, bool_to_yes_no_str
 
 from db import db_cursor
@@ -207,6 +207,7 @@ class SendCog(commands.Cog):
         name="message",
         description=localized("commands.send_message.description"),
     )
+    @require_permissions([{Permission.Send: True}, {disnake.Permissions(administrator=True): True}])
     async def send_message_command(
             self,
             inter: disnake.ApplicationCommandInteraction,
@@ -233,9 +234,6 @@ class SendCog(commands.Cog):
     ):
         gid = inter.guild_id
         _channel = channel or inter.channel
-
-        if await validate_permissions(inter, [{Permission.Send: True}, {disnake.Permissions(administrator=True): True}]):
-            return None
 
         _message = f"{message}\n{i18n.t('send_message_cmd.warning', locale=gid)}"
         if message_id_to_reply is not None:
@@ -273,6 +271,7 @@ class SendCog(commands.Cog):
         name="sticky",
         description=localized("commands.send_sticky.description"),
     )
+    @require_permissions([{Permission.Send: True, disnake.Permissions(pin_messages=True): True}, {disnake.Permissions(administrator=True): True}], channel="channel")
     async def send_sticky_command(
             self,
             inter: disnake.ApplicationCommandInteraction,
@@ -291,9 +290,6 @@ class SendCog(commands.Cog):
 
         gid = inter.guild_id
         target_channel = channel or inter.channel
-
-        if await validate_permissions(inter, [{Permission.Send: True, disnake.Permissions(pin_messages=True): True}, {disnake.Permissions(administrator=True): True}]):
-            return None
 
         if not message:
             existing = get_sticky_message(target_channel.id)
@@ -360,6 +356,7 @@ class SendCog(commands.Cog):
         name="dm",
         description=localized("commands.send_dm.description"),
     )
+    @require_permissions([{Permission.Send: True}, {disnake.Permissions(administrator=True): True}])
     async def send_dm_command(
             self,
             inter: disnake.ApplicationCommandInteraction,
@@ -373,9 +370,6 @@ class SendCog(commands.Cog):
             ),
     ):
         gid = inter.guild_id
-
-        if await validate_permissions(inter, [{Permission.Send: True}, {disnake.Permissions(administrator=True): True}]):
-            return None
 
         status = get_dm_opt_out(user.id)
 

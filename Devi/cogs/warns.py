@@ -8,7 +8,8 @@ from duration_utils import parse_duration
 from logs import send_log, LogColor
 from discord_i18n import localized
 from db import db_cursor
-from permissions import validate_permissions, Permission
+from permissions import Permission, require_permissions
+
 
 def load_warns() -> list:
     with db_cursor() as cur:
@@ -113,6 +114,7 @@ class WarnsCog(commands.Cog):
         name="add",
         description=localized("commands.warn_add.description"),
     )
+    @require_permissions([{Permission.Warnings: True}, {disnake.Permissions(moderate_members=True): True}])
     async def warn_add(
             self,
             inter: disnake.ApplicationCommandInteraction,
@@ -131,12 +133,6 @@ class WarnsCog(commands.Cog):
             )
     ):
         gid = inter.guild_id
-
-        if await validate_permissions(inter, [
-            {Permission.Warnings: True},
-            {disnake.Permissions(moderate_members=True): True},
-        ]):
-            return None
 
         expires_at, error = parse_duration(duration, locale=gid)
         if error:
@@ -239,6 +235,7 @@ class WarnsCog(commands.Cog):
         name="remove",
         description=localized("commands.warn_remove.description"),
     )
+    @require_permissions([{Permission.Warnings: True}, {disnake.Permissions(moderate_members=True): True}])
     async def warn_remove(
             self,
             inter: disnake.ApplicationCommandInteraction,
@@ -248,12 +245,6 @@ class WarnsCog(commands.Cog):
             ),
     ):
         gid = inter.guild_id
-
-        if await validate_permissions(inter, [
-            {Permission.Warnings: True},
-            {disnake.Permissions(moderate_members=True): True},
-        ]):
-            return None
 
         target = next(
             (w for w in self.warns_db if w["id"] == case_id and w.get("guild_id") == inter.guild.id),
@@ -289,6 +280,7 @@ class WarnsCog(commands.Cog):
         name="obsolete",
         description=localized("commands.warn_obsolete.description"),
     )
+    @require_permissions([{Permission.Warnings: True}, {disnake.Permissions(moderate_members=True): True}])
     async def warn_obsolete(
             self,
             inter: disnake.ApplicationCommandInteraction,
@@ -298,12 +290,6 @@ class WarnsCog(commands.Cog):
             ),
     ):
         gid = inter.guild_id
-
-        if await validate_permissions(inter, [
-            {Permission.Warnings: True},
-            {disnake.Permissions(moderate_members=True): True},
-        ]):
-            return None
 
         target = next(
             (w for w in self.warns_db if w["id"] == case_id and w.get("guild_id") == inter.guild.id),

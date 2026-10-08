@@ -6,10 +6,10 @@ import disnake
 from disnake.ext import commands
 
 import i18n
-from permissions import Permission, validate_permissions
+from permissions import Permission, require_permissions
 from discord_i18n import localized, add_remove_check_choices
 from db import db_cursor
-from other_apis.topgg_utils import is_voted
+from other_apis.topgg_utils import vote_value
 from paths import env_var_to_int
 
 RESPONSE_COOLDOWN = env_var_to_int("RESPONSE_COOLDOWN", "3")
@@ -17,7 +17,7 @@ RESPONSE_COOLDOWN_VOTED = env_var_to_int("RESPONSE_COOLDOWN_VOTED", "0")
 
 
 def load_triggers() -> dict[int, dict[str, list[str]]]:
-    """Loads triggers from SQLite. Structure: {guild_id: {regex: [responses]}}."""
+    """Loads triggers from DB. Structure: {guild_id: {regex: [responses]}}."""
 
     with db_cursor() as cur:
         cur.execute("SELECT id, guild_id, pattern FROM triggers ORDER BY guild_id, sort_order, id")
@@ -142,7 +142,7 @@ class TriggersCog(commands.Cog):
             if not self._regex_matches(trigger, msg_text):
                 continue
 
-            response_cooldown = RESPONSE_COOLDOWN_VOTED if await is_voted(message.author.id) else RESPONSE_COOLDOWN
+            response_cooldown, _ = await vote_value(message.author.id, RESPONSE_COOLDOWN_VOTED, RESPONSE_COOLDOWN)
 
             if now - last_time >= response_cooldown:
                 try:
@@ -165,6 +165,7 @@ class TriggersCog(commands.Cog):
         name="trigger",
         description=localized("commands.trigger.description"),
     )
+    @require_permissions([{Permission.ManageTriggers: True}, {disnake.Permissions(administrator=True): True}])
     async def trigger(
             self,
             inter: disnake.ApplicationCommandInteraction,
@@ -184,9 +185,6 @@ class TriggersCog(commands.Cog):
             ),
     ):
         gid = inter.guild_id
-
-        if await validate_permissions(inter, [{Permission.ManageTriggers: True}, {disnake.Permissions(administrator=True): True}]):
-            return None
 
         trigger_clean = trigger.strip()
         response_clean = response.strip() if response else None
@@ -361,11 +359,9 @@ class TriggersCog(commands.Cog):
         name="triggers",
         description=localized("commands.triggers.description"),
     )
+    @require_permissions([{Permission.ManageTriggers: True}, {disnake.Permissions(administrator=True): True}])
     async def trigger_list(self, inter: disnake.ApplicationCommandInteraction):
         gid = inter.guild_id
-
-        if await validate_permissions(inter, [{Permission.ManageTriggers: True}, {disnake.Permissions(administrator=True): True}]):
-            return None
 
         guild_triggers = self.triggers.get(gid, {})
 

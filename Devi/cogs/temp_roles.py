@@ -8,7 +8,7 @@ from duration_utils import parse_duration_seconds
 from logs import send_log, LogColor
 from discord_i18n import localized
 from db import db_cursor
-from permissions import validate_permissions
+from permissions import require_permissions
 
 
 def insert_temp_role(record: dict) -> int:
@@ -117,6 +117,7 @@ class TempRolesCog(commands.Cog):
         name="temp_role",
         description=localized("commands.temp_role.description"),
     )
+    @require_permissions({disnake.Permissions(manage_roles=True): True})
     async def temp_role(
             self,
             inter: disnake.ApplicationCommandInteraction,
@@ -134,9 +135,6 @@ class TempRolesCog(commands.Cog):
             )
     ):
         gid = inter.guild_id
-
-        if await validate_permissions(inter, [{disnake.Permissions(manage_roles=True): True}]):
-            return None
 
         if role >= inter.guild.me.top_role:
             return await inter.response.send_message(

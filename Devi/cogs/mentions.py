@@ -5,9 +5,9 @@ import disnake
 from disnake.ext import commands
 
 import i18n
-from permissions import validate_permissions, Permission, has_permissions
+from permissions import Permission, has_permissions, require_permissions
 from discord_i18n import localized
-from other_apis.topgg_utils import is_voted
+from other_apis.topgg_utils import vote_value
 from paths import env_var_to_int
 
 MAX_MESSAGES = env_var_to_int("MAX_MENTIONS", "10")
@@ -40,15 +40,10 @@ class MentionsCog(commands.Cog):
         gid = inter.guild_id
         user_id = inter.author.id
 
-        voted = await is_voted(user_id)
-        max_voted = MAX_MESSAGES_VOTED if voted else MAX_MESSAGES
-
-        if await validate_permissions(inter, [{Permission.MentionBlackList: False}]):
-            return None
+        max_voted, ad = await vote_value(user_id, MAX_MESSAGES_VOTED, MAX_MESSAGES, locale=gid)
 
         if count > max_voted and not has_permissions(inter.author, inter.channel, Permission.ManageMention):
-            vote_ad = "" if voted else "\n\n" + i18n.t("top_gg_cog.voting_ad", locale=gid)
-            return i18n.t("mentions_cog.max_count_exceeded", locale=gid, max=MAX_MESSAGES) + vote_ad
+            return i18n.t("mentions_cog.max_count_exceeded", locale=gid, max=MAX_MESSAGES) + ad
 
         if count <= 0:
             return i18n.t("mentions_cog.invalid_count", locale=gid)
@@ -103,6 +98,7 @@ class MentionsCog(commands.Cog):
         name="user",
         description=localized("commands.mention_user.description"),
     )
+    @require_permissions({Permission.MentionBlackList: False})
     async def mention_user(
             self,
             inter: disnake.ApplicationCommandInteraction,
@@ -149,6 +145,7 @@ class MentionsCog(commands.Cog):
         name="role",
         description=localized("commands.mention_role.description"),
     )
+    @require_permissions({Permission.MentionBlackList: False})
     async def mention_role(
             self,
             inter: disnake.ApplicationCommandInteraction,
@@ -195,16 +192,10 @@ class MentionsCog(commands.Cog):
         name="stop",
         description=localized("commands.mention_stop.description"),
     )
+    @require_permissions([{Permission.ManageMention: True}, {disnake.Permissions(administrator=True): True}])
     async def mention_stop(self, inter: disnake.ApplicationCommandInteraction):
-        gid = inter.guild_id
-
-        if await validate_permissions(inter, [{Permission.ManageMention: True}, {disnake.Permissions(administrator=True): True}]):
-            return None
-
         self.need_to_stop = True
-        return await inter.response.send_message(
-            i18n.t("mentions_cog.stop_signal_sent", locale=gid), ephemeral=True
-        )
+        return await inter.response.send_message(i18n.t("mentions_cog.stop_signal_sent", locale=inter.guild_id), ephemeral=True)
 
 
 def setup(bot: commands.Bot):
