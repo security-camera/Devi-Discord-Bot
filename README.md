@@ -1,5 +1,3 @@
-from other_apis.topgg_utils import vote_value
-
 # Devi
 
 A multifunctional Discord bot built on [disnake](https://github.com/DisnakeDev/disnake), providing moderation, automation, an AI assistant, voice features, giveaways and a flexible permission system. It has own [site](https://github.com/security-camera/Devi-Site) with dashboard.
