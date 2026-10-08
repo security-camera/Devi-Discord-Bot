@@ -102,6 +102,23 @@ class HoneypotCog(commands.Cog):
         except disnake.Forbidden:
             return False
 
+    async def configure_honeypot(self, guild_id: int, channel: disnake.TextChannel, punishment_type: PunishmentType, duration: int, role_id: int = 0) -> bool:
+        """Create or update the whole honeypot of a guild in one step (used by the website dashboard)."""
+        current = self.get_honeypot_channel(guild_id)
+
+        if current and current[0] == channel.id:
+            with db_cursor(commit=True) as cur:
+                cur.execute(
+                    """UPDATE honeypot_channels SET punishment_type = %s, punishment_duration = %s, role_id = %s WHERE guild_id = %s""",
+                    (int(punishment_type), duration, role_id, guild_id),
+                )
+            return True
+
+        if current:
+            await self._delete_sticky_message(current[0])
+
+        return await self.set_honeypot_channel(guild_id, channel, punishment_type, duration, role_id)
+
     async def remove_honeypot_channel(self, guild_id: int) -> bool:
         config = self.get_honeypot_channel(guild_id)
 
@@ -264,6 +281,10 @@ class HoneypotCog(commands.Cog):
         ),
     ):
         gid = inter.guild_id
+
+        if await validate_permissions(inter, [{Permission.Admin: True}, {disnake.Permissions(administrator=True): True}]):
+            return None
+
         duration, error = parse_duration_seconds(duration, locale=gid)
 
         if error:

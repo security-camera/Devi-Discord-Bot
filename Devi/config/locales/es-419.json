@@ -1238,7 +1238,9 @@
             "logs": "Registros",
             "birthdays": "Cumpleaños",
             "voice": "Canales de voz temporales",
-            "triggers": "Disparadores"
+            "triggers": "Disparadores",
+            "honeypot": "Canal trampa",
+            "language": "Idioma"
         }
     }
 }

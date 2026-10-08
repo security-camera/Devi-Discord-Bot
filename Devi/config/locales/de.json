@@ -1237,7 +1237,9 @@
             "logs": "Logs",
             "birthdays": "Geburtstage",
             "voice": "Temporäre Sprachkanäle",
-            "triggers": "Trigger"
+            "triggers": "Trigger",
+            "honeypot": "Fallenkanal",
+            "language": "Sprache"
         }
     }
 }

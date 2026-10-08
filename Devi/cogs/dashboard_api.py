@@ -15,8 +15,8 @@ The same token must be configured on the website (BOT_API_TOKEN).
 Bind the API to a loopback or private address only: it is not meant to be public.
 
 Access mirrors the slash commands:
-    permissions, logs, birthdays, voice -> bot.Admin or Discord "Administrator"
-    triggers                            -> bot.ManageTriggers or Discord "Administrator"
+    permissions, logs, birthdays, voice, honeypot, language -> bot.Admin or Discord "Administrator"
+    triggers                                                -> bot.ManageTriggers or Discord "Administrator"
 
 All snowflake ids are sent as strings: JavaScript cannot hold 64-bit integers.
 """
@@ -40,11 +40,14 @@ from cogs.birthdays import (
     remove_birthday_channel,
     set_birthday_channel,
 )
+from cogs.honeypots import DEFAULT_TIMEOUT as HONEYPOT_DEFAULT_TIMEOUT
+from cogs.honeypots import MAX_TIMEOUT as HONEYPOT_MAX_TIMEOUT
+from cogs.honeypots import PunishmentType
 from cogs.permissions_commands import PERMISSION_LABELS, describe_permissions
 from cogs.temp_voices import DEFAULT_NAME_TEMPLATE, get_guild_config, set_guild_config
 from cogs.triggers import save_triggers
 from db import db_cursor
-from localization import get_localization
+from localization import get_localization, set_localization
 from logs import LogColor, get_log_channel_id, remove_log_channel, send_log, set_log_channel_id
 from paths import env_var, env_var_to_int
 from permissions import Permission, PermissionCheckType, has_permissions
@@ -54,8 +57,8 @@ API_HOST = env_var("DASHBOARD_API_HOST", "127.0.0.1")
 API_PORT = env_var_to_int("DASHBOARD_API_PORT", "8765")
 MIN_TOKEN_LENGTH = 24
 
-SECTIONS = ("permissions", "logs", "birthdays", "voice", "triggers")
-ADMIN_SECTIONS = {"permissions", "logs", "birthdays", "voice"}
+SECTIONS = ("permissions", "logs", "birthdays", "voice", "honeypot", "triggers", "language")
+ADMIN_SECTIONS = {"permissions", "logs", "birthdays", "voice", "honeypot", "language"}
 
 MAX_TRIGGERS_PER_GUILD = 100
 MAX_RESPONSES_PER_TRIGGER = 25
@@ -65,6 +68,7 @@ MAX_NAME_TEMPLATE_LENGTH = 100  # Discord channel name limit
 MAX_PERMISSION_CHANGES = 25
 MEMBER_SEARCH_LIMIT = 10
 MAX_BODY_BYTES = 64 * 1024
+MAX_PUNISHMENT_SECONDS = 10 * 365 * 24 * 60 * 60  # keeps "now + duration" far away from datetime's limits
 
 # Every bit the dashboard may write: exactly the toggles of the bot's own /permissions manage panel.
 ALLOWED_MASK = 0
@@ -244,6 +248,12 @@ def _serialize_channels(guild) -> tuple[list[dict], list[dict]]:
     return channels, categories
 
 
+def _can_assign(guild, role) -> bool:
+    """Whether the bot could hand this role out: it needs Manage Roles and the role must sit below its own."""
+    me = guild.me
+    return bool(me and me.guild_permissions.manage_roles and not role.managed and role < me.top_role)
+
+
 def _serialize_roles(guild) -> list[dict]:
     roles = []
     for role in sorted(guild.roles, key=lambda r: r.position, reverse=True):
@@ -255,6 +265,7 @@ def _serialize_roles(guild) -> list[dict]:
             "name": role.name,
             "color": f"#{color:06x}" if color else None,
             "managed": bool(role.managed),
+            "assignable": _can_assign(guild, role),
         })
     return roles
 
@@ -303,6 +314,52 @@ def _serialize_voice(guild) -> dict:
     }
 
 
+def _serialize_honeypot(guild, cog) -> dict:
+    config = cog.get_honeypot_channel(guild.id)
+    channel_id, punishment, duration, role_id = config if config else (None, PunishmentType.Timeout, HONEYPOT_DEFAULT_TIMEOUT, 0)
+
+    me = guild.me
+    perms = me.guild_permissions if me else disnake.Permissions.none()
+    return {
+        "channel_id": _sid(channel_id),
+        "punishment": int(punishment),
+        "duration": int(duration),  # seconds; 0 = kick (ban) or permanent (role)
+        "role_id": _sid(role_id or None),
+        "default_duration": HONEYPOT_DEFAULT_TIMEOUT,
+        "max_timeout": HONEYPOT_MAX_TIMEOUT,
+        "max_duration": MAX_PUNISHMENT_SECONDS,
+        "bot_can": {
+            "timeout": bool(perms.moderate_members),
+            "ban": bool(perms.ban_members),
+            "kick": bool(perms.kick_members),
+            "role": bool(perms.manage_roles),
+        },
+    }
+
+
+def _serialize_language(guild) -> dict:
+    return {
+        "locale": i18n.resolve_locale_code(get_localization(guild.id)),
+        "available": [
+            {
+                "code": code,
+                "name": i18n.get_locale_display_name(code, with_flag=False),
+                "label": i18n.get_locale_display_name(code),
+            }
+            for code in i18n.available_locales()
+        ],
+    }
+
+
+def _compact_duration(seconds: int) -> str:
+    parts = []
+    for unit, size in (("d", 86400), ("h", 3600), ("m", 60), ("s", 1)):
+        amount, seconds = divmod(seconds, size)
+        if amount:
+            parts.append(f"{amount}{unit}")
+    return " ".join(parts) or "0s"
+
+
 # ------------------------------------------------------------------- the API
 
 
@@ -316,6 +373,12 @@ class DashboardApi:
         cog = self.bot.get_cog("TriggersCog")
         if cog is None:
             raise ApiError(503, "triggers_unavailable")
+        return cog
+
+    def honeypot_cog(self):
+        cog = self.bot.get_cog("HoneypotCog")
+        if cog is None:
+            raise ApiError(503, "honeypot_unavailable")
         return cog
 
     @staticmethod
@@ -383,6 +446,10 @@ class DashboardApi:
     async def snapshot(self, request: web.Request) -> web.Response:
         guild, _member, sections = await self.context(request, None)
 
+        honeypot = self.bot.get_cog("HoneypotCog")
+        if honeypot is None:  # the cog is switched off: do not offer a section that cannot work
+            sections = sections - {"honeypot"}
+
         settings: dict = {}
         if "logs" in sections:
             settings["logs"] = {"channel_id": _sid(get_log_channel_id(guild.id))}
@@ -395,6 +462,10 @@ class DashboardApi:
             settings["voice"] = _serialize_voice(guild)
         if "permissions" in sections:
             settings["permissions"] = _serialize_permissions(guild)
+        if "honeypot" in sections:
+            settings["honeypot"] = _serialize_honeypot(guild, honeypot)
+        if "language" in sections:
+            settings["language"] = _serialize_language(guild)
         if "triggers" in sections:
             settings["triggers"] = _serialize_triggers(self.triggers_cog(), guild.id)
 
@@ -478,6 +549,73 @@ class DashboardApi:
 
         await self.audit(guild, member, "voice", details)
         return web.json_response(_serialize_voice(guild))
+
+    @staticmethod
+    def _clean_punishment(guild, body: dict):
+        """Validates the punishment part of a honeypot request; mirrors /honeypot punishment."""
+        raw_type = body.get("punishment")
+        if isinstance(raw_type, bool) or not isinstance(raw_type, int) or raw_type not in {int(kind) for kind in PunishmentType}:
+            raise ApiError(400, "invalid_punishment")
+        punishment = PunishmentType(raw_type)
+
+        duration = body.get("duration")
+        if isinstance(duration, bool) or not isinstance(duration, int) or not 0 <= duration <= MAX_PUNISHMENT_SECONDS:
+            raise ApiError(400, "invalid_duration")
+
+        role = None
+        match punishment:
+            case PunishmentType.Timeout:
+                if not 1 <= duration <= HONEYPOT_MAX_TIMEOUT:
+                    raise ApiError(400, "invalid_timeout")
+            case PunishmentType.Role:
+                raw_role = body.get("role_id")
+                if raw_role is None or raw_role == "":
+                    raise ApiError(400, "role_required")
+                role = guild.get_role(_parse_id(raw_role, code="invalid_role"))
+                if role is None or role.is_default() or role.managed:
+                    raise ApiError(400, "invalid_role")
+
+        return punishment, duration, role
+
+    async def put_honeypot(self, request: web.Request) -> web.Response:
+        guild, member, _ = await self.context(request, "honeypot")
+        body = await _read_json(request)
+        cog = self.honeypot_cog()
+
+        channel = _pick_channel(guild, body.get("channel_id"), {"text"})
+
+        if channel is None:
+            # No channel means "switch the honeypot off for this server".
+            await cog.remove_honeypot_channel(guild.id)
+            details = "—"
+        else:
+            punishment, duration, role = self._clean_punishment(guild, body)
+
+            if not await cog.configure_honeypot(guild.id, channel, punishment, duration, role.id if role else 0):
+                raise ApiError(409, "cant_send")
+
+            kind = i18n.t(f"honeypot_cog.punishment_types.{int(punishment):02d}", locale=guild.id)
+            parts = [kind]
+            if role:
+                parts.append(role.mention)
+            if duration:
+                parts.append(_compact_duration(duration))
+            details = f"🍯 {channel.mention}\n⚖️ " + " · ".join(parts)
+
+        await self.audit(guild, member, "honeypot", details)
+        return web.json_response(_serialize_honeypot(guild, cog))
+
+    async def put_language(self, request: web.Request) -> web.Response:
+        guild, member, _ = await self.context(request, "language")
+        locale = (await _read_json(request)).get("locale")
+
+        if not isinstance(locale, str) or locale not in i18n.available_locales():
+            raise ApiError(400, "invalid_locale")
+
+        set_localization(guild.id, locale)
+
+        await self.audit(guild, member, "language", i18n.get_locale_display_name(locale))
+        return web.json_response(_serialize_language(guild))
 
     async def patch_permissions(self, request: web.Request) -> web.Response:
         guild, member, _ = await self.context(request, "permissions")
@@ -731,6 +869,8 @@ def build_app(bot: commands.Bot, token: str | None = None) -> web.Application:
         web.put("/v1/guilds/{guild_id}/log-channel", api.put_log_channel),
         web.put("/v1/guilds/{guild_id}/birthday-channel", api.put_birthday_channel),
         web.put("/v1/guilds/{guild_id}/temp-voice", api.put_temp_voice),
+        web.put("/v1/guilds/{guild_id}/honeypot", api.put_honeypot),
+        web.put("/v1/guilds/{guild_id}/language", api.put_language),
         web.patch("/v1/guilds/{guild_id}/permissions", api.patch_permissions),
         web.get("/v1/guilds/{guild_id}/members", api.search_members),
         web.post("/v1/guilds/{guild_id}/triggers", api.create_trigger),

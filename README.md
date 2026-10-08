@@ -422,6 +422,7 @@ Changes go through the same in-memory caches and checks as the slash commands (t
 | Dashboard section                         | Required                                   |
 |-------------------------------------------|--------------------------------------------|
 | Permissions, logs, birthdays, voice lobby | `bot.Admin` or Discord `Administrator`     |
+| Honeypot, language                        | `bot.Admin` or Discord `Administrator`     |
 | Triggers                                  | `bot.ManageTriggers` or `Administrator`    |
 
 Every change is also written to the server's log channel.
@@ -435,6 +436,8 @@ Enable it by setting `DASHBOARD_API_TOKEN` (24+ characters) in `config/.env`; us
 | `PUT /v1/guilds/{id}/log-channel`                               | Set or clear the log channel                                                |
 | `PUT /v1/guilds/{id}/birthday-channel`                          | Set or clear the birthday channel                                           |
 | `PUT /v1/guilds/{id}/temp-voice`                                | Set or clear the lobby channel, category and name template                  |
+| `PUT /v1/guilds/{id}/honeypot`                                  | Set or clear the honeypot channel and its punishment and duration           |
+| `PUT /v1/guilds/{id}/language`                                  | Set the server language (`locale`)                                          |
 | `PATCH /v1/guilds/{id}/permissions`                             | Set permission masks for the server, roles, channels and users              |
 | `GET /v1/guilds/{id}/members?q=`                                | Search members by name or id                                                |
 | `POST/PUT /v1/guilds/{id}/triggers`, `POST .../triggers/delete` | Create, edit and delete triggers                                            |
