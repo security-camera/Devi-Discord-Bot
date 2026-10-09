@@ -261,6 +261,7 @@ class HoneypotCog(commands.Cog):
         name="punishment",
         description=localized("commands.honeypot_punishment.description"),
     )
+    @require_permissions([{Permission.Admin: True}, {disnake.Permissions(administrator=True): True}])
     async def honeypot_punishment(
         self,
         inter: disnake.ApplicationCommandInteraction,
@@ -281,9 +282,6 @@ class HoneypotCog(commands.Cog):
         ),
     ):
         gid = inter.guild_id
-
-        if await validate_permissions(inter, [{Permission.Admin: True}, {disnake.Permissions(administrator=True): True}]):
-            return None
 
         duration, error = parse_duration_seconds(duration, locale=gid)
 
