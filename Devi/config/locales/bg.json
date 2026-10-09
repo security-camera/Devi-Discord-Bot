@@ -44,16 +44,16 @@
         "permissions_manage": {
             "description": "Интерактивно управление на правата: избор на обект и превключване на разрешенията",
             "choices": {
-                "manage_mention": "Управление на Mention (bot.ManageMention)",
-                "mention_blacklist": "Черен списък за Mention (bot.MentionBlacklist)",
-                "manage_triggers": "Управление на тригерите (bot.ManageTriggers)",
-                "tts": "Озвучаване на думи от бота (bot.TTS)",
-                "send_dm": "Изпращане на ЛС (bot.SendDM)",
-                "admin_all": "Всички права (bot.Admin)",
-                "ai_blacklist": "Черен списък за ИИ (bot.AiBlackList)",
-                "giveaways": "Раздавания (bot.Giveaways)",
-                "warnings": "Предупреждения (bot.Warnings)",
-                "music_blacklist": "Черен списък за музика (bot.MusicBlackList)"
+                "ManageMention": "Управление на Mention (bot.ManageMention)",
+                "MentionBlackList": "Черен списък за Mention (bot.MentionBlacklist)",
+                "ManageTriggers": "Управление на тригерите (bot.ManageTriggers)",
+                "TTS": "Озвучаване на думи от бота (bot.TTS)",
+                "Send": "Изпращане на съобщения чрез бота (bot.Send)",
+                "Admin": "Всички права (bot.Admin)",
+                "AiBlackList": "Черен списък за ИИ (bot.AiBlackList)",
+                "Giveaways": "Раздавания (bot.Giveaways)",
+                "Warnings": "Предупреждения (bot.Warnings)",
+                "MusicBlackList": "Черен списък за музика (bot.MusicBlackList)"
             }
         },
         "permissions_list": {

@@ -44,16 +44,16 @@
         "permissions_manage": {
             "description": "Інтерактивне керування правами: вибір об'єкта та перемикання дозволів",
             "choices": {
-                "manage_mention": "Керування Mention (bot.ManageMention)",
-                "mention_blacklist": "Чорний список Mention (bot.MentionBlacklist)",
-                "manage_triggers": "Керування тригерами (bot.ManageTriggers)",
-                "tts": "Озвучення слів ботом (bot.TTS)",
-                "send_dm": "Надсилання ОП (bot.SendDM)",
-                "admin_all": "Усі права (bot.Admin)",
-                "ai_blacklist": "Чорний список ШІ (bot.AiBlackList)",
-                "giveaways": "Розіграші (bot.Giveaways)",
-                "warnings": "Попередження (bot.Warnings)",
-                "music_blacklist": "Чорний список музики (bot.MusicBlackList)"
+                "ManageMention": "Керування Mention (bot.ManageMention)",
+                "MentionBlacklist": "Чорний список Mention (bot.MentionBlacklist)",
+                "ManageTriggers": "Керування тригерами (bot.ManageTriggers)",
+                "TTS": "Озвучення слів ботом (bot.TTS)",
+                "Send": "Надсилання повідомлень через бота (bot.Send)",
+                "Admin": "Усі права (bot.Admin)",
+                "AiBlackList": "Чорний список ШІ (bot.AiBlackList)",
+                "Giveaways": "Розіграші (bot.Giveaways)",
+                "Warnings": "Попередження (bot.Warnings)",
+                "MusicBlackList": "Чорний список музики (bot.MusicBlackList)"
             }
         },
         "permissions_list": {

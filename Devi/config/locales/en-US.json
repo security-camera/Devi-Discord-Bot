@@ -44,16 +44,16 @@
         "permissions_manage": {
             "description": "Interactively manage permissions: pick an object and toggle its permissions",
             "choices": {
-                "manage_mention": "Manage Mentions (bot.ManageMention)",
-                "mention_blacklist": "Mention Blacklist (bot.MentionBlacklist)",
-                "manage_triggers": "Manage Triggers (bot.ManageTriggers)",
-                "tts": "Text-to-Speech (bot.TTS)",
-                "send_dm": "Send DMs (bot.SendDM)",
-                "admin_all": "All Permissions (bot.Admin)",
-                "ai_blacklist": "AI Blacklist (bot.AiBlackList)",
-                "giveaways": "Giveaways (bot.Giveaways)",
-                "warnings": "Warnings (bot.Warnings)",
-                "music_blacklist": "Music Blacklist (bot.MusicBlackList)"
+                "ManageMention": "Manage Mentions (bot.ManageMention)",
+                "MentionBlackList": "Mention Blacklist (bot.MentionBlacklist)",
+                "ManageTriggers": "Manage Triggers (bot.ManageTriggers)",
+                "TTS": "Text-to-Speech (bot.TTS)",
+                "Send": "Send messages through the bot (bot.Send)",
+                "Admin": "All Permissions (bot.Admin)",
+                "AiBlackList": "AI Blacklist (bot.AiBlackList)",
+                "Giveaways": "Giveaways (bot.Giveaways)",
+                "Warnings": "Warnings (bot.Warnings)",
+                "MusicBlackList": "Music Blacklist (bot.MusicBlackList)"
             }
         },
         "permissions_list": {

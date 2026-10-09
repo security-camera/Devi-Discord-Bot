@@ -44,16 +44,16 @@
         "permissions_manage": {
             "description": "Интерактивное управление правами: выбор объекта и тогл разрешений",
             "choices": {
-                "manage_mention": "Управление Mention (bot.ManageMention)",
-                "mention_blacklist": "Чёрный список Mention (bot.MentionBlacklist)",
-                "manage_triggers": "Управление триггерами (bot.ManageTriggers)",
-                "tts": "Озвучка слов ботом (bot.TTS)",
-                "send_dm": "Отправка ЛС (bot.SendDM)",
-                "admin_all": "Все права (bot.Admin)",
-                "ai_blacklist": "Чёрный список ИИ (bot.AiBlackList)",
-                "giveaways": "Розыгрыши (bot.Giveaways)",
-                "warnings": "Предупреждения (bot.Warnings)",
-                "music_blacklist": "Чёрный список музыки (bot.MusicBlackList)"
+                "ManageMention": "Управление Mention (bot.ManageMention)",
+                "MentionBlackList": "Чёрный список Mention (bot.MentionBlacklist)",
+                "ManageTriggers": "Управление триггерами (bot.ManageTriggers)",
+                "TTS": "Озвучка слов ботом (bot.TTS)",
+                "Send": "Отправка сообщений через бота (bot.Send)",
+                "Admin": "Все права (bot.Admin)",
+                "AiBlackList": "Чёрный список ИИ (bot.AiBlackList)",
+                "Giveaways": "Розыгрыши (bot.Giveaways)",
+                "Warnings": "Предупреждения (bot.Warnings)",
+                "MusicBlackList": "Чёрный список музыки (bot.MusicBlackList)"
             }
         },
         "permissions_list": {

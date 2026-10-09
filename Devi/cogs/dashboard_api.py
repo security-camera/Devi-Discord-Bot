@@ -43,7 +43,7 @@ from cogs.birthdays import (
 from cogs.honeypots import DEFAULT_TIMEOUT as HONEYPOT_DEFAULT_TIMEOUT
 from cogs.honeypots import MAX_TIMEOUT as HONEYPOT_MAX_TIMEOUT
 from cogs.honeypots import PunishmentType
-from cogs.permissions_commands import PERMISSION_LABELS, describe_permissions
+from cogs.permissions_commands import ALL_PERMISSIONS, describe_permissions
 from cogs.temp_voices import DEFAULT_NAME_TEMPLATE, get_guild_config, set_guild_config
 from cogs.triggers import save_triggers
 from db import db_cursor
@@ -72,7 +72,7 @@ MAX_PUNISHMENT_SECONDS = 10 * 365 * 24 * 60 * 60  # keeps "now + duration" far a
 
 # Every bit the dashboard may write: exactly the toggles of the bot's own /permissions manage panel.
 ALLOWED_MASK = 0
-for _flag in PERMISSION_LABELS:
+for _flag in ALL_PERMISSIONS:
     ALLOWED_MASK |= int(_flag)
 ALLOWED_MASK |= int(Permission.Admin)
 
@@ -152,16 +152,18 @@ def _clip(text: str, limit: int = 1000) -> str:
 
 
 def _flag_defs() -> list[dict]:
-    """Permission toggles, in the same set and order the bot's /permissions manage panel uses."""
-    defs = []
-    for flag in PERMISSION_LABELS:
+    """Permission toggles available in the dashboard."""
+
+    defs = [{"name": Permission.Admin.name, "value": int(Permission.Admin), "kind": "admin"}]
+
+    for flag in ALL_PERMISSIONS:
         if flag == Permission.Admin:
-            kind = "admin"
-        elif flag.name.endswith("BlackList"):
-            kind = "restrict"
-        else:
-            kind = "allow"
+            continue
+
+        kind = "restrict" if flag.name.endswith("BlackList") else "allow"
+
         defs.append({"name": flag.name, "value": int(flag), "kind": kind})
+
     return defs
 
 

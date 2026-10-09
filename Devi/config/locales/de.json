@@ -44,16 +44,16 @@
         "permissions_manage": {
             "description": "Interaktive Rechteverwaltung: Objekt auswählen und Berechtigungen umschalten",
             "choices": {
-                "manage_mention": "Mention-Verwaltung (bot.ManageMention)",
-                "mention_blacklist": "Mention-Sperrliste (bot.MentionBlacklist)",
-                "manage_triggers": "Trigger-Verwaltung (bot.ManageTriggers)",
-                "tts": "Text-to-Speech (bot.TTS)",
-                "send_dm": "Direktnachrichten senden (bot.SendDM)",
-                "admin_all": "Alle Berechtigungen (bot.Admin)",
-                "ai_blacklist": "KI-Sperrliste (bot.AiBlackList)",
-                "giveaways": "Gewinnspiele (bot.Giveaways)",
-                "warnings": "Verwarnungen (bot.Warnings)",
-                "music_blacklist": "Musik-Sperrliste (bot.MusicBlackList)"
+                "ManageMention": "Mention-Verwaltung (bot.ManageMention)",
+                "MentionBlackList": "Mention-Sperrliste (bot.MentionBlacklist)",
+                "ManageTriggers": "Trigger-Verwaltung (bot.ManageTriggers)",
+                "TTS": "Text-to-Speech (bot.TTS)",
+                "Send": "Nachrichten über den Bot senden (bot.Send)",
+                "Admin": "Alle Berechtigungen (bot.Admin)",
+                "AiBlackList": "KI-Sperrliste (bot.AiBlackList)",
+                "Giveaways": "Gewinnspiele (bot.Giveaways)",
+                "Warnings": "Verwarnungen (bot.Warnings)",
+                "MusicBlackList": "Musik-Sperrliste (bot.MusicBlackList)"
             }
         },
         "permissions_list": {

@@ -263,7 +263,7 @@ class VoiceCog(commands.Cog):
                 ephemeral=True
             )
 
-        max_length, ad = vote_value(inter.author.id, MAX_TTS_LENGTH_VOTED, MAX_TTS_LENGTH, locale=gid)
+        max_length, ad = await vote_value(inter.author.id, MAX_TTS_LENGTH_VOTED, MAX_TTS_LENGTH, locale=gid)
 
         if len(text) > max_length:
             return await inter.response.send_message(

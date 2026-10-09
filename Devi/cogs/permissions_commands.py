@@ -2,66 +2,58 @@ import disnake
 from disnake.ext import commands
 
 import permissions, i18n
+from i18n import LocaleObject
 
 from permissions import grant_permissions, revoke_permissions, get_permissions, Permission, PermissionCheckType, all_permissions, require_permissions
 from discord_i18n import localized
 
+ALL_PERMISSIONS = list(filter(
+    lambda flag: flag not in (
+        Permission.SpecialAdminPermission,
+        Permission.NONE,
+        Permission.Developer,
+    ),
+    Permission,
+))
 
-PERMISSION_LABELS: dict[Permission, str] = {
-    Permission.ManageMention: "manage_mention",
-    Permission.MentionBlackList: "mention_blacklist",
-    Permission.ManageTriggers: "manage_triggers",
-    Permission.TTS: "tts",
-    Permission.Send: "send_dm",
-    Permission.Admin: "admin_all",
-    Permission.AiBlackList: "ai_blacklist",
-    Permission.Giveaways: "giveaways",
-    Permission.Warnings: "warnings",
-    Permission.MusicBlackList: "music_blacklist"
-}
-
-OBJECT_TYPE_MAP: dict[str, PermissionCheckType] = {
-    "user": PermissionCheckType.User,
-    "role": PermissionCheckType.Role,
-    "channel": PermissionCheckType.Channel,
-    "guild": PermissionCheckType.Guild,
-}
-
+print("Admin:", Permission.Admin)
+print("Admin in ALL_PERMISSIONS:", Permission.Admin in ALL_PERMISSIONS)
+print("ALL_PERMISSIONS:", ALL_PERMISSIONS)
 
 def describe_permissions(guild_id: int, resolved: Permission) -> list[str]:
     """Returns human-readable permission names"""
     names = []
 
-    for flag, choice_key in PERMISSION_LABELS.items():
+    for flag in ALL_PERMISSIONS:
         if flag == Permission.Admin:
             continue
         if flag in resolved:
-            names.append(i18n.t(f"commands.permissions_manage.choices.{choice_key}", locale=guild_id))
+            names.append(i18n.t(f"commands.permissions_manage.choices.{flag.name}", locale=guild_id))
 
     if (resolved & Permission.Admin) == Permission.Admin:
-        names.append(i18n.t("commands.permissions_manage.choices.admin_all", locale=guild_id))
+        names.append(i18n.t("commands.permissions_manage.choices.Admin", locale=guild_id))
 
     return names
 
 
+
+
 def format_target_name(inter: disnake.Interaction, object_type: PermissionCheckType, id: int | None = None) -> str:
     """Returns object`s mention by ID"""
-    if object_type == PermissionCheckType.User:
-        member = inter.guild.get_member(id)
-        return member.mention if member else f"`{id}` ({i18n.t('permissions_cmd.unknown_user')})"
-
-    if object_type == PermissionCheckType.Role:
-        role = inter.guild.get_role(id)
-        return role.mention if role else f"`{id}` ({i18n.t('permissions_cmd.unknown_role')})"
-
-    if object_type == PermissionCheckType.Channel:
-        channel = inter.guild.get_channel(id)
-        return channel.mention if channel else f"`{id}` ({i18n.t('permissions_cmd.unknown_channel')})"
-
-    if object_type == PermissionCheckType.Guild:
-        return f"**{inter.guild.name}**"
-
-    raise ValueError("This PermissionCheckType is unsupported")
+    match object_type:
+        case PermissionCheckType.User:
+            member = inter.guild.get_member(id)
+            return member.mention if member else f"`{id}` ({i18n.t('permissions_cmd.unknown_user')})"
+        case PermissionCheckType.Role:
+            role = inter.guild.get_role(id)
+            return role.mention if role else f"`{id}` ({i18n.t('permissions_cmd.unknown_role')})"
+        case PermissionCheckType.Channel:
+            channel = inter.guild.get_channel(id)
+            return channel.mention if channel else f"`{id}` ({i18n.t('permissions_cmd.unknown_channel')})"
+        case PermissionCheckType.Guild:
+            return f"**{inter.guild.name}**"
+        case _:
+            raise ValueError("This PermissionCheckType is unsupported")
 
 
 def format_permissions_block(inter: disnake.ApplicationCommandInteraction, guild_id: int, object_type: PermissionCheckType, entries: dict[int, Permission]) -> list[str]:
@@ -84,22 +76,51 @@ def format_permissions_block(inter: disnake.ApplicationCommandInteraction, guild
 
 def build_object_type_options(guild_id: int) -> list[disnake.SelectOption]:
     return [
-        disnake.SelectOption(label=i18n.t("permissions_cmd.manage_type_user", locale=guild_id), value="user", emoji="👤"),
-        disnake.SelectOption(label=i18n.t("permissions_cmd.manage_type_role", locale=guild_id), value="role", emoji="🎭"),
-        disnake.SelectOption(label=i18n.t("permissions_cmd.manage_type_channel", locale=guild_id), value="channel", emoji="📺"),
-        disnake.SelectOption(label=i18n.t("permissions_cmd.manage_type_guild", locale=guild_id), value="guild", emoji="🌐"),
+        disnake.SelectOption(label=i18n.t("permissions_cmd.manage_type_user", locale=guild_id), value="User", emoji="👤"),
+        disnake.SelectOption(label=i18n.t("permissions_cmd.manage_type_role", locale=guild_id), value="Role", emoji="🎭"),
+        disnake.SelectOption(label=i18n.t("permissions_cmd.manage_type_channel", locale=guild_id), value="Channel", emoji="📺"),
+        disnake.SelectOption(label=i18n.t("permissions_cmd.manage_type_guild", locale=guild_id), value="Guild", emoji="🌐"),
     ]
 
 
 def build_permission_select_options(guild_id: int, resolved: Permission) -> list[disnake.SelectOption]:
     options = []
-    for flag, choice_key in PERMISSION_LABELS.items():
-        label_text = i18n.t(f"commands.permissions_manage.choices.{choice_key}", locale=guild_id)
 
-        is_set = (resolved & Permission.Admin) == Permission.Admin if flag == Permission.Admin else flag in resolved
+    for flag in ALL_PERMISSIONS:
+        label_text = i18n.t(
+            f"commands.permissions_manage.choices.{flag.name}",
+            locale=guild_id,
+        )
+
+        is_set = (
+            (resolved & Permission.Admin) == Permission.Admin
+            if flag == Permission.Admin
+            else (resolved & flag) == flag
+        )
+
         emoji = "✅" if is_set else "▫️"
+        options.append(
+            disnake.SelectOption(
+                label=f"{emoji} {label_text}",
+                value=flag.name,
+            )
+        )
 
-        options.append(disnake.SelectOption(label=f"{emoji} {label_text}", value=flag.name))
+    if Permission.Admin not in ALL_PERMISSIONS:
+        is_set = (resolved & Permission.Admin) == Permission.Admin
+        label_text = i18n.t(
+            "commands.permissions_manage.choices.Admin",
+            locale=guild_id,
+        )
+
+        options.insert(
+            0,
+            disnake.SelectOption(
+                label=f"{'✅' if is_set else '▫️'} {label_text}",
+                value=Permission.Admin.name,
+            ),
+        )
+
     return options
 
 
@@ -189,7 +210,7 @@ class ObjectTypeSelectView(_AuthorGuardedView):
         self.add_item(select)
 
     async def on_type_selected(self, inter: disnake.MessageInteraction):
-        object_type = OBJECT_TYPE_MAP[inter.values[0]]
+        object_type = PermissionCheckType[inter.values[0]]
 
         if object_type == PermissionCheckType.Guild:
             embed, view = build_manage_panel(inter, PermissionCheckType.Guild, inter.guild_id, self.author_id)

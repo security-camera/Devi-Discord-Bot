@@ -44,16 +44,16 @@
         "permissions_manage": {
             "description": "Administración interactiva de permisos: elige un objeto y activa o desactiva permisos",
             "choices": {
-                "manage_mention": "Administración de Mention (bot.ManageMention)",
-                "mention_blacklist": "Lista negra de Mention (bot.MentionBlacklist)",
-                "manage_triggers": "Administración de disparadores (bot.ManageTriggers)",
-                "tts": "Voz del bot (bot.TTS)",
-                "send_dm": "Envío de MD (bot.SendDM)",
-                "admin_all": "Todos los permisos (bot.Admin)",
-                "ai_blacklist": "Lista negra de IA (bot.AiBlackList)",
-                "giveaways": "Sorteos (bot.Giveaways)",
-                "warnings": "Advertencias (bot.Warnings)",
-                "music_blacklist": "Lista negra de música (bot.MusicBlackList)"
+                "ManageMention": "Administración de Mention (bot.ManageMention)",
+                "MentionBlackList": "Lista negra de Mention (bot.MentionBlacklist)",
+                "ManageTriggers": "Administración de disparadores (bot.ManageTriggers)",
+                "TTS": "Voz del bot (bot.TTS)",
+                "Send": "Enviar mensajes a través del bot (bot.Send)",
+                "Admin": "Todos los permisos (bot.Admin)",
+                "AiBlackList": "Lista negra de IA (bot.AiBlackList)",
+                "Giveaways": "Sorteos (bot.Giveaways)",
+                "Warnings": "Advertencias (bot.Warnings)",
+                "MusicBlackList": "Lista negra de música (bot.MusicBlackList)"
             }
         },
         "permissions_list": {

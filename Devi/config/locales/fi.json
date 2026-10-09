@@ -44,16 +44,16 @@
         "permissions_manage": {
             "description": "Interaktiivinen oikeuksien hallinta: kohteen valinta ja oikeuksien vaihtaminen",
             "choices": {
-                "manage_mention": "Mainintojen hallinta (bot.ManageMention)",
-                "mention_blacklist": "Mainintojen mustalista (bot.MentionBlacklist)",
-                "manage_triggers": "Triggerien hallinta (bot.ManageTriggers)",
-                "tts": "Botin puhesyntetisointi (bot.TTS)",
-                "send_dm": "Yksityisviestien lähetys (bot.SendDM)",
-                "admin_all": "Kaikki oikeudet (bot.Admin)",
-                "ai_blacklist": "Tekoälyn mustalista (bot.AiBlackList)",
-                "giveaways": "Arvonnat (bot.Giveaways)",
-                "warnings": "Varoitukset (bot.Warnings)",
-                "music_blacklist": "Musiikin mustalista (bot.MusicBlackList)"
+                "ManageMention": "Mainintojen hallinta (bot.ManageMention)",
+                "MentionBlackList": "Mainintojen mustalista (bot.MentionBlacklist)",
+                "ManageTriggers": "Triggerien hallinta (bot.ManageTriggers)",
+                "TTS": "Botin puhesyntetisointi (bot.TTS)",
+                "Send": "Viestien lähettäminen botin kautta (bot.Send)",
+                "Admin": "Kaikki oikeudet (bot.Admin)",
+                "AiBlackList": "Tekoälyn mustalista (bot.AiBlackList)",
+                "Giveaways": "Arvonnat (bot.Giveaways)",
+                "Warnings": "Varoitukset (bot.Warnings)",
+                "MusicBlackList": "Musiikin mustalista (bot.MusicBlackList)"
             }
         },
         "permissions_list": {
