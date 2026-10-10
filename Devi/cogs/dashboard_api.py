@@ -58,7 +58,7 @@ API_PORT = env_var_to_int("DASHBOARD_API_PORT", "8765")
 MIN_TOKEN_LENGTH = 24
 
 SECTIONS = ("permissions", "logs", "birthdays", "voice", "honeypot", "triggers", "language")
-ADMIN_SECTIONS = {"permissions", "logs", "birthdays", "voice", "honeypot", "language"}
+ADMIN_SECTIONS = {"permissions", "logs", "birthdays", "voice", "language"}
 
 MAX_TRIGGERS_PER_GUILD = 100
 MAX_RESPONSES_PER_TRIGGER = 25
@@ -175,6 +175,8 @@ def _sections_for(member) -> set[str]:
     sections: set[str] = set()
     if has_permissions(member, _NO_CHANNEL, Permission.Admin):
         sections |= ADMIN_SECTIONS
+    if has_permissions(member, _NO_CHANNEL, Permission.ManageHoneypots):
+        sections.add("honeypots")
     if has_permissions(member, _NO_CHANNEL, Permission.ManageTriggers):
         sections.add("triggers")
     return sections
@@ -490,7 +492,7 @@ class DashboardApi:
 
         # Channel and role names are only for people who configure the bot; a triggers-only
         # editor does not need to see private channels.
-        if sections & ADMIN_SECTIONS:
+        if sections & (ADMIN_SECTIONS | {"honeypot"}):
             data["channels"], data["categories"] = _serialize_channels(guild)
             data["roles"] = _serialize_roles(guild)
 

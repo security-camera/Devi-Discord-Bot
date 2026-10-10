@@ -53,7 +53,9 @@
                 "AiBlackList": "Чёрный список ИИ (bot.AiBlackList)",
                 "Giveaways": "Розыгрыши (bot.Giveaways)",
                 "Warnings": "Предупреждения (bot.Warnings)",
-                "MusicBlackList": "Чёрный список музыки (bot.MusicBlackList)"
+                "MusicBlackList": "Чёрный список музыки (bot.MusicBlackList)",
+                "ManageAi": "Управление ИИ (bot.ManageAi)",
+                "ManageHoneypots": "Управление ловушками (bot.ManageHoneypots)"
             }
         },
         "permissions_list": {

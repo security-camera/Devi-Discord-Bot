@@ -498,7 +498,7 @@ class AiCog(commands.Cog):
         name="key",
         description=localized("commands.ai_key.description"),
     )
-    @require_permissions([{Permission.Admin: True}, {disnake.Permissions(administrator=True): True}])
+    @require_permissions([{Permission.ManageAi: True}, {disnake.Permissions(administrator=True): True}])
     async def set_ai_key_command(
             self,
             inter: disnake.ApplicationCommandInteraction,

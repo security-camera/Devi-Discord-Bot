@@ -53,7 +53,9 @@
                 "AiBlackList": "Tekoälyn mustalista (bot.AiBlackList)",
                 "Giveaways": "Arvonnat (bot.Giveaways)",
                 "Warnings": "Varoitukset (bot.Warnings)",
-                "MusicBlackList": "Musiikin mustalista (bot.MusicBlackList)"
+                "MusicBlackList": "Musiikin mustalista (bot.MusicBlackList)",
+                "ManageAi": "Tekoälyn hallinta (bot.ManageAi)",
+                "ManageHoneypots": "Honeypot-kanavien hallinta (bot.ManageHoneypots)"
             }
         },
         "permissions_list": {

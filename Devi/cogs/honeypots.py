@@ -37,14 +37,6 @@ class HoneypotCog(commands.Cog):
         self.bot = bot
 
     async def _delete_sticky_message(self, channel_id: int) -> None:
-        """
-        Delete the tracked sticky Discord message for a channel (if any) and
-        drop its bookkeeping record.
-
-        Used both when a honeypot channel is removed and when a honeypot sticky is
-        about to be replaced, so no orphaned sticky message is left behind
-        for SendCog's on_message listener to keep reposting.
-        """
         existing = get_sticky_message(channel_id)
         if not existing:
             return
@@ -216,7 +208,7 @@ class HoneypotCog(commands.Cog):
         name="channel",
         description=localized("commands.honeypot_channel.description"),
     )
-    @require_permissions([{Permission.Admin: True}, {disnake.Permissions(administrator=True): True}])
+    @require_permissions([{Permission.ManageHoneypots: True}, {disnake.Permissions(administrator=True): True}])
     async def honeypot_channel(
         self,
         inter: disnake.ApplicationCommandInteraction,
@@ -261,7 +253,7 @@ class HoneypotCog(commands.Cog):
         name="punishment",
         description=localized("commands.honeypot_punishment.description"),
     )
-    @require_permissions([{Permission.Admin: True}, {disnake.Permissions(administrator=True): True}])
+    @require_permissions([{Permission.ManageHoneypots: True}, {disnake.Permissions(administrator=True): True}])
     async def honeypot_punishment(
         self,
         inter: disnake.ApplicationCommandInteraction,

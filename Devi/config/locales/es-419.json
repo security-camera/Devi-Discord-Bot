@@ -53,7 +53,9 @@
                 "AiBlackList": "Lista negra de IA (bot.AiBlackList)",
                 "Giveaways": "Sorteos (bot.Giveaways)",
                 "Warnings": "Advertencias (bot.Warnings)",
-                "MusicBlackList": "Lista negra de música (bot.MusicBlackList)"
+                "MusicBlackList": "Lista negra de música (bot.MusicBlackList)",
+                "ManageAi": "Administración de IA (bot.ManageAi)",
+                "ManageHoneypots": "Administración de honeypots (bot.ManageHoneypots)"
             }
         },
         "permissions_list": {

@@ -53,7 +53,9 @@
                 "AiBlackList": "Чорний список ШІ (bot.AiBlackList)",
                 "Giveaways": "Розіграші (bot.Giveaways)",
                 "Warnings": "Попередження (bot.Warnings)",
-                "MusicBlackList": "Чорний список музики (bot.MusicBlackList)"
+                "MusicBlackList": "Чорний список музики (bot.MusicBlackList)",
+                "ManageAi": "Керування ШІ (bot.ManageAi)",
+                "ManageHoneypots": "Керування каналами-ловушками (bot.ManageHoneypots)"
             }
         },
         "permissions_list": {
