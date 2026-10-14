@@ -12,6 +12,8 @@ from disnake.interactions.base import ClientT
 from paths import LOCALES_DIR
 from json_storage import load_json_safe
 
+from emojis import load_custom_emojis, format_custom_emojis
+
 """Object with locale name"""
 LocaleLike = str | disnake.Locale
 
@@ -222,7 +224,7 @@ def t(key: str, locale: LocaleObject = None, log_errors: bool = True, **kwargs) 
         return f"[{key}]"
 
     try:
-        return value.format(**kwargs)
+        return format_custom_emojis(value.format(**kwargs))
 
     except (KeyError, IndexError) as e:
         if log_errors:

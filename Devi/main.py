@@ -10,6 +10,8 @@ import permissions
 import logs
 import storage
 
+from emojis import load_custom_emojis
+
 import paths
 from paths import ENV_FILE, env_var_to_bool, env_var
 
@@ -60,16 +62,9 @@ for extension in EXTENSIONS:
 @bot.event
 async def on_ready():
     print(f"✅ Bot {bot.user} is online!")
-
-    from cogs.help import COMMAND_MENTIONS, register_commands
-
-    cmds = await bot.fetch_global_commands()
-
-    register_commands(cmds)
-
-    print(len(COMMAND_MENTIONS))
     print(platform.system())
     print(platform.machine())
+    await load_custom_emojis(bot)
 
 if __name__ == "__main__":
     try:

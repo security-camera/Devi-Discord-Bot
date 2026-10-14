@@ -32,35 +32,6 @@ class CommandMentionFormatException(Exception):
         super().__init__(self.PREFIX + message)
 
 
-def register_commands(cmds):
-    for command in cmds:
-        COMMAND_MENTIONS[command.name] = (
-            f"</{command.name}:{command.id}>",
-            command.id
-        )
-
-        register_subcommands(
-            command.options or [],
-            command.name,
-            command.id
-        )
-
-
-def register_subcommands(options, path, command_id):
-    for option in options:
-        if option.type not in (OptionType.sub_command, OptionType.sub_command_group):
-            continue  # real parameter, not a subcommand/group — stop here
-
-        full_name = f"{path} {option.name}"
-        key = full_name.replace(" ", "_")
-
-        if option.type == OptionType.sub_command:
-            COMMAND_MENTIONS[key] = (f"</{full_name}:{command_id}>", command_id)
-
-        if option.options:
-            register_subcommands(option.options, full_name, command_id)
-
-
 def format_commands(text: str, guild_id: int, show_descriptions: bool) -> str:
     def replace(match: re.Match[str]) -> str:
         words = match.group(1).split(" ")
@@ -261,6 +232,38 @@ class HelpView(disnake.ui.View):
 class HelpCog(commands.Cog):
     def __init__(self, bot: commands.Bot):
         self.bot = bot
+
+    @commands.Cog.listener()
+    async def on_ready(self):
+        global COMMAND_MENTIONS
+
+        for command in await self.bot.fetch_global_commands():
+            COMMAND_MENTIONS[command.name] = (
+                f"</{command.name}:{command.id}>",
+                command.id
+            )
+
+            self.register_subcommands(
+                command.options or [],
+                command.name,
+                command.id
+            )
+
+        print(len(COMMAND_MENTIONS))
+
+    def register_subcommands(self, options, path, command_id):
+        for option in options:
+            if option.type not in (OptionType.sub_command, OptionType.sub_command_group):
+                continue  # real parameter, not a subcommand/group — stop here
+
+            full_name = f"{path} {option.name}"
+            key = full_name.replace(" ", "_")
+
+            if option.type == OptionType.sub_command:
+                COMMAND_MENTIONS[key] = (f"</{full_name}:{command_id}>", command_id)
+
+            if option.options:
+                self.register_subcommands(option.options, full_name, command_id)
 
     @commands.slash_command(
         name="command_id",
