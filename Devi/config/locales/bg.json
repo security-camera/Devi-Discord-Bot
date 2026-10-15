@@ -1,10 +1,10 @@
 {
     "_meta": {
         "name": "Български",
-        "flag": "🇧🇬"
+        "flag": ";flag_bg;"
     },
     "duration_utils": {
-        "invalid_format": ";x;: `{invalid}`\n;mark;: {examples}.",
+        "invalid_format": ";no;: `{invalid}`\n;mark;: {examples}.",
         "duration_units_chars": {
             "year": "г",
             "week": "с",
@@ -491,12 +491,12 @@
         }
     },
     "help": {
-        "title": "📚 Списък с командите на бота",
+        "title": ";books; Списък с командите на бота",
         "intro": "Език на сървъра: {server_locale}",
         "footer": "Ботът е онлайн от",
         "parameters": "Параметри",
         "optional_parameters": "\n-# Незадължителни параметри",
-        "unknown_command": ";x; Неизвестна команда",
+        "unknown_command": ";no; Неизвестна команда",
         "select_placeholder": "Изберете категория команди",
         "additional_field": "Допълнителна информация",
         "outro": {
@@ -509,35 +509,35 @@
         },
         "sections": {
             "mention": {
-                "name": "📣 Споменавания",
+                "name": ";megaphone; Споменавания",
                 "value": "• /mention_user\n• /mention_role\n• /mention_stop"
             },
             "triggers": {
-                "name": "💬 Автоматични отговори (Тригери)",
+                "name": ";chat; Автоматични отговори (Тригери)",
                 "value": "• /trigger\n• /triggers"
             },
             "utils": {
-                "name": "🌐 Помощни",
+                "name": ";globe; Помощни",
                 "value": "• /random\n• /coin\n• /ball\n• /avatar\n• /qr\n• /preview"
             },
             "messages": {
-                "name": "💬 Съобщения",
+                "name": ";chat; Съобщения",
                 "value": "• /send_message\n• /send_dm\n• /send_sticky\n• /send_allow"
             },
             "voice": {
-                "name": "🎙️ Гласови",
+                "name": ";microphone; Гласови",
                 "value": "• /join\n• /leave\n• /tts"
             },
             "ai": {
-                "name": "🧠 ИИ",
+                "name": ";brain; ИИ",
                 "value": "• /ai_ask_text (<@{bot_id}>)\n• /ai_ask_voice\n• /ai_clear\n• /ai_key"
             },
             "admin": {
-                "name": "⚙️ Административни",
+                "name": ";gear; Административни",
                 "value": "• /clear\n• /set_log_channel\n• /language\n• /command_id\n• /temp_role\n• /slowmode\n• /temp_ban"
             },
             "permissions": {
-                "name": "📁 Права",
+                "name": ";folder; Права",
                 "value": "• /permissions manage\n• /permissions list"
             },
             "warns": {
@@ -549,22 +549,22 @@
                 "value": "• /giveaway_start\n• /giveaway_end\n• /giveaway_reroll\n• /giveaway_list"
             },
             "music": {
-                "name": "🎵 Музика",
+                "name": ";music_note; Музика",
                 "value": "• /music interface\n• /music play\n• /music pause\n• /music loop\n• /music queue\n• /music resume\n• /music skip\n• /music stop",
                 "additional": "**Как да настроите интерфейса?**\n1. Създайте/изберете канал за музикалния интерфейс.\n2. Изпратете музикалния интерфейс чрез /music interface\n3. Конфигурирайте разрешението bot.MusicBlackList (по избор)\n\n**Поддържани платформи:**\nYouTube"
             },
             "birthdays": {
-                "name": "🥳 Рождени дни",
+                "name": ";party; Рождени дни",
                 "value": "• /birthday set\n• /birthday check\n• /birthday remove\n• /birthday channel",
                 "additional": "**Как да настроите рождените дни?**\n1. Създайте/изберете канал за поздравления за рожден ден.\n2. Задайте канала чрез /birthday channel\n\nСега ботът автоматично ще поздравява в този сървър потребителите, които са задали рождения си ден чрез /birthday set."
             },
             "temp_voices": {
-                "name": "⌛ Временни гласови",
+                "name": ";hourglass_end; Временни гласови",
                 "value": "• /voice setup\n• /voice interface\n• /voice name\n• /voice open\n• /voice close\n• /voice allow\n• /voice ban\n• /voice kick\n• /voice limit\n• /voice bitrate\n• /voice region",
                 "additional": "**Какво представляват временните гласови канали?**\nВременните гласови канали са канали, създавани от потребителите при влизане в лоби канал. Собственикът на временния гласов канал може самостоятелно да настройва своя канал.\n\n**Как да настроите временните гласови канали?**\n1. Създайте/изберете лоби канал\n2. Задайте лоби канала чрез /voice setup\n\nУверете се, че ботът има достатъчно права"
             },
             "security": {
-                "name": "🛡️ Сигурност",
+                "name": ";shield; Сигурност",
                 "value": "• /honeypot channel\n• /honeypot punishment"
             },
             "developer": {
@@ -578,9 +578,9 @@
         "revoked": ";no; На обекта {target} е отнето правото `{permission}`.",
         "check_yes": ";mark; Обектът {target} има правото `{permission}`.",
         "check_no": ";no; Обектът {target} няма правото `{permission}`.",
-        "list_title": "📋 Права на обекта {target}:\n{permissions}",
+        "list_title": ";clipboard; Права на обекта {target}:\n{permissions}",
         "list_empty": "На обекта няма зададени права.",
-        "list_all_title": "📋 Всички права на сървъра",
+        "list_all_title": ";clipboard; Всички права на сървъра",
         "list_all_empty": "На сървъра няма зададени права.",
         "list_all_too_long": ";no; Твърде много зададени права — резултатът не се побира в едно съобщение. Обърнете се към разработчика за добавяне на странициране.",
         "section_guild": "Сървър",
@@ -601,7 +601,7 @@
         "manage_select_role_placeholder": "Изберете роля…",
         "manage_select_channel_placeholder": "Изберете канал…",
         "manage_toggle_placeholder": "Изберете право, за да го включите/изключите…",
-        "manage_panel_title": "⚙️ Управление на правата",
+        "manage_panel_title": ";gear; Управление на правата",
         "manage_panel_target": "Обект: {target}",
         "manage_panel_current": "Текущи права",
         "manage_panel_current_empty": "Няма зададени права.",
@@ -654,8 +654,8 @@
         "wrong_channel_type": "Тази команда може да се използва само в текстови канали.",
         "forbidden": "Ботът няма права да изтрива съобщения в този канал (необходимо е правото `Manage Messages`).",
         "http_error": "Грешка при изтриването на съобщения: {error}",
-        "done": "🧹 Изтрити съобщения: {count}.",
-        "log_title": "🧹 Съобщенията бяха изчистени",
+        "done": ";broom; Изтрити съобщения: {count}.",
+        "log_title": ";broom; Съобщенията бяха изчистени",
         "log_channel": "Канал",
         "log_moderator": "Модератор",
         "log_requested": "Заявени",
@@ -774,29 +774,29 @@
     },
     "logs_cog": {
         "titles": {
-            "stage_joined": "🎙️ Участникът се присъедини към сценичния канал",
-            "voice_joined": "🔊 Участникът се присъедини към гласов канал",
-            "stage_left": "🎙️ Участникът напусна сценичния канал",
-            "voice_left": "🔇 Участникът напусна гласовия канал",
-            "voice_moved": "↔️ Участникът премина в друг гласов канал",
-            "stage_opened": "🟣 Сцената е отворена",
-            "stage_closed": "⚫ Сцената е затворена",
-            "stage_updated": "🟣 Сцената е обновена",
-            "dm_received": "🤖 Ботът получи съобщение в ЛС",
-            "message_edited": "✏️ Съобщението беше редактирано",
-            "message_deleted": "🗑️ Съобщението беше изтрито",
-            "member_joined": "📥 Нов участник се присъедини",
-            "member_kicked": "👢 Участникът беше изгонен",
-            "member_left": "📤 Участникът напусна сървъра",
-            "member_banned": "🔨 Участникът беше баннат",
-            "member_unbanned": "🔓 Забраната на участника беше премахната",
-            "nickname_changed": "📝 Прякорът на участника беше променен",
-            "roles_updated": "🎭 Ролите на участника бяха обновени",
-            "member_muted": "🔇 Участникът беше заглушен",
-            "member_unmuted": "🔊 Заглушаването на участника беше премахнато",
-            "command_used": "🤖 Използване на команда на бота",
-            "bot_added": "🤖 Ботът беше добавен към сървъра",
-            "bot_removed": "🤖 Ботът напусна сървъра"
+            "stage_joined": ";microphone; Участникът се присъедини към сценичния канал",
+            "voice_joined": ";volume; Участникът се присъедини към гласов канал",
+            "stage_left": ";microphone; Участникът напусна сценичния канал",
+            "voice_left": ";muted; Участникът напусна гласовия канал",
+            "voice_moved": ";arrows_left_right; Участникът премина в друг гласов канал",
+            "stage_opened": ";purple_circle; Сцената е отворена",
+            "stage_closed": ";black_circle; Сцената е затворена",
+            "stage_updated": ";purple_circle; Сцената е обновена",
+            "dm_received": ";robot; Ботът получи съобщение в ЛС",
+            "message_edited": ";pencil; Съобщението беше редактирано",
+            "message_deleted": ";trash; Съобщението беше изтрито",
+            "member_joined": ";inbox; Нов участник се присъедини",
+            "member_kicked": ";boot; Участникът беше изгонен",
+            "member_left": ";outbox; Участникът напусна сървъра",
+            "member_banned": ";hammer; Участникът беше баннат",
+            "member_unbanned": ";lock_open; Забраната на участника беше премахната",
+            "nickname_changed": ";memo; Прякорът на участника беше променен",
+            "roles_updated": ";theater_masks; Ролите на участника бяха обновени",
+            "member_muted": ";muted; Участникът беше заглушен",
+            "member_unmuted": ";volume; Заглушаването на участника беше премахнато",
+            "command_used": ";robot; Използване на команда на бота",
+            "bot_added": ";robot; Ботът беше добавен към сървъра",
+            "bot_removed": ";robot; Ботът напусна сървъра"
         },
         "fields": {
             "member": "Участник",
@@ -867,8 +867,8 @@
         "forbidden": "Ботът няма достатъчно права, за да даде тази роля.",
         "http_error": "Грешка при даването на ролята: {error}",
         "success": ";mark; {member} получи ролята {role} до {expires_full} ({expires_relative}).",
-        "log_expired_title": "⏳ Временната роля беше премахната (срокът изтече)",
-        "log_granted_title": "⏳ На участника беше временно дадена роля",
+        "log_expired_title": ";hourglass_start; Временната роля беше премахната (срокът изтече)",
+        "log_granted_title": ";hourglass_start; На участника беше временно дадена роля",
         "field_expires": "Изтича"
     },
     "triggers_cog": {
@@ -891,7 +891,7 @@
         "left": "Изключих се от гласовия канал.",
         "too_long": "Съобщението е твърде дълго (максимум {max} символа).",
         "queued": "Съобщението е добавено към опашката. Позиция: **{position}**",
-        "log_auto_left_title": "🔇 Ботът автоматично напусна гласовия канал (няма останали участници)",
+        "log_auto_left_title": ";muted; Ботът автоматично напусна гласовия канал (няма останали участници)",
         "join_failed": ";no; Неуспешно свързване към гласовия канал: {error}",
         "tts-voice": "de_DE-thorsten-high"
     },
@@ -899,7 +899,7 @@
         "forever": "завинаги",
         "expires_relative": "до {relative}",
         "line": "{status_emoji} **ID {id}** | статус: `{status}`\nПричина: {reason}\nПродължителност: {duration}\nМодератор: {moderator} | издадено: {created}\nАктивни предупреждения: {active_warns}",
-        "log_expired_title": "🔕 Предупреждението стана старо (срокът изтече)",
+        "log_expired_title": ";bell_muted; Предупреждението стана старо (срокът изтече)",
         "field_case_id": "ID на предупреждението",
         "field_reason": "Причина",
         "field_duration": "Продължителност",
@@ -910,12 +910,12 @@
         "show_description": "Активни: **{active}** | Общо записи: **{total}**",
         "not_found": "Предупреждението с ID {id} не е намерено на този сървър.",
         "removed": "Предупреждението с ID {id} (потребител {user}) е премахнато.",
-        "log_removed_title": "🔕 Предупреждението беше премахнато",
+        "log_removed_title": ";bell_muted; Предупреждението беше премахнато",
         "field_removed_by": "Премахнато от",
         "field_original_reason": "Причина за предупреждението",
         "already_old": "Предупреждението с ID {id} вече е маркирано като старо.",
         "marked_old": "Предупреждението с ID {id} (потребител {user}) е маркирано като старо.",
-        "log_marked_manual_title": "🔕 Предупреждението стана старо (ръчно)",
+        "log_marked_manual_title": ";bell_muted; Предупреждението стана старо (ръчно)",
         "field_marked_by": "Маркирано от"
     },
     "ai_cog": {
@@ -926,12 +926,12 @@
         "generic_error": ";no; Неуспешно получаване на отговор от ИИ. Опитайте отново малко по-късно.",
         "voice_cog_missing": ";no; Гласовият модул не е наличен на този бот.",
         "blacklist": ";no; Не можете да използвате ИИ на този сървър.",
-        "ask_response": "🎙️ **{name}:** {text}\n(добавено към опашката за озвучаване, позиция: **{position}**)",
+        "ask_response": ";microphone; **{name}:** {text}\n(добавено към опашката за озвучаване, позиция: **{position}**)",
         "memory_deleted": ";mark; Историята на разговорите с ИИ е изтрита.",
         "key_tutorial": ";no; Невалиден Gemini API ключ.\nУверете се, че сте поставили **API Key**, а не име на проект или друг токен.\nМожете да получите или създадете API ключ [тук](https://aistudio.google.com/app/api-keys).",
         "key_updated": ";mark; Gemini API ключът е успешно зададен.",
         "key_deleted": ";mark; Gemini API ключът е успешно премахнат.",
-        "signal_title": "🚩 Подозрителен AI промпт",
+        "signal_title": ";flag_triangle; Подозрителен AI промпт",
         "signal_member": "Потребител",
         "signal_guild": "Сървър",
         "signal_channel": "Канал",
@@ -973,9 +973,9 @@
         "no_permission": ";no; Нямате права да управлявате раздаванията.",
         "not_found": ";no; Раздаването с посоченото ID не е намерено на този сървър.",
         "already_ended": ";no; Това раздаване вече е приключило.",
-        "ending": "⏳ Приключвам раздаването и определям победителите...",
+        "ending": ";hourglass_start; Приключвам раздаването и определям победителите...",
         "not_ended_yet": ";no; Това раздаване все още не е приключило.",
-        "rerolling": "🎲 Избирам нови победители...",
+        "rerolling": ";dice; Избирам нови победители...",
         "no_active": "На този сървър в момента няма активни раздавания.",
         "list_title": ";party; Активни раздавания",
         "list_entry": "• **{name}** (ID {id}) — приключва {end}",
@@ -983,26 +983,26 @@
         "giveaway_ended_description": "Участници: **{members}**\nПобедители: {winners}",
         "no_winners": "няма победители",
         "winners_announcement": ";party; Поздравления, {winners}! Спечелихте **{prize}**!",
-        "reroll_announcement": "🎲 Нови победители: {winners}! Награда: **{prize}**!",
-        "no_participants": "😢 Никой не участва в раздаването на **{prize}**, няма победители."
+        "reroll_announcement": ";dice; Нови победители: {winners}! Награда: **{prize}**!",
+        "no_participants": ";crying_face; Никой не участва в раздаването на **{prize}**, няма победители."
     },
     "music_cog": {
         "not_connected": ";no; Ботът не е свързан към гласов канал.",
         "extract_failed": ";no; Неуспешно намиране/зареждане на песента: {error}",
-        "track_added_queue": "➕ Добавено в опашката: **{title}**",
-        "track_loaded": "🎵 Заредено: **{title}**",
-        "paused": "⏸️ Пауза.",
-        "resumed": "▶️ Продължавам.",
+        "track_added_queue": ";plus; Добавено в опашката: **{title}**",
+        "track_loaded": ";music_note; Заредено: **{title}**",
+        "paused": ";pause; Пауза.",
+        "resumed": ";play; Продължавам.",
         "nothing_playing": "В момента нищо не се възпроизвежда.",
-        "skipped": "⏭️ Песента е пропусната.",
-        "stopped": "⏹️ Спрано, опашката е изчистена.",
-        "now_playing_announce": "▶️ В момента се възпроизвежда: **{title}**",
+        "skipped": ";skip_next; Песента е пропусната.",
+        "stopped": ";stop; Спрано, опашката е изчистена.",
+        "now_playing_announce": ";play; В момента се възпроизвежда: **{title}**",
         "track_skipped_no_voice": ";no; Ботът не е свързан към гласов канал — песента **{title}** е пропусната. Първо изпълнете /join.",
         "playback_error": ";no; Неуспешно стартиране на възпроизвеждането на **{title}**: {error}\nПроверете дали ffmpeg е инсталиран и се вижда в PATH (`ffmpeg -version` в конзолата), както и дали е инсталиран пакетът PyNaCl.",
         "untitled_track": "Без заглавие",
-        "queue_now_playing": "▶️ В момента се възпроизвежда: [{title}]({url})",
+        "queue_now_playing": ";play; В момента се възпроизвежда: [{title}]({url})",
         "queue_loop_status": "Повторение: {emoji} {label}",
-        "queue_upcoming_header": "\n📜 Следващи в опашката:",
+        "queue_upcoming_header": "\n;scroll; Следващи в опашката:",
         "queue_empty": "Опашката е празна.",
         "loop_set": "{emoji} Режим на повторение: **{label}**",
         "loop": {
@@ -1016,11 +1016,11 @@
             "placeholder": "https://youtube.com/... или име на песен"
         },
         "interface": {
-            "title": "🎶 Панел за управление на плеъра",
+            "title": ";musical_notes; Панел за управление на плеъра",
             "now_playing_label": "В момента се възпроизвежда:",
             "nothing_playing": "нищо не се възпроизвежда",
             "loop_label": "Повторение:",
-            "help": "➕ **Добавяне на песен** — отваря прозорец за въвеждане на линк/име\n⏯️ **Пауза / Продължаване** — превключва възпроизвеждането\n⏭️ **Пропускане** — следващата песен от опашката\n🔁 **Повторение** — превключва режима (изкл. / песен / опашка)\n📜 **Опашка** — показва текущия списък с песни\n⏹️ **Стоп** — спира и изчиства опашката",
+            "help": ";plus; **Добавяне на песен** — отваря прозорец за въвеждане на линк/име\n;play_pause; **Пауза / Продължаване** — превключва възпроизвеждането\n;skip_next; **Пропускане** — следващата песен от опашката\n;repeat; **Повторение** — превключва режима (изкл. / песен / опашка)\n;scroll; **Опашка** — показва текущия списък с песни\n;stop; **Стоп** — спира и изчиства опашката",
             "button_play": "Добавяне на песен",
             "button_pause_resume": "Пауза / Продължаване",
             "button_skip": "Пропускане",
@@ -1047,8 +1047,8 @@
         "not_found": ";no; Сървърът с ID `{id}` не е намерен.",
         "forbidden": ";no; Няма достъп до сървъра с ID `{id}`.",
         "http_error": ";no; Грешка при заявката към Discord API: {error}",
-        "title_stats": "📊 Статистика",
-        "title_channels": "📺 Канали, уиджет и медия",
+        "title_stats": ";chart; Статистика",
+        "title_channels": ";tv; Канали, уиджет и медия",
         "field_owner": "Собственик",
         "field_created": "Създаден",
         "field_verification": "Ниво на верификация",
@@ -1107,23 +1107,23 @@
         },
         "date_format": "{day} {month}",
         "invalid_date": ";no; Такава дата не съществува — проверете деня и месеца.",
-        "set_success": "🎂 Рожденият ден е запазен: **{date}**.",
+        "set_success": ";cake; Рожденият ден е запазен: **{date}**.",
         "not_set": "Рожденият ден на {target} не е зададен.",
-        "check_result": "🎂 Рожденият ден на {target}: **{date}**.",
-        "removed": "🗑️ Рожденият ден на {target} е премахнат.",
+        "check_result": ";cake; Рожденият ден на {target}: **{date}**.",
+        "removed": ";trash; Рожденият ден на {target} е премахнат.",
         "channel_set": ";mark; Каналът за поздравления за рождени дни е зададен: {channel}.",
         "channel_removed": ";mark; Поздравленията за рождени дни на този сървър са изключени.",
-        "log_channel_set_title": "🎂 Каналът за поздравления е променен",
-        "log_channel_removed_title": "🎂 Каналът за поздравления е изключен",
+        "log_channel_set_title": ";cake; Каналът за поздравления е променен",
+        "log_channel_removed_title": ";cake; Каналът за поздравления е изключен",
         "dm_congratulation": ";party; Честит рожден ден, {name}! Нека тази година ви донесе много хубави неща!",
-        "server_congratulation": ";party; Днес {mention} има рожден ден! Честит рожден ден! 🎂",
-        "test_triggered": "🧪 Тестът е изпълнен за {target}. ЛС доставено: {dm}. Пингове в сървърите: {servers}.",
-        "test_failed": ";x; Тестът е неуспешен. Потребителят не е използвал `/birthday set`"
+        "server_congratulation": ";party; Днес {mention} има рожден ден! Честит рожден ден! ;cake;",
+        "test_triggered": ";flask; Тестът е изпълнен за {target}. ЛС доставено: {dm}. Пингове в сървърите: {servers}.",
+        "test_failed": ";no; Тестът е неуспешен. Потребителят не е използвал `/birthday set`"
     },
     "top_gg_cog": {
-        "voting": "⭐ **Подкрепете {bot_mention} с вашия глас!**\n\nГласувайте за Devi в Top.gg и получете **подобрени лимити за 12 часа**!\n\n### 🚀 Какво ще получите:\n🤖 **ИИ**\n• Кулдаун на заявките към ИИ: **{AI_COOLDOWN_SECONDS} → {AI_COOLDOWN_SECONDS_VOTED}**\n• Памет на съобщенията с ИИ: **{AI_MAX_MESSAGES} → {AI_MAX_MESSAGES_VOTED}**\n\n🧹 **Изчистване на съобщения**\n• Максимум за `/clear`: **{CLEAR_MAX} → {CLEAR_MAX_VOTED} съобщения**\n\n📢 **Споменавания**\n• Максимум споменавания в `/mention`: **{MENTIONS_MAX_MESSAGES} → {MENTIONS_MAX_MESSAGES_VOTED}**\n• Кулдаун на `/mention`: **{MENTIONS_COOLDOWN_TIME} → {MENTIONS_COOLDOWN_TIME_VOTED}**\n\n⚡ **Тригери**\n• Кулдаун на отговора на тригерите: **{TRIGGERS_RESPONSE_COOLDOWN} → {TRIGGERS_RESPONSE_COOLDOWN_VOTED}**\n\n🔊 **TTS**\n• Максимална дължина на `/tts`: **{MAX_TTS_LENGTH} → {MAX_TTS_LENGTH_VOTED} символа**\n\n❤️ **Вашият глас помага на Devi да се развива, а вие получавате повече възможности!**",
+        "voting": ";star; **Подкрепете {bot_mention} с вашия глас!**\n\nГласувайте за Devi в Top.gg и получете **подобрени лимити за 12 часа**!\n\n### ;rocket; Какво ще получите:\n;robot; **ИИ**\n• Кулдаун на заявките към ИИ: **{AI_COOLDOWN_SECONDS} → {AI_COOLDOWN_SECONDS_VOTED}**\n• Памет на съобщенията с ИИ: **{AI_MAX_MESSAGES} → {AI_MAX_MESSAGES_VOTED}**\n\n;broom; **Изчистване на съобщения**\n• Максимум за `/clear`: **{CLEAR_MAX} → {CLEAR_MAX_VOTED} съобщения**\n\n;loudspeaker; **Споменавания**\n• Максимум споменавания в `/mention`: **{MENTIONS_MAX_MESSAGES} → {MENTIONS_MAX_MESSAGES_VOTED}**\n• Кулдаун на `/mention`: **{MENTIONS_COOLDOWN_TIME} → {MENTIONS_COOLDOWN_TIME_VOTED}**\n\n;lightning; **Тригери**\n• Кулдаун на отговора на тригерите: **{TRIGGERS_RESPONSE_COOLDOWN} → {TRIGGERS_RESPONSE_COOLDOWN_VOTED}**\n\n;volume; **TTS**\n• Максимална дължина на `/tts`: **{MAX_TTS_LENGTH} → {MAX_TTS_LENGTH_VOTED} символа**\n\n;heart; **Вашият глас помага на Devi да се развива, а вие получавате повече възможности!**",
         "voted": ";mark; Гласувахте за {bot_mention}!",
-        "not_voted": ";x; Не сте гласували за {bot_mention}.",
+        "not_voted": ";no; Не сте гласували за {bot_mention}.",
         "voting_link": "[Линк за гласуване](https://top.gg/bot/1230603137253900339/vote)",
         "voting_ad": "Увеличете лимитите за някои команди (повече информация в /vote)",
         "locked_command": "Тази команда е заключена. Гласувайте в top.gg, за да отключите командата\n\n{link} (повече информация за предимствата от гласуването: /vote)"
@@ -1139,15 +1139,15 @@
         "limit_unlimited": ";mark; Лимитът на участниците е премахнат (без ограничения).",
         "unlimited": "без ограничения",
         "invalid_limit": ";no; Лимитът трябва да бъде число от 0 до 99.",
-        "locked": "🔒 Каналът е затворен за всички.",
-        "unlocked": "🔓 Каналът е отворен за всички.",
+        "locked": ";lock; Каналът е затворен за всички.",
+        "unlocked": ";lock_open; Каналът е отворен за всички.",
         "allowed": ";mark; {target} вече може да се свързва с канала.",
-        "banned": "⛔ {target} вече не може да се свързва с канала.",
+        "banned": ";no_entry; {target} вече не може да се свързва с канала.",
         "member_not_found": ";no; Потребителят не е намерен на сървъра.",
-        "kicked": "🚪 {target} беше изгонен от канала.",
+        "kicked": ";door; {target} беше изгонен от канала.",
         "member_not_in_channel": ";no; Този потребител не се намира във вашия канал.",
-        "transferred": "👑 Собствеността на канала беше предадена на {target}.",
-        "claimed": "👑 Вие станахте новият собственик на канала {channel}.",
+        "transferred": ";crown; Собствеността на канала беше предадена на {target}.",
+        "claimed": ";crown; Вие станахте новият собственик на канала {channel}.",
         "must_be_in_channel": ";no; Трябва да се намирате в този канал, за да поемете собствеността.",
         "owner_still_present": ";no; Текущият собственик все още е в канала — собствеността не може да бъде поета.",
         "bitrate_set": ";mark; Битрейтът е зададен: **{kbps} кбит/с**.",
@@ -1157,7 +1157,7 @@
         "region_automatic": ";mark; Гласовият регион е зададен автоматично.",
         "region_automatic_label": "автоматично",
         "setup_done": ";mark; Лоби каналът за временни гласови канали е зададен: {channel}.",
-        "interface_title": "🎙️ Управление на канала: {name}",
+        "interface_title": ";microphone; Управление на канала: {name}",
         "field_owner": "Собственик",
         "field_limit": "Лимит",
         "field_status": "Статус",
@@ -1233,8 +1233,7 @@
     "dashboard_api_logs": {
         "title": "Настройките са променени от таблото на сайта",
         "section": "Раздел",
-        "sections":
-        {
+        "sections": {
             "permissions": "Права",
             "logs": "Логове",
             "birthdays": "Рождени дни",

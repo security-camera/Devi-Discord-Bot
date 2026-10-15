@@ -120,7 +120,7 @@ def get_locale_display_name(locale: LocaleObject, with_flag: bool = True) -> str
 
         if isinstance(name, str) and name:
             if with_flag and isinstance(flag, str) and flag:
-                return f"{flag} {name}"
+                return f"{format_custom_emojis(flag)} {name}"
 
             return name
 
