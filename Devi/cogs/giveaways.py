@@ -9,6 +9,7 @@ from discord_i18n import localized
 from duration_utils import parse_duration_seconds
 from permissions import Permission, require_permissions
 from db import db_cursor
+from emojis import get_component_emoji
 
 CHECK_INTERVAL = 15
 JOIN_PREFIX = "giveaway_join:"
@@ -86,7 +87,7 @@ class GiveawayView(disnake.ui.View):
 
         button = disnake.ui.Button(
             label=i18n.t("giveaway_cog.button_name", guild_id=guild_id),
-            emoji="🎉",
+            emoji=get_component_emoji("party", "🥳"),
             style=disnake.ButtonStyle.green,
             custom_id=f"{JOIN_PREFIX}{message_id}",
         )

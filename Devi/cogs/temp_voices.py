@@ -6,6 +6,7 @@ from disnake.ext import commands
 
 import i18n
 from db import db_cursor
+from emojis import get_component_emoji
 from discord_i18n import localized
 from logs import send_log, LogColor
 from permissions import require_permissions, has_permissions, Permission, PermissionCheckType
@@ -370,10 +371,10 @@ class VoiceControlView(disnake.ui.View):
         manage_select = disnake.ui.StringSelect(
             placeholder=i18n.t("temp_voices_cog.select_manage_placeholder", locale=guild_id),
             options=[
-                disnake.SelectOption(label=i18n.t("temp_voices_cog.action_kick", locale=guild_id), value="kick", emoji="🚪"),
-                disnake.SelectOption(label=i18n.t("temp_voices_cog.action_allow", locale=guild_id), value="allow", emoji="✅"),
-                disnake.SelectOption(label=i18n.t("temp_voices_cog.action_ban", locale=guild_id), value="ban", emoji="⛔"),
-                disnake.SelectOption(label=i18n.t("temp_voices_cog.action_transfer", locale=guild_id), value="transfer", emoji="👑"),
+                disnake.SelectOption(label=i18n.t("temp_voices_cog.action_kick", locale=guild_id), value="kick", emoji=get_component_emoji("door", "🚪")),
+                disnake.SelectOption(label=i18n.t("temp_voices_cog.action_allow", locale=guild_id), value="allow", emoji=get_component_emoji("mark", "✅")),
+                disnake.SelectOption(label=i18n.t("temp_voices_cog.action_ban", locale=guild_id), value="ban", emoji=get_component_emoji("no_entry", "⛔")),
+                disnake.SelectOption(label=i18n.t("temp_voices_cog.action_transfer", locale=guild_id), value="transfer", emoji=get_component_emoji("crown", "👑")),
             ],
             row=3,
         )

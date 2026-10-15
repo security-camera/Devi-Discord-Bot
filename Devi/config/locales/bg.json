@@ -1,7 +1,8 @@
 {
     "_meta": {
         "name": "Български",
-        "flag": ";flag_bg;"
+        "flag": "🇧🇬",
+        "flag_custom": ";flag_bg;"
     },
     "duration_utils": {
         "invalid_format": ";no;: `{invalid}`\n;mark;: {examples}.",

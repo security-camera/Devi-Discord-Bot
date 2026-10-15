@@ -1,7 +1,8 @@
 {
     "_meta": {
         "name": "Español (Latinoamérica)",
-        "flag": ";earth_americas;"
+        "flag": "🌎",
+        "flag_custom": ";earth_americas;"
     },
     "duration_utils": {
         "invalid_format": ";no;: `{invalid}`\n;mark;: {examples}.",

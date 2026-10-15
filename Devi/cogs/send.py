@@ -6,6 +6,7 @@ from i18n import LocaleObject
 
 from permissions import Permission, require_permissions
 from discord_i18n import localized, yes_no_choices, bool_to_yes_no_str
+from emojis import get_component_emoji
 
 from db import db_cursor
 
@@ -14,6 +15,11 @@ from enum import IntEnum
 BUTTON_LABEL_KEYS = {
     "send_dm_deny" : "send_dm_cmd.view.deny",
     "send_dm_allow" : "send_dm_cmd.view.allow",
+}
+
+BUTTON_EMOJI_KEYS = {
+    "send_dm_deny": ("no_entry", "❌"),
+    "send_dm_allow": ("mark", "✅"),
 }
 
 BAN_WORDS = ["@everyone", "@here"]
@@ -126,6 +132,11 @@ class DenySendDmView(disnake.ui.View):
         # labels stay at their defaults — that's fine, since that instance is
         # never sent to chat, it's only needed for dispatching component
         # interactions on old messages by custom_id after a bot restart.
+        for child in self.children:
+            emoji_data = BUTTON_EMOJI_KEYS.get(child.custom_id)
+            if emoji_data:
+                child.emoji = get_component_emoji(*emoji_data)
+
         if guild_id is not None:
             for child in self.children:
                 key = BUTTON_LABEL_KEYS.get(child.custom_id)

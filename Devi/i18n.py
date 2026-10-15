@@ -6,6 +6,7 @@ from pathlib import Path
 from typing import Any
 
 import disnake
+from emojis import format_unicode_emoji_placeholders
 from disnake import Interaction
 from disnake.interactions.base import ClientT
 
@@ -106,7 +107,7 @@ def resolve_locale_code(locale: LocaleLike) -> str:
     return LOCALE_ALIASES.get(locale, locale)
 
 
-def get_locale_display_name(locale: LocaleObject, with_flag: bool = True) -> str:
+def get_locale_display_name(locale: LocaleObject, with_flag: bool = True, use_custom_flag: bool = True) -> str:
     """Returns a human-readable locale name.
     Aliases use the metadata of their target locale.
     """
@@ -116,7 +117,7 @@ def get_locale_display_name(locale: LocaleObject, with_flag: bool = True) -> str
 
     if isinstance(meta, dict):
         name = meta.get("name")
-        flag = meta.get("flag")
+        flag = meta.get("flag_custom" if use_custom_flag else "flag")
 
         if isinstance(name, str) and name:
             if with_flag and isinstance(flag, str) and flag:
@@ -206,7 +207,7 @@ def get_raw(key: str, locale: LocaleObject = None):
     return value
 
 
-def t(key: str, locale: LocaleObject = None, log_errors: bool = True, **kwargs) -> str:
+def t(key: str, locale: LocaleObject = None, log_errors: bool = True, custom_emojis: bool = True, **kwargs) -> str:
     """Returns a translated string by key.
     Locale aliases are resolved automatically."""
     resolved_locale = _resolve_locale(locale)
@@ -224,7 +225,10 @@ def t(key: str, locale: LocaleObject = None, log_errors: bool = True, **kwargs) 
         return f"[{key}]"
 
     try:
-        return format_custom_emojis(value.format(**kwargs))
+        formatted = value.format(**kwargs)
+        if custom_emojis:
+            return format_custom_emojis(formatted)
+        return format_unicode_emoji_placeholders(formatted)
 
     except (KeyError, IndexError) as e:
         if log_errors:

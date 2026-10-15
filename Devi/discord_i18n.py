@@ -26,7 +26,7 @@ def discord_localizations(key: str) -> dict[disnake.Locale, str]:
     locale_map = get_discord_locale_map()
 
     return {
-        locale_map[code]: i18n.t(key, locale=code)
+        locale_map[code]: i18n.t(key, locale=code, custom_emojis=False)
         for code in locale_map
     }
 
@@ -34,7 +34,7 @@ def discord_localizations(key: str) -> dict[disnake.Locale, str]:
 def localized(key: str, prefix: str | None = "", postfix: str | None = "") -> disnake.Localized:
     """Creates a disnake.Localized object with translations for all supported Discord locales."""
     return disnake.Localized(
-        prefix + i18n.t(key, locale=i18n.DEFAULT_LOCALE) + postfix,
+        prefix + i18n.t(key, locale=i18n.DEFAULT_LOCALE, custom_emojis=False) + postfix,
         data=discord_localizations(key),
     )
 
@@ -64,7 +64,7 @@ def add_remove_check_choices() -> list[disnake.OptionChoice]:
 
 def locale_choices(with_flags: bool = True) -> list[disnake.OptionChoice]:
     return [
-        disnake.OptionChoice(name=i18n.get_locale_display_name(locale, with_flags), value=locale)
+        disnake.OptionChoice(name=i18n.get_locale_display_name(locale, with_flags, False), value=locale)
         for locale in i18n.available_locales()
     ]
 

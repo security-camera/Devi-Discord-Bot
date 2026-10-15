@@ -8,6 +8,7 @@ import i18n
 import yt_dlp
 
 from discord_i18n import localized
+from emojis import get_component_emoji
 from logs import send_log, LogColor
 
 # ---------- yt-dlp settings ----------
@@ -262,6 +263,15 @@ BUTTON_LABEL_KEYS = {
     "music_stop": "music_cog.interface.button_stop",
 }
 
+BUTTON_EMOJI_KEYS = {
+    "music_play": ("plus", "➕"),
+    "music_pause_resume": ("play_pause", "⏯️"),
+    "music_skip": ("skip_next", "⏭️"),
+    "music_loop": ("repeat", "🔁"),
+    "music_queue": ("scroll", "📜"),
+    "music_stop": ("stop", "⏹️"),
+}
+
 
 # noinspection unused-parameter
 class MusicInterfaceView(disnake.ui.View):
@@ -277,6 +287,11 @@ class MusicInterfaceView(disnake.ui.View):
         # labels stay at their defaults — that's fine, since that instance is
         # never sent to chat, it's only needed for dispatching component
         # interactions on old messages by custom_id after a bot restart.
+        for child in self.children:
+            emoji_data = BUTTON_EMOJI_KEYS.get(child.custom_id)
+            if emoji_data:
+                child.emoji = get_component_emoji(*emoji_data)
+
         if guild_id is not None:
             for child in self.children:
                 key = BUTTON_LABEL_KEYS.get(child.custom_id)

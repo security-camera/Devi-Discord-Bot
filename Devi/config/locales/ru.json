@@ -1,7 +1,8 @@
 {
     "_meta": {
         "name": "Русский",
-        "flag": ";flag_ru;"
+        "flag": "🇷🇺",
+        "flag_custom": ";flag_ru;"
     },
     "duration_utils": {
         "invalid_format": ";no;: `{invalid}`\n;mark;: {examples}.",

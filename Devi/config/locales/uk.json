@@ -1,7 +1,8 @@
 {
     "_meta": {
         "name": "Українська",
-        "flag": ";flag_ua;"
+        "flag": "🇺🇦",
+        "flag_custom": ";flag_ua;"
     },
     "duration_utils": {
         "invalid_format": ";no;: `{invalid}`\n;mark;: {examples}.",

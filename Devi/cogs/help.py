@@ -6,6 +6,7 @@ import i18n
 
 from discord_i18n import localized, yes_no_choices
 from i18n import get_locale_display_name
+from emojis import component_option_kwargs
 from datetime import datetime, timezone
 from disnake import OptionType
 
@@ -133,7 +134,7 @@ def build_section_embed(bot: commands.Bot, section: str, gid: int, show_descript
     embed = disnake.Embed(
         title=i18n.t(f"help.sections.{section}.name", locale=gid),
         description=format_commands(embed_value, gid, show_descriptions),
-        color=disnake.Color.blue(),
+        color=disnake.Color.purple(),
         timestamp=UPTIME,
     )
 
@@ -160,7 +161,7 @@ def build_main_embed(gid: int) -> disnake.Embed:
             locale=gid,
             server_locale=f"**{get_locale_display_name(get_localization(gid), True)}**",
         ),
-        color=disnake.Color.blue(),
+        color=disnake.Color.purple(),
         timestamp=UPTIME,
     )
 
@@ -185,8 +186,10 @@ class HelpCategorySelect(disnake.ui.StringSelect):
     def __init__(self, bot: commands.Bot, sections: list[str], gid: int, show_descriptions: bool):
         options = [
             disnake.SelectOption(
-                label=i18n.t(f"help.sections.{section}.name", locale=gid),
-                value=section,
+                **component_option_kwargs(
+                    i18n.get_raw(f"help.sections.{section}.name", locale=gid),
+                    value=section,
+                ),
             )
             for section in sections
         ]
@@ -330,7 +333,7 @@ class HelpCog(commands.Cog):
 
             embed = disnake.Embed(
                 title=mention,
-                color=disnake.Color.blue(),
+                color=disnake.Color.purple(),
                 timestamp=UPTIME,
             )
 

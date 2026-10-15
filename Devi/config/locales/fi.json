@@ -1,7 +1,8 @@
 {
     "_meta": {
         "name": "Suomi",
-        "flag": ";flag_fi;"
+        "flag": "🇫🇮",
+        "flag_custom": ";flag_fi;"
     },
     "duration_utils": {
         "invalid_format": ";no;: `{invalid}`\n;mark;: {examples}.",

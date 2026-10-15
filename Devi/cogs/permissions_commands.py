@@ -6,6 +6,7 @@ from i18n import LocaleObject
 
 from permissions import grant_permissions, revoke_permissions, get_permissions, Permission, PermissionCheckType, all_permissions, require_permissions
 from discord_i18n import localized
+from emojis import get_component_emoji
 
 ALL_PERMISSIONS = list(filter(
     lambda flag: flag not in (
@@ -98,11 +99,12 @@ def build_permission_select_options(guild_id: int, resolved: Permission) -> list
             else (resolved & flag) == flag
         )
 
-        emoji = "✅" if is_set else "▫️"
+        emoji = get_component_emoji("mark", "✅") if is_set else get_component_emoji("no", "▫️")
         options.append(
             disnake.SelectOption(
-                label=f"{emoji} {label_text}",
+                label=label_text,
                 value=flag.name,
+                emoji=emoji,
             )
         )
 
@@ -116,8 +118,9 @@ def build_permission_select_options(guild_id: int, resolved: Permission) -> list
         options.insert(
             0,
             disnake.SelectOption(
-                label=f"{'✅' if is_set else '▫️'} {label_text}",
+                label=label_text,
                 value=Permission.Admin.name,
+                emoji=get_component_emoji("mark", "✅") if is_set else get_component_emoji("no", "▫️"),
             ),
         )
 
