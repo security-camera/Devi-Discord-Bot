@@ -260,11 +260,6 @@
             "param_delete_from_all_servers": "Gesprächsverlauf auf allen Servern löschen?",
             "param_delete_from_all_servers_name": "delete_from_all_servers"
         },
-        "ai_key": {
-            "description": "Legt den für die KI-Funktionen erforderlichen Gemini-API-Schlüssel fest",
-            "param_key": "Gemini-API-Schlüssel",
-            "param_key_name": "key"
-        },
         "command_id": {
             "description": "Gibt die ID eines Devi-Befehls zurück",
             "param_command": "Befehl, dessen ID abgerufen werden soll",
@@ -531,7 +526,7 @@
             },
             "ai": {
                 "name": ";brain; KI",
-                "value": "• /ai_ask_text (<@{bot_id}>)\n• /ai_ask_voice\n• /ai_clear\n• /ai_key"
+                "value": "• /ai_ask_text (<@{bot_id}>)\n• /ai_ask_voice\n• /ai_clear"
             },
             "admin": {
                 "name": ";gear; Administration",
@@ -922,16 +917,17 @@
     "ai_cog": {
         "empty_prompt": "Du hast mich erwähnt, aber keine Frage gestellt. Schreibe etwas nach der Erwähnung!",
         "cooldown": "Warte {seconds} Sek., bevor du mich erneut fragst.",
-        "not_configured": ";no; KI-Antworten sind auf diesem Server noch nicht eingerichtet. Ein Administrator muss einen Gemini-API-Schlüssel festlegen.",
+        "not_configured": ";no; Die KI ist derzeit nicht verfügbar: Der Bot-Betreiber hat noch keinen KI-Dienst eingerichtet.",
         "network_error": ";no; Der KI-Dienst konnte nicht erreicht werden. Versuche es später erneut.",
         "generic_error": ";no; Die KI konnte keine Antwort liefern. Versuche es später erneut.",
         "voice_cog_missing": ";no; Das Sprachmodul ist auf diesem Bot nicht verfügbar.",
         "blacklist": ";no; Du darfst die KI auf diesem Server nicht verwenden.",
         "ask_response": ";microphone; **{name}:** {text}\n(zur Sprachwarteschlange hinzugefügt, Position: **{position}**)",
         "memory_deleted": ";mark; Gesprächsverlauf mit der KI gelöscht.",
-        "key_tutorial": ";no; Ungültiger Gemini-API-Schlüssel.\nStelle sicher, dass du einen **API Key** und nicht den Projektnamen oder ein anderes Token eingefügt hast.\nDu kannst hier einen API-Schlüssel erhalten oder erstellen: [hier](https://aistudio.google.com/app/api-keys).",
-        "key_updated": ";mark; Gemini-API-Schlüssel erfolgreich festgelegt.",
-        "key_deleted": ";mark; Gemini-API-Schlüssel erfolgreich gelöscht.",
+        "user_limit": ";no; Du hast dein Tageslimit für KI-Anfragen (**{limit}**) aufgebraucht. Es wird in etwa **{hours}** Std. zurückgesetzt.",
+        "guild_limit": ";no; Dieser Server hat sein Tageslimit für KI-Anfragen (**{limit}**) aufgebraucht. Es wird in etwa **{hours}** Std. zurückgesetzt.",
+        "budget_limit": ";no; Die KI ist vorübergehend nicht verfügbar: Das gesamte Tageslimit des Bots ist erreicht. Bitte versuche es morgen erneut.",
+        "too_long": ";no; Deine Nachricht ist zu lang: {length} Zeichen, maximal {max}.",
         "signal_title": ";flag_triangle; Verdächtiger KI-Prompt",
         "signal_member": "Benutzer",
         "signal_guild": "Server",
@@ -1122,7 +1118,7 @@
         "test_failed": ";no; Test fehlgeschlagen. Keine Daten empfangen. Benutzer nicht verwendet `/birthday set`"
     },
     "top_gg_cog": {
-        "voting": ";star; **Unterstütze {bot_mention} mit deiner Stimme!**\n\nStimme auf Top.gg für Devi ab und erhalte **12 Stunden lang verbesserte Limits**!\n\n### ;rocket; Was du bekommst:\n;robot; **KI**\n• Cooldown für KI-Anfragen: **{AI_COOLDOWN_SECONDS} → {AI_COOLDOWN_SECONDS_VOTED}**\n• KI-Nachrichtenspeicher: **{AI_MAX_MESSAGES} → {AI_MAX_MESSAGES_VOTED}**\n\n;broom; **Nachrichten löschen**\n• Maximum für `/clear`: **{CLEAR_MAX} → {CLEAR_MAX_VOTED} Nachrichten**\n\n;loudspeaker; **Erwähnungen**\n• Maximale Erwähnungen bei `/mention`: **{MENTIONS_MAX_MESSAGES} → {MENTIONS_MAX_MESSAGES_VOTED}**\n• `/mention`-Cooldown: **{MENTIONS_COOLDOWN_TIME} → {MENTIONS_COOLDOWN_TIME_VOTED}**\n\n;lightning; **Trigger**\n• Cooldown für Trigger-Antworten: **{TRIGGERS_RESPONSE_COOLDOWN} → {TRIGGERS_RESPONSE_COOLDOWN_VOTED}**\n\n;volume; **TTS**\n• Maximale `/tts`-Länge: **{MAX_TTS_LENGTH} → {MAX_TTS_LENGTH_VOTED} Zeichen**\n\n;heart; **Deine Stimme hilft Devi bei der Weiterentwicklung und du erhältst dafür mehr Möglichkeiten!**",
+        "voting": ";star; **Unterstütze {bot_mention} mit deiner Stimme!**\n\nStimme auf Top.gg für Devi ab und erhalte **12 Stunden lang verbesserte Limits**!\n\n### ;rocket; Was du bekommst:\n;robot; **KI**\n• Cooldown für KI-Anfragen: **{AI_COOLDOWN_SECONDS} → {AI_COOLDOWN_SECONDS_VOTED}**\n• KI-Nachrichtenspeicher: **{AI_MAX_MESSAGES} → {AI_MAX_MESSAGES_VOTED}**\n• Tageslimit für KI-Anfragen: **{AI_DAILY_LIMIT} → {AI_DAILY_LIMIT_VOTED}**\n\n;broom; **Nachrichten löschen**\n• Maximum für `/clear`: **{CLEAR_MAX} → {CLEAR_MAX_VOTED} Nachrichten**\n\n;loudspeaker; **Erwähnungen**\n• Maximale Erwähnungen bei `/mention`: **{MENTIONS_MAX_MESSAGES} → {MENTIONS_MAX_MESSAGES_VOTED}**\n• `/mention`-Cooldown: **{MENTIONS_COOLDOWN_TIME} → {MENTIONS_COOLDOWN_TIME_VOTED}**\n\n;lightning; **Trigger**\n• Cooldown für Trigger-Antworten: **{TRIGGERS_RESPONSE_COOLDOWN} → {TRIGGERS_RESPONSE_COOLDOWN_VOTED}**\n\n;volume; **TTS**\n• Maximale `/tts`-Länge: **{MAX_TTS_LENGTH} → {MAX_TTS_LENGTH_VOTED} Zeichen**\n\n;heart; **Deine Stimme hilft Devi bei der Weiterentwicklung und du erhältst dafür mehr Möglichkeiten!**",
         "voted": ";mark; Du hast für {bot_mention} abgestimmt!",
         "not_voted": ";no; Du hast noch nicht für {bot_mention} abgestimmt.",
         "voting_link": "[Abstimmungslink](https://top.gg/bot/1230603137253900339/vote)",

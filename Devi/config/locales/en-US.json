@@ -260,11 +260,6 @@
             "param_delete_from_all_servers_name": "all_servers",
             "param_delete_from_all_servers": "Clear AI history from all servers?"
         },
-        "ai_key": {
-            "description": "Sets the Gemini API key required for AI features",
-            "param_key_name": "api_key",
-            "param_key": "Gemini API key"
-        },
         "command_id": {
             "description": "Returns the ID of a Devi command",
             "param_command_name": "command",
@@ -531,7 +526,7 @@
             },
             "ai": {
                 "name": ";brain; AI",
-                "value": "• /ai_ask_text (<@{bot_id}>)\n• /ai_ask_voice\n• /ai_clear\n• /ai_key"
+                "value": "• /ai_ask_text (<@{bot_id}>)\n• /ai_ask_voice\n• /ai_clear"
             },
             "admin": {
                 "name": ";gear; Administration",
@@ -923,16 +918,17 @@
     "ai_cog": {
         "empty_prompt": "You mentioned me but didn't ask anything. Write something after the mention!",
         "cooldown": "Please wait {seconds}s before asking me again.",
-        "not_configured": ";no; AI is not configured for this server. A server administrator must set up a Gemini API key.",
+        "not_configured": ";no; AI is currently unavailable: the bot owner hasn't set up an AI provider yet.",
         "network_error": ";no; Couldn't reach the AI service. Please try again later.",
         "generic_error": ";no; Couldn't get a response from the AI. Please try again later.",
         "voice_cog_missing": ";no; The voice module isn't available on this bot.",
         "blacklist": ";no; You can't use AI because you are blacklisted on this server.",
         "ask_response": ";microphone; **{name}:** {text}\n(added to the speech queue, position: **{position}**)",
         "memory_deleted": ";mark; AI conversation history has been deleted.",
-        "key_tutorial": ";no; Invalid Gemini API key.\nMake sure you entered an **API Key**, not a project name or another token.\nYou can create or manage your API keys [here](https://aistudio.google.com/app/api-keys).",
-        "key_updated": ";mark; Gemini API key has been saved.",
-        "key_deleted": ";mark; Gemini API key has been deleted.",
+        "user_limit": ";no; You've used up your daily AI limit (**{limit}** requests). It resets in about **{hours}** h.",
+        "guild_limit": ";no; This server has used up its daily AI limit (**{limit}** requests). It resets in about **{hours}** h.",
+        "budget_limit": ";no; AI is temporarily unavailable: the bot's overall daily AI limit has been reached. Please try again tomorrow.",
+        "too_long": ";no; Your message is too long: {length} characters, the maximum is {max}.",
         "signal_title": ";flag_triangle; Suspicious AI prompt",
         "signal_member": "User",
         "signal_guild": "Guild",
@@ -1123,7 +1119,7 @@
         "test_failed": ";no; Test failed. No data received. User don`t used `/birthday set`"
     },
     "top_gg_cog": {
-        "voting": ";star; **Support {bot_mention} with a vote!**\n\nVote for Devi on Top.gg and get **improved limits for 12 hours**!\n\n### ;rocket; What you get:\n;robot; **AI**\n• Request cooldown: **{AI_COOLDOWN_SECONDS} → {AI_COOLDOWN_SECONDS_VOTED}**\n• Message memory: **{AI_MAX_MESSAGES} → {AI_MAX_MESSAGES_VOTED}**\n\n;broom; **Message cleanup**\n• `/clear` maximum: **{CLEAR_MAX} → {CLEAR_MAX_VOTED} messages**\n\n;loudspeaker; **Mentions**\n• Maximum mentions in `/mention`: **{MENTIONS_MAX_MESSAGES} → {MENTIONS_MAX_MESSAGES_VOTED}**\n• `/mention` cooldown: **{MENTIONS_COOLDOWN_TIME} → {MENTIONS_COOLDOWN_TIME_VOTED}**\n\n;lightning; **Triggers**\n• Trigger response cooldown: **{TRIGGERS_RESPONSE_COOLDOWN} → {TRIGGERS_RESPONSE_COOLDOWN_VOTED}**\n\n;volume; **TTS**\n• Maximum `/tts` length: **{MAX_TTS_LENGTH} → {MAX_TTS_LENGTH_VOTED} characters**\n\n;heart; **Your vote helps Devi grow, and you get more features in return!**",
+        "voting": ";star; **Support {bot_mention} with a vote!**\n\nVote for Devi on Top.gg and get **improved limits for 12 hours**!\n\n### ;rocket; What you get:\n;robot; **AI**\n• Request cooldown: **{AI_COOLDOWN_SECONDS} → {AI_COOLDOWN_SECONDS_VOTED}**\n• Message memory: **{AI_MAX_MESSAGES} → {AI_MAX_MESSAGES_VOTED}**\n• Daily AI request limit: **{AI_DAILY_LIMIT} → {AI_DAILY_LIMIT_VOTED}**\n\n;broom; **Message cleanup**\n• `/clear` maximum: **{CLEAR_MAX} → {CLEAR_MAX_VOTED} messages**\n\n;loudspeaker; **Mentions**\n• Maximum mentions in `/mention`: **{MENTIONS_MAX_MESSAGES} → {MENTIONS_MAX_MESSAGES_VOTED}**\n• `/mention` cooldown: **{MENTIONS_COOLDOWN_TIME} → {MENTIONS_COOLDOWN_TIME_VOTED}**\n\n;lightning; **Triggers**\n• Trigger response cooldown: **{TRIGGERS_RESPONSE_COOLDOWN} → {TRIGGERS_RESPONSE_COOLDOWN_VOTED}**\n\n;volume; **TTS**\n• Maximum `/tts` length: **{MAX_TTS_LENGTH} → {MAX_TTS_LENGTH_VOTED} characters**\n\n;heart; **Your vote helps Devi grow, and you get more features in return!**",
         "voted": ";mark; You voted for {bot_mention}!",
         "not_voted": ";no; You haven't voted for {bot_mention}.",
         "voting_link": "[Vote here](https://top.gg/bot/1230603137253900339/vote)",
