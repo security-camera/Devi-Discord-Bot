@@ -260,6 +260,11 @@
             "param_delete_from_all_servers": "Удалить историю общения на всех серверах?",
             "param_delete_from_all_servers_name": "удалить_на_всех_серверах"
         },
+        "ai_key": {
+            "description": "Устанавливает Gemini API-ключ необходимый для работы ИИ функций",
+            "param_key": "Gemini API-ключ",
+            "param_key_name": "api-ключ"
+        },
         "command_id": {
             "description": "Возвращает ID команды Devi",
             "param_command": "Команда для получения ID",
@@ -526,7 +531,7 @@
             },
             "ai": {
                 "name": ";brain; ИИ",
-                "value": "• /ai_ask_text (<@{bot_id}>)\n• /ai_ask_voice\n• /ai_clear"
+                "value": "• /ai_ask_text (<@{bot_id}>)\n• /ai_ask_voice\n• /ai_clear\n• /ai_key"
             },
             "admin": {
                 "name": ";gear; Админские",
@@ -918,17 +923,16 @@
     "ai_cog": {
         "empty_prompt": "Вы упомянули меня, но не написали вопрос. Напишите что-нибудь после упоминания!",
         "cooldown": "Подождите {seconds} сек., прежде чем снова обратиться ко мне.",
-        "not_configured": ";no; ИИ сейчас недоступен: владелец бота ещё не подключил ИИ-сервис.",
+        "not_configured": ";no; ИИ-ответы пока не настроены на этом сервере. Администратор должен указать Gemini API-ключ.",
         "network_error": ";no; Не удалось связаться с ИИ-сервисом. Попробуйте ещё раз чуть позже.",
         "generic_error": ";no; Не удалось получить ответ от ИИ. Попробуйте ещё раз чуть позже.",
         "voice_cog_missing": ";no; Голосовой модуль недоступен на этом боте.",
         "blacklist": ";no; Вы не можете использовать ИИ на этом сервере.",
         "ask_response": ";microphone; **{name}:** {text}\n(добавлено в очередь озвучки, позиция: **{position}**)",
         "memory_deleted": ";mark; История общения с ИИ удалена.",
-        "user_limit": ";no; Вы исчерпали дневной лимит обращений к ИИ (**{limit}**). Лимит обновится примерно через **{hours}** ч.",
-        "guild_limit": ";no; Этот сервер исчерпал дневной лимит обращений к ИИ (**{limit}**). Лимит обновится примерно через **{hours}** ч.",
-        "budget_limit": ";no; ИИ временно недоступен: исчерпан общий дневной лимит бота. Попробуйте завтра.",
-        "too_long": ";no; Сообщение слишком длинное: {length} симв., максимум — {max}.",
+        "key_tutorial": ";no; Некорректный Gemini API-ключ.\nУбедитесь, что вы вставили **API Key**, а не название проекта или другой токен.\nПолучить или создать API-ключ можно [здесь](https://aistudio.google.com/app/api-keys).",
+        "key_updated": ";mark; Gemini API-ключ успешно установлен.",
+        "key_deleted": ";mark; Gemini API-ключ успешно удалён.",
         "signal_title": ";flag_triangle; Подозрительный AI-промпт",
         "signal_member": "Пользователь",
         "signal_guild": "Сервер",
@@ -1119,7 +1123,7 @@
         "test_failed": ";no; Тест провален. Пользователь не использовал `/birthday set`"
     },
     "top_gg_cog": {
-        "voting": ";star; **Поддержи {bot_mention} своим голосом!**\n\nПроголосуй за Devi на Top.gg и получи **улучшенные лимиты на 12 часов**!\n\n### ;rocket; Что ты получишь:\n;robot; **ИИ**\n• Кулдаун обращений к ИИ: **{AI_COOLDOWN_SECONDS} → {AI_COOLDOWN_SECONDS_VOTED}**\n• Память сообщений с ИИ: **{AI_MAX_MESSAGES} → {AI_MAX_MESSAGES_VOTED}**\n• Дневной лимит обращений к ИИ: **{AI_DAILY_LIMIT} → {AI_DAILY_LIMIT_VOTED}**\n\n;broom; **Очистка сообщений**\n• Максимум для `/clear`: **{CLEAR_MAX} → {CLEAR_MAX_VOTED} сообщений**\n\n;loudspeaker; **Упоминания**\n• Максимум упоминаний в `/mention`: **{MENTIONS_MAX_MESSAGES} → {MENTIONS_MAX_MESSAGES_VOTED}**\n• Кулдаун `/mention`: **{MENTIONS_COOLDOWN_TIME} → {MENTIONS_COOLDOWN_TIME_VOTED}**\n\n;lightning; **Триггеры**\n• Кулдаун ответа на триггеры: **{TRIGGERS_RESPONSE_COOLDOWN} → {TRIGGERS_RESPONSE_COOLDOWN_VOTED}**\n\n;volume; **TTS**\n• Максимальная длина `/tts`: **{MAX_TTS_LENGTH} → {MAX_TTS_LENGTH_VOTED} символов**\n\n;heart; **Твой голос помогает Devi развиваться, а ты получаешь больше возможностей!**",
+        "voting": ";star; **Поддержи {bot_mention} своим голосом!**\n\nПроголосуй за Devi на Top.gg и получи **улучшенные лимиты на 12 часов**!\n\n### ;rocket; Что ты получишь:\n;robot; **ИИ**\n• Кулдаун обращений к ИИ: **{AI_COOLDOWN_SECONDS} → {AI_COOLDOWN_SECONDS_VOTED}**\n• Память сообщений с ИИ: **{AI_MAX_MESSAGES} → {AI_MAX_MESSAGES_VOTED}**\n\n;broom; **Очистка сообщений**\n• Максимум для `/clear`: **{CLEAR_MAX} → {CLEAR_MAX_VOTED} сообщений**\n\n;loudspeaker; **Упоминания**\n• Максимум упоминаний в `/mention`: **{MENTIONS_MAX_MESSAGES} → {MENTIONS_MAX_MESSAGES_VOTED}**\n• Кулдаун `/mention`: **{MENTIONS_COOLDOWN_TIME} → {MENTIONS_COOLDOWN_TIME_VOTED}**\n\n;lightning; **Триггеры**\n• Кулдаун ответа на триггеры: **{TRIGGERS_RESPONSE_COOLDOWN} → {TRIGGERS_RESPONSE_COOLDOWN_VOTED}**\n\n;volume; **TTS**\n• Максимальная длина `/tts`: **{MAX_TTS_LENGTH} → {MAX_TTS_LENGTH_VOTED} символов**\n\n;heart; **Твой голос помогает Devi развиваться, а ты получаешь больше возможностей!**",
         "voted": ";mark; Вы проголосовали за {bot_mention}!",
         "not_voted": ";no; Вы не голосовали за {bot_mention}.",
         "voting_link": "[Ссылка для голосования](https://top.gg/bot/1230603137253900339/vote)",

@@ -196,21 +196,6 @@ CREATE TABLE IF NOT EXISTS ai_memory (
 );
 CREATE INDEX IF NOT EXISTS idx_ai_memory_guild_user ON ai_memory(guild_id, user_id, id);
 
--- Daily accounting of AI calls (one row per UTC day / server / user). Used for quotas and the budget guard.
--- cost_micro is the estimated cost in millionths of a USD.
-CREATE TABLE IF NOT EXISTS ai_usage (
-    day DATE NOT NULL,
-    guild_id BIGINT NOT NULL,
-    user_id BIGINT NOT NULL,
-    requests INTEGER NOT NULL DEFAULT 0,
-    prompt_tokens BIGINT NOT NULL DEFAULT 0,
-    cached_tokens BIGINT NOT NULL DEFAULT 0,
-    completion_tokens BIGINT NOT NULL DEFAULT 0,
-    cost_micro BIGINT NOT NULL DEFAULT 0,
-    PRIMARY KEY (day, guild_id, user_id)
-);
-CREATE INDEX IF NOT EXISTS idx_ai_usage_user ON ai_usage(user_id, day);
-
 CREATE TABLE IF NOT EXISTS guild_locale (
     guild_id BIGINT PRIMARY KEY,
     localization TEXT NOT NULL

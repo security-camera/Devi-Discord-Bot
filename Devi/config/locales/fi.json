@@ -260,6 +260,11 @@
             "param_delete_from_all_servers": "Poistetaanko historia kaikilta palvelimilta?",
             "param_delete_from_all_servers_name": "poista_kaikilta_palvelimilta"
         },
+        "ai_key": {
+            "description": "Asettaa tekoälytoimintoihin tarvittavan Gemini API-avaimen",
+            "param_key": "Gemini API-avain",
+            "param_key_name": "api-avain"
+        },
         "command_id": {
             "description": "Palauttaa Devi-komennon ID:n",
             "param_command": "Komento, jonka ID haetaan",
@@ -526,7 +531,7 @@
             },
             "ai": {
                 "name": ";brain; Tekoäly",
-                "value": "• /ai_ask_text (<@{bot_id}>)\n• /ai_ask_voice\n• /ai_clear"
+                "value": "• /ai_ask_text (<@{bot_id}>)\n• /ai_ask_voice\n• /ai_clear\n• /ai_key"
             },
             "admin": {
                 "name": ";gear; Ylläpito",
@@ -918,17 +923,16 @@
     "ai_cog": {
         "empty_prompt": "Mainitsit minut, mutta et kirjoittanut kysymystä. Kirjoita jotain maininnan jälkeen!",
         "cooldown": "Odota {seconds} sek. ennen kuin puhut minulle uudelleen.",
-        "not_configured": ";no; Tekoäly ei ole tällä hetkellä käytettävissä: botin omistaja ei ole vielä ottanut tekoälypalvelua käyttöön.",
+        "not_configured": ";no; Tekoälyvastauksia ei ole vielä määritetty tälle palvelimelle. Ylläpitäjän tulee asettaa Gemini API-avain.",
         "network_error": ";no; Yhteyttä tekoälypalveluun ei saatu. Yritä myöhemmin uudelleen.",
         "generic_error": ";no; Vastausta tekoälyltä ei saatu. Yritä myöhemmin uudelleen.",
         "voice_cog_missing": ";no; Äänimoduuli ei ole käytettävissä tässä botissa.",
         "blacklist": ";no; Et voi käyttää tekoälyä tällä palvelimella.",
         "ask_response": ";microphone; **{name}:** {text}\n(lisätty puhejonoon, sijainti: **{position}**)",
         "memory_deleted": ";mark; Tekoälykeskustelun historia poistettu.",
-        "user_limit": ";no; Olet käyttänyt päivittäisen tekoälyrajasi (**{limit}** pyyntöä). Raja nollautuu noin **{hours}** h kuluttua.",
-        "guild_limit": ";no; Tämä palvelin on käyttänyt päivittäisen tekoälyrajansa (**{limit}** pyyntöä). Raja nollautuu noin **{hours}** h kuluttua.",
-        "budget_limit": ";no; Tekoäly ei ole hetkellisesti käytettävissä: botin yhteinen päivittäinen raja on täyttynyt. Yritä huomenna uudelleen.",
-        "too_long": ";no; Viestisi on liian pitkä: {length} merkkiä, enintään {max}.",
+        "key_tutorial": ";no; Virheellinen Gemini API-avain.\nVarmista, että liitit **API Key** -arvon, et projektin nimeä tai muuta tunnistetta.\nAvaimen voi hakea tai luoda [täältä](https://aistudio.google.com/app/api-keys).",
+        "key_updated": ";mark; Gemini API-avain asetettu onnistuneesti.",
+        "key_deleted": ";mark; Gemini API-avain poistettu onnistuneesti.",
         "signal_title": ";flag_triangle; Epäilyttävä tekoälypyyntö",
         "signal_member": "Käyttäjä",
         "signal_guild": "Palvelin",
@@ -1119,7 +1123,7 @@
         "test_failed": ";no; Testi epäonnistui. Käyttäjä ei ole käyttänyt komentoa `/birthday set`"
     },
     "top_gg_cog": {
-        "voting": ";star; **Tue {bot_mention}a äänestämällä!**\n\nÄänestä Deviä Top.gg:ssä ja saat **paremmat rajoitukset 12 tunniksi**!\n\n### ;rocket; Mitä saat:\n;robot; **Tekoäly**\n• Tekoälypyyntöjen aikarajoitus: **{AI_COOLDOWN_SECONDS} → {AI_COOLDOWN_SECONDS_VOTED}**\n• Tekoälyn viestimuisti: **{AI_MAX_MESSAGES} → {AI_MAX_MESSAGES_VOTED}**\n• Päivittäinen tekoälypyyntöjen raja: **{AI_DAILY_LIMIT} → {AI_DAILY_LIMIT_VOTED}**\n\n;broom; **Viestien poisto**\n• `/clear`-enimmäismäärä: **{CLEAR_MAX} → {CLEAR_MAX_VOTED} viestiä**\n\n;loudspeaker; **Maininnat**\n• `/mention`-mainintojen enimmäismäärä: **{MENTIONS_MAX_MESSAGES} → {MENTIONS_MAX_MESSAGES_VOTED}**\n• `/mention`-aikarajoitus: **{MENTIONS_COOLDOWN_TIME} → {MENTIONS_COOLDOWN_TIME_VOTED}**\n\n;lightning; **Triggerit**\n• Triggerivastausten aikarajoitus: **{TRIGGERS_RESPONSE_COOLDOWN} → {TRIGGERS_RESPONSE_COOLDOWN_VOTED}**\n\n;volume; **TTS**\n• `/tts`-enimmäispituus: **{MAX_TTS_LENGTH} → {MAX_TTS_LENGTH_VOTED} merkkiä**\n\n;heart; **Äänesi auttaa Deviä kehittymään, ja saat vastineeksi enemmän ominaisuuksia!**",
+        "voting": ";star; **Tue {bot_mention}a äänestämällä!**\n\nÄänestä Deviä Top.gg:ssä ja saat **paremmat rajoitukset 12 tunniksi**!\n\n### ;rocket; Mitä saat:\n;robot; **Tekoäly**\n• Tekoälypyyntöjen aikarajoitus: **{AI_COOLDOWN_SECONDS} → {AI_COOLDOWN_SECONDS_VOTED}**\n• Tekoälyn viestimuisti: **{AI_MAX_MESSAGES} → {AI_MAX_MESSAGES_VOTED}**\n\n;broom; **Viestien poisto**\n• `/clear`-enimmäismäärä: **{CLEAR_MAX} → {CLEAR_MAX_VOTED} viestiä**\n\n;loudspeaker; **Maininnat**\n• `/mention`-mainintojen enimmäismäärä: **{MENTIONS_MAX_MESSAGES} → {MENTIONS_MAX_MESSAGES_VOTED}**\n• `/mention`-aikarajoitus: **{MENTIONS_COOLDOWN_TIME} → {MENTIONS_COOLDOWN_TIME_VOTED}**\n\n;lightning; **Triggerit**\n• Triggerivastausten aikarajoitus: **{TRIGGERS_RESPONSE_COOLDOWN} → {TRIGGERS_RESPONSE_COOLDOWN_VOTED}**\n\n;volume; **TTS**\n• `/tts`-enimmäispituus: **{MAX_TTS_LENGTH} → {MAX_TTS_LENGTH_VOTED} merkkiä**\n\n;heart; **Äänesi auttaa Deviä kehittymään, ja saat vastineeksi enemmän ominaisuuksia!**",
         "voted": ";mark; Äänestit {bot_mention}ia!",
         "not_voted": ";no; Et ole äänestänyt {bot_mention}ia.",
         "voting_link": "[Äänestyslinkki](https://top.gg/bot/1230603137253900339/vote)",

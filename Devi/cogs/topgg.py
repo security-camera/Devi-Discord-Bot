@@ -7,7 +7,6 @@ from other_apis.topgg_utils import is_voted
 
 from cogs.ai.ai import (COOLDOWN_SECONDS as AI_COOLDOWN_SECONDS, COOLDOWN_SECONDS_VOTED as AI_COOLDOWN_SECONDS_VOTED)
 from cogs.ai.ai_memory import MAX_MESSAGES, MAX_MESSAGES_VOTED
-from cogs.ai.ai_limits import USER_DAILY_REQUESTS, USER_DAILY_REQUESTS_VOTED
 from cogs.clear import COUNT, COUNT_VOTED
 from cogs.mentions import (MAX_MESSAGES as MENTION_MAX_MESSAGES, MAX_MESSAGES_VOTED as MENTION_MAX_MESSAGES_VOTED, COOLDOWN_TIME, COOLDOWN_TIME_VOTED)
 from cogs.triggers import RESPONSE_COOLDOWN, RESPONSE_COOLDOWN_VOTED
@@ -31,8 +30,6 @@ class TopGGCog(commands.Cog):
                              AI_COOLDOWN_SECONDS_VOTED=AI_COOLDOWN_SECONDS_VOTED,
                              AI_MAX_MESSAGES=MAX_MESSAGES,
                              AI_MAX_MESSAGES_VOTED=MAX_MESSAGES_VOTED,
-                             AI_DAILY_LIMIT=USER_DAILY_REQUESTS,
-                             AI_DAILY_LIMIT_VOTED=USER_DAILY_REQUESTS_VOTED,
                              CLEAR_MAX=COUNT,
                              CLEAR_MAX_VOTED=COUNT_VOTED,
                              MENTIONS_MAX_MESSAGES=MENTION_MAX_MESSAGES,

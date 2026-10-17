@@ -260,6 +260,11 @@
             "param_delete_from_all_servers": "Видалити історію спілкування на всіх серверах?",
             "param_delete_from_all_servers_name": "видалити_на_всіх_серверах"
         },
+        "ai_key": {
+            "description": "Встановлює Gemini API-ключ, необхідний для роботи ШІ-функцій",
+            "param_key": "Gemini API-ключ",
+            "param_key_name": "api-ключ"
+        },
         "command_id": {
             "description": "Повертає ID команди Devi",
             "param_command": "Команда для отримання ID",
@@ -526,7 +531,7 @@
             },
             "ai": {
                 "name": ";brain; ШІ",
-                "value": "• /ai_ask_text (<@{bot_id}>)\n• /ai_ask_voice\n• /ai_clear"
+                "value": "• /ai_ask_text (<@{bot_id}>)\n• /ai_ask_voice\n• /ai_clear\n• /ai_key"
             },
             "admin": {
                 "name": ";gear; Адміністративні",
@@ -918,17 +923,16 @@
     "ai_cog": {
         "empty_prompt": "Ви згадали мене, але не написали питання. Напишіть щось після згадки!",
         "cooldown": "Зачекайте {seconds} сек., перш ніж знову звернутися до мене.",
-        "not_configured": ";no; ШІ зараз недоступний: власник бота ще не підключив ШІ-сервіс.",
+        "not_configured": ";no; ШІ-відповіді ще не налаштовані на цьому сервері. Адміністратор має вказати Gemini API-ключ.",
         "network_error": ";no; Не вдалося зв'язатися зі ШІ-сервісом. Спробуйте ще раз трохи пізніше.",
         "generic_error": ";no; Не вдалося отримати відповідь від ШІ. Спробуйте ще раз трохи пізніше.",
         "voice_cog_missing": ";no; Голосовий модуль недоступний на цьому боті.",
         "blacklist": ";no; Ви не можете використовувати ШІ на цьому сервері.",
         "ask_response": ";microphone; **{name}:** {text}\n(додано до черги озвучення, позиція: **{position}**)",
         "memory_deleted": ";mark; Історію спілкування з ШІ видалено.",
-        "user_limit": ";no; Ви вичерпали добовий ліміт звернень до ШІ (**{limit}**). Ліміт оновиться приблизно через **{hours}** год.",
-        "guild_limit": ";no; Цей сервер вичерпав добовий ліміт звернень до ШІ (**{limit}**). Ліміт оновиться приблизно через **{hours}** год.",
-        "budget_limit": ";no; ШІ тимчасово недоступний: вичерпано загальний добовий ліміт бота. Спробуйте завтра.",
-        "too_long": ";no; Повідомлення занадто довге: {length} симв., максимум — {max}.",
+        "key_tutorial": ";no; Некоректний Gemini API-ключ.\nПереконайтеся, що ви вставили **API Key**, а не назву проєкту або інший токен.\nОтримати або створити API-ключ можна [тут](https://aistudio.google.com/app/api-keys).",
+        "key_updated": ";mark; Gemini API-ключ успішно встановлено.",
+        "key_deleted": ";mark; Gemini API-ключ успішно видалено.",
         "signal_title": ";flag_triangle; Підозрілий AI-промпт",
         "signal_member": "Користувач",
         "signal_guild": "Сервер",
@@ -1119,7 +1123,7 @@
         "test_failed": ";no; Тест провалено. Користувач не використовував `/birthday set`"
     },
     "top_gg_cog": {
-        "voting": ";star; **Підтримай {bot_mention} своїм голосом!**\n\nПроголосуй за Devi на Top.gg та отримай **покращені ліміти на 12 годин**!\n\n### ;rocket; Що ти отримаєш:\n;robot; **ШІ**\n• Кулдаун звернень до ШІ: **{AI_COOLDOWN_SECONDS} → {AI_COOLDOWN_SECONDS_VOTED}**\n• Пам'ять повідомлень ШІ: **{AI_MAX_MESSAGES} → {AI_MAX_MESSAGES_VOTED}**\n• Добовий ліміт звернень до ШІ: **{AI_DAILY_LIMIT} → {AI_DAILY_LIMIT_VOTED}**\n\n;broom; **Очищення повідомлень**\n• Максимум для `/clear`: **{CLEAR_MAX} → {CLEAR_MAX_VOTED} повідомлень**\n\n;loudspeaker; **Згадки**\n• Максимум згадок у `/mention`: **{MENTIONS_MAX_MESSAGES} → {MENTIONS_MAX_MESSAGES_VOTED}**\n• Кулдаун `/mention`: **{MENTIONS_COOLDOWN_TIME} → {MENTIONS_COOLDOWN_TIME_VOTED}**\n\n;lightning; **Тригери**\n• Кулдаун відповіді на тригери: **{TRIGGERS_RESPONSE_COOLDOWN} → {TRIGGERS_RESPONSE_COOLDOWN_VOTED}**\n\n;volume; **TTS**\n• Максимальна довжина `/tts`: **{MAX_TTS_LENGTH} → {MAX_TTS_LENGTH_VOTED} символів**\n\n;heart; **Твій голос допомагає Devi розвиватися, а ти отримуєш більше можливостей!**",
+        "voting": ";star; **Підтримай {bot_mention} своїм голосом!**\n\nПроголосуй за Devi на Top.gg та отримай **покращені ліміти на 12 годин**!\n\n### ;rocket; Що ти отримаєш:\n;robot; **ШІ**\n• Кулдаун звернень до ШІ: **{AI_COOLDOWN_SECONDS} → {AI_COOLDOWN_SECONDS_VOTED}**\n• Пам'ять повідомлень ШІ: **{AI_MAX_MESSAGES} → {AI_MAX_MESSAGES_VOTED}**\n\n;broom; **Очищення повідомлень**\n• Максимум для `/clear`: **{CLEAR_MAX} → {CLEAR_MAX_VOTED} повідомлень**\n\n;loudspeaker; **Згадки**\n• Максимум згадок у `/mention`: **{MENTIONS_MAX_MESSAGES} → {MENTIONS_MAX_MESSAGES_VOTED}**\n• Кулдаун `/mention`: **{MENTIONS_COOLDOWN_TIME} → {MENTIONS_COOLDOWN_TIME_VOTED}**\n\n;lightning; **Тригери**\n• Кулдаун відповіді на тригери: **{TRIGGERS_RESPONSE_COOLDOWN} → {TRIGGERS_RESPONSE_COOLDOWN_VOTED}**\n\n;volume; **TTS**\n• Максимальна довжина `/tts`: **{MAX_TTS_LENGTH} → {MAX_TTS_LENGTH_VOTED} символів**\n\n;heart; **Твій голос допомагає Devi розвиватися, а ти отримуєш більше можливостей!**",
         "voted": ";mark; Ти проголосував за {bot_mention}!",
         "not_voted": ";no; Ти не голосував за {bot_mention}.",
         "voting_link": "[Посилання для голосування](https://top.gg/bot/1230603137253900339/vote)",
