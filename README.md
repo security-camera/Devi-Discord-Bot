@@ -28,7 +28,7 @@ A multifunctional Discord bot built on [disnake](https://github.com/DisnakeDev/d
 | 🎲 | Fun commands                           |
 | 🎉 | Giveaway system                        |
 | 🎂 | Birthday tracking                      |
-| 💬 | AI assistant powered by the Gemini API |
+| 💬 | AI assistant powered by DeepSeek or Qwen (one shared API key) |
 | 🛡 | Honeypot channels                      |
 
 ## Configuration
@@ -47,6 +47,8 @@ The bot is configured via `config/.env`. Two parallel sets of values are support
 | `TOP_GG_TOKEN`                                               | [Top.gg API token](#-other-apis-integration)                                                                                    |
 | `DASHBOARD_API_TOKEN`                                        | Shared secret of the [dashboard API](#-dashboard-api-cogsdashboard_apipy) (24+ characters). Empty — the API is off.             |
 | `DASHBOARD_API_HOST` / `DASHBOARD_API_PORT`                  | Address the dashboard API listens on. Default `127.0.0.1:8765`.                                                                 |
+| `AI_PROVIDER`                                                  | `deepseek` (default) or `qwen`. See [AI](#-ai-cogsai).                                                                            |
+| `AI_API_KEY`                                                   | The single API key shared by all servers and users. All other `AI_*` settings are optional, see [AI](#-ai-cogsai).                |
 
 > ⚠️ `TEST_ENABLED` is read as a raw string and compared case-insensitively against `1`/`true`/`yes`/`on`. Any other non-empty value (including the literal string `"False"`) is treated as **disabled** — double-check this variable if the bot boots in the wrong mode.
 
@@ -444,6 +446,33 @@ All requests need `Authorization: Bearer <token>` and `X-Discord-User-Id`. Snowf
 
 ---
 
+### 💬 AI (`cogs/ai`)
+
+Answers to `@Bot ...` mentions and `/ai ask text|voice`, with per-user memory (`/ai clear`). **One API key (`AI_API_KEY`) serves every server and user** - there are no per-server keys. Two providers are supported through their OpenAI-compatible chat APIs, pick one with `AI_PROVIDER`:
+
+| `AI_PROVIDER`        | Default model   | Where to get the key                                                                                | Good to know                                                                                   |
+|----------------------|-----------------|-----------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------|
+| `deepseek` (default) | `deepseek-flash` | [platform.deepseek.com/api_keys](https://platform.deepseek.com/api_keys)                            | Prepaid balance (the bill can never exceed what you topped up), automatic prompt caching, image input |
+| `qwen`               | `qwen3.7-flash`  | [Alibaba Cloud Model Studio](https://modelstudio.console.alibabacloud.com), Singapore region        | Lowest price per token, image input, pay-as-you-go after the free quota. Set `AI_BASE_URL` to your workspace endpoint (`https://<WorkspaceId>.ap-southeast-1.maas.aliyuncs.com/compatible-mode/v1`) |
+
+Prices and model names change, check the provider pricing pages before you rely on them. Any other OpenAI-compatible provider can be used with `AI_BASE_URL`, `AI_TEXT_MODEL`, `AI_VISION_MODEL` and `AI_EXTRA_BODY`.
+
+#### Cost protection
+
+Every request passes `AiCog._gate()` first and costs nothing if it is refused.
+
+- Hidden "thinking" is switched off (it is billed as output tokens) and the answer is capped by `AI_MAX_OUTPUT_TOKENS`.
+- Prompts longer than `AI_MAX_INPUT_CHARS` are rejected, at most `AI_MAX_IMAGES` images are sent and images are **never stored** in the history.
+- The history is limited by messages (`AI_MAX_MESSAGES`, `AI_MAX_MESSAGES_VOTED`) and by characters (`AI_HISTORY_MAX_CHARS`, `AI_HISTORY_MAX_CHARS_VOTED`). It is trimmed in batches, so most requests extend an unchanged prompt prefix and the provider bills it at the cheap cache-hit price.
+- Daily limits (reset at 00:00 UTC, `0` = unlimited): `AI_USER_DAILY_REQUESTS`, `AI_USER_DAILY_REQUESTS_VOTED`, `AI_GUILD_DAILY_REQUESTS` and the global `AI_DAILY_BUDGET_USD`, an estimate built from the real token usage the API reports.
+- `AI_COOLDOWN_SECONDS` / `AI_COOLDOWN_SECONDS_VOTED` between requests of one user and `AI_MAX_CONCURRENCY` parallel provider calls.
+- A 401/402/403 (or a quota 429) from the provider pauses all AI calls for `AI_PROVIDER_BLOCK_SECONDS` instead of repeating failing requests.
+- `/ai usage` (developers) shows today's requests, tokens, cache-hit rate, estimated cost, the most expensive servers and the provider state. Usage is stored in the `ai_usage` table.
+
+Prices used for the estimate are USD per 1M tokens: `AI_PRICE_INPUT` (cache miss), `AI_PRICE_CACHED` (cache hit), `AI_PRICE_OUTPUT`. The defaults of the chosen provider are in `cogs/ai/ai_client.py`.
+
+---
+
 ## 📁 Project Structure
 
 ```
@@ -481,7 +510,8 @@ bot_project/
         │   ├── ai_memory.py           # Context for ai.py
         │   ├── ai.py                  # @Mention AI, /ai commands
         │   ├── ai_prompts.py          # Prompts and custom user instructions
-        │   └── ai_api_keys.py         # Guild API keys
+        │   ├── ai_client.py           # DeepSeek / Qwen client, one shared key, cost accounting
+        │   └── ai_limits.py           # Daily quotas, budget guard, usage accounting
         ├── admin.py                   # /set_log_channel, /set_language
         ├── mentions.py                # /mention commands
         ├── triggers.py                # /trigger, /triggers + trigger logic

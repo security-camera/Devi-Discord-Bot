@@ -260,11 +260,6 @@
             "param_delete_from_all_servers": "¿Eliminar el historial en todos los servidores?",
             "param_delete_from_all_servers_name": "borrar_en_todos_los_servidores"
         },
-        "ai_key": {
-            "description": "Establece la clave de API de Gemini necesaria para las funciones de IA",
-            "param_key": "Clave de API de Gemini",
-            "param_key_name": "clave-api"
-        },
         "command_id": {
             "description": "Devuelve el ID de un comando de Devi",
             "param_command": "Comando del que obtener el ID",
@@ -531,7 +526,7 @@
             },
             "ai": {
                 "name": ";brain; IA",
-                "value": "• /ai_ask_text (<@{bot_id}>)\n• /ai_ask_voice\n• /ai_clear\n• /ai_key"
+                "value": "• /ai_ask_text (<@{bot_id}>)\n• /ai_ask_voice\n• /ai_clear"
             },
             "admin": {
                 "name": ";gear; Administración",
@@ -923,16 +918,17 @@
     "ai_cog": {
         "empty_prompt": "Me has mencionado, pero no has escrito ninguna pregunta. ¡Escribe algo después de la mención!",
         "cooldown": "Espera {seconds} s antes de volver a dirigirte a mí.",
-        "not_configured": ";no; Las respuestas de IA aún no están configuradas en este servidor. Un administrador debe indicar una clave de API de Gemini.",
+        "not_configured": ";no; La IA no está disponible por ahora: el dueño del bot aún no configuró un servicio de IA.",
         "network_error": ";no; No se pudo contactar con el servicio de IA. Inténtalo de nuevo en unos minutos.",
         "generic_error": ";no; No se pudo obtener una respuesta de la IA. Inténtalo de nuevo en unos minutos.",
         "voice_cog_missing": ";no; El módulo de voz no está disponible en este bot.",
         "blacklist": ";no; No puedes usar la IA en este servidor.",
         "ask_response": ";microphone; **{name}:** {text}\n(agregado a la cola de voz, posición: **{position}**)",
         "memory_deleted": ";mark; Historial de conversación con la IA eliminado.",
-        "key_tutorial": ";no; Clave de API de Gemini no válida.\nAsegúrate de haber pegado la **API Key** y no el nombre del proyecto u otro token.\nPuedes obtener o crear una clave de API [aquí](https://aistudio.google.com/app/api-keys).",
-        "key_updated": ";mark; Clave de API de Gemini establecida correctamente.",
-        "key_deleted": ";mark; Clave de API de Gemini eliminada correctamente.",
+        "user_limit": ";no; Alcanzaste tu límite diario de solicitudes de IA (**{limit}**). Se restablece en unas **{hours}** h.",
+        "guild_limit": ";no; Este servidor alcanzó su límite diario de solicitudes de IA (**{limit}**). Se restablece en unas **{hours}** h.",
+        "budget_limit": ";no; La IA no está disponible temporalmente: se alcanzó el límite diario general del bot. Inténtalo de nuevo mañana.",
+        "too_long": ";no; Tu mensaje es demasiado largo: {length} caracteres, el máximo es {max}.",
         "signal_title": ";flag_triangle; Prompt de IA sospechoso",
         "signal_member": "Usuario",
         "signal_guild": "Servidor",
@@ -1123,7 +1119,7 @@
         "test_failed": ";no; La prueba ha fallado. El usuario no ha usado `/birthday set`"
     },
     "top_gg_cog": {
-        "voting": ";star; **¡Apoya a {bot_mention} con tu voto!**\n\nVota por Devi en Top.gg y obtén **límites mejorados durante 12 horas**.\n\n### ;rocket; Qué obtienes:\n;robot; **IA**\n• Tiempo de espera entre consultas a la IA: **{AI_COOLDOWN_SECONDS} → {AI_COOLDOWN_SECONDS_VOTED}**\n• Memoria de mensajes con la IA: **{AI_MAX_MESSAGES} → {AI_MAX_MESSAGES_VOTED}**\n\n;broom; **Limpieza de mensajes**\n• Máximo de `/clear`: **{CLEAR_MAX} → {CLEAR_MAX_VOTED} mensajes**\n\n;loudspeaker; **Menciones**\n• Máximo de menciones en `/mention`: **{MENTIONS_MAX_MESSAGES} → {MENTIONS_MAX_MESSAGES_VOTED}**\n• Tiempo de espera de `/mention`: **{MENTIONS_COOLDOWN_TIME} → {MENTIONS_COOLDOWN_TIME_VOTED}**\n\n;lightning; **Disparadores**\n• Tiempo de espera de respuesta a disparadores: **{TRIGGERS_RESPONSE_COOLDOWN} → {TRIGGERS_RESPONSE_COOLDOWN_VOTED}**\n\n;volume; **TTS**\n• Longitud máxima de `/tts`: **{MAX_TTS_LENGTH} → {MAX_TTS_LENGTH_VOTED} caracteres**\n\n;heart; **Tu voto ayuda a Devi a crecer, ¡y tú obtienes más posibilidades!**",
+        "voting": ";star; **¡Apoya a {bot_mention} con tu voto!**\n\nVota por Devi en Top.gg y obtén **límites mejorados durante 12 horas**.\n\n### ;rocket; Qué obtienes:\n;robot; **IA**\n• Tiempo de espera entre consultas a la IA: **{AI_COOLDOWN_SECONDS} → {AI_COOLDOWN_SECONDS_VOTED}**\n• Memoria de mensajes con la IA: **{AI_MAX_MESSAGES} → {AI_MAX_MESSAGES_VOTED}**\n• Límite diario de solicitudes de IA: **{AI_DAILY_LIMIT} → {AI_DAILY_LIMIT_VOTED}**\n\n;broom; **Limpieza de mensajes**\n• Máximo de `/clear`: **{CLEAR_MAX} → {CLEAR_MAX_VOTED} mensajes**\n\n;loudspeaker; **Menciones**\n• Máximo de menciones en `/mention`: **{MENTIONS_MAX_MESSAGES} → {MENTIONS_MAX_MESSAGES_VOTED}**\n• Tiempo de espera de `/mention`: **{MENTIONS_COOLDOWN_TIME} → {MENTIONS_COOLDOWN_TIME_VOTED}**\n\n;lightning; **Disparadores**\n• Tiempo de espera de respuesta a disparadores: **{TRIGGERS_RESPONSE_COOLDOWN} → {TRIGGERS_RESPONSE_COOLDOWN_VOTED}**\n\n;volume; **TTS**\n• Longitud máxima de `/tts`: **{MAX_TTS_LENGTH} → {MAX_TTS_LENGTH_VOTED} caracteres**\n\n;heart; **Tu voto ayuda a Devi a crecer, ¡y tú obtienes más posibilidades!**",
         "voted": ";mark; ¡Has votado por {bot_mention}!",
         "not_voted": ";no; No has votado por {bot_mention}.",
         "voting_link": "[Enlace para votar](https://top.gg/bot/1230603137253900339/vote)",

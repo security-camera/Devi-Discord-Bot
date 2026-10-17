@@ -260,11 +260,6 @@
             "param_delete_from_all_servers": "Да се изтрие ли историята на разговорите на всички сървъри?",
             "param_delete_from_all_servers_name": "изтрий_от_всички_сървъри"
         },
-        "ai_key": {
-            "description": "Задава Gemini API ключ, необходим за работата на функциите на ИИ",
-            "param_key": "Gemini API ключ",
-            "param_key_name": "api_ключ"
-        },
         "command_id": {
             "description": "Връща ID на командата на Devi",
             "param_command": "Команда, за която да се получи ID",
@@ -531,7 +526,7 @@
             },
             "ai": {
                 "name": ";brain; ИИ",
-                "value": "• /ai_ask_text (<@{bot_id}>)\n• /ai_ask_voice\n• /ai_clear\n• /ai_key"
+                "value": "• /ai_ask_text (<@{bot_id}>)\n• /ai_ask_voice\n• /ai_clear"
             },
             "admin": {
                 "name": ";gear; Административни",
@@ -922,16 +917,17 @@
     "ai_cog": {
         "empty_prompt": "Споменахте ме, но не написахте въпрос. Напишете нещо след споменаването!",
         "cooldown": "Изчакайте {seconds} сек., преди да се обърнете към мен отново.",
-        "not_configured": ";no; Отговорите на ИИ все още не са настроени на този сървър. Администраторът трябва да зададе Gemini API ключ.",
+        "not_configured": ";no; ИИ в момента не е достъпен: собственикът на бота още не е свързал ИИ услуга.",
         "network_error": ";no; Неуспешна връзка с услугата за ИИ. Опитайте отново малко по-късно.",
         "generic_error": ";no; Неуспешно получаване на отговор от ИИ. Опитайте отново малко по-късно.",
         "voice_cog_missing": ";no; Гласовият модул не е наличен на този бот.",
         "blacklist": ";no; Не можете да използвате ИИ на този сървър.",
         "ask_response": ";microphone; **{name}:** {text}\n(добавено към опашката за озвучаване, позиция: **{position}**)",
         "memory_deleted": ";mark; Историята на разговорите с ИИ е изтрита.",
-        "key_tutorial": ";no; Невалиден Gemini API ключ.\nУверете се, че сте поставили **API Key**, а не име на проект или друг токен.\nМожете да получите или създадете API ключ [тук](https://aistudio.google.com/app/api-keys).",
-        "key_updated": ";mark; Gemini API ключът е успешно зададен.",
-        "key_deleted": ";mark; Gemini API ключът е успешно премахнат.",
+        "user_limit": ";no; Изчерпахте дневния лимит за заявки към ИИ (**{limit}**). Лимитът се обновява след около **{hours}** ч.",
+        "guild_limit": ";no; Този сървър изчерпа дневния лимит за заявки към ИИ (**{limit}**). Лимитът се обновява след около **{hours}** ч.",
+        "budget_limit": ";no; ИИ временно не е достъпен: общият дневен лимит на бота е изчерпан. Опитайте утре.",
+        "too_long": ";no; Съобщението е твърде дълго: {length} символа, максимумът е {max}.",
         "signal_title": ";flag_triangle; Подозрителен AI промпт",
         "signal_member": "Потребител",
         "signal_guild": "Сървър",
@@ -1122,7 +1118,7 @@
         "test_failed": ";no; Тестът е неуспешен. Потребителят не е използвал `/birthday set`"
     },
     "top_gg_cog": {
-        "voting": ";star; **Подкрепете {bot_mention} с вашия глас!**\n\nГласувайте за Devi в Top.gg и получете **подобрени лимити за 12 часа**!\n\n### ;rocket; Какво ще получите:\n;robot; **ИИ**\n• Кулдаун на заявките към ИИ: **{AI_COOLDOWN_SECONDS} → {AI_COOLDOWN_SECONDS_VOTED}**\n• Памет на съобщенията с ИИ: **{AI_MAX_MESSAGES} → {AI_MAX_MESSAGES_VOTED}**\n\n;broom; **Изчистване на съобщения**\n• Максимум за `/clear`: **{CLEAR_MAX} → {CLEAR_MAX_VOTED} съобщения**\n\n;loudspeaker; **Споменавания**\n• Максимум споменавания в `/mention`: **{MENTIONS_MAX_MESSAGES} → {MENTIONS_MAX_MESSAGES_VOTED}**\n• Кулдаун на `/mention`: **{MENTIONS_COOLDOWN_TIME} → {MENTIONS_COOLDOWN_TIME_VOTED}**\n\n;lightning; **Тригери**\n• Кулдаун на отговора на тригерите: **{TRIGGERS_RESPONSE_COOLDOWN} → {TRIGGERS_RESPONSE_COOLDOWN_VOTED}**\n\n;volume; **TTS**\n• Максимална дължина на `/tts`: **{MAX_TTS_LENGTH} → {MAX_TTS_LENGTH_VOTED} символа**\n\n;heart; **Вашият глас помага на Devi да се развива, а вие получавате повече възможности!**",
+        "voting": ";star; **Подкрепете {bot_mention} с вашия глас!**\n\nГласувайте за Devi в Top.gg и получете **подобрени лимити за 12 часа**!\n\n### ;rocket; Какво ще получите:\n;robot; **ИИ**\n• Кулдаун на заявките към ИИ: **{AI_COOLDOWN_SECONDS} → {AI_COOLDOWN_SECONDS_VOTED}**\n• Памет на съобщенията с ИИ: **{AI_MAX_MESSAGES} → {AI_MAX_MESSAGES_VOTED}**\n• Дневен лимит на заявките към ИИ: **{AI_DAILY_LIMIT} → {AI_DAILY_LIMIT_VOTED}**\n\n;broom; **Изчистване на съобщения**\n• Максимум за `/clear`: **{CLEAR_MAX} → {CLEAR_MAX_VOTED} съобщения**\n\n;loudspeaker; **Споменавания**\n• Максимум споменавания в `/mention`: **{MENTIONS_MAX_MESSAGES} → {MENTIONS_MAX_MESSAGES_VOTED}**\n• Кулдаун на `/mention`: **{MENTIONS_COOLDOWN_TIME} → {MENTIONS_COOLDOWN_TIME_VOTED}**\n\n;lightning; **Тригери**\n• Кулдаун на отговора на тригерите: **{TRIGGERS_RESPONSE_COOLDOWN} → {TRIGGERS_RESPONSE_COOLDOWN_VOTED}**\n\n;volume; **TTS**\n• Максимална дължина на `/tts`: **{MAX_TTS_LENGTH} → {MAX_TTS_LENGTH_VOTED} символа**\n\n;heart; **Вашият глас помага на Devi да се развива, а вие получавате повече възможности!**",
         "voted": ";mark; Гласувахте за {bot_mention}!",
         "not_voted": ";no; Не сте гласували за {bot_mention}.",
         "voting_link": "[Линк за гласуване](https://top.gg/bot/1230603137253900339/vote)",
