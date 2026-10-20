@@ -11,10 +11,10 @@ from discord_i18n import localized
 from logs import send_log, LogColor
 from permissions import require_permissions, has_permissions, Permission, PermissionCheckType
 from other_apis.topgg_utils import require_vote
-from paths import env_var_to_bool, env_var
+from paths import env_bool, env_var
 
 DEFAULT_NAME_TEMPLATE = env_var("DEFAULT_NAME_TEMPLATE", "[user]`s channel")
-ADMINS_CAN_MANAGE_TEMP_CHANNELS = env_var_to_bool("ADMINS_CAN_MANAGE_TEMP_CHANNELS", "False")
+ADMINS_CAN_MANAGE_TEMP_CHANNELS = env_bool("ADMINS_CAN_MANAGE_TEMP_CHANNELS", "False")
 
 REGION_CHOICES = [
     disnake.OptionChoice(name="Automatic", value="automatic"),

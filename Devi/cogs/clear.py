@@ -9,12 +9,12 @@ from logs import send_log, LogColor
 from discord_i18n import localized
 from permissions import require_permissions
 from other_apis.topgg_utils import vote_value
-from paths import env_var_to_int
+from paths import env_int
 
 purging_channels: set[int] = set() # Channel IDs where /clear is currently being executed
 
-COUNT = env_var_to_int("CLEAR_COUNT", "500")
-COUNT_VOTED = env_var_to_int("CLEAR_COUNT_VOTED", "1500")
+COUNT = env_int("CLEAR_COUNT", 500)
+COUNT_VOTED = env_int("CLEAR_COUNT_VOTED", 1500)
 
 class ClearCog(commands.Cog):
     def __init__(self, bot: commands.Bot):

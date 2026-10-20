@@ -13,14 +13,14 @@ import storage
 from emojis import load_custom_emojis
 
 import paths
-from paths import ENV_FILE, env_var_to_bool, env_var
+from paths import ENV_FILE, env_bool, env_var
 
 load_dotenv(ENV_FILE)
 
 # Discord Developer Portal -> App -> Bot.
 intents = disnake.Intents.all()
 bot = commands.Bot(command_prefix="+", intents=intents)
-_TEST_MODE = env_var_to_bool("TEST_ENABLED")
+_TEST_MODE = env_bool("TEST_ENABLED")
 
 #Do not change queue of initialization
 paths.init()

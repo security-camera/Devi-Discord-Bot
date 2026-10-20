@@ -12,12 +12,12 @@ re-sent on each request costs money, so:
 import json
 
 from db import db_cursor
-from paths import env_var_to_int
+from paths import env_int
 
-MAX_MESSAGES = env_var_to_int("AI_MAX_MESSAGES", "20")
-MAX_MESSAGES_VOTED = env_var_to_int("AI_MAX_MESSAGES_VOTED", "40")
-MAX_HISTORY_CHARS = env_var_to_int("AI_HISTORY_MAX_CHARS", "8000")
-MAX_HISTORY_CHARS_VOTED = env_var_to_int("AI_HISTORY_MAX_CHARS_VOTED", "16000")
+MAX_MESSAGES = env_int("AI_MAX_MESSAGES", 20)
+MAX_MESSAGES_VOTED = env_int("AI_MAX_MESSAGES_VOTED", 40)
+MAX_HISTORY_CHARS = env_int("AI_HISTORY_MAX_CHARS", 8000)
+MAX_HISTORY_CHARS_VOTED = env_int("AI_HISTORY_MAX_CHARS_VOTED", 16000)
 
 TRIM_TO_RATIO = 0.7
 IMAGE_PLACEHOLDER = "[image omitted]"

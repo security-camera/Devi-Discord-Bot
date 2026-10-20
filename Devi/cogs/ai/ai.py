@@ -35,17 +35,16 @@ from cogs.ai.ai_prompts import (
 
 from storage import AI_SIGNAL_CHANNEL, TECHNICAL_SUPPORT_SERVER
 from other_apis.topgg_utils import is_voted
-from paths import env_var_to_int
+from paths import env_int
 
-COOLDOWN_SECONDS = env_var_to_int("AI_COOLDOWN_SECONDS", "30")
-# This used to read AI_COOLDOWN_SECONDS by mistake, so voters never got the shorter cooldown.
-COOLDOWN_SECONDS_VOTED = env_var_to_int("AI_COOLDOWN_SECONDS_VOTED", "10")
+COOLDOWN_SECONDS = env_int("AI_COOLDOWN_SECONDS", 30)
+COOLDOWN_SECONDS_VOTED = env_int("AI_COOLDOWN_SECONDS_VOTED", 10)
 
 DISCORD_MESSAGE_LIMIT = 2000
-MAX_INPUT_CHARS = env_var_to_int("AI_MAX_INPUT_CHARS", "2000")  # longer prompts are rejected before any paid call
-MAX_OUTPUT_TOKENS = env_var_to_int("AI_MAX_OUTPUT_TOKENS", "600")
-VOICE_MAX_TOKENS = env_var_to_int("AI_VOICE_MAX_TOKENS", "350")
-MAX_ATTACHMENTS = env_var_to_int("AI_MAX_IMAGES", "2")
+MAX_INPUT_CHARS = env_int("AI_MAX_INPUT_CHARS", 2000)  # longer prompts are rejected before any paid call
+MAX_OUTPUT_TOKENS = env_int("AI_MAX_OUTPUT_TOKENS", 600)
+VOICE_MAX_TOKENS = env_int("AI_VOICE_MAX_TOKENS", 350)
+MAX_ATTACHMENTS = env_int("AI_MAX_IMAGES", 2)
 MAX_IMAGE_BYTES = 8 * 1024 * 1024  # 8 MB per image, sane upper bound for inline base64 upload
 ALLOWED_IMAGE_TYPES = {"image/jpeg", "image/png", "image/gif", "image/webp"}  # accepted by both DeepSeek and Qwen
 

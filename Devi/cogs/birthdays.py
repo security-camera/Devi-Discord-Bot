@@ -9,10 +9,10 @@ from db import db_cursor
 from logs import send_log, LogColor
 from discord_i18n import localized, bool_to_yes_no_str
 from permissions import validate_permissions, Permission, require_permissions
-from paths import env_var_to_int
+from paths import env_int
 
 # Hour (UTC) to check birthdays
-BIRTHDAY_CHECK_HOUR_UTC = env_var_to_int("BIRTHDAY_CHECK_HOUR_UTC", "9")
+BIRTHDAY_CHECK_HOUR_UTC = env_int("BIRTHDAY_CHECK_HOUR_UTC", 9)
 
 DAYS_IN_MONTH = {
     1: 31, 2: 29, 3: 31, 4: 30, 5: 31, 6: 30,
@@ -21,7 +21,7 @@ DAYS_IN_MONTH = {
 
 
 def is_valid_day(day: int, month: int) -> bool:
-    return 1 <= day <= DAYS_IN_MONTH.get(month, 31)
+    return 1 <= month <= 12 and 1 <= day <= DAYS_IN_MONTH.get(month, 31)
 
 
 # ------------------------------------------------------------ storage: birthdays

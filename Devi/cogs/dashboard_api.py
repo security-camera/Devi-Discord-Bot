@@ -49,12 +49,12 @@ from cogs.triggers import save_triggers
 from db import db_cursor
 from localization import get_localization, set_localization
 from logs import LogColor, get_log_channel_id, remove_log_channel, send_log, set_log_channel_id
-from paths import env_var, env_var_to_int
+from paths import env_var, env_int
 from permissions import Permission, PermissionCheckType, has_permissions
 
 API_TOKEN = env_var("DASHBOARD_API_TOKEN")
 API_HOST = env_var("DASHBOARD_API_HOST", "127.0.0.1")
-API_PORT = env_var_to_int("DASHBOARD_API_PORT", "8765")
+API_PORT = env_int("DASHBOARD_API_PORT", 8765)
 MIN_TOKEN_LENGTH = 24
 
 SECTIONS = ("permissions", "logs", "birthdays", "voice", "honeypot", "triggers", "language")
@@ -348,7 +348,7 @@ def _serialize_language(guild) -> dict:
             {
                 "code": code,
                 "name": i18n.get_locale_display_name(code, with_flag=False),
-                "label": i18n.get_locale_display_name(code),
+                "label": i18n.get_locale_display_name(code, use_custom_flag=False),
             }
             for code in i18n.available_locales()
         ],

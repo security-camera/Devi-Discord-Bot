@@ -16,16 +16,15 @@ from datetime import date, datetime, timedelta, timezone
 
 from cogs.ai.ai_client import env_float, load_provider
 from db import db_cursor
-from paths import env_var_to_int
+from paths import env_int
 
-USER_DAILY_REQUESTS = env_var_to_int("AI_USER_DAILY_REQUESTS", "30")
-USER_DAILY_REQUESTS_VOTED = env_var_to_int("AI_USER_DAILY_REQUESTS_VOTED", "100")
-GUILD_DAILY_REQUESTS = env_var_to_int("AI_GUILD_DAILY_REQUESTS", "300")
+USER_DAILY_REQUESTS = env_int("AI_USER_DAILY_REQUESTS", 30)
+USER_DAILY_REQUESTS_VOTED = env_int("AI_USER_DAILY_REQUESTS_VOTED", 100)
+GUILD_DAILY_REQUESTS = env_int("AI_GUILD_DAILY_REQUESTS", 300)
 
 _provider = load_provider()
 CURRENCY = _provider.currency
 
-# The old AI_DAILY_BUDGET_USD is honoured only for dollar providers, a dollar amount must never become a ruble budget.
 DAILY_BUDGET = env_float("AI_DAILY_BUDGET", env_float("AI_DAILY_BUDGET_USD", _provider.daily_budget) if CURRENCY == "$" else _provider.daily_budget)
 DAILY_BUDGET_MICRO = int(DAILY_BUDGET * 1_000_000)
 
@@ -54,7 +53,7 @@ def hours_until_reset() -> int:
 
 
 def budget_exhausted(cost_micro: int) -> bool:
-    return DAILY_BUDGET_MICRO > 0 and cost_micro >= DAILY_BUDGET_MICRO
+    return 0 < DAILY_BUDGET_MICRO <= cost_micro
 
 
 def get_usage(user_id: int, guild_id: int) -> Usage:

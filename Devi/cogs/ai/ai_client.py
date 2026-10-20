@@ -17,7 +17,7 @@ from dataclasses import dataclass
 
 import aiohttp
 
-from paths import env_var, env_var_to_int
+from paths import env_var, env_int, env_float
 
 # Prices are per 1M tokens in the provider's currency: (input cache miss, input cache hit, output).
 # They are used only to estimate the spend for the daily budget guard, so keep them conservative.
@@ -131,16 +131,6 @@ class ChatResult:
     completion_tokens: int  # includes hidden reasoning tokens, they are billed as output
     reasoning_tokens: int
     cost_micro: int  # estimated cost in millionths of the provider's currency
-
-
-def env_float(name: str, default: float) -> float:
-    raw = env_var(name, "").strip()
-    if not raw:
-        return default
-    try:
-        return float(raw)
-    except ValueError:
-        raise RuntimeError(f"{name} must be a number, got {raw!r}") from None
 
 
 def money(cost_micro: int, currency: str) -> str:
@@ -440,7 +430,7 @@ def create_client() -> AiClient:
     return AiClient(
         provider,
         load_api_key(provider),
-        timeout=env_var_to_int("AI_REQUEST_TIMEOUT_SECONDS", "60"),
-        concurrency=env_var_to_int("AI_MAX_CONCURRENCY", "4"),
-        block_seconds=env_var_to_int("AI_PROVIDER_BLOCK_SECONDS", "600"),
+        timeout=env_int("AI_REQUEST_TIMEOUT_SECONDS", 60),
+        concurrency=env_int("AI_MAX_CONCURRENCY", 4),
+        block_seconds=env_int("AI_PROVIDER_BLOCK_SECONDS", 600),
     )

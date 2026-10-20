@@ -29,8 +29,23 @@ def init():
 def env_var(var: str, default: Any = "") -> str:
     return os.environ.get(var, default)
 
-def env_var_to_bool(var: str, default: Any = "False") -> bool:
-    return os.environ.get(var, default).strip().lower() in ("1", "true", "yes", "on")
+def env_bool(var: str, default: str = "False") -> bool:
+    return env_var(var, default).strip().lower() in ("1", "true", "yes", "on")
 
-def env_var_to_int(var: str, default: Any = "0") -> int:
-    return int(env_var(var, default))
+def env_int(var: str, default: int = None) -> int:
+    raw = env_var(var).strip()
+    if not raw:
+        return default
+    try:
+        return int(raw)
+    except ValueError:
+        raise RuntimeError(f"{name} must be a int, got {raw!r}") from None
+
+def env_float(var: str, default: float = None) -> float:
+    raw = env_var(var).strip()
+    if not raw:
+        return default
+    try:
+        return float(raw)
+    except ValueError:
+        raise RuntimeError(f"{name} must be a float, got {raw!r}") from None

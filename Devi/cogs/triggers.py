@@ -10,10 +10,10 @@ from permissions import Permission, require_permissions
 from discord_i18n import localized, add_remove_check_choices
 from db import db_cursor
 from other_apis.topgg_utils import vote_value
-from paths import env_var_to_int
+from paths import env_int
 
-RESPONSE_COOLDOWN = env_var_to_int("RESPONSE_COOLDOWN", "3")
-RESPONSE_COOLDOWN_VOTED = env_var_to_int("RESPONSE_COOLDOWN_VOTED", "0")
+RESPONSE_COOLDOWN = env_int("RESPONSE_COOLDOWN", 3)
+RESPONSE_COOLDOWN_VOTED = env_int("RESPONSE_COOLDOWN_VOTED", 0)
 
 
 def load_triggers() -> dict[int, dict[str, list[str]]]:

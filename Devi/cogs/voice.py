@@ -14,14 +14,14 @@ from i18n import DEFAULT_LOCALE, LocaleObject
 from permissions import Permission, require_permissions
 from discord_i18n import localized, locale_choices
 from logs import send_log, LogColor
-from paths import env_var, env_var_to_int, PIPER_VOICES_DIR
+from paths import env_var, env_int, PIPER_VOICES_DIR
 
 from other_apis.topgg_utils import vote_value
 
-MAX_TTS_LENGTH = env_var_to_int("MAX_TTS_LENGTH", "400")
-MAX_TTS_LENGTH_VOTED = env_var_to_int("MAX_TTS_LENGTH_VOTED", "800")
-EMPTY_CHANNEL_TIMEOUT = env_var_to_int("EMPTY_CHANNEL_TIMEOUT", "60")
-TTS_PLAYBACK_TIMEOUT = env_var_to_int("TTS_PLAYBACK_TIMEOUT", "60")
+MAX_TTS_LENGTH = env_int("MAX_TTS_LENGTH", 400)
+MAX_TTS_LENGTH_VOTED = env_int("MAX_TTS_LENGTH_VOTED", 800)
+EMPTY_CHANNEL_TIMEOUT = env_int("EMPTY_CHANNEL_TIMEOUT", 60)
+TTS_PLAYBACK_TIMEOUT = env_int("TTS_PLAYBACK_TIMEOUT", 60)
 FALLBACK_VOICE = env_var("FALLBACK_VOICE", "")
 
 _synth_executor = ThreadPoolExecutor(max_workers=1, thread_name_prefix="piper")
@@ -280,7 +280,8 @@ class VoiceCog(commands.Cog):
             ephemeral=True
         )
 
-    async def _synthesize(self, text: str, voice: str) -> str:
+    @staticmethod
+    async def _synthesize(text: str, voice: str) -> str:
         """Synthesizes text locally with Piper using the given voice.
         Inference is CPU-bound and synchronous, so it
         runs in the single-thread Piper executor to avoid blocking the event

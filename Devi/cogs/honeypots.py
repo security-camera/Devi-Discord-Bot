@@ -10,9 +10,9 @@ from db import db_cursor
 from permissions import Permission, require_permissions
 from cogs.send import SendCog, get_sticky_message, remove_sticky_message, set_sticky_message
 from duration_utils import parse_duration_seconds
-from paths import env_var_to_int
+from paths import env_int
 
-DEFAULT_TIMEOUT = env_var_to_int("HONEYPOTS_DEFAULT_TIMEOUT", "300")
+DEFAULT_TIMEOUT = env_int("HONEYPOTS_DEFAULT_TIMEOUT", 300)
 MAX_TIMEOUT = 28 * 24 * 60 * 60
 
 

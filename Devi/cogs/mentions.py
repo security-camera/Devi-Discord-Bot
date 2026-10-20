@@ -8,12 +8,12 @@ import i18n
 from permissions import Permission, has_permissions, require_permissions
 from discord_i18n import localized
 from other_apis.topgg_utils import vote_value
-from paths import env_var_to_int
+from paths import env_int
 
-MAX_MESSAGES = env_var_to_int("MAX_MENTIONS", "10")
-COOLDOWN_TIME = env_var_to_int("MENTIONS_COOLDOWN_TIME", "60")
-MAX_MESSAGES_VOTED = env_var_to_int("MAX_MENTIONS_VOTED", "30")
-COOLDOWN_TIME_VOTED = env_var_to_int("MENTIONS_COOLDOWN_TIME", "30")
+MAX_MESSAGES = env_int("MAX_MENTIONS", 10)
+COOLDOWN_TIME = env_int("MENTIONS_COOLDOWN_TIME", 60)
+MAX_MESSAGES_VOTED = env_int("MAX_MENTIONS_VOTED", 30)
+COOLDOWN_TIME_VOTED = env_int("MENTIONS_COOLDOWN_TIME", 30)
 BAN_WORDS = ["@everyone", "@here", "@&"]
 
 
