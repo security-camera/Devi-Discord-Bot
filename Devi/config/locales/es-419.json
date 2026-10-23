@@ -326,6 +326,54 @@
         "music_interface": {
             "description": "Muestra el panel de control del reproductor con botones"
         },
+        "playlist": {
+            "description": "Administra tus listas de reproducción"
+        },
+        "playlist_create": {
+            "description": "Crea una lista de reproducción vacía",
+            "param_name": "Nombre de la nueva lista",
+            "param_name_name": "nombre"
+        },
+        "playlist_add": {
+            "description": "Agrega una canción a una lista",
+            "param_song": "Enlace o título de la canción (un enlace de lista agrega todas sus canciones)",
+            "param_song_name": "canción",
+            "param_playlist": "Lista (por defecto, la última que usaste)",
+            "param_playlist_name": "lista"
+        },
+        "playlist_remove": {
+            "description": "Quita una canción de una lista",
+            "param_song": "Elige una canción de las sugerencias o escribe su número, título o enlace",
+            "param_song_name": "canción",
+            "param_playlist": "Lista (por defecto, la última que usaste)",
+            "param_playlist_name": "lista"
+        },
+        "playlist_delete": {
+            "description": "Elimina una de tus listas",
+            "param_name": "Lista que quieres eliminar",
+            "param_name_name": "nombre"
+        },
+        "playlist_steal": {
+            "description": "Copia la lista de otro usuario a tus listas",
+            "param_user": "Usuario cuya lista quieres copiar",
+            "param_user_name": "usuario",
+            "param_playlist": "Lista que quieres copiar",
+            "param_playlist_name": "lista"
+        },
+        "playlist_show": {
+            "description": "Muestra una lista o todas las listas de un usuario",
+            "param_user": "De quién mostrar la lista (por defecto, la tuya)",
+            "param_user_name": "usuario",
+            "param_name": "Nombre de la lista (si lo omites, se muestran todas)",
+            "param_name_name": "nombre"
+        },
+        "playlist_play": {
+            "description": "Agrega una lista a la cola y empieza a reproducirla",
+            "param_user": "De quién reproducir la lista (por defecto, la tuya)",
+            "param_user_name": "usuario",
+            "param_name": "Lista que quieres reproducir",
+            "param_name_name": "nombre"
+        },
         "triggers": {
             "description": "Muestra todos los disparadores del servidor"
         },
@@ -546,7 +594,7 @@
             },
             "music": {
                 "name": ";music_note; Música",
-                "value": "• /music interface\n• /music play\n• /music pause\n• /music loop\n• /music queue\n• /music resume\n• /music skip\n• /music stop",
+                "value": "• /music interface\n• /music play\n• /music pause\n• /music loop\n• /music queue\n• /music resume\n• /music skip\n• /music stop\n• /playlist create\n• /playlist add\n• /playlist remove\n• /playlist delete\n• /playlist steal\n• /playlist show\n• /playlist play",
                 "additional": "**¿Cómo configurar la interfaz?**\n1. Crea/elige un canal para la interfaz de música.\n2. Envía la interfaz de música mediante /music interface\n3. Configura el permiso bot.MusicBlackList (opcional)\n\n**Plataformas compatibles:**\nYouTube"
             },
             "birthdays": {
@@ -996,7 +1044,7 @@
         "stopped": ";stop; Detenido y cola vaciada.",
         "now_playing_announce": ";play; Suena ahora: **{title}**",
         "track_skipped_no_voice": ";no; El bot no está conectado a un canal de voz: se ha saltado la canción **{title}**. Ejecuta antes /join.",
-        "playback_error": ";no; No se pudo iniciar la reproducción de **{title}**: {error}\nVerifica que ffmpeg está instalado y accesible en el PATH (`ffmpeg -version` en la consola) y que el paquete PyNaCl está instalado.",
+        "playback_error": ";no; No se pudo reproducir **{title}**: {error}",
         "untitled_track": "Sin título",
         "queue_now_playing": ";play; Suena ahora: [{title}]({url})",
         "queue_loop_status": "Repetición: {emoji} {label}",
@@ -1038,7 +1086,16 @@
             "field_track": "Canción",
             "field_mode": "Modo",
             "field_cleared": "Eliminadas de la cola"
-        }
+        },
+        "lavalink_unavailable": ";no; El servidor de música (Lavalink) no está disponible. Inténtalo más tarde.",
+        "no_results": ";no; No se encontró nada para esa búsqueda.",
+        "queue_full": ";no; La cola está llena (máximo {max} canciones).",
+        "playlist_added": ";plus; Canciones agregadas a la cola: **{count}** ({name})",
+        "playback_error_many": ";no; Canciones omitidas por no poder reproducirse: **{count}** (último error: {error})",
+        "track_stuck": "la canción se atascó",
+        "unknown_error": "error desconocido",
+        "node_lost": ";no; Se perdió la conexión con el servidor de música: la reproducción se detuvo y la cola se vació.",
+        "queue_more": "…y {count} más"
     },
     "developer_cog": {
         "invalid_id": ";no; El ID del servidor debe ser un número.",
@@ -1240,5 +1297,34 @@
             "honeypot": "Canal trampa",
             "language": "Idioma"
         }
+    },
+    "playlist_cog": {
+        "invalid_name": ";no; Escribe el nombre de la lista.",
+        "created": ";mark; Lista **{name}** creada.",
+        "exists": ";no; Ya tienes una lista llamada **{name}**.",
+        "limit_playlists": ";no; Puedes tener como máximo {max} listas.",
+        "limit_tracks": ";no; Una lista puede tener como máximo {max} canciones.",
+        "not_found": ";no; No tienes una lista llamada **{name}**.",
+        "not_found_user": ";no; {user} no tiene una lista llamada **{name}**.",
+        "no_playlists_self": ";no; Aún no tienes listas. Crea la primera con /playlist create.",
+        "no_playlists_user": ";no; {user} no tiene listas.",
+        "track_added": ";plus; Agregada a la lista **{name}**: **{title}**",
+        "track_duplicate": ";no; **{title}** ya está en la lista **{name}**.",
+        "tracks_added": ";plus; Canciones agregadas a la lista **{name}**: **{count}**.",
+        "skipped_note": " Omitidas (duplicadas o por el límite): {count}.",
+        "tracks_all_duplicates": ";no; Todas esas canciones ya están en la lista **{name}**.",
+        "track_removed": ";trash; Quitada de la lista **{name}**: **{title}**",
+        "track_not_found": ";no; No se encontró «{song}» en la lista **{name}**.",
+        "track_ambiguous": ";no; Varias canciones de la lista **{name}** coinciden con «{song}». Elige una de las sugerencias o indica su número.",
+        "deleted": ";trash; Lista **{name}** eliminada.",
+        "steal_self": ";no; Esa es tu propia lista.",
+        "stolen": ";inbox; La lista **{source}** de {user} se copió a tus listas como **{name}** (canciones: {count}).",
+        "show_title": ";musical_notes; {name}",
+        "show_owner": "Lista de {user}",
+        "show_empty": "Esta lista aún no tiene canciones.",
+        "list_title": ";musical_notes; Listas de {user}",
+        "list_item": "• **{name}** — canciones: {count}",
+        "play_empty": ";no; Esta lista no tiene canciones.",
+        "playing": ";music_note; Lista **{name}** agregada a la cola (canciones: {count})."
     }
 }

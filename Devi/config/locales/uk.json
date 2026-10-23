@@ -326,6 +326,54 @@
         "music_interface": {
             "description": "Показати панель керування плеєром з кнопками"
         },
+        "playlist": {
+            "description": "Керування вашими музичними плейлистами"
+        },
+        "playlist_create": {
+            "description": "Створює новий порожній плейлист",
+            "param_name": "Назва нового плейлиста",
+            "param_name_name": "назва"
+        },
+        "playlist_add": {
+            "description": "Додає пісню до плейлиста",
+            "param_song": "Посилання або назва пісні (посилання на плейлист додасть усі його треки)",
+            "param_song_name": "пісня",
+            "param_playlist": "Плейлист (за замовчуванням — останній, з яким ви працювали)",
+            "param_playlist_name": "плейлист"
+        },
+        "playlist_remove": {
+            "description": "Видаляє пісню з плейлиста",
+            "param_song": "Виберіть пісню з підказок або введіть її номер, назву чи посилання",
+            "param_song_name": "пісня",
+            "param_playlist": "Плейлист (за замовчуванням — останній, з яким ви працювали)",
+            "param_playlist_name": "плейлист"
+        },
+        "playlist_delete": {
+            "description": "Видаляє один із ваших плейлистів",
+            "param_name": "Плейлист для видалення",
+            "param_name_name": "назва"
+        },
+        "playlist_steal": {
+            "description": "Копіює плейлист іншого користувача до ваших плейлистів",
+            "param_user": "Користувач, чий плейлист потрібно скопіювати",
+            "param_user_name": "користувач",
+            "param_playlist": "Плейлист, який потрібно скопіювати",
+            "param_playlist_name": "плейлист"
+        },
+        "playlist_show": {
+            "description": "Показує плейлист або всі плейлисти користувача",
+            "param_user": "Чий плейлист показати (за замовчуванням — ваш)",
+            "param_user_name": "користувач",
+            "param_name": "Назва плейлиста (якщо не вказано — список усіх плейлистів)",
+            "param_name_name": "назва"
+        },
+        "playlist_play": {
+            "description": "Додає плейлист до черги й запускає відтворення",
+            "param_user": "Чий плейлист відтворити (за замовчуванням — ваш)",
+            "param_user_name": "користувач",
+            "param_name": "Плейлист для відтворення",
+            "param_name_name": "назва"
+        },
         "triggers": {
             "description": "Показує всі тригери сервера"
         },
@@ -551,7 +599,7 @@
             },
             "music": {
                 "name": ";music_note; Музика",
-                "value": "• /music interface\n• /music play\n• /music pause\n• /music loop\n• /music queue\n• /music resume\n• /music skip\n• /music stop",
+                "value": "• /music interface\n• /music play\n• /music pause\n• /music loop\n• /music queue\n• /music resume\n• /music skip\n• /music stop\n• /playlist create\n• /playlist add\n• /playlist remove\n• /playlist delete\n• /playlist steal\n• /playlist show\n• /playlist play",
                 "additional": "**Як налаштувати інтерфейс?**\n1. Створіть/виберіть канал для музичного інтерфейсу.\n2. Надішліть музичний інтерфейс через /music interface\n3. Налаштуйте дозвіл bot.MusicBlackList (необов'язково)\n\n**Підтримувані платформи:**\nYouTube"
             },
             "birthdays": {
@@ -996,7 +1044,7 @@
         "stopped": ";stop; Зупинено, чергу очищено.",
         "now_playing_announce": ";play; Зараз грає: **{title}**",
         "track_skipped_no_voice": ";no; Бот не підключений до голосового каналу — трек **{title}** пропущено. Спочатку виконайте /join.",
-        "playback_error": ";no; Не вдалося запустити відтворення **{title}**: {error}\nПеревірте, що ffmpeg встановлено і видно в PATH (`ffmpeg -version` у консолі), і що встановлено пакет PyNaCl.",
+        "playback_error": ";no; Не вдалося відтворити **{title}**: {error}",
         "untitled_track": "Без назви",
         "queue_now_playing": ";play; Зараз грає: [{title}]({url})",
         "queue_loop_status": "Повтор: {emoji} {label}",
@@ -1038,7 +1086,16 @@
             "field_track": "Трек",
             "field_mode": "Режим",
             "field_cleared": "Видалено з черги"
-        }
+        },
+        "lavalink_unavailable": ";no; Музичний сервер (Lavalink) недоступний. Спробуйте пізніше.",
+        "no_results": ";no; За вашим запитом нічого не знайдено.",
+        "queue_full": ";no; Черга переповнена (максимум {max} треків).",
+        "playlist_added": ";plus; До черги додано треків: **{count}** ({name})",
+        "playback_error_many": ";no; Пропущено треків, які не вдалося відтворити: **{count}** (остання помилка: {error})",
+        "track_stuck": "трек завис",
+        "unknown_error": "невідома помилка",
+        "node_lost": ";no; З’єднання з музичним сервером втрачено — відтворення зупинено, чергу очищено.",
+        "queue_more": "…і ще {count}"
     },
     "developer_cog": {
         "invalid_id": ";no; ID сервера має бути числом.",
@@ -1240,5 +1297,34 @@
             "honeypot": "Канал-пастка",
             "language": "Мова"
         }
+    },
+    "playlist_cog": {
+        "invalid_name": ";no; Вкажіть назву плейлиста.",
+        "created": ";mark; Плейлист **{name}** створено.",
+        "exists": ";no; У вас уже є плейлист **{name}**.",
+        "limit_playlists": ";no; Можна мати не більше {max} плейлистів.",
+        "limit_tracks": ";no; У плейлисті може бути не більше {max} треків.",
+        "not_found": ";no; У вас немає плейлиста **{name}**.",
+        "not_found_user": ";no; У {user} немає плейлиста **{name}**.",
+        "no_playlists_self": ";no; У вас поки немає плейлистів. Створіть перший командою /playlist create.",
+        "no_playlists_user": ";no; У {user} немає плейлистів.",
+        "track_added": ";plus; Додано до плейлиста **{name}**: **{title}**",
+        "track_duplicate": ";no; **{title}** уже є в плейлисті **{name}**.",
+        "tracks_added": ";plus; До плейлиста **{name}** додано треків: **{count}**.",
+        "skipped_note": " Пропущено (дублікати або ліміт): {count}.",
+        "tracks_all_duplicates": ";no; Усі ці треки вже є в плейлисті **{name}**.",
+        "track_removed": ";trash; Видалено з плейлиста **{name}**: **{title}**",
+        "track_not_found": ";no; У плейлисті **{name}** не знайдено трек «{song}».",
+        "track_ambiguous": ";no; У плейлисті **{name}** кілька треків відповідають запиту «{song}». Виберіть потрібний із підказок або вкажіть його номер.",
+        "deleted": ";trash; Плейлист **{name}** видалено.",
+        "steal_self": ";no; Це ваш власний плейлист.",
+        "stolen": ";inbox; Плейлист **{source}** користувача {user} скопійовано до ваших плейлистів як **{name}** (треків: {count}).",
+        "show_title": ";musical_notes; {name}",
+        "show_owner": "Плейлист користувача {user}",
+        "show_empty": "У цьому плейлисті поки немає треків.",
+        "list_title": ";musical_notes; Плейлисти користувача {user}",
+        "list_item": "• **{name}** — треків: {count}",
+        "play_empty": ";no; У цьому плейлисті немає треків.",
+        "playing": ";music_note; Плейлист **{name}** додано до черги (треків: {count})."
     }
 }

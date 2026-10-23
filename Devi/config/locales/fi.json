@@ -326,6 +326,54 @@
         "music_interface": {
             "description": "Näyttää soittimen hallintapaneelin painikkeineen"
         },
+        "playlist": {
+            "description": "Hallitse musiikkisoittolistojasi"
+        },
+        "playlist_create": {
+            "description": "Luo uuden tyhjän soittolistan",
+            "param_name": "Uuden soittolistan nimi",
+            "param_name_name": "nimi"
+        },
+        "playlist_add": {
+            "description": "Lisää kappaleen soittolistaan",
+            "param_song": "Kappaleen linkki tai nimi (soittolistan linkki lisää kaikki sen kappaleet)",
+            "param_song_name": "kappale",
+            "param_playlist": "Soittolista (oletus: viimeksi käyttämäsi)",
+            "param_playlist_name": "soittolista"
+        },
+        "playlist_remove": {
+            "description": "Poistaa kappaleen soittolistasta",
+            "param_song": "Valitse kappale ehdotuksista tai syötä sen numero, nimi tai linkki",
+            "param_song_name": "kappale",
+            "param_playlist": "Soittolista (oletus: viimeksi käyttämäsi)",
+            "param_playlist_name": "soittolista"
+        },
+        "playlist_delete": {
+            "description": "Poistaa yhden soittolistoistasi",
+            "param_name": "Poistettava soittolista",
+            "param_name_name": "nimi"
+        },
+        "playlist_steal": {
+            "description": "Kopioi toisen käyttäjän soittolistan omiin soittolistoihisi",
+            "param_user": "Käyttäjä, jonka soittolistan haluat kopioida",
+            "param_user_name": "käyttäjä",
+            "param_playlist": "Kopioitava soittolista",
+            "param_playlist_name": "soittolista"
+        },
+        "playlist_show": {
+            "description": "Näyttää soittolistan tai käyttäjän kaikki soittolistat",
+            "param_user": "Kenen soittolista näytetään (oletus: sinun)",
+            "param_user_name": "käyttäjä",
+            "param_name": "Soittolistan nimi (jätä tyhjäksi nähdäksesi kaikki soittolistat)",
+            "param_name_name": "nimi"
+        },
+        "playlist_play": {
+            "description": "Lisää soittolistan jonoon ja aloittaa toiston",
+            "param_user": "Kenen soittolista toistetaan (oletus: sinun)",
+            "param_user_name": "käyttäjä",
+            "param_name": "Toistettava soittolista",
+            "param_name_name": "nimi"
+        },
         "triggers": {
             "description": "Näyttää kaikki palvelimen triggerit"
         },
@@ -546,7 +594,7 @@
             },
             "music": {
                 "name": ";music_note; Musiikki",
-                "value": "• /music interface\n• /music play\n• /music pause\n• /music loop\n• /music queue\n• /music resume\n• /music skip\n• /music stop",
+                "value": "• /music interface\n• /music play\n• /music pause\n• /music loop\n• /music queue\n• /music resume\n• /music skip\n• /music stop\n• /playlist create\n• /playlist add\n• /playlist remove\n• /playlist delete\n• /playlist steal\n• /playlist show\n• /playlist play",
                 "additional": "**Kuinka käyttöliittymä otetaan käyttöön?**\n1. Luo/valitse kanava musiikkikäyttöliittymälle.\n2. Lähetä musiikkikäyttöliittymä komennolla /music interface\n3. Määritä bot.MusicBlackList-oikeus (valinnainen)\n\n**Tuetut alustat:**\nYouTube"
             },
             "birthdays": {
@@ -996,7 +1044,7 @@
         "stopped": ";stop; Pysäytetty, jono tyhjennetty.",
         "now_playing_announce": ";play; Nyt soi: **{title}**",
         "track_skipped_no_voice": ";no; Botti ei ole äänikanavalla — kappale **{title}** ohitettiin. Suorita ensin /join.",
-        "playback_error": ";no; Kappaleen **{title}** toistoa ei saatu käynnistettyä: {error}\nVarmista, että ffmpeg on asennettu ja löytyy PATH-muuttujasta (`ffmpeg -version` konsolissa) ja että PyNaCl-paketti on asennettu.",
+        "playback_error": ";no; Kappaleen **{title}** toisto ei onnistunut: {error}",
         "untitled_track": "Nimetön kappale",
         "queue_now_playing": ";play; Nyt soi: [{title}]({url})",
         "queue_loop_status": "Toisto: {emoji} {label}",
@@ -1038,7 +1086,16 @@
             "field_track": "Kappale",
             "field_mode": "Tila",
             "field_cleared": "Poistettu jonosta"
-        }
+        },
+        "lavalink_unavailable": ";no; Musiikkipalvelin (Lavalink) ei ole käytettävissä. Yritä myöhemmin uudelleen.",
+        "no_results": ";no; Haulla ei löytynyt mitään.",
+        "queue_full": ";no; Jono on täynnä (enintään {max} kappaletta).",
+        "playlist_added": ";plus; Jonoon lisättyjä kappaleita: **{count}** ({name})",
+        "playback_error_many": ";no; Ohitettuja kappaleita, joita ei voitu toistaa: **{count}** (viimeisin virhe: {error})",
+        "track_stuck": "kappale jumittui",
+        "unknown_error": "tuntematon virhe",
+        "node_lost": ";no; Yhteys musiikkipalvelimeen katkesi — toisto pysäytettiin ja jono tyhjennettiin.",
+        "queue_more": "…ja {count} lisää"
     },
     "developer_cog": {
         "invalid_id": ";no; Palvelimen ID:n täytyy olla numero.",
@@ -1240,5 +1297,34 @@
             "honeypot": "Ansakanava",
             "language": "Kieli"
         }
+    },
+    "playlist_cog": {
+        "invalid_name": ";no; Anna soittolistan nimi.",
+        "created": ";mark; Soittolista **{name}** luotu.",
+        "exists": ";no; Sinulla on jo soittolista nimeltä **{name}**.",
+        "limit_playlists": ";no; Sinulla voi olla enintään {max} soittolistaa.",
+        "limit_tracks": ";no; Soittolistalla voi olla enintään {max} kappaletta.",
+        "not_found": ";no; Sinulla ei ole soittolistaa nimeltä **{name}**.",
+        "not_found_user": ";no; Käyttäjällä {user} ei ole soittolistaa nimeltä **{name}**.",
+        "no_playlists_self": ";no; Sinulla ei ole vielä soittolistoja. Luo ensimmäinen komennolla /playlist create.",
+        "no_playlists_user": ";no; Käyttäjällä {user} ei ole soittolistoja.",
+        "track_added": ";plus; Lisätty soittolistaan **{name}**: **{title}**",
+        "track_duplicate": ";no; **{title}** on jo soittolistalla **{name}**.",
+        "tracks_added": ";plus; Soittolistaan **{name}** lisättyjä kappaleita: **{count}**.",
+        "skipped_note": " Ohitettu (kaksoiskappaleet tai raja): {count}.",
+        "tracks_all_duplicates": ";no; Kaikki nämä kappaleet ovat jo soittolistalla **{name}**.",
+        "track_removed": ";trash; Poistettu soittolistalta **{name}**: **{title}**",
+        "track_not_found": ";no; Kappaletta ”{song}” ei löytynyt soittolistalta **{name}**.",
+        "track_ambiguous": ";no; Soittolistalla **{name}** usea kappale vastaa hakua ”{song}”. Valitse yksi ehdotuksista tai anna sen numero.",
+        "deleted": ";trash; Soittolista **{name}** poistettu.",
+        "steal_self": ";no; Tämä on oma soittolistasi.",
+        "stolen": ";inbox; Käyttäjän {user} soittolista **{source}** kopioitu omiin soittolistoihisi nimellä **{name}** (kappaleita: {count}).",
+        "show_title": ";musical_notes; {name}",
+        "show_owner": "Käyttäjän {user} soittolista",
+        "show_empty": "Tällä soittolistalla ei ole vielä kappaleita.",
+        "list_title": ";musical_notes; Käyttäjän {user} soittolistat",
+        "list_item": "• **{name}** — kappaleita: {count}",
+        "play_empty": ";no; Tällä soittolistalla ei ole kappaleita.",
+        "playing": ";music_note; Soittolista **{name}** lisätty jonoon (kappaleita: {count})."
     }
 }

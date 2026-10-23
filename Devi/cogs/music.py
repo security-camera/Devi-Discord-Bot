@@ -1,4 +1,5 @@
 import asyncio
+from dataclasses import dataclass
 import disnake
 from disnake import TextInputStyle
 from disnake.ext import commands
@@ -35,6 +36,67 @@ YDL_OPTIONS = {
 }
 
 ydl = yt_dlp.YoutubeDL(YDL_OPTIONS)
+
+# ---------- Playlist constants & helpers ----------
+
+MAX_PLAYLIST_IMPORT: int = 50  # max tracks pulled per /playlist add
+
+
+@dataclass
+class TrackEntry:
+    """A lightweight track metadata container for playlists."""
+    title: str
+    author: str
+    uri: str
+    length_ms: int
+
+
+def md_link(text: str, url: str) -> str:
+    """Markdown link: [text](url)."""
+    return f"[{text}]({url})"
+
+
+def format_duration(ms: int | None) -> str | None:
+    """Format milliseconds into `1:23` or `12:34` style string."""
+    if not ms or ms <= 0:
+        return None
+    total_seconds = ms // 1000
+    minutes, seconds = divmod(total_seconds, 60)
+    hours, minutes = divmod(minutes, 60)
+    if hours:
+        return f"{hours}:{minutes:02d}:{seconds:02d}"
+    return f"{minutes}:{seconds:02d}"
+
+
+async def resolve_query_playlist(query: str, import_limit: int = MAX_PLAYLIST_IMPORT):
+    """Resolve a query to TrackEntries using yt-dlp.
+
+    Works like MusicCog.extract_track but returns a list of TrackEntry objects
+    suitable for playlist storage (raw metadata, no Disnake Member involved).
+    Raises `` yt_dlp.utils.DownloadError `` on network/extract failures.
+    """
+    loop = asyncio.get_event_loop()
+
+    def _resolve():
+        _info = ydl.extract_info(query, download=False)
+        if "entries" in _info:  # search results or playlist
+            entries = list(_info["entries"])
+            # Limit the number of tracks resolved from a playlist/search
+            return entries[: import_limit]
+        return [_info]
+
+    infos = await loop.run_in_executor(None, _resolve)
+    return [
+        TrackEntry(
+            title=info.get("title") or "?",
+            author=info.get("uploader") or info.get("creator") or "",
+            uri=info.get("webpage_url") or info.get("url") or query,
+            length_ms=(info.get("duration") or 0) * 1000 if info.get("duration") else 0,
+        )
+        for info in infos
+        if info.get("url") or info.get("webpage_url")
+    ]
+
 
 LOOP_EMOJI = {"off": "▶️", "track": "🔂", "queue": "🔁"}
 

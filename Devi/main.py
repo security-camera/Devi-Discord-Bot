@@ -47,6 +47,7 @@ EXTENSIONS = [
     "cogs.send",
     "cogs.permissions_commands",
     "cogs.music",
+    "cogs.playlists",
     "cogs.developer",
     "cogs.birthdays",
     "cogs.topgg",

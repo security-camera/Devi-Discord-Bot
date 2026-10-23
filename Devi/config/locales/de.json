@@ -326,6 +326,54 @@
         "music_interface": {
             "description": "Zeigt das Bedienfeld des Players mit Schaltflächen an"
         },
+        "playlist": {
+            "description": "Verwalte deine Musik-Playlists"
+        },
+        "playlist_create": {
+            "description": "Erstellt eine neue leere Playlist",
+            "param_name": "Name der neuen Playlist",
+            "param_name_name": "name"
+        },
+        "playlist_add": {
+            "description": "Fügt einer Playlist einen Song hinzu",
+            "param_song": "Link oder Titel des Songs (ein Playlist-Link fügt alle Titel hinzu)",
+            "param_song_name": "song",
+            "param_playlist": "Playlist (Standard: die zuletzt verwendete)",
+            "param_playlist_name": "playlist"
+        },
+        "playlist_remove": {
+            "description": "Entfernt einen Song aus einer Playlist",
+            "param_song": "Song aus den Vorschlägen wählen oder Nummer, Titel bzw. Link eingeben",
+            "param_song_name": "song",
+            "param_playlist": "Playlist (Standard: die zuletzt verwendete)",
+            "param_playlist_name": "playlist"
+        },
+        "playlist_delete": {
+            "description": "Löscht eine deiner Playlists",
+            "param_name": "Zu löschende Playlist",
+            "param_name_name": "name"
+        },
+        "playlist_steal": {
+            "description": "Kopiert die Playlist eines anderen Nutzers zu deinen Playlists",
+            "param_user": "Nutzer, dessen Playlist du kopieren möchtest",
+            "param_user_name": "nutzer",
+            "param_playlist": "Zu kopierende Playlist",
+            "param_playlist_name": "playlist"
+        },
+        "playlist_show": {
+            "description": "Zeigt eine Playlist oder alle Playlists eines Nutzers",
+            "param_user": "Wessen Playlist angezeigt wird (Standard: deine)",
+            "param_user_name": "nutzer",
+            "param_name": "Playlist-Name (leer lassen für alle Playlists)",
+            "param_name_name": "name"
+        },
+        "playlist_play": {
+            "description": "Fügt eine Playlist zur Warteschlange hinzu und startet die Wiedergabe",
+            "param_user": "Wessen Playlist abgespielt wird (Standard: deine)",
+            "param_user_name": "nutzer",
+            "param_name": "Abzuspielende Playlist",
+            "param_name_name": "name"
+        },
         "triggers": {
             "description": "Zeigt alle Trigger des Servers an"
         },
@@ -546,7 +594,7 @@
             },
             "music": {
                 "name": ";music_note; Musik",
-                "value": "• /music interface\n• /music play\n• /music pause\n• /music loop\n• /music queue\n• /music resume\n• /music skip\n• /music stop",
+                "value": "• /music interface\n• /music play\n• /music pause\n• /music loop\n• /music queue\n• /music resume\n• /music skip\n• /music stop\n• /playlist create\n• /playlist add\n• /playlist remove\n• /playlist delete\n• /playlist steal\n• /playlist show\n• /playlist play",
                 "additional": "**Wie richte ich das Interface ein?**\n1. Erstelle/wähle einen Kanal für das Musik-Interface.\n2. Sende das Musik-Interface über /music interface\n3. Konfiguriere die bot.MusicBlackList-Berechtigung (optional)\n\n**Unterstützte Plattformen:**\nYouTube"
             },
             "birthdays": {
@@ -995,7 +1043,7 @@
         "stopped": ";stop; Wiedergabe gestoppt, Warteschlange geleert.",
         "now_playing_announce": ";play; Jetzt läuft: **{title}**",
         "track_skipped_no_voice": ";no; Der Bot ist mit keinem Sprachkanal verbunden – Titel **{title}** wurde übersprungen. Führe zuerst /join aus.",
-        "playback_error": ";no; Wiedergabe von **{title}** konnte nicht gestartet werden: {error}\nStelle sicher, dass ffmpeg installiert und im PATH verfügbar ist (`ffmpeg -version` in der Konsole) und dass das Paket PyNaCl installiert ist.",
+        "playback_error": ";no; **{title}** konnte nicht abgespielt werden: {error}",
         "untitled_track": "Ohne Titel",
         "queue_now_playing": ";play; Jetzt läuft: [{title}]({url})",
         "queue_loop_status": "Wiederholung: {emoji} {label}",
@@ -1037,7 +1085,16 @@
             "field_track": "Titel",
             "field_mode": "Modus",
             "field_cleared": "Aus der Warteschlange entfernt"
-        }
+        },
+        "lavalink_unavailable": ";no; Der Musikserver (Lavalink) ist nicht erreichbar. Bitte versuche es später erneut.",
+        "no_results": ";no; Zu dieser Anfrage wurde nichts gefunden.",
+        "queue_full": ";no; Die Warteschlange ist voll (maximal {max} Titel).",
+        "playlist_added": ";plus; Zur Warteschlange hinzugefügte Titel: **{count}** ({name})",
+        "playback_error_many": ";no; Übersprungene Titel, die nicht abgespielt werden konnten: **{count}** (letzter Fehler: {error})",
+        "track_stuck": "der Titel hängt",
+        "unknown_error": "unbekannter Fehler",
+        "node_lost": ";no; Die Verbindung zum Musikserver ist abgebrochen – die Wiedergabe wurde gestoppt und die Warteschlange geleert.",
+        "queue_more": "…und {count} weitere"
     },
     "developer_cog": {
         "invalid_id": ";no; Die Server-ID muss eine Zahl sein.",
@@ -1239,5 +1296,34 @@
             "honeypot": "Fallenkanal",
             "language": "Sprache"
         }
+    },
+    "playlist_cog": {
+        "invalid_name": ";no; Bitte gib einen Playlist-Namen an.",
+        "created": ";mark; Playlist **{name}** erstellt.",
+        "exists": ";no; Du hast bereits eine Playlist namens **{name}**.",
+        "limit_playlists": ";no; Du kannst höchstens {max} Playlists haben.",
+        "limit_tracks": ";no; Eine Playlist kann höchstens {max} Titel enthalten.",
+        "not_found": ";no; Du hast keine Playlist namens **{name}**.",
+        "not_found_user": ";no; {user} hat keine Playlist namens **{name}**.",
+        "no_playlists_self": ";no; Du hast noch keine Playlists. Erstelle die erste mit /playlist create.",
+        "no_playlists_user": ";no; {user} hat keine Playlists.",
+        "track_added": ";plus; Zur Playlist **{name}** hinzugefügt: **{title}**",
+        "track_duplicate": ";no; **{title}** ist bereits in der Playlist **{name}**.",
+        "tracks_added": ";plus; Zur Playlist **{name}** hinzugefügte Titel: **{count}**.",
+        "skipped_note": " Übersprungen (Duplikate oder Limit): {count}.",
+        "tracks_all_duplicates": ";no; Alle diese Titel sind bereits in der Playlist **{name}**.",
+        "track_removed": ";trash; Aus der Playlist **{name}** entfernt: **{title}**",
+        "track_not_found": ";no; „{song}“ wurde in der Playlist **{name}** nicht gefunden.",
+        "track_ambiguous": ";no; In der Playlist **{name}** passen mehrere Titel zu „{song}“. Wähle einen aus den Vorschlägen oder gib seine Nummer an.",
+        "deleted": ";trash; Playlist **{name}** gelöscht.",
+        "steal_self": ";no; Das ist deine eigene Playlist.",
+        "stolen": ";inbox; Die Playlist **{source}** von {user} wurde als **{name}** zu deinen Playlists kopiert (Titel: {count}).",
+        "show_title": ";musical_notes; {name}",
+        "show_owner": "Playlist von {user}",
+        "show_empty": "Diese Playlist ist noch leer.",
+        "list_title": ";musical_notes; Playlists von {user}",
+        "list_item": "• **{name}** — Titel: {count}",
+        "play_empty": ";no; Diese Playlist enthält keine Titel.",
+        "playing": ";music_note; Playlist **{name}** zur Warteschlange hinzugefügt (Titel: {count})."
     }
 }

@@ -326,6 +326,54 @@
         "music_interface": {
             "description": "Shows the player control panel with buttons"
         },
+        "playlist": {
+            "description": "Manage your music playlists"
+        },
+        "playlist_create": {
+            "description": "Creates a new empty playlist",
+            "param_name": "Name of the new playlist",
+            "param_name_name": "name"
+        },
+        "playlist_add": {
+            "description": "Adds a song to a playlist",
+            "param_song": "Link or title of the song (a playlist link adds all of its tracks)",
+            "param_song_name": "song",
+            "param_playlist": "Playlist to add to (default: the one you used last)",
+            "param_playlist_name": "playlist"
+        },
+        "playlist_remove": {
+            "description": "Removes a song from a playlist",
+            "param_song": "Pick a song from the suggestions or enter its number, title or link",
+            "param_song_name": "song",
+            "param_playlist": "Playlist to remove from (default: the one you used last)",
+            "param_playlist_name": "playlist"
+        },
+        "playlist_delete": {
+            "description": "Deletes one of your playlists",
+            "param_name": "Playlist to delete",
+            "param_name_name": "name"
+        },
+        "playlist_steal": {
+            "description": "Copies another user's playlist to your own playlists",
+            "param_user": "The user whose playlist you want to copy",
+            "param_user_name": "user",
+            "param_playlist": "Playlist to copy",
+            "param_playlist_name": "playlist"
+        },
+        "playlist_show": {
+            "description": "Shows a playlist, or all playlists of a user",
+            "param_user": "Whose playlist to show (default: yours)",
+            "param_user_name": "user",
+            "param_name": "Playlist name (leave empty to list all playlists)",
+            "param_name_name": "name"
+        },
+        "playlist_play": {
+            "description": "Adds a playlist to the queue and starts playing",
+            "param_user": "Whose playlist to play (default: yours)",
+            "param_user_name": "user",
+            "param_name": "Playlist to play",
+            "param_name_name": "name"
+        },
         "triggers": {
             "description": "Shows the server triggers"
         },
@@ -542,7 +590,7 @@
             },
             "music": {
                 "name": ";music_note; Music",
-                "value": "• /music interface\n• /music play\n• /music pause\n• /music loop\n• /music queue\n• /music resume\n• /music skip\n• /music stop",
+                "value": "• /music interface\n• /music play\n• /music pause\n• /music loop\n• /music queue\n• /music resume\n• /music skip\n• /music stop\n• /playlist create\n• /playlist add\n• /playlist remove\n• /playlist delete\n• /playlist steal\n• /playlist show\n• /playlist play",
                 "additional": "**How to setup interface?**\n1. Create/pick a channel for music interface.\n2. Send music interface via /music interface\n3. Configure bot.MusicBlackList permission (optional)\n\n**Supported platforms:**\nYoutube"
             },
             "permissions": {
@@ -996,7 +1044,7 @@
         "stopped": ";stop; Stopped, queue cleared.",
         "now_playing_announce": ";play; Now playing: **{title}**",
         "track_skipped_no_voice": ";no; The bot is not connected to a voice channel — track **{title}** was skipped. Run /join first.",
-        "playback_error": ";no; Failed to start playback of **{title}**: {error}\nMake sure ffmpeg is installed and available on PATH (`ffmpeg -version` in the console), and that PyNaCl is installed.",
+        "playback_error": ";no; Could not play **{title}**: {error}",
         "untitled_track": "Untitled",
         "queue_now_playing": ";play; Now playing: [{title}]({url})",
         "queue_loop_status": "Loop: {emoji} {label}",
@@ -1038,7 +1086,16 @@
             "field_track": "Track",
             "field_mode": "Mode",
             "field_cleared": "Removed from queue"
-        }
+        },
+        "lavalink_unavailable": ";no; The music server (Lavalink) is unavailable. Please try again later.",
+        "no_results": ";no; Nothing was found for this request.",
+        "queue_full": ";no; The queue is full (up to {max} tracks).",
+        "playlist_added": ";plus; Tracks added to the queue: **{count}** ({name})",
+        "playback_error_many": ";no; Skipped tracks that could not be played: **{count}** (last error: {error})",
+        "track_stuck": "the track got stuck",
+        "unknown_error": "unknown error",
+        "node_lost": ";no; Connection to the music server was lost — playback stopped and the queue was cleared.",
+        "queue_more": "…and {count} more"
     },
     "developer_cog": {
         "invalid_id": ";no; Guild ID must be a number.",
@@ -1240,5 +1297,34 @@
             "honeypot": "Honeypot",
             "language": "Language"
         }
+    },
+    "playlist_cog": {
+        "invalid_name": ";no; Please enter a playlist name.",
+        "created": ";mark; Playlist **{name}** created.",
+        "exists": ";no; You already have a playlist named **{name}**.",
+        "limit_playlists": ";no; You can have up to {max} playlists.",
+        "limit_tracks": ";no; A playlist can hold up to {max} tracks.",
+        "not_found": ";no; You don't have a playlist named **{name}**.",
+        "not_found_user": ";no; {user} doesn't have a playlist named **{name}**.",
+        "no_playlists_self": ";no; You don't have any playlists yet. Create one with /playlist create.",
+        "no_playlists_user": ";no; {user} doesn't have any playlists.",
+        "track_added": ";plus; Added to playlist **{name}**: **{title}**",
+        "track_duplicate": ";no; **{title}** is already in playlist **{name}**.",
+        "tracks_added": ";plus; Tracks added to playlist **{name}**: **{count}**.",
+        "skipped_note": " Skipped (duplicates or the limit): {count}.",
+        "tracks_all_duplicates": ";no; All of these tracks are already in playlist **{name}**.",
+        "track_removed": ";trash; Removed from playlist **{name}**: **{title}**",
+        "track_not_found": ";no; Couldn't find “{song}” in playlist **{name}**.",
+        "track_ambiguous": ";no; Several tracks in playlist **{name}** match “{song}”. Pick one from the suggestions or use its number.",
+        "deleted": ";trash; Playlist **{name}** deleted.",
+        "steal_self": ";no; This is your own playlist.",
+        "stolen": ";inbox; Playlist **{source}** by {user} was copied to your playlists as **{name}** (tracks: {count}).",
+        "show_title": ";musical_notes; {name}",
+        "show_owner": "Playlist by {user}",
+        "show_empty": "This playlist is empty.",
+        "list_title": ";musical_notes; Playlists of {user}",
+        "list_item": "• **{name}** — tracks: {count}",
+        "play_empty": ";no; This playlist has no tracks.",
+        "playing": ";music_note; Playlist **{name}** added to the queue (tracks: {count})."
     }
 }

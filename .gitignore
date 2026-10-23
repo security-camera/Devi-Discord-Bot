@@ -1,9 +1,8 @@
-/Devi/config/bot.db
-/Devi/config/bot_test.db
 /Devi/config/.env
 /Devi/config/voices/
 /migrate.py
 /token.md
+/AGENTS.md
 
 __pycache__/
 *.py[cod]
