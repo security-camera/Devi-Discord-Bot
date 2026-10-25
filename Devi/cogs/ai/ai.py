@@ -30,7 +30,7 @@ from cogs.ai.ai_memory import (
 )
 from cogs.ai.ai_prompts import (
     SYSTEM_PROMPT, VOICE_SYSTEM_PROMPT, NO_LIMIT_SYSTEM_PROMPT, NO_LIMIT_VOICE_SYSTEM_PROMPT,
-    get_user_instruction, set_user_instruction, delete_user_instruction, load_instructions, PRONOUNS
+    get_user_instruction, set_user_instruction, delete_user_instruction, PRONOUNS
 )
 
 from storage import AI_SIGNAL_CHANNEL, TECHNICAL_SUPPORT_SERVER
@@ -701,15 +701,3 @@ class AiCog(commands.Cog):
             case _:
                 delete_user_instruction(int_id)
                 return inter.response.send_message("Deleted", ephemeral=True)
-
-
-def setup(bot: commands.Bot):
-    load_instructions()
-
-    fixed = purge_stored_images()
-    if fixed:
-        print(f"AI memory: removed stored images from {fixed} old history rows")
-
-    ai_limits.cleanup()
-
-    bot.add_cog(AiCog(bot))

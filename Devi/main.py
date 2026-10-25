@@ -41,7 +41,7 @@ EXTENSIONS = [
     "cogs.clear",
     "cogs.logging_events",
     "cogs.voice",
-    "cogs.ai.ai",
+    "cogs.ai",
     "cogs.giveaways",
     "cogs.help",
     "cogs.send",
