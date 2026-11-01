@@ -10,6 +10,7 @@ from logs import _load_log_channels
 from discord_i18n import localized, bool_to_yes_no_str
 from permissions import Permission, load_permissions, require_permissions
 from storage import TECHNICAL_SUPPORT_SERVER, TEST_SERVER
+from emojis import load_custom_emojis
 
 NONE_PLACEHOLDER = "—"
 
@@ -42,6 +43,7 @@ class DeveloperCog(commands.Cog):
         load_birthdays()
         load_instructions()
         _load_log_channels()
+        await load_custom_emojis(self.bot)
 
         return  await inter.response.send_message(
             i18n.t("reload_cmd.success", locale=gid),

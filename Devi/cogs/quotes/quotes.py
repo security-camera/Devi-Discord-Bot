@@ -132,7 +132,7 @@ class QuotesCog(commands.Cog):
         author = message.author
         avatar_bytes = await self._fetch_avatar(author)
 
-        view = QuoteView(inter, avatar_bytes, text, author.display_name, author.name, self.bot.user.name)
-        image = await asyncio.to_thread(render_quote, avatar_bytes, text, author.display_name, author.name, self.bot.user.name)
+        view = QuoteView(inter, avatar_bytes, text, author.display_name, author.name, self.bot.user)
+        image = await asyncio.to_thread(render_quote, avatar_bytes, text, author.display_name, author.name, self.bot.user)
 
         return await inter.edit_original_response(file=disnake.File(image, filename="quote.png"), view=view)

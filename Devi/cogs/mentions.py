@@ -27,7 +27,7 @@ class MentionsCog(commands.Cog):
     def __init__(self, bot: commands.Bot):
         self.bot = bot
         self.cooldowns = {}
-        self.need_to_stop = False
+        self.need_to_stop: set[int] = set()
 
     async def validate_mention_request(
             self,
@@ -70,13 +70,15 @@ class MentionsCog(commands.Cog):
 
         return None
 
-    async def mention_cycle(self, inter: disnake.ApplicationCommandInteraction, count: int,
-                             full_text: str = "", delay: float = 1.0):
+    async def mention_cycle(self, inter: disnake.ApplicationCommandInteraction, count: int, full_text: str = "", delay: float = 1.0):
         gid = inter.guild_id
+
         for _ in range(count):
-            if self.need_to_stop:
+            if gid in self.need_to_stop:
+                self.need_to_stop.discard(gid)
                 await inter.channel.send(i18n.t("mentions_cog.stopped", locale=gid))
                 break
+
             try:
                 await inter.channel.send(full_text)
             except disnake.HTTPException as e:
@@ -84,6 +86,7 @@ class MentionsCog(commands.Cog):
                     await asyncio.sleep(4)
                 else:
                     break
+
             await asyncio.sleep(delay)
 
     @commands.slash_command(
@@ -130,7 +133,7 @@ class MentionsCog(commands.Cog):
         if not has_permissions(inter.author, inter.channel, Permission.ManageMention):
             self.cooldowns[inter.author.id] = time.time() + (COOLDOWN_TIME_VOTED if await is_voted(inter.author.id) else COOLDOWN_TIME)
 
-        self.need_to_stop = False
+        self.need_to_stop.discard(gid)
 
         await inter.response.send_message(
             i18n.t("mentions_cog.started_member", locale=gid, count=count, member=member.display_name)
@@ -177,7 +180,7 @@ class MentionsCog(commands.Cog):
         if not has_permissions(inter.author, inter.channel, Permission.ManageMention):
             self.cooldowns[inter.author.id] = time.time() + COOLDOWN_TIME
 
-        self.need_to_stop = False
+        self.need_to_stop.discard(gid)
 
         await inter.response.send_message(
             i18n.t("mentions_cog.started_role", locale=gid, count=count, role=role.name)
@@ -194,7 +197,7 @@ class MentionsCog(commands.Cog):
     )
     @require_permissions([{Permission.ManageMention: True}, {disnake.Permissions(administrator=True): True}])
     async def mention_stop(self, inter: disnake.ApplicationCommandInteraction):
-        self.need_to_stop = True
+        self.need_to_stop.add(inter.guild_id)
         return await inter.response.send_message(i18n.t("mentions_cog.stop_signal_sent", locale=inter.guild_id), ephemeral=True)
 
 
