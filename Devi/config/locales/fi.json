@@ -535,6 +535,9 @@
         },
         "make_quote": {
             "name": "Tee tästä lainaus"
+        },
+        "make_gif": {
+            "name": "Muunna GIF-muotoon"
         }
     },
     "help": {
@@ -1335,5 +1338,13 @@
         "button_color": "Värillinen versio",
         "button_gray": "Mustavalkoinen versio",
         "not_owner": ";no; Vain komennon suorittanut henkilö voi painaa tätä painiketta."
+    },
+    "gif_cog": {
+        "no_media": ";no; Tässä viestissä ei ole kuvaa, tekstiä eikä videota.",
+        "already_gif": ";no; Tämä on jo GIF.",
+        "source_too_large": ";no; Lähdetiedosto on liian suuri (enintään 50 Mt).",
+        "download_failed": ";no; Tiedoston lataaminen epäonnistui.",
+        "convert_failed": ";no; Tiedoston muuntaminen epäonnistui.",
+        "result_too_large": ";no; GIF ylittää Discordin kokorajan jopa heikoimmalla laadulla."
     }
 }

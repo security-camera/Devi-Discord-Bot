@@ -1,4 +1,5 @@
 import asyncio
+import io
 import re
 
 import disnake
@@ -95,6 +96,26 @@ class QuotesCog(commands.Cog):
         lines = [" ".join(line.split()) for line in text.splitlines()]
         return "\n".join(line for line in lines if line).strip()
 
+    @staticmethod
+    async def _fetch_avatar(author: disnake.User | disnake.Member) -> bytes | None:
+        # Guild avatar for members, global avatar otherwise
+        try:
+            return await author.display_avatar.with_size(512).with_format("png").read()
+        except disnake.HTTPException:
+            return None # the renderer falls back to a dark placeholder
+
+    def can_quote(self, message: disnake.Message) -> bool:
+        return bool(self._prepare_text(message))
+
+    async def render_message(self, message: disnake.Message, grayscale: bool = True) -> io.BytesIO | None:
+        text = self._prepare_text(message)
+        if not text:
+            return None
+
+        author = message.author
+        avatar_bytes = await self._fetch_avatar(author)
+        return await asyncio.to_thread(render_quote, avatar_bytes, text, author.display_name, author.name, self.bot.user.name, grayscale)
+
     @commands.message_command(
         name=localized("commands.make_quote.name"),
         install_types=disnake.ApplicationInstallTypes.all(),
@@ -109,11 +130,7 @@ class QuotesCog(commands.Cog):
         await inter.response.defer()
 
         author = message.author
-        avatar_bytes = None # Guild avatar for members, global avatar otherwise
-        try:
-            avatar_bytes = await author.display_avatar.with_size(512).with_format("png").read()
-        except disnake.HTTPException:
-            pass
+        avatar_bytes = await self._fetch_avatar(author)
 
         view = QuoteView(inter, avatar_bytes, text, author.display_name, author.name, self.bot.user.name)
         image = await asyncio.to_thread(render_quote, avatar_bytes, text, author.display_name, author.name, self.bot.user.name)

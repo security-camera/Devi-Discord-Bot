@@ -535,6 +535,9 @@
         },
         "make_quote": {
             "name": "Make it a quote"
+        },
+        "make_gif": {
+            "name": "Convert to GIF"
         }
     },
     "help": {
@@ -1335,5 +1338,13 @@
         "button_color": "Color version",
         "button_gray": "Grayscale version",
         "not_owner": ";no; Only the person who invoked the command can press this button."
+    },
+    "gif_cog": {
+        "no_media": ";no; This message doesn't contain an image, text, or video.",
+        "already_gif": ";no; This is already a GIF.",
+        "source_too_large": ";no; The source file is too large (maximum 50 MB).",
+        "download_failed": ";no; Failed to download the file.",
+        "convert_failed": ";no; Failed to convert the file.",
+        "result_too_large": ";no; Even at the lowest quality, the GIF exceeds Discord's size limit."
     }
 }

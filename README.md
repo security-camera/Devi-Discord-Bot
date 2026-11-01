@@ -502,17 +502,26 @@ bot_project/
     │   │   ├── voice-1.onnx
     │   │   ├── voice-1.onnx.json
     │   │   └── ...
+    │   ├── fonts/
+    │   │   ├── font-1.ttf
+    │   │   ├── font-2.ttf
+    │   │   └── ...
     │   └── locales/               # Localizations
     │       ├── disnake-locale-code_1.json
     │       ├── disnake-locale-code_2.json
     │       └── ...
     └── cogs/
         ├── ai/
+        │   ├── __init__.py
         │   ├── ai_memory.py           # Context for ai.py
         │   ├── ai.py                  # @Mention AI, /ai commands
         │   ├── ai_prompts.py          # Prompts and custom user instructions
         │   ├── ai_client.py           # DeepSeek / Qwen / ProxyAPI client, cost accounting
         │   └── ai_limits.py           # Daily quotas, budget guard, usage accounting
+        ├── quotes/                    # Make quote from a message (message_command)
+        │   ├── __init__.py
+        │   ├── image_generator.py 
+        │   └── quotes.py              # Quote view & commands
         ├── admin.py                   # /set_log_channel, /set_language
         ├── mentions.py                # /mention commands
         ├── triggers.py                # /trigger, /triggers + trigger logic
@@ -532,6 +541,7 @@ bot_project/
         ├── temp_voices.py             # /voice commands + temp voices logic
         ├── temp_bans.py               # /temp_ban + logic
         ├── traps.py                   # /trap commands + logic
-        ├── dashboard_api.py           # Internal HTTP API for the website dashboar
+        ├── dashboard_api.py           # Internal HTTP API for the website dashboard
+        ├── gif.py                     # Convert video and images to .gif (message_command)
         └── voice.py                   # /join, /leave, /tts
 ```

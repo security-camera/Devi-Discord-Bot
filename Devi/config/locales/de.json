@@ -535,6 +535,9 @@
         },
         "make_quote": {
             "name": "Als Zitat formatieren"
+        },
+        "make_gif": {
+            "name": "In GIF konvertieren"
         }
     },
     "help": {
@@ -1334,5 +1337,13 @@
         "button_color": "Farbversion",
         "button_gray": "Schwarz-Weiß-Version",
         "not_owner": ";no; Nur die Person, die den Befehl ausgeführt hat, kann diese Schaltfläche drücken."
+    },
+    "gif_cog": {
+        "no_media": ";no; Diese Nachricht enthält kein Bild, keinen Text und kein Video.",
+        "already_gif": ";no; Dies ist bereits ein GIF.",
+        "source_too_large": ";no; Die Quelldatei ist zu groß (maximal 50 MB).",
+        "download_failed": ";no; Die Datei konnte nicht heruntergeladen werden.",
+        "convert_failed": ";no; Die Datei konnte nicht konvertiert werden.",
+        "result_too_large": ";no; Selbst bei minimaler Qualität überschreitet das GIF das Größenlimit von Discord."
     }
 }

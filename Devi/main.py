@@ -55,7 +55,8 @@ EXTENSIONS = [
     "cogs.honeypots",
     "cogs.temp_bans",
     "cogs.dashboard_api",
-    "cogs.quotes"
+    "cogs.quotes",
+    "cogs.gif"
 ]
 
 for extension in EXTENSIONS:
