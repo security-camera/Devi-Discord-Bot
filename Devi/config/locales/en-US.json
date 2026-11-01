@@ -532,6 +532,9 @@
             "param_duration": "Ban duration (e.g. 1h, 3d, 30m)",
             "param_reason_name": "reason",
             "param_reason": "Reason for the ban"
+        },
+        "make_quote": {
+            "name": "Make it a quote"
         }
     },
     "help": {
@@ -1326,5 +1329,11 @@
         "list_item": "• **{name}** — tracks: {count}",
         "play_empty": ";no; This playlist has no tracks.",
         "playing": ";music_note; Playlist **{name}** added to the queue (tracks: {count})."
+    },
+    "quote_cog": {
+        "no_text": ";no; This message doesn't contain any text that can be turned into a quote.",
+        "button_color": "Color version",
+        "button_gray": "Grayscale version",
+        "not_owner": ";no; Only the person who invoked the command can press this button."
     }
 }

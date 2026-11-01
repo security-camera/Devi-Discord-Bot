@@ -126,20 +126,3 @@ def clear_memory(user_id: int, guild_id: int | None = None):
             cur.execute("DELETE FROM ai_memory WHERE guild_id = %s AND user_id = %s", (guild_id, user_id))
         else:
             cur.execute("DELETE FROM ai_memory WHERE user_id = %s", (user_id,))
-
-
-def purge_stored_images() -> int:
-    """One-time cleanup: the previous version stored base64 images inside the history rows. They are
-    replaced with a text placeholder so they stop bloating the database. Returns the number of fixed rows."""
-    with db_cursor() as cur:
-        cur.execute("SELECT id, content FROM ai_memory WHERE content LIKE %s", ('%"type": "image"%',))
-        rows = cur.fetchall()
-
-    if not rows:
-        return 0
-
-    updates = [(_text_to_content(_content_to_text(row["content"])), int(row["id"])) for row in rows]
-
-    with db_cursor(commit=True) as cur:
-        cur.executemany("UPDATE ai_memory SET content = %s WHERE id = %s", updates)
-    return len(updates)

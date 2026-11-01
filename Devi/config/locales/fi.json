@@ -532,6 +532,9 @@
             "param_duration": "Porttikiellon kesto (esim. 1h, 3d, 30m)",
             "param_reason_name": "syy",
             "param_reason": "Porttikiellon syy"
+        },
+        "make_quote": {
+            "name": "Tee tästä lainaus"
         }
     },
     "help": {
@@ -1326,5 +1329,11 @@
         "list_item": "• **{name}** — kappaleita: {count}",
         "play_empty": ";no; Tällä soittolistalla ei ole kappaleita.",
         "playing": ";music_note; Soittolista **{name}** lisätty jonoon (kappaleita: {count})."
+    },
+    "quote_cog": {
+        "no_text": ";no; Tässä viestissä ei ole tekstiä, josta voisi tehdä lainauksen.",
+        "button_color": "Värillinen versio",
+        "button_gray": "Mustavalkoinen versio",
+        "not_owner": ";no; Vain komennon suorittanut henkilö voi painaa tätä painiketta."
     }
 }

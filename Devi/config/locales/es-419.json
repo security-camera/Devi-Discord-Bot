@@ -532,6 +532,9 @@
             "param_duration": "Duración del baneo (ej: 1h, 3d, 30m)",
             "param_reason_name": "razon",
             "param_reason": "Motivo del baneo"
+        },
+        "make_quote": {
+            "name": "Convertir en cita"
         }
     },
     "help": {
@@ -1326,5 +1329,11 @@
         "list_item": "• **{name}** — canciones: {count}",
         "play_empty": ";no; Esta lista no tiene canciones.",
         "playing": ";music_note; Lista **{name}** agregada a la cola (canciones: {count})."
+    },
+    "quote_cog": {
+        "no_text": ";no; Este mensaje no contiene texto que se pueda convertir en una cita.",
+        "button_color": "Versión a color",
+        "button_gray": "Versión en blanco y negro",
+        "not_owner": ";no; Solo quien ejecutó el comando puede presionar este botón."
     }
 }

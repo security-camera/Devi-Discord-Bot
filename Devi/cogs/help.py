@@ -8,7 +8,7 @@ from discord_i18n import localized, yes_no_choices
 from i18n import get_locale_display_name
 from emojis import component_option_kwargs
 from datetime import datetime, timezone
-from disnake import OptionType
+from disnake import OptionType, APISlashCommand
 
 from permissions import has_permissions, Permission
 from localization import get_localization
@@ -246,11 +246,12 @@ class HelpCog(commands.Cog):
                 command.id
             )
 
-            self.register_subcommands(
-                command.options or [],
-                command.name,
-                command.id
-            )
+            if isinstance(command, APISlashCommand):
+                self.register_subcommands(
+                    command.options or [],
+                    command.name,
+                    command.id
+                )
 
         print(len(COMMAND_MENTIONS))
 

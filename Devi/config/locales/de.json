@@ -532,6 +532,9 @@
             "param_duration": "Dauer des Banns (z. B. 1h, 3d, 30m)",
             "param_reason_name": "grund",
             "param_reason": "Grund für den Bann"
+        },
+        "make_quote": {
+            "name": "Als Zitat formatieren"
         }
     },
     "help": {
@@ -1325,5 +1328,11 @@
         "list_item": "• **{name}** — Titel: {count}",
         "play_empty": ";no; Diese Playlist enthält keine Titel.",
         "playing": ";music_note; Playlist **{name}** zur Warteschlange hinzugefügt (Titel: {count})."
+    },
+    "quote_cog": {
+        "no_text": ";no; Diese Nachricht enthält keinen Text, der zitiert werden kann.",
+        "button_color": "Farbversion",
+        "button_gray": "Schwarz-Weiß-Version",
+        "not_owner": ";no; Nur die Person, die den Befehl ausgeführt hat, kann diese Schaltfläche drücken."
     }
 }

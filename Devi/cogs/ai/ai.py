@@ -25,7 +25,7 @@ from cogs.voice import MAX_TTS_LENGTH, MAX_TTS_LENGTH_VOTED
 from cogs.ai import ai_limits
 from cogs.ai.ai_client import AiClient, AiRequestError, build_user_message, create_client, money
 from cogs.ai.ai_memory import (
-    add_exchange, clear_memory, load_history, purge_stored_images, IMAGE_PLACEHOLDER,
+    add_exchange, clear_memory, load_history, IMAGE_PLACEHOLDER,
     MAX_MESSAGES, MAX_MESSAGES_VOTED, MAX_HISTORY_CHARS, MAX_HISTORY_CHARS_VOTED,
 )
 from cogs.ai.ai_prompts import (
