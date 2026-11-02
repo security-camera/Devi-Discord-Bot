@@ -55,7 +55,7 @@
                 "Giveaways": "Розыгрыши (bot.Giveaways)",
                 "Warnings": "Предупреждения (bot.Warnings)",
                 "MusicBlackList": "Чёрный список музыки (bot.MusicBlackList)",
-                "ManageAi": "Управление ИИ (bot.ManageAi)",
+                "ManageLogs": "Управление логами (bot.ManageLogs)",
                 "ManageHoneypots": "Управление ловушками (bot.ManageHoneypots)"
             }
         },

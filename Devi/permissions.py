@@ -38,7 +38,7 @@ class Permission(IntFlag):
     Warnings = 1 << 8
     MusicBlackList = 1 << 9
     ManageHoneypots = 1 << 10
-    ManageAi = 1 << 11
+    ManageLogs = 1 << 11
 
     Admin = (
             ManageMention
@@ -48,7 +48,7 @@ class Permission(IntFlag):
             | SpecialAdminPermission
             | Giveaways
             | Warnings
-            | ManageAi
+            | ManageLogs
             | ManageHoneypots
     )
 

@@ -15,8 +15,10 @@ The same token must be configured on the website (BOT_API_TOKEN).
 Bind the API to a loopback or private address only: it is not meant to be public.
 
 Access mirrors the slash commands:
-    permissions, logs, birthdays, voice, honeypot, language -> bot.Admin or Discord "Administrator"
+    permissions, birthdays, voice, language -> bot.Admin or Discord "Administrator"
     triggers                                                -> bot.ManageTriggers or Discord "Administrator"
+    honeypot                                      -> bot.ManageHoneypots or Discord "Administrator"
+    logs                                          -> bot.ManageLogs or Discord "Administrator"
 
 All snowflake ids are sent as strings: JavaScript cannot hold 64-bit integers.
 """
@@ -58,7 +60,7 @@ API_PORT = env_int("DASHBOARD_API_PORT", 8765)
 MIN_TOKEN_LENGTH = 24
 
 SECTIONS = ("permissions", "logs", "birthdays", "voice", "honeypot", "triggers", "language")
-ADMIN_SECTIONS = {"permissions", "logs", "birthdays", "voice", "language"}
+ADMIN_SECTIONS = {"permissions", "birthdays", "voice", "language"}
 
 MAX_TRIGGERS_PER_GUILD = 100
 MAX_RESPONSES_PER_TRIGGER = 25
@@ -176,9 +178,11 @@ def _sections_for(member) -> set[str]:
     if has_permissions(member, _NO_CHANNEL, Permission.Admin):
         sections |= ADMIN_SECTIONS
     if has_permissions(member, _NO_CHANNEL, Permission.ManageHoneypots):
-        sections.add("honeypots")
+        sections.add("honeypot")
     if has_permissions(member, _NO_CHANNEL, Permission.ManageTriggers):
         sections.add("triggers")
+    if has_permissions(member, _NO_CHANNEL, Permission.ManageLogs):
+        sections.add("logs")
     return sections
 
 
@@ -492,7 +496,7 @@ class DashboardApi:
 
         # Channel and role names are only for people who configure the bot; a triggers-only
         # editor does not need to see private channels.
-        if sections & (ADMIN_SECTIONS | {"honeypot"}):
+        if sections & (ADMIN_SECTIONS | {"honeypot", "logs"}):
             data["channels"], data["categories"] = _serialize_channels(guild)
             data["roles"] = _serialize_roles(guild)
 

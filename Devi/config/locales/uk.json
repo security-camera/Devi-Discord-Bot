@@ -55,7 +55,7 @@
                 "Giveaways": "Розіграші (bot.Giveaways)",
                 "Warnings": "Попередження (bot.Warnings)",
                 "MusicBlackList": "Чорний список музики (bot.MusicBlackList)",
-                "ManageAi": "Керування ШІ (bot.ManageAi)",
+                "ManageLogs": "Керування логіми (bot.ManageLogs)",
                 "ManageHoneypots": "Керування каналами-ловушками (bot.ManageHoneypots)"
             }
         },

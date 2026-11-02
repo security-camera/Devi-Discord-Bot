@@ -55,7 +55,7 @@
                 "Giveaways": "Giveaways (bot.Giveaways)",
                 "Warnings": "Warnings (bot.Warnings)",
                 "MusicBlackList": "Music Blacklist (bot.MusicBlackList)",
-                "ManageAi": "Manage AI (bot.ManageAi)",
+                "ManageLogs": "Manage Logs (bot.ManageLogs)",
                 "ManageHoneypots": "Manage Honeypots (bot.ManageHoneypots)"
             }
         },

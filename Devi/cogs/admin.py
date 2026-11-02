@@ -17,7 +17,7 @@ class AdminCog(commands.Cog):
         name="set_log_channel",
         description=localized("commands.set_log_channel.description"),
     )
-    @require_permissions([{Permission.Admin: True}, {disnake.Permissions(manage_guild=True): True}])
+    @require_permissions([{Permission.ManageLogs: True}, {disnake.Permissions(manage_guild=True): True}])
     async def set_log_channel(
             self,
             inter: disnake.ApplicationCommandInteraction,

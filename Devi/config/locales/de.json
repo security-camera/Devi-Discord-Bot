@@ -55,7 +55,7 @@
                 "Giveaways": "Gewinnspiele (bot.Giveaways)",
                 "Warnings": "Verwarnungen (bot.Warnings)",
                 "MusicBlackList": "Musik-Sperrliste (bot.MusicBlackList)",
-                "ManageAi": "KI-Verwaltung (bot.ManageAi)",
+                "ManageLogs": "Log-Verwaltung (bot.ManageLogs)",
                 "ManageHoneypots": "Honeypot-Verwaltung (bot.ManageHoneypots)"
             }
         },

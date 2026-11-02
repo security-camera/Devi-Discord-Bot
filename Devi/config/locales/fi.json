@@ -55,7 +55,7 @@
                 "Giveaways": "Arvonnat (bot.Giveaways)",
                 "Warnings": "Varoitukset (bot.Warnings)",
                 "MusicBlackList": "Musiikin mustalista (bot.MusicBlackList)",
-                "ManageAi": "Tekoälyn hallinta (bot.ManageAi)",
+                "ManageLogs": "Lokijärjestelmän hallinta (bot.ManageLogs)",
                 "ManageHoneypots": "Honeypot-kanavien hallinta (bot.ManageHoneypots)"
             }
         },
