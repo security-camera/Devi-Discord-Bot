@@ -949,7 +949,7 @@
     "warns_cog": {
         "forever": "назавжди",
         "expires_relative": "до {relative}",
-        "line": "{status_emoji} **ID {id}** | статус: `{status}`\nПричина: {reason}\nТривалість: {duration}\nМодератор: {moderator} | видано: {created}\nАктивних попереджень: {active_warns}",
+        "line": "{status_emoji} **ID {id}** | статус: `{status}`\nПричина: {reason}\nТривалість: {duration}\nМодератор: {moderator} | видано: {created}",
         "log_expired_title": ";bell_muted; Попередження стало старим (термін минув)",
         "field_case_id": "ID попередження",
         "field_reason": "Причина",

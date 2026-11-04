@@ -948,7 +948,7 @@
     "warns_cog": {
         "forever": "für immer",
         "expires_relative": "bis {relative}",
-        "line": "{status_emoji} **ID {id}** | Status: `{status}`\nGrund: {reason}\nDauer: {duration}\nModerator: {moderator} | vergeben: {created}\nAktiv Verwarnung: {active_warns}",
+        "line": "{status_emoji} **ID {id}** | Status: `{status}`\nGrund: {reason}\nDauer: {duration}\nModerator: {moderator} | vergeben: {created}",
         "log_expired_title": ";bell_muted; Verwarnung ist abgelaufen",
         "field_case_id": "Verwarnungs-ID",
         "field_reason": "Grund",

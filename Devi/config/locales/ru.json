@@ -949,7 +949,7 @@
     "warns_cog": {
         "forever": "навсегда",
         "expires_relative": "до {relative}",
-        "line": "{status_emoji} **ID {id}** | статус: `{status}`\nПричина: {reason}\nДлительность: {duration}\nМодератор: {moderator} | выдано: {created}\nАктивных предупреждений: {active_warns}",
+        "line": "{status_emoji} **ID {id}** | статус: `{status}`\nПричина: {reason}\nДлительность: {duration}\nМодератор: {moderator} | выдано: {created}",
         "log_expired_title": ";bell_muted; Предупреждение стало старым (истёк срок)",
         "field_case_id": "ID предупреждения",
         "field_reason": "Причина",

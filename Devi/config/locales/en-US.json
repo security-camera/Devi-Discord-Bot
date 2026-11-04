@@ -949,7 +949,7 @@
     "warns_cog": {
         "forever": "forever",
         "expires_relative": "until {relative}",
-        "line": "{status_emoji} **ID {id}** | status: `{status}`\nReason: {reason}\nDuration: {duration}\nModerator: {moderator} | issued: {created}\nActive warns: {active_warns}",
+        "line": "{status_emoji} **ID {id}** | status: `{status}`\nReason: {reason}\nDuration: {duration}\nModerator: {moderator} | issued: {created}",
         "log_expired_title": ";bell_muted; A warning became old (expired)",
         "field_case_id": "Warning ID",
         "field_reason": "Reason",

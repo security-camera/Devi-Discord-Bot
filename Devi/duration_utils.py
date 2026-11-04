@@ -6,8 +6,6 @@ from datetime import datetime, timedelta, timezone
 import i18n
 from i18n import LocaleObject
 
-# Unit key -> seconds. Locale-INDEPENDENT — only the single-letter symbol
-# attached to each key changes between locales, not how many seconds it is.
 UNIT_SECONDS = {
     "second": 1,
     "minute": 60,
@@ -24,7 +22,6 @@ _FALLBACK_CHARS = {"second": "s", "minute": "m", "hour": "h", "day": "d", "week"
 
 
 def _duration_chars_for_locale(locale: LocaleObject) -> dict[str, str]:
-    """unit_key -> single-letter symbol for this locale"""
     raw = i18n.get_raw("duration_utils.duration_units_chars", locale=locale)
 
     if not isinstance(raw, dict) or not raw:
@@ -35,7 +32,6 @@ def _duration_chars_for_locale(locale: LocaleObject) -> dict[str, str]:
 
 
 def _duration_units_map(locale: LocaleObject) -> dict[str, int]:
-    """symbol -> seconds, for this specific locale."""
     chars = _duration_chars_for_locale(locale)
     return {char: UNIT_SECONDS[unit] for unit, char in chars.items()}
 
@@ -47,22 +43,42 @@ def _format_hint(locale: LocaleObject, invalid: str) -> str:
 
 
 def parse_duration_seconds(duration_str: str, locale: LocaleObject = None) -> "tuple[int | None, str | None]":
-    """Parses strings like '10m' into seconds, using the unit letters of `locale`."""
+    """Parses mixed duration strings like '3w4d', '30s' or '1h 30m' into seconds."""
     cleaned = duration_str.strip().lower()
+
+    if not cleaned:
+        return None, _format_hint(locale, duration_str)
 
     units = _duration_units_map(locale)
     unit_chars = "".join(re.escape(char) for char in units)
 
-    match = re.fullmatch(rf"(\d+)\s*([{unit_chars}])", cleaned)
-    if not match:
+    pattern = re.compile(rf"(\d+)\s*([{unit_chars}])")
+
+    total_seconds = 0
+    parsed_units = set()
+    position = 0
+
+    for match in pattern.finditer(cleaned):
+        amount_str, unit = match.groups()
+        gap = cleaned[position:match.start()]
+        if gap.strip():
+            return None, _format_hint(locale, duration_str)
+
+        if unit in parsed_units:
+            return None, _format_hint(locale, duration_str)
+
+        parsed_units.add(unit)
+
+        total_seconds += int(amount_str) * units[unit]
+        position = match.end()
+
+    if not parsed_units or cleaned[position:].strip():
         return None, _format_hint(locale, duration_str)
 
-    amount, unit = match.groups()
-    return int(amount) * units[unit], None
-
+    return total_seconds, None
 
 def parse_duration(duration_str: str, locale: LocaleObject = None) -> "tuple[str | None, str | None]":
-    """Returns (expires_at_iso, error). expires_at_iso = None means "forever"."""
+    """Returns (expires_at_iso, error). expires_at_iso can be None"""
     cleaned = duration_str.strip().lower()
 
     if not cleaned:

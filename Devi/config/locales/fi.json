@@ -949,7 +949,7 @@
     "warns_cog": {
         "forever": "ikuisesti",
         "expires_relative": "asti {relative}",
-        "line": "{status_emoji} **ID {id}** | tila: `{status}`\nSyy: {reason}\nKesto: {duration}\nModeraattori: {moderator} | annettu: {created}\nAktiivisia varoituksia: {active_warns}",
+        "line": "{status_emoji} **ID {id}** | tila: `{status}`\nSyy: {reason}\nKesto: {duration}\nModeraattori: {moderator} | annettu: {created}",
         "log_expired_title": ";bell_muted; Varoitus vanhentui (aika päättyi)",
         "field_case_id": "Varoituksen ID",
         "field_reason": "Syy",

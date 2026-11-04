@@ -949,7 +949,7 @@
     "warns_cog": {
         "forever": "para siempre",
         "expires_relative": "hasta {relative}",
-        "line": "{status_emoji} **ID {id}** | estado: `{status}`\nMotivo: {reason}\nDuración: {duration}\nModerador: {moderator} | puesta: {created}\nAdvertencias activas: {active_warns}",
+        "line": "{status_emoji} **ID {id}** | estado: `{status}`\nMotivo: {reason}\nDuración: {duration}\nModerador: {moderator} | puesta: {created}",
         "log_expired_title": ";bell_muted; La advertencia ha pasado a ser antigua (ha caducado)",
         "field_case_id": "ID de la advertencia",
         "field_reason": "Motivo",
