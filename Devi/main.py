@@ -3,7 +3,7 @@ from dotenv import load_dotenv
 
 import disnake
 import platform
-from disnake.ext import commands
+from disnake.ext import commands, tasks
 
 import db
 import permissions
@@ -62,12 +62,32 @@ EXTENSIONS = [
 for extension in EXTENSIONS:
     bot.load_extension(extension)
 
+@tasks.loop(minutes=1)
+async def update_presence():
+    unique_members = {
+        member.id for member in bot.get_all_members() if not member.bot
+    }
+
+    await bot.change_presence(
+        activity=disnake.Game(
+            name=f"Serving: {len(bot.guilds):,} servers | {len(unique_members):,} unique members"
+        )
+    )
+
+
+@update_presence.before_loop
+async def before_update_presence():
+    await bot.wait_until_ready()
+
 @bot.event
 async def on_ready():
     print(f"✅ Bot {bot.user} is online!")
     print(platform.system())
     print(platform.machine())
     await load_custom_emojis(bot)
+
+    if not update_presence.is_running():
+        update_presence.start()
 
 if __name__ == "__main__":
     try:
