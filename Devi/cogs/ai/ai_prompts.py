@@ -2,6 +2,7 @@
 
 from permissions import DEVELOPER_LIST
 from db import db_cursor
+from crypto_utils import encrypt, decrypt
 
 #No limit prompts: available only for devs. Doesn`t have content restrictions.
 #Custom user instructions: personal changing of system prompt for a specific user.
@@ -157,14 +158,14 @@ def load_instructions() -> dict[int, str]:
         rows = cur.fetchall()
 
     CUSTOM_USER_INSTRUCTIONS = {
-        row["user_id"]: row["instruction"]
+        row["user_id"]: decrypt(row["instruction"])
         for row in rows
     }
     return CUSTOM_USER_INSTRUCTIONS
 
 
 def set_user_instruction(user_id: int, instruction: str):
-    CUSTOM_USER_INSTRUCTIONS[user_id] = instruction
+    CUSTOM_USER_INSTRUCTIONS[user_id] = encrypt(instruction)
     save_instructions()
 
 

@@ -9,6 +9,7 @@ from logs import send_log, LogColor
 from discord_i18n import localized
 from db import db_cursor
 from permissions import Permission, require_permissions
+from crypto_utils import encrypt, decrypt
 
 
 def load_warns() -> list:
@@ -19,10 +20,21 @@ def load_warns() -> list:
                FROM warns ORDER BY id"""
         )
         rows = cur.fetchall()
-    return [dict(row) for row in rows]
+
+    warns = [dict(row) for row in rows]
+
+    for warn in warns:
+        warn["reason"] = decrypt(warn["reason"])
+
+    return warns
 
 
 def save_warns(warns: list):
+    encrypted_warns = [
+        {**warn, "reason": encrypt(warn["reason"])}
+        for warn in warns
+    ]
+
     with db_cursor(commit=True) as cur:
         cur.execute("DELETE FROM warns")
         cur.executemany(
@@ -32,7 +44,7 @@ def save_warns(warns: list):
                VALUES
                    (%(id)s, %(guild_id)s, %(user_id)s, %(moderator_id)s, %(reason)s,
                     %(duration_raw)s, %(created_at)s, %(expires_at)s, %(status)s)""",
-            warns,
+            encrypted_warns,
         )
 
 

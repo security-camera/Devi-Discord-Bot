@@ -7,7 +7,7 @@ from i18n import LocaleObject
 from permissions import Permission, require_permissions
 from discord_i18n import localized, yes_no_choices, bool_to_yes_no_str
 from emojis import get_component_emoji
-
+from crypto_utils import encrypt, decrypt
 from db import db_cursor
 
 from enum import IntEnum
@@ -62,15 +62,18 @@ def get_dm_opt_out(user_id: int) -> DmOptOutStatus:
 
 # ------------------------------------------------------------ sticky storage
 
-
 def load_sticky_messages() -> dict[int, dict]:
     with db_cursor() as cur:
-        cur.execute("SELECT channel_id, guild_id, content, message_id, created_by FROM sticky_messages")
+        cur.execute(
+            """SELECT channel_id, guild_id, content, message_id, created_by
+               FROM sticky_messages"""
+        )
         rows = cur.fetchall()
+
     return {
         row["channel_id"]: {
             "guild_id": row["guild_id"],
-            "content": row["content"],
+            "content": decrypt(row["content"]),
             "message_id": row["message_id"],
             "created_by": row["created_by"],
         }
@@ -78,46 +81,59 @@ def load_sticky_messages() -> dict[int, dict]:
     }
 
 
-def save_sticky_messages(records: dict[int, dict]):
+def set_sticky_message(channel_id: int, guild_id: int, content: str, message_id: int | None, created_by: int) -> None:
+    encrypted_content = encrypt(content)
+
     with db_cursor(commit=True) as cur:
-        cur.execute("DELETE FROM sticky_messages")
-        cur.executemany(
-            "INSERT INTO sticky_messages (channel_id, guild_id, content, message_id, created_by) VALUES (%s, %s, %s, %s, %s)",
-            [
-                (channel_id, r["guild_id"], r["content"], r["message_id"], r["created_by"])
-                for channel_id, r in records.items()
-            ],
+        cur.execute(
+            """INSERT INTO sticky_messages
+                   (channel_id, guild_id, content, message_id, created_by)
+               VALUES (%s, %s, %s, %s, %s)
+               ON CONFLICT (channel_id) DO UPDATE SET
+                   guild_id = EXCLUDED.guild_id,
+                   content = EXCLUDED.content,
+                   message_id = EXCLUDED.message_id,
+                   created_by = EXCLUDED.created_by""",
+            (channel_id, guild_id, encrypted_content, message_id, created_by),
         )
 
-
-def set_sticky_message(channel_id: int, guild_id: int, content: str, message_id: int | None, created_by: int) -> None:
     sticky_messages[channel_id] = {
         "guild_id": guild_id,
         "content": content,
         "message_id": message_id,
         "created_by": created_by,
     }
-    save_sticky_messages(sticky_messages)
 
 
 def update_sticky_message_id(channel_id: int, message_id: int | None) -> None:
     if channel_id not in sticky_messages:
         return
+
+    with db_cursor(commit=True) as cur:
+        cur.execute(
+            "UPDATE sticky_messages SET message_id = %s WHERE channel_id = %s",
+            (message_id, channel_id),
+        )
+
     sticky_messages[channel_id]["message_id"] = message_id
-    save_sticky_messages(sticky_messages)
 
 
 def remove_sticky_message(channel_id: int) -> bool:
     if channel_id not in sticky_messages:
         return False
+
+    with db_cursor(commit=True) as cur:
+        cur.execute(
+            "DELETE FROM sticky_messages WHERE channel_id = %s",
+            (channel_id,),
+        )
+
     del sticky_messages[channel_id]
-    save_sticky_messages(sticky_messages)
     return True
 
 
 def get_sticky_message(channel_id: int) -> dict | None:
-    return sticky_messages.get(channel_id, None)
-
+    return sticky_messages.get(channel_id)
 
 # noinspection unused-parameter
 class DenySendDmView(disnake.ui.View):
@@ -174,8 +190,22 @@ class SendCog(commands.Cog):
     @staticmethod
     def format_sticky(message: str, locale: LocaleObject, sent_by_user: bool = True):
         title = "***__" + i18n.t("send_sticky_cmd.sticky_message", locale=locale) + "__***"
-        footer = i18n.t('send_message_cmd.warning', locale=locale)
-        return f"{title}\n\n{message}" + (f"\n\n{footer}" if sent_by_user else "")
+        footer = i18n.t("send_message_cmd.warning", locale=locale)
+
+        message = message.strip()
+
+        while message.startswith(title):
+            message = message[len(title):].lstrip()
+
+        while message.endswith(footer):
+            message = message[:-len(footer)].rstrip()
+
+        formatted = f"{title}\n\n{message}"
+
+        if sent_by_user:
+            formatted += f"\n\n{footer}"
+
+        return formatted
 
 
     # ------------------------------------------------------- sticky repost
@@ -199,7 +229,7 @@ class SendCog(commands.Cog):
                 raise RuntimeError(f"An HTTP error detected while reposting (deleting old) sticky message: {e}")
 
         try:
-            new_message = await message.channel.send(self.format_sticky(record["content"], locale=message.guild.id, sent_by_user=record["created_by"]!=str(self.bot.user.id)))
+            new_message = await message.channel.send(self.format_sticky(record["content"], locale=message.guild.id, sent_by_user=int(record["created_by"]) != self.bot.user.id))
             update_sticky_message_id(message.channel.id, new_message.id)
         except (disnake.NotFound, disnake.Forbidden):
             pass

@@ -11,30 +11,34 @@ from discord_i18n import localized, add_remove_check_choices
 from db import db_cursor
 from other_apis.topgg_utils import vote_value
 from paths import env_int
+from crypto_utils import encrypt, decrypt
 
 RESPONSE_COOLDOWN = env_int("RESPONSE_COOLDOWN", 3)
 RESPONSE_COOLDOWN_VOTED = env_int("RESPONSE_COOLDOWN_VOTED", 0)
 
 
 def load_triggers() -> dict[int, dict[str, list[str]]]:
-    """Loads triggers from DB. Structure: {guild_id: {regex: [responses]}}."""
+    """Loads and decrypts triggers from DB."""
 
     with db_cursor() as cur:
         cur.execute("SELECT id, guild_id, pattern FROM triggers ORDER BY guild_id, sort_order, id")
         trigger_rows = cur.fetchall()
-        cur.execute(
-            "SELECT trigger_id, response FROM trigger_responses ORDER BY trigger_id, sort_order, id"
-        )
+
+        cur.execute("SELECT trigger_id, response FROM trigger_responses ORDER BY trigger_id, sort_order, id")
         response_rows = cur.fetchall()
 
     responses_by_trigger: dict[int, list[str]] = {}
+
     for row in response_rows:
-        responses_by_trigger.setdefault(row["trigger_id"], []).append(row["response"])
+        responses_by_trigger.setdefault(row["trigger_id"], []).append(decrypt(row["response"]))
 
     result: dict[int, dict[str, list[str]]] = {}
+
     for row in trigger_rows:
         guild_triggers = result.setdefault(row["guild_id"], {})
-        guild_triggers[row["pattern"]] = responses_by_trigger.get(row["id"], [])
+        pattern = decrypt(row["pattern"])
+
+        guild_triggers[pattern] = responses_by_trigger.get(row["id"], [])
 
     if not result:
         print("⚠️ Triggers table is empty!")
@@ -43,20 +47,29 @@ def load_triggers() -> dict[int, dict[str, list[str]]]:
 
 
 def save_triggers(triggers: dict[int, dict[str, list[str]]]):
+    """Encrypts and saves all triggers to DB."""
+    encrypted_triggers = []
+
+    for guild_id, guild_triggers in triggers.items():
+        for order, (pattern, responses) in enumerate(guild_triggers.items()):
+            encrypted_triggers.append((guild_id, encrypt(pattern), order, [encrypt(response) for response in responses]))
+
     with db_cursor(commit=True) as cur:
-        cur.execute("DELETE FROM triggers")  # cascades to trigger_responses
-        for guild_id, guild_triggers in triggers.items():
-            for order, (pattern, responses) in enumerate(guild_triggers.items()):
-                cur.execute(
-                    "INSERT INTO triggers (guild_id, pattern, sort_order) VALUES (%s, %s, %s) RETURNING id",
-                    (guild_id, pattern, order),
+        cur.execute("DELETE FROM triggers")
+
+        for guild_id, encrypted_pattern, order, responses in encrypted_triggers:
+            cur.execute(
+                "INSERT INTO triggers (guild_id, pattern, sort_order) VALUES (%s, %s, %s) RETURNING id",
+                (guild_id, encrypted_pattern, order),
+            )
+
+            trigger_id = cur.fetchone()["id"]
+
+            if responses:
+                cur.executemany(
+                    "INSERT INTO trigger_responses (trigger_id, response, sort_order) VALUES (%s, %s, %s)",
+                    [(trigger_id, response, i) for i, response in enumerate(responses)],
                 )
-                trigger_id = cur.fetchone()["id"]
-                if responses:
-                    cur.executemany(
-                        "INSERT INTO trigger_responses (trigger_id, response, sort_order) VALUES (%s, %s, %s)",
-                        [(trigger_id, response, i) for i, response in enumerate(responses)],
-                    )
 
 
 class TriggersCog(commands.Cog):

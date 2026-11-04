@@ -10,6 +10,7 @@ from logs import send_log, LogColor
 from discord_i18n import localized, bool_to_yes_no_str
 from permissions import validate_permissions, Permission, require_permissions
 from paths import env_int
+from crypto_utils import encrypt, decrypt
 
 # Hour (UTC) to check birthdays
 BIRTHDAY_CHECK_HOUR_UTC = env_int("BIRTHDAY_CHECK_HOUR_UTC", 9)
@@ -28,15 +29,15 @@ def is_valid_day(day: int, month: int) -> bool:
 
 
 def load_birthdays() -> dict[int, dict]:
-    """Returns all birthdays: user_id -> {"day", "month", "ping_on_servers"}"""
+    """Returns all birthdays: user_id -> {"day", "month", "ping_on_servers}"""
     with db_cursor() as cur:
         cur.execute("SELECT user_id, day, month, ping_on_servers FROM birthdays")
         rows = cur.fetchall()
 
     return {
         row["user_id"]: {
-            "day": row["day"],
-            "month": row["month"],
+            "day": int(decrypt(row["day"])),
+            "month": int(decrypt(row["month"])),
             "ping_on_servers": bool(row["ping_on_servers"]),
         }
         for row in rows
@@ -52,7 +53,7 @@ def save_birthday(user_id: int, day: int, month: int, ping_on_servers: bool):
                    day = excluded.day,
                    month = excluded.month,
                    ping_on_servers = excluded.ping_on_servers""",
-            (user_id, day, month, int(ping_on_servers)),
+            (user_id, encrypt(str(day)), encrypt(str(month)), int(ping_on_servers)),
         )
 
 
@@ -67,7 +68,7 @@ def get_birthday(user_id: int) -> tuple[int, int, bool] | None:
     if not row:
         return None
 
-    return row["day"], row["month"], bool(row["ping_on_servers"])
+    return int(decrypt(row["day"])), int(decrypt(row["month"])), bool(row["ping_on_servers"])
 
 
 def remove_birthday(user_id: int) -> bool:
