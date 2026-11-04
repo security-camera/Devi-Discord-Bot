@@ -13,6 +13,7 @@ import json
 
 from db import db_cursor
 from paths import env_int
+from crypto_utils import encrypt, decrypt
 
 MAX_MESSAGES = env_int("AI_MAX_MESSAGES", 20)
 MAX_MESSAGES_VOTED = env_int("AI_MAX_MESSAGES_VOTED", 40)
@@ -50,7 +51,7 @@ def _text_to_content(text: str) -> str:
 
 
 def load_history(guild_id: int, user_id: int) -> list[dict]:
-    """Chat history as OpenAI-style messages: [{"role": "user" | "assistant", "content": "..."}]."""
+    """Chat history as OpenAI-style messages."""
     with db_cursor() as cur:
         cur.execute(
             "SELECT role, content FROM ai_memory WHERE guild_id = %s AND user_id = %s ORDER BY id",
@@ -60,7 +61,7 @@ def load_history(guild_id: int, user_id: int) -> list[dict]:
 
     history = []
     for row in rows:
-        text = _content_to_text(row["content"])
+        text = _content_to_text(decrypt(row["content"]))
         if text:
             history.append({"role": row["role"], "content": text})
     return history
@@ -97,10 +98,10 @@ def plan_trim(rows: list[tuple[int, str, int]], max_messages: int, max_chars: in
 
 
 def add_exchange(guild_id: int, user_id: int, user_text: str, assistant_text: str, max_messages: int, max_chars: int):
-    """Saves one question/answer pair and trims the history if it got too long."""
+    """Encrypts and saves one question/answer pair, then trims history."""
     new_rows = [
-        (guild_id, user_id, "user", _text_to_content(user_text)),
-        (guild_id, user_id, "assistant", _text_to_content(assistant_text)),
+        (guild_id, user_id, "user", encrypt(_text_to_content(user_text))),
+        (guild_id, user_id, "assistant", encrypt(_text_to_content(assistant_text))),
     ]
 
     with db_cursor(commit=True) as cur:
@@ -110,10 +111,14 @@ def add_exchange(guild_id: int, user_id: int, user_text: str, assistant_text: st
         )
 
         cur.execute(
-            "SELECT id, role, LENGTH(content) AS size FROM ai_memory WHERE guild_id = %s AND user_id = %s ORDER BY id",
+            """SELECT id, role, content FROM ai_memory WHERE guild_id = %s AND user_id = %s ORDER BY id""",
             (guild_id, user_id),
         )
-        rows = [(int(r["id"]), r["role"], int(r["size"])) for r in cur.fetchall()]
+
+        rows = [
+            (int(r["id"]), r["role"], len(decrypt(r["content"])))
+            for r in cur.fetchall()
+        ]
 
         drop = plan_trim(rows, max_messages, max_chars)
         if drop:
