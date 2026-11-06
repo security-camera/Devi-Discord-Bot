@@ -1335,9 +1335,29 @@
     },
     "quote_cog": {
         "no_text": ";no; Tässä viestissä ei ole tekstiä, josta voisi tehdä lainauksen.",
-        "button_color": "Värillinen versio",
-        "button_gray": "Mustavalkoinen versio",
-        "not_owner": ";no; Vain komennon suorittanut henkilö voi painaa tätä painiketta."
+        "not_owner": ";no; Vain komennon suorittanut henkilö voi painaa tätä painiketta.",
+        "font_placeholder": "Fontti",
+        "font_default": "Oletus",
+        "buttons": {
+            "color": "Värillinen versio",
+            "gray": "Mustavalkoinen versio",
+            "tint": "Värisävy versio",
+            "vertical": "Pystysuuntainen",
+            "horizontal": "Vaakasuuntainen"
+        },
+        "colors": {
+            "placeholder": "Tekstin väri",
+            "white": "Valkoinen",
+            "red": "Punainen",
+            "orange": "Oranssi",
+            "yellow": "Keltainen",
+            "green": "Vihreä",
+            "cyan": "Syaani",
+            "blue": "Sininen",
+            "purple": "Violetti",
+            "pink": "Vaaleanpunainen",
+            "auto": "Avatarista"
+        }
     },
     "gif_cog": {
         "no_media": ";no; Tässä viestissä ei ole kuvaa, tekstiä eikä videota.",

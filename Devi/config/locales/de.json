@@ -1333,10 +1333,30 @@
         "playing": ";music_note; Playlist **{name}** zur Warteschlange hinzugefügt (Titel: {count})."
     },
     "quote_cog": {
-        "no_text": ";no; Diese Nachricht enthält keinen Text, der zitiert werden kann.",
-        "button_color": "Farbversion",
-        "button_gray": "Schwarz-Weiß-Version",
-        "not_owner": ";no; Nur die Person, die den Befehl ausgeführt hat, kann diese Schaltfläche drücken."
+        "no_text": ";no; Diese Nachricht enthält keinen Text, aus dem ein Zitat erstellt werden kann.",
+        "not_owner": ";no; Nur die Person, die den Befehl aufgerufen hat, kann diese Schaltfläche drücken.",
+        "font_placeholder": "Schriftart",
+        "font_default": "Standard",
+        "buttons": {
+            "color": "Farbversion",
+            "gray": "Schwarz-Weiß-Version",
+            "tint": "Farbton",
+            "vertical": "Vertikal",
+            "horizontal": "Horizontal"
+        },
+        "colors": {
+            "placeholder": "Textfarbe",
+            "white": "Weiß",
+            "red": "Rot",
+            "orange": "Orange",
+            "yellow": "Gelb",
+            "green": "Grün",
+            "cyan": "Cyan",
+            "blue": "Blau",
+            "purple": "Violett",
+            "pink": "Rosa",
+            "auto": "Aus dem Avatar"
+        }
     },
     "gif_cog": {
         "no_media": ";no; Diese Nachricht enthält kein Bild, keinen Text und kein Video.",

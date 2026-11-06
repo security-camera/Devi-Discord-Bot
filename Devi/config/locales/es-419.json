@@ -1334,10 +1334,30 @@
         "playing": ";music_note; Lista **{name}** agregada a la cola (canciones: {count})."
     },
     "quote_cog": {
-        "no_text": ";no; Este mensaje no contiene texto que se pueda convertir en una cita.",
-        "button_color": "Versión a color",
-        "button_gray": "Versión en blanco y negro",
-        "not_owner": ";no; Solo quien ejecutó el comando puede presionar este botón."
+        "no_text": ";no; Este mensaje no contiene texto del que se pueda crear una cita.",
+        "not_owner": ";no; Solo quien ejecutó el comando puede presionar este botón.",
+        "font_placeholder": "Fuente",
+        "font_default": "Predeterminada",
+        "buttons": {
+            "color": "Versión a color",
+            "gray": "Versión en blanco y negro",
+            "tint": "Versión a Tono",
+            "vertical": "Vertical",
+            "horizontal": "Horizontal"
+        },
+        "colors": {
+            "placeholder": "Color del texto",
+            "white": "Blanco",
+            "red": "Rojo",
+            "orange": "Naranja",
+            "yellow": "Amarillo",
+            "green": "Verde",
+            "cyan": "Cian",
+            "blue": "Azul",
+            "purple": "Morado",
+            "pink": "Rosa",
+            "auto": "Del avatar"
+        }
     },
     "gif_cog": {
         "no_media": ";no; Este mensaje no contiene ninguna imagen, texto ni video.",

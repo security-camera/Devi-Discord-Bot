@@ -1334,10 +1334,30 @@
         "playing": ";music_note; Playlist **{name}** added to the queue (tracks: {count})."
     },
     "quote_cog": {
-        "no_text": ";no; This message doesn't contain any text that can be turned into a quote.",
-        "button_color": "Color version",
-        "button_gray": "Grayscale version",
-        "not_owner": ";no; Only the person who invoked the command can press this button."
+        "no_text": ";no; There is no text in this message to quote.",
+        "not_owner": ";no; Only the person who invoked the command can press this button.",
+        "font_placeholder": "Font",
+        "font_default": "Default",
+        "buttons": {
+            "color": "Color version",
+            "gray": "Grayscale version",
+            "tint": "Tint version",
+            "vertical": "Vertical",
+            "horizontal": "Horizontal"
+        },
+        "colors": {
+            "placeholder": "Text color",
+            "white": "White",
+            "red": "Red",
+            "orange": "Orange",
+            "yellow": "Yellow",
+            "green": "Green",
+            "cyan": "Cyan",
+            "blue": "Blue",
+            "purple": "Purple",
+            "pink": "Pink",
+            "auto": "From avatar"
+        }
     },
     "gif_cog": {
         "no_media": ";no; This message doesn't contain an image, text, or video.",

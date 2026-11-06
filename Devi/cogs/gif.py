@@ -3,7 +3,6 @@ import logging
 import tempfile
 from io import BytesIO
 from pathlib import Path
-from typing import TYPE_CHECKING
 from urllib.parse import urlparse
 
 import aiohttp
@@ -16,8 +15,8 @@ from discord_i18n import localized
 
 from paths import env_int
 
-if TYPE_CHECKING:
-    from cogs.quotes.quotes import QuotesCog
+from cogs.quotes.image_generator import list_fonts
+from cogs.quotes.quotes import QuoteData, QuotesCog, QuoteView, RenderError
 
 log = logging.getLogger(__name__)
 
@@ -36,7 +35,9 @@ IMAGE_PRESETS = [800, 480, 320] # max side in pixels
 
 SEMAPHORE = env_int("GIF_SEMAPHORE", 10) # Do not run more than N heavy conversions at the same time
 
+# Used when the message has no media and a quote picture is rendered instead
 QUOTE_FILENAME = "quote.png"
+
 
 class ConversionError(Exception):
     pass
@@ -144,6 +145,28 @@ async def _video_to_gif(data: bytes, suffix: str, width: int, fps: int) -> bytes
         return await asyncio.to_thread(dst.read_bytes)
 
 
+class GifQuoteView(QuoteView):
+    """QuoteView whose picture is delivered as a GIF, so every tweak re-renders a GIF."""
+
+    def __init__(self, inter: disnake.MessageCommandInteraction, data: QuoteData, fonts: dict[str, Path], cog: "GifCog", limit: int):
+        super().__init__(inter, data, fonts)
+        self.cog = cog
+        self.limit = limit
+
+    async def render_file(self, options) -> disnake.File:
+        png = await self.render_png(options)
+        try:
+            async with self.cog._semaphore:
+                result = await self.cog._convert("image", QUOTE_FILENAME, png.getvalue(), self.limit)
+        except Exception:
+            log.exception("GIF conversion failed")
+            raise RenderError(self._t("gif_cog.convert_failed"))
+
+        if not result:
+            raise RenderError(self._t("gif_cog.result_too_large"))
+        return disnake.File(BytesIO(result), filename=f"{Path(QUOTE_FILENAME).stem}.gif")
+
+
 class GifCog(commands.Cog):
     def __init__(self, bot: commands.InteractionBot):
         self.bot = bot
@@ -164,6 +187,18 @@ class GifCog(commands.Cog):
                     return result
         return None
 
+    async def _send_quote_gif(self, inter: disnake.MessageCommandInteraction, quotes: QuotesCog, limit: int):
+        data = await quotes.prepare_quote(inter.target)
+        if not data:
+            return await inter.edit_original_response(content=i18n.t("gif_cog.no_media", inter))
+
+        view = GifQuoteView(inter, data, list_fonts(), self, limit)
+        try:
+            file = await view.render_file(view.options)
+        except RenderError as error:
+            return await inter.edit_original_response(content=str(error))
+        return await inter.edit_original_response(file=file, view=view)
+
     @commands.message_command(
         name=localized("commands.make_gif.name"),
         install_types=disnake.ApplicationInstallTypes.all(),
@@ -172,28 +207,26 @@ class GifCog(commands.Cog):
     async def make_gif(self, inter: disnake.MessageCommandInteraction):
         message = inter.target
         found = _find_media(message)
-        quotes: "QuotesCog | None" = None
+        quotes: QuotesCog | None = None
 
         if found:
             kind, filename, source = found
             if Path(filename).suffix.lower() == ".gif":
                 return await inter.response.send_message(i18n.t("gif_cog.already_gif", inter), ephemeral=True)
         else:
-            # No media: fall back to a quote picture rendered by QuotesCog
+            # No media: fall back to a quote picture made by QuotesCog
             quotes = self.bot.get_cog("QuotesCog")
-            if not quotes or not quotes.can_quote(message):
+            if quotes is None or not quotes.can_quote(message):
                 return await inter.response.send_message(i18n.t("gif_cog.no_media", inter), ephemeral=True)
-            kind, filename = "image", QUOTE_FILENAME
 
         await inter.response.defer()
         limit = getattr(inter, "filesize_limit", DEFAULT_FILESIZE_LIMIT)
 
+        if quotes:
+            return await self._send_quote_gif(inter, quotes, limit)
+
         try:
-            if found:
-                # noinspection unbound-local-variable
-                data = await _download(source)
-            else:
-                data = (await quotes.render_message(message)).getvalue()
+            data = await _download(source)
         except TooLarge:
             return await inter.edit_original_response(content=i18n.t("gif_cog.source_too_large", inter))
         except (aiohttp.ClientError, asyncio.TimeoutError, disnake.HTTPException):
