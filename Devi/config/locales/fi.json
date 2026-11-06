@@ -538,6 +538,9 @@
         },
         "make_gif": {
             "name": "Muunna GIF-muotoon"
+        },
+        "caption": {
+            "name": "Lisää kuvateksti mediaan"
         }
     },
     "help": {
@@ -1366,5 +1369,25 @@
         "download_failed": ";no; Tiedoston lataaminen epäonnistui.",
         "convert_failed": ";no; Tiedoston muuntaminen epäonnistui.",
         "result_too_large": ";no; GIF ylittää Discordin kokorajan jopa heikoimmalla laadulla."
+    },
+    "caption_cog": {
+        "no_media": ";no; Tässä viestissä ei ole kuvaa eikä videota.",
+        "empty_text": ";no; Kuvateksti ei voi olla tyhjä.",
+        "source_too_large": ";no; Lähdetiedosto on liian suuri (enintään 50 Mt).",
+        "download_failed": ";no; Tiedoston lataaminen epäonnistui.",
+        "convert_failed": ";no; Tiedoston käsittely epäonnistui.",
+        "result_too_large": ";no; Tulos ylittää Discordin kokorajan jopa heikoimmalla laadulla.",
+        "not_owner": ";no; Vain komennon suorittanut henkilö voi painaa tätä painiketta.",
+        "modal": {
+            "title": "Kuvateksti",
+            "label": "Kuvatekstin teksti",
+            "placeholder": "Jotain hauskaa"
+        },
+        "buttons": {
+            "outside": "Meemin ulkopuolella",
+            "on": "Meemin päällä",
+            "top": "Ylhäällä",
+            "bottom": "Alhaalla"
+        }
     }
 }

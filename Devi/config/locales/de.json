@@ -538,6 +538,9 @@
         },
         "make_gif": {
             "name": "In GIF konvertieren"
+        },
+        "caption": {
+            "name": "Medien beschriften"
         }
     },
     "help": {
@@ -1365,5 +1368,25 @@
         "download_failed": ";no; Die Datei konnte nicht heruntergeladen werden.",
         "convert_failed": ";no; Die Datei konnte nicht konvertiert werden.",
         "result_too_large": ";no; Selbst bei minimaler Qualität überschreitet das GIF das Größenlimit von Discord."
+    },
+    "caption_cog": {
+        "no_media": ";no; Diese Nachricht enthält weder ein Bild noch ein Video.",
+        "empty_text": ";no; Die Bildunterschrift darf nicht leer sein.",
+        "source_too_large": ";no; Die Quelldatei ist zu groß (maximal 50 MB).",
+        "download_failed": ";no; Die Datei konnte nicht heruntergeladen werden.",
+        "convert_failed": ";no; Die Datei konnte nicht verarbeitet werden.",
+        "result_too_large": ";no; Das Ergebnis überschreitet selbst bei minimaler Qualität das Discord-Limit.",
+        "not_owner": ";no; Nur die Person, die den Befehl aufgerufen hat, kann diese Schaltfläche drücken.",
+        "modal": {
+            "title": "Bildunterschrift",
+            "label": "Text der Bildunterschrift",
+            "placeholder": "Etwas Lustiges"
+        },
+        "buttons": {
+            "outside": "Außerhalb des Memes",
+            "on": "Auf dem Meme",
+            "top": "Oben",
+            "bottom": "Unten"
+        }
     }
 }

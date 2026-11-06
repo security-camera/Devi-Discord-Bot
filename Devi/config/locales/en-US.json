@@ -538,6 +538,9 @@
         },
         "make_gif": {
             "name": "Convert to GIF"
+        },
+        "caption": {
+            "name": "Add a caption to media"
         }
     },
     "help": {
@@ -1366,5 +1369,25 @@
         "download_failed": ";no; Failed to download the file.",
         "convert_failed": ";no; Failed to convert the file.",
         "result_too_large": ";no; Even at the lowest quality, the GIF exceeds Discord's size limit."
+    },
+    "caption_cog": {
+        "no_media": ";no; This message does not contain an image or video.",
+        "empty_text": ";no; The caption cannot be empty.",
+        "source_too_large": ";no; The source file is too large (maximum 50 MB).",
+        "download_failed": ";no; Failed to download the file.",
+        "convert_failed": ";no; Failed to process the file.",
+        "result_too_large": ";no; The result exceeds Discord's size limit, even at the lowest quality.",
+        "not_owner": ";no; Only the person who invoked the command can press this button.",
+        "modal": {
+            "title": "Caption",
+            "label": "Caption text",
+            "placeholder": "Something funny"
+        },
+        "buttons": {
+            "outside": "Outside the meme",
+            "on": "On the meme",
+            "top": "Top",
+            "bottom": "Bottom"
+        }
     }
 }
