@@ -14,7 +14,7 @@ import math
 from dataclasses import dataclass
 from datetime import date, datetime, timedelta, timezone
 
-from cogs.ai.ai_client import env_float, load_provider
+from cogs.ai.client import env_float, load_provider
 from db import db_cursor
 from paths import env_int
 

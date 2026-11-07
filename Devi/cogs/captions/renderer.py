@@ -10,7 +10,7 @@ from pathlib import Path
 
 from PIL import Image, ImageDraw, ImageOps, ImageSequence
 
-from cogs.quotes.image_generator import FONT_BOLD, _ellipsize, _font, _wrap
+from cogs.quotes.renderer import FONT_BOLD, _ellipsize, _font, _wrap
 
 log = logging.getLogger(__name__)
 

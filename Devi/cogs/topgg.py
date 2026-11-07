@@ -3,11 +3,11 @@ from discord_i18n import localized
 
 import disnake
 from disnake.ext import commands
-from other_apis.topgg_utils import is_voted
+from apis_integration.topgg import is_voted
 
 from cogs.ai.ai import (COOLDOWN_SECONDS as AI_COOLDOWN_SECONDS, COOLDOWN_SECONDS_VOTED as AI_COOLDOWN_SECONDS_VOTED)
-from cogs.ai.ai_memory import MAX_MESSAGES, MAX_MESSAGES_VOTED
-from cogs.ai.ai_limits import USER_DAILY_REQUESTS, USER_DAILY_REQUESTS_VOTED
+from cogs.ai.memory import MAX_MESSAGES, MAX_MESSAGES_VOTED
+from cogs.ai.limits import USER_DAILY_REQUESTS, USER_DAILY_REQUESTS_VOTED
 from cogs.clear import COUNT, COUNT_VOTED
 from cogs.mentions import (MAX_MESSAGES as MENTION_MAX_MESSAGES, MAX_MESSAGES_VOTED as MENTION_MAX_MESSAGES_VOTED, COOLDOWN_TIME, COOLDOWN_TIME_VOTED)
 from cogs.triggers import RESPONSE_COOLDOWN, RESPONSE_COOLDOWN_VOTED

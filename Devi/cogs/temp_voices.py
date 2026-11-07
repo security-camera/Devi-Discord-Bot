@@ -10,7 +10,7 @@ from emojis import get_component_emoji
 from discord_i18n import localized
 from logs import send_log, LogColor
 from permissions import require_permissions, has_permissions, Permission, PermissionCheckType
-from other_apis.topgg_utils import require_vote
+from apis_integration.topgg import require_vote
 from paths import env_bool, env_var
 
 DEFAULT_NAME_TEMPLATE = env_var("DEFAULT_NAME_TEMPLATE", "[user]`s channel")

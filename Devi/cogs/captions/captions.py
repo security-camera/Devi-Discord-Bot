@@ -14,7 +14,7 @@ from discord_i18n import localized
 from paths import env_int
 from cogs.gif import DEFAULT_FILESIZE_LIMIT, TooLarge, _download, _find_media
 from cogs.captions.renderer import CaptionOptions, ResultTooLarge, is_animated, render_animated, render_static, render_video
-from cogs.quotes.image_generator import font_label, list_fonts
+from cogs.quotes.renderer import font_label, list_fonts
 from cogs.quotes.quotes import RenderError
 
 log = logging.getLogger(__name__)

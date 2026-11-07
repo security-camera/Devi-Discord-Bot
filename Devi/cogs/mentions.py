@@ -7,7 +7,7 @@ from disnake.ext import commands
 import i18n
 from permissions import Permission, has_permissions, require_permissions
 from discord_i18n import localized
-from other_apis.topgg_utils import vote_value
+from apis_integration.topgg import vote_value
 from paths import env_int
 
 MAX_MESSAGES = env_int("MAX_MENTIONS", 10)

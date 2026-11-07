@@ -15,7 +15,7 @@ from discord_i18n import localized
 
 from paths import env_int
 
-from cogs.quotes.image_generator import list_fonts
+from cogs.quotes.renderer import list_fonts
 from cogs.quotes.quotes import QuoteData, QuotesCog, QuoteView, RenderError
 
 log = logging.getLogger(__name__)

@@ -9,7 +9,7 @@ import i18n
 from permissions import Permission, require_permissions
 from discord_i18n import localized, add_remove_check_choices
 from db import db_cursor
-from other_apis.topgg_utils import vote_value
+from apis_integration.topgg import vote_value
 from paths import env_int
 from crypto_utils import encrypt, decrypt
 

@@ -321,7 +321,7 @@ Returns `(expires_at_iso, error)`. `expires_at_iso = None` means "forever".
 
 ## 🖥️ Other APIs integration
 
-### [top.gg API](https://docs.top.gg/api/v1/introduction) `other_apis/topgg_utils.py`
+### [top.gg API](https://docs.top.gg/api/v1/introduction) `apis_integration/topgg.py`
 
 #### `is_voted(user: disnake.User | disnake.Member | int) -> bool`
 Checks status of user’s vote.
@@ -494,8 +494,8 @@ bot_project/
     ├── discord_i18n.py            # Bridge between i18n and Discord
     ├── db.py                      # Database access
     ├── crypto_utils.py            # Encryption helpers
-    ├── other_apis/                # Work with APIs of other projects
-    │   └──topgg_utils.py
+    ├── apis_integration/                # Work with APIs of other projects
+    │   └──topgg.py
     ├── config/                    # Bot data
     │   ├── .env                   # Environment variables
     │   ├── voices/                # TTS voices
@@ -513,15 +513,19 @@ bot_project/
     └── cogs/
         ├── ai/
         │   ├── __init__.py
-        │   ├── ai_memory.py           # Context for ai.py
+        │   ├── memory.py           # Context for ai.py
         │   ├── ai.py                  # @Mention AI, /ai commands
-        │   ├── ai_prompts.py          # Prompts and custom user instructions
-        │   ├── ai_client.py           # DeepSeek / Qwen / ProxyAPI client, cost accounting
-        │   └── ai_limits.py           # Daily quotas, budget guard, usage accounting
+        │   ├── prompts.py          # Prompts and custom user instructions
+        │   ├── client.py           # DeepSeek / Qwen / ProxyAPI client, cost accounting
+        │   └── limits.py           # Daily quotas, budget guard, usage accounting
         ├── quotes/                    # Make quote from a message (message_command)
         │   ├── __init__.py
-        │   ├── image_generator.py 
+        │   ├── renderer.py 
         │   └── quotes.py              # Quote view & commands
+        ├── captions/                  # Add caption to media (message_command)
+        │   ├── __init__.py
+        │   ├── renderer.py 
+        │   └── captions.py      
         ├── admin.py                   # /set_log_channel, /set_language
         ├── mentions.py                # /mention commands
         ├── triggers.py                # /trigger, /triggers + trigger logic

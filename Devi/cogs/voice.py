@@ -16,7 +16,7 @@ from discord_i18n import localized, locale_choices
 from logs import send_log, LogColor
 from paths import env_var, env_int, PIPER_VOICES_DIR
 
-from other_apis.topgg_utils import vote_value
+from apis_integration.topgg import vote_value
 
 MAX_TTS_LENGTH = env_int("MAX_TTS_LENGTH", 400)
 MAX_TTS_LENGTH_VOTED = env_int("MAX_TTS_LENGTH_VOTED", 800)

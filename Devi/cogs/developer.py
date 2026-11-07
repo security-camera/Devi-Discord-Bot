@@ -5,7 +5,7 @@ import i18n
 
 from cogs.giveaways import load_giveaways
 from cogs.birthdays import load_birthdays
-from cogs.ai.ai_prompts import load_instructions
+from cogs.ai.prompts import load_instructions
 from logs import _load_log_channels
 from discord_i18n import localized, bool_to_yes_no_str
 from permissions import Permission, load_permissions, require_permissions

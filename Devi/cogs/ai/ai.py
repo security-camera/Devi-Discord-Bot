@@ -2,8 +2,8 @@
 
 One shared API key (AI_API_KEY in config/.env; ProxyAPI, DeepSeek or Qwen) serves every server and user.
 Because of that every paid request goes through AiCog._gate() first: cooldown, daily limits per user
-and per server, and a global daily budget. See ai_client.py (provider), ai_limits.py (quotas)
-and ai_memory.py (history) for the details.
+and per server, and a global daily budget. See client.py (provider), limits.py (quotas)
+and memory.py (history) for the details.
 """
 
 import asyncio
@@ -22,19 +22,19 @@ from logs import send_log, LogColor
 from permissions import Permission, has_permissions, DEVELOPER_LIST, require_permissions
 from discord_i18n import localized, yes_no_choices, add_remove_check_choices
 from cogs.voice import MAX_TTS_LENGTH, MAX_TTS_LENGTH_VOTED
-from cogs.ai import ai_limits
-from cogs.ai.ai_client import AiClient, AiRequestError, build_user_message, create_client, money
-from cogs.ai.ai_memory import (
+from cogs.ai import limits
+from cogs.ai.client import AiClient, AiRequestError, build_user_message, create_client, money
+from cogs.ai.memory import (
     add_exchange, clear_memory, load_history, IMAGE_PLACEHOLDER,
     MAX_MESSAGES, MAX_MESSAGES_VOTED, MAX_HISTORY_CHARS, MAX_HISTORY_CHARS_VOTED,
 )
-from cogs.ai.ai_prompts import (
+from cogs.ai.prompts import (
     SYSTEM_PROMPT, VOICE_SYSTEM_PROMPT, NO_LIMIT_SYSTEM_PROMPT, NO_LIMIT_VOICE_SYSTEM_PROMPT,
     get_user_instruction, set_user_instruction, delete_user_instruction, PRONOUNS
 )
 
 from storage import AI_SIGNAL_CHANNEL, TECHNICAL_SUPPORT_SERVER
-from other_apis.topgg_utils import is_voted
+from apis_integration.topgg import is_voted
 from paths import env_int
 
 COOLDOWN_SECONDS = env_int("AI_COOLDOWN_SECONDS", 30)
@@ -152,19 +152,19 @@ class AiCog(commands.Cog):
         if remaining > 0:
             return Gate(False, i18n.t("ai_cog.cooldown", locale=locale, seconds=math.ceil(remaining)) + ad)
 
-        usage = ai_limits.get_usage(user_id, guild_id)
+        usage = limits.get_usage(user_id, guild_id)
 
-        if ai_limits.budget_exhausted(usage.cost_micro):
+        if limits.budget_exhausted(usage.cost_micro):
             return Gate(False, i18n.t("ai_cog.budget_limit", locale=locale))
 
         if user_id not in DEVELOPER_LIST:
-            hours = ai_limits.hours_until_reset()
+            hours = limits.hours_until_reset()
 
-            user_limit = ai_limits.USER_DAILY_REQUESTS_VOTED if voted else ai_limits.USER_DAILY_REQUESTS
+            user_limit = limits.USER_DAILY_REQUESTS_VOTED if voted else limits.USER_DAILY_REQUESTS
             if 0 < user_limit <= usage.user_requests:
                 return Gate(False, i18n.t("ai_cog.user_limit", locale=locale, limit=user_limit, hours=hours) + ad)
 
-            guild_limit = ai_limits.GUILD_DAILY_REQUESTS
+            guild_limit = limits.GUILD_DAILY_REQUESTS
             if 0 < guild_limit <= usage.guild_requests:
                 return Gate(False, i18n.t("ai_cog.guild_limit", locale=locale, limit=guild_limit, hours=hours))
 
@@ -309,11 +309,11 @@ class AiCog(commands.Cog):
             f"AI [{result.model}] in={result.prompt_tokens} (cached {result.cached_tokens}) "
             f"out={result.completion_tokens}"
             f"{f' (reasoning {result.reasoning_tokens})' if result.reasoning_tokens else ''} "
-            f"~{money(result.cost_micro, ai_limits.CURRENCY)}"
+            f"~{money(result.cost_micro, limits.CURRENCY)}"
         )
 
         try:
-            ai_limits.record_usage(
+            limits.record_usage(
                 guild_id, user.id,
                 prompt_tokens=result.prompt_tokens,
                 cached_tokens=result.cached_tokens,
@@ -582,12 +582,12 @@ class AiCog(commands.Cog):
         await inter.response.defer(ephemeral=True)  # the balance lookup below is a network call
 
         provider = self.client.provider
-        currency = ai_limits.CURRENCY
-        summary = ai_limits.summary()
+        currency = limits.CURRENCY
+        summary = limits.summary()
 
         cost_micro = summary["cost_micro"]
-        budget = ai_limits.DAILY_BUDGET
-        budget_text = f"{budget:.2f} {currency} ({cost_micro / ai_limits.DAILY_BUDGET_MICRO * 100:.0f}% used)" if budget > 0 else "off"
+        budget = limits.DAILY_BUDGET
+        budget_text = f"{budget:.2f} {currency} ({cost_micro / limits.DAILY_BUDGET_MICRO * 100:.0f}% used)" if budget > 0 else "off"
         cache_rate = f"{summary['cached_tokens'] / summary['prompt_tokens'] * 100:.0f}%" if summary["prompt_tokens"] else "-"
         per_request = money(round(cost_micro / summary["requests"]), currency) if summary["requests"] else "-"
 
@@ -618,7 +618,7 @@ class AiCog(commands.Cog):
             f"today (UTC): {summary['requests']} requests, {summary['users']} users, {summary['guilds']} servers",
             f"tokens: in {summary['prompt_tokens']} (cache hit {cache_rate}), out {summary['completion_tokens']}",
             f"estimated cost: {money(cost_micro, currency)} of {budget_text}, {per_request} per request",
-            f"limits: user {ai_limits.USER_DAILY_REQUESTS}/{ai_limits.USER_DAILY_REQUESTS_VOTED} (voted), server {ai_limits.GUILD_DAILY_REQUESTS} per day",
+            f"limits: user {limits.USER_DAILY_REQUESTS}/{limits.USER_DAILY_REQUESTS_VOTED} (voted), server {limits.GUILD_DAILY_REQUESTS} per day",
         ]
 
         # hidden reasoning is billed as output; this line shows whether the "reasoning off" switch really works
@@ -628,7 +628,7 @@ class AiCog(commands.Cog):
                 f"{self.client.reasoning_calls} of {self.client.calls} calls since start"
             )
 
-        top = ai_limits.top_guilds()
+        top = limits.top_guilds()
         if top:
             lines += ["", "top servers by cost:"]
             lines += [f"{row['guild_id']}: {row['requests']} requests, {money(row['cost_micro'], currency)}" for row in top]

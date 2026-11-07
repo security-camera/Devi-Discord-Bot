@@ -1,6 +1,6 @@
 from cogs.ai.ai import AiCog
-from cogs.ai.ai_prompts import load_instructions
-from cogs.ai.ai_limits import cleanup
+from cogs.ai.prompts import load_instructions
+from cogs.ai.limits import cleanup
 from disnake.ext.commands import Bot
 
 def setup(bot: Bot):

@@ -8,7 +8,7 @@ from duration_utils import parse_timedelta
 from logs import send_log, LogColor
 from discord_i18n import localized
 from permissions import require_permissions
-from other_apis.topgg_utils import vote_value
+from apis_integration.topgg import vote_value
 from paths import env_int
 
 purging_channels: set[int] = set() # Channel IDs where /clear is currently being executed

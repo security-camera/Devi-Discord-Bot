@@ -10,7 +10,7 @@ from disnake.ext import commands
 
 from discord_i18n import localized
 import i18n
-from cogs.quotes.image_generator import AUTO_COLOR, TEXT_COLORS, QuoteOptions, font_label, list_fonts, render_quote
+from cogs.quotes.renderer import AUTO_COLOR, TEXT_COLORS, QuoteOptions, font_label, list_fonts, render_quote
 from cogs.quotes.md_cleaner import strip_markdown
 
 CUSTOM_EMOJI_RE = re.compile(r"<a?:\w+:\d+>")
