@@ -86,7 +86,7 @@ class GiveawayView(disnake.ui.View):
         self.message_id = message_id
 
         button = disnake.ui.Button(
-            label=i18n.t("giveaway_cog.button_name", guild_id=guild_id),
+            label=i18n.t("giveaway_cog.button_name", guild_id=guild_id, locale=guild_id),
             emoji=get_component_emoji("party", "🥳"),
             style=disnake.ButtonStyle.green,
             custom_id=f"{JOIN_PREFIX}{message_id}",
@@ -125,7 +125,7 @@ class GiveawayCog(commands.Cog):
         end_ts = int(end_dt.timestamp())
 
         embed = disnake.Embed(
-            title=i18n.t("giveaway_cog.giveaway_title", guild_id=guild_id, name=data["name"]),
+            title=i18n.t("giveaway_cog.giveaway_title", guild_id=guild_id, locale=guild_id, name=data["name"]),
             description=i18n.t(
                 "giveaway_cog.giveaway_description",
                 guild_id=guild_id,
@@ -134,11 +134,12 @@ class GiveawayCog(commands.Cog):
                 winners=str(data["winners_count"]),
                 end=f"<t:{end_ts}:R>",
                 host=f"<@{data['host_id']}>",
+                locale=guild_id
             ),
             color=disnake.Color.purple(),
         )
         embed.set_footer(
-            text=i18n.t("giveaway_cog.giveaway_id_footer", guild_id=guild_id, id=str(message_id))
+            text=i18n.t("giveaway_cog.giveaway_id_footer", guild_id=guild_id, locale=guild_id, id=str(message_id))
         )
         return embed
 
