@@ -131,7 +131,8 @@ class MentionsCog(commands.Cog):
             return await inter.response.send_message(error_msg, ephemeral=True)
 
         if not has_permissions(inter.author, inter.channel, Permission.ManageMention):
-            self.cooldowns[inter.author.id] = time.time() + (COOLDOWN_TIME_VOTED if await is_voted(inter.author.id) else COOLDOWN_TIME)
+            cd, _ = await vote_value(inter.author, COOLDOWN_TIME_VOTED, COOLDOWN_TIME)
+            self.cooldowns[inter.author.id] = time.time() + cd
 
         self.need_to_stop.discard(gid)
 
