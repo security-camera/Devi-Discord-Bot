@@ -59,6 +59,9 @@
                 "ManageHoneypots": "Honeypot-kanavien hallinta (bot.ManageHoneypots)"
             }
         },
+        "permissions_manage_message": {
+            "name": "Hallitse jäsenen oikeuksia"
+        },
         "permissions_list": {
             "description": "Näyttää kaikki palvelimelle myönnetyt oikeudet"
         },
@@ -143,6 +146,9 @@
             "description": "Salaperäinen pallo, joka vastaa kysymyksiin",
             "param_question": "Kysymys, jonka haluat esittää pallolle",
             "param_question_name": "kysymys"
+        },
+        "ball_message": {
+            "name": "Kysy taikapallolta"
         },
         "mention": {
             "description": "Käyttäjien/roolien massamaininta"
@@ -389,6 +395,9 @@
             "param_user_name": "käyttäjä",
             "param_user": "Käyttäjä, jonka avatar haetaan"
         },
+        "avatar_message": {
+            "name": "Käyttäjän avatarin"
+        },
         "qr": {
             "description": "Luo QR-koodin linkistä",
             "param_link_name": "linkki",
@@ -398,6 +407,9 @@
             "description": "Hakee YouTube-videon esikatselukuvan",
             "param_link_name": "linkki",
             "param_link": "Linkki YouTube-videoon"
+        },
+        "preview_message": {
+            "name": "YouTube-videon esikatselukuvan"
         },
         "slowmode": {
             "description": "Asettaa kanavan hidastustilan",
@@ -728,6 +740,7 @@
             ]
         },
         "ball": {
+            "no_text": ";no; Tässä viestissä ei ole tekstiä.",
             "intros": [
                 "Pallo näkee:",
                 "Pallo näyttää:",

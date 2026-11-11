@@ -59,6 +59,9 @@
                 "ManageHoneypots": "Administración de honeypots (bot.ManageHoneypots)"
             }
         },
+        "permissions_manage_message": {
+            "name": "Administrar permisos del miembro"
+        },
         "permissions_list": {
             "description": "Muestra todos los permisos asignados en el servidor"
         },
@@ -143,6 +146,9 @@
             "description": "Una bola misteriosa que responde a tus preguntas",
             "param_question": "La pregunta que quieres hacerle a la bola",
             "param_question_name": "pregunta"
+        },
+        "ball_message": {
+            "name": "Preguntar a la bola mágica"
         },
         "mention": {
             "description": "Mención masiva de usuarios o roles"
@@ -389,6 +395,9 @@
             "param_user_name": "usuario",
             "param_user": "Usuario del que obtener el avatar"
         },
+        "avatar_message": {
+            "name": "El avatar de un usuario"
+        },
         "qr": {
             "description": "Genera un código QR a partir de un enlace",
             "param_link_name": "enlace",
@@ -398,6 +407,9 @@
             "description": "Obtiene la miniatura de un video de YouTube",
             "param_link_name": "enlace",
             "param_link": "Enlace del video de YouTube"
+        },
+        "preview_message": {
+            "name": "Vista previa de video YouTube"
         },
         "slowmode": {
             "description": "Establece el modo lento de un canal",
@@ -728,6 +740,7 @@
             ]
         },
         "ball": {
+            "no_text": ";no; Este mensaje no contiene texto.",
             "intros": [
                 "La bola ve:",
                 "La bola muestra:",

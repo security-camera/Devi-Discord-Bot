@@ -59,6 +59,9 @@
                 "ManageHoneypots": "Керування каналами-ловушками (bot.ManageHoneypots)"
             }
         },
+        "permissions_manage_message": {
+            "name": "Керувати правами учасника"
+        },
         "permissions_list": {
             "description": "Показує всі призначені права на сервері"
         },
@@ -143,6 +146,9 @@
             "description": "Таємничий шар, що відповідає на запитання",
             "param_question": "Питання, яке ви хочете поставити шару",
             "param_question_name": "питання"
+        },
+        "ball_message": {
+            "name": "Запитати магічну кулю"
         },
         "mention": {
             "description": "Масове згадування користувачів/ролей"
@@ -389,6 +395,9 @@
             "param_user_name": "користувач",
             "param_user": "Користувач для отримання аватара"
         },
+        "avatar_message": {
+            "name": "Аватар користувача"
+        },
         "qr": {
             "description": "Генерує QR-код з посилання",
             "param_link_name": "посилання",
@@ -398,6 +407,9 @@
             "description": "Отримує прев'ю відео з YouTube",
             "param_link_name": "посилання",
             "param_link": "Посилання на відео YouTube"
+        },
+        "preview_message": {
+            "name": "Прев'ю відео з YouTube"
         },
         "slowmode": {
             "description": "Встановлює повільний режим каналу",
@@ -728,6 +740,7 @@
             ]
         },
         "ball": {
+            "no_text": ";no; У цьому повідомленні немає тексту.",
             "intros": [
                 "Куля бачить:",
                 "Куля показує:",

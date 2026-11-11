@@ -59,6 +59,9 @@
                 "ManageHoneypots": "Manage Honeypots (bot.ManageHoneypots)"
             }
         },
+        "permissions_manage_message": {
+            "name": "Manage Member Permissions"
+        },
         "permissions_list": {
             "description": "Shows all permissions assigned on this server"
         },
@@ -143,6 +146,9 @@
             "description": "A mysterious ball that answers questions",
             "param_question_name": "question",
             "param_question": "The question you want to ask the ball"
+        },
+        "ball_message": {
+            "name": "Ask the Magic 8-Ball"
         },
         "mention": {
             "description": "Mentions a user/role multiple times"
@@ -389,6 +395,9 @@
             "param_user_name": "user",
             "param_user": "User whose avatar to display"
         },
+        "avatar_message": {
+            "name": "Get a user's avatar"
+        },
         "qr": {
             "description": "Generates a QR code from a link",
             "param_link_name": "link",
@@ -398,6 +407,9 @@
             "description": "Gets the thumbnail of a YouTube video",
             "param_link_name": "link",
             "param_link": "YouTube video link"
+        },
+        "preview_message": {
+            "name": "YouTube Video Preview"
         },
         "slowmode": {
             "description": "Sets the channel slowmode",
@@ -728,6 +740,7 @@
             ]
         },
         "ball": {
+            "no_text": ";no; There is no text in this message.",
             "intros": [
                 "The orb sees:",
                 "The orb reveals:",

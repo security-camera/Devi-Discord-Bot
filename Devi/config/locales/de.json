@@ -59,6 +59,9 @@
                 "ManageHoneypots": "Honeypot-Verwaltung (bot.ManageHoneypots)"
             }
         },
+        "permissions_manage_message": {
+            "name": "Mitgliederrechte verwalten"
+        },
         "permissions_list": {
             "description": "Zeigt alle auf dem Server vergebenen Berechtigungen an"
         },
@@ -143,6 +146,9 @@
             "description": "Eine mysteriöse Kugel, die Fragen beantwortet",
             "param_question": "Frage, die du der Kugel stellen möchtest",
             "param_question_name": "question"
+        },
+        "ball_message": {
+            "name": "Magische Kugel befragen"
         },
         "mention": {
             "description": "Massen-Erwähnung von Benutzern/Rollen"
@@ -389,6 +395,9 @@
             "param_user_name": "benutzer",
             "param_user": "Benutzer, dessen Avatar angezeigt werden soll"
         },
+        "avatar_message": {
+            "name": "Benutzers avatar"
+        },
         "qr": {
             "description": "Generiert einen QR-Code aus einem Link",
             "param_link_name": "link",
@@ -397,7 +406,10 @@
         "preview": {
             "description": "Ruft das Vorschaubild eines YouTube-Videos ab",
             "param_link_name": "link",
-            "param_link": "Link zum YouTube-Video"
+            "param_link": "Das Vorschaubild eines YouTube-Videos ab"
+        },
+        "preview_message": {
+            "name": "YouTube-Videovorschau"
         },
         "slowmode": {
             "description": "Legt den Slowmode für einen Kanal fest",
@@ -727,6 +739,7 @@
             ]
         },
         "ball": {
+            "no_text": ";no; Diese Nachricht enthält keinen Text.",
             "intros": [
                 "Die Kugel sieht:",
                 "Die Kugel zeigt:",

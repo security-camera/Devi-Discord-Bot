@@ -128,15 +128,20 @@ def build_permission_select_options(guild_id: int, resolved: Permission) -> list
 
 
 def build_manage_panel(
-        inter: disnake.MessageInteraction,
+        inter: disnake.Interaction,
         object_type: PermissionCheckType,
         target_id: int,
         author_id: int,
+        target_user: disnake.User | None = None,
 ) -> tuple[disnake.Embed, "ManagePanelView"]:
     guild_id = inter.guild_id
     resolved = get_permissions(guild_id, object_type, target_id)
 
-    target_name = format_target_name(inter, object_type, target_id)
+    target_name = (
+        target_user.mention
+        if object_type == PermissionCheckType.User and target_user
+        else format_target_name(inter, object_type, target_id)
+    )
     names = describe_permissions(guild_id, resolved)
 
     embed = disnake.Embed(
@@ -151,7 +156,7 @@ def build_manage_panel(
     )
     embed.set_footer(text=i18n.t("permissions_cmd.manage_panel_footer", locale=guild_id))
 
-    view = ManagePanelView(author_id, guild_id, object_type, target_id, resolved)
+    view = ManagePanelView(author_id, guild_id, object_type, target_id, resolved, target_user)
     return embed, view
 
 
@@ -281,10 +286,19 @@ class ManagePanelView(_AuthorGuardedView):
       for instant toggling (click a permission to grant it if
       it is missing, or revoke it if it is already granted)."""
 
-    def __init__(self, author_id: int, guild_id: int, object_type: PermissionCheckType, target_id: int, resolved: Permission):
+    def __init__(
+            self,
+            author_id: int,
+            guild_id: int,
+            object_type: PermissionCheckType,
+            target_id: int,
+            resolved: Permission,
+            target_user: disnake.User | None = None,
+    ):
         super().__init__(author_id)
         self.object_type = object_type
         self.target_id = target_id
+        self.target_user = target_user
 
         select = disnake.ui.StringSelect(
             placeholder=i18n.t("permissions_cmd.manage_toggle_placeholder", locale=guild_id),
@@ -307,7 +321,13 @@ class ManagePanelView(_AuthorGuardedView):
         else:
             grant_permissions(guild_id, self.object_type, self.target_id, flag)
 
-        embed, view = build_manage_panel(inter, self.object_type, self.target_id, self.author_id)
+        embed, view = build_manage_panel(
+            inter,
+            self.object_type,
+            self.target_id,
+            self.author_id,
+            target_user=self.target_user,
+        )
         await inter.response.edit_message(embed=embed, view=view)
         view.message = inter.message
 
@@ -518,6 +538,25 @@ class PermissionCog(commands.Cog):
         embed = disnake.Embed(
             description=i18n.t("permissions_cmd.manage_select_type_prompt", locale=inter.guild_id),
             color=disnake.Color.blurple(),
+        )
+
+        await inter.response.send_message(embed=embed, view=view, ephemeral=True)
+        view.message = await inter.original_message()
+        return None
+
+    @commands.message_command(
+        name=localized("commands.permissions_manage_message.name"),
+        install_types=disnake.ApplicationInstallTypes.all(),
+        contexts=disnake.InteractionContextTypes(guild=True),
+    )
+    @require_permissions([{Permission.Admin: True}, {disnake.Permissions(administrator=True): True}])
+    async def permissions_manage_message(self, inter: disnake.MessageCommandInteraction, message: disnake.Message,):
+        embed, view = build_manage_panel(
+            inter,
+            PermissionCheckType.User,
+            message.author.id,
+            inter.author.id,
+            target_user=message.author,
         )
 
         await inter.response.send_message(embed=embed, view=view, ephemeral=True)

@@ -59,6 +59,9 @@
                 "ManageHoneypots": "Управление на honeypot каналите (bot.ManageHoneypots)"
             }
         },
+        "permissions_manage_message": {
+            "name": "Управление на правата"
+        },
         "permissions_list": {
             "description": "Показва всички зададени права на сървъра"
         },
@@ -143,6 +146,9 @@
             "description": "Тайнствена топка, която отговаря на въпроси",
             "param_question": "Въпросът, който искате да зададете на топката",
             "param_question_name": "въпрос"
+        },
+        "ball_message": {
+            "name": "Попитай магическата топка"
         },
         "mention": {
             "description": "Масово споменаване на потребители/роли"
@@ -389,15 +395,21 @@
             "param_user_name": "потребител",
             "param_user": "Потребител, чийто аватар да бъде получен"
         },
+        "avatar_message": {
+            "name": "Аватара на потребител"
+        },
         "qr": {
             "description": "Генерира QR код от линк",
             "param_link_name": "линк",
             "param_link": "Линк за преобразуване в QR код"
         },
         "preview": {
-            "description": "Получава визуализация на видео от YouTube",
+            "description": "Получава преглед на видео от YouTube",
             "param_link_name": "линк",
             "param_link": "Линк към YouTube видео"
+        },
+        "preview_message": {
+            "name": "Преглед на YouTube видеоклип"
         },
         "slowmode": {
             "description": "Задава бавен режим на канала",
@@ -728,6 +740,7 @@
             ]
         },
         "ball": {
+            "no_text": ";no; В това съобщение няма текст.",
             "intros": [
                 "Топката вижда:",
                 "Топката показва:",

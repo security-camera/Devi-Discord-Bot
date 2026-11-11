@@ -59,6 +59,9 @@
                 "ManageHoneypots": "Управление ловушками (bot.ManageHoneypots)"
             }
         },
+        "permissions_manage_message": {
+            "name": "Управлять правами участника"
+        },
         "permissions_list": {
             "description": "Показывает все назначенные права на сервере"
         },
@@ -143,6 +146,9 @@
             "description": "Таинственный шар, отвечающий на вопросы",
             "param_question": "Вопрос, который вы хотите задать шару",
             "param_question_name": "вопрос"
+        },
+        "ball_message": {
+            "name": "Спросить магический шар"
         },
         "mention": {
             "description": "Массовое упоминание пользователей/ролей"
@@ -389,6 +395,9 @@
             "param_user_name": "пользователь",
             "param_user": "Пользователь для получения аватара"
         },
+        "avatar_message": {
+            "name": "Получить аватар пользователя"
+        },
         "qr": {
             "description": "Генерирует QR-код из ссылки",
             "param_link_name": "ссылка",
@@ -398,6 +407,9 @@
             "description": "Получает превью видео с YouTube",
             "param_link_name": "ссылка",
             "param_link": "Ссылка на видео YouTube"
+        },
+        "preview_message": {
+            "name": "Получить превью видео с YouTube"
         },
         "slowmode": {
             "description": "Устанавливает медленный режим канала",
@@ -728,6 +740,7 @@
             ]
         },
         "ball": {
+            "no_text": ";no; В этом сообщении нет текста.",
             "intros": [
                 "Шар видит:",
                 "Шар показывает:",

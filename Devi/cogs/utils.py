@@ -3,6 +3,7 @@ import io
 import qrcode
 import aiohttp
 import yt_dlp
+import re
 
 import disnake
 from disnake.ext import commands
@@ -76,22 +77,19 @@ class UtilsCog(commands.Cog):
             ephemeral=True
         )
 
-    @commands.slash_command(
-        name="ball",
-        description=localized("commands.ball.description"),
-    )
-    async def ball(
-            self,
-            inter: disnake.ApplicationCommandInteraction,
-            question: str = commands.Param(
-                name=localized("commands.ball.param_question_name"),
-                description=localized("commands.ball.param_question"),
-            )
-    ):
-        gid = inter.guild_id
+    @staticmethod
+    async def call_ball(inter: disnake.ApplicationCommandInteraction | disnake.MessageCommandInteraction, question: str | None):
+        locale_source = inter.guild or inter
 
-        intro_phrases = i18n.get_raw("random.ball.intros", locale=gid) or ["The orb answers:"]
-        answers = i18n.get_raw("random.ball.answers", locale=gid) or ["Yes.", "No.", "Maybe."]
+        if not question:
+            embed = disnake.Embed(
+                title=i18n.t("random.ball.no_text", locale=locale_source),
+                color=disnake.Color.purple()
+            )
+            return await inter.response.send_message(embed=embed, ephemeral=True)
+
+        intro_phrases = i18n.get_raw("random.ball.intros", locale=locale_source) or ["The orb answers:"]
+        answers = i18n.get_raw("random.ball.answers", locale=locale_source) or ["Yes.", "No.", "Maybe."]
 
         embed = disnake.Embed(
             title=f"🔮 {question}" + ("" if question.endswith("?") else "?"),
@@ -102,25 +100,39 @@ class UtilsCog(commands.Cog):
         return await inter.response.send_message(embed=embed)
 
     @commands.slash_command(
-        name="avatar",
-        description=localized("commands.avatar.description")
+        name="ball",
+        description=localized("commands.ball.description")
     )
-    async def avatar(
+    async def ball_application(
             self,
             inter: disnake.ApplicationCommandInteraction,
-            user: disnake.Member | None = commands.Param(
-                default=None,
-                description=localized("commands.avatar.param_user"),
-                name=localized("commands.avatar.param_user_name"),
-            ),
+            question: str = commands.Param(
+                name=localized("commands.ball.param_question_name"),
+                description=localized("commands.ball.param_question"),
+            )
     ):
-        user = inter.author if not user else user
+        await self.call_ball(inter, question)
 
+    @commands.message_command(
+        name=localized("commands.ball_message.name"),
+        install_types=disnake.ApplicationInstallTypes.all(),
+        contexts=disnake.InteractionContextTypes.all()
+    )
+    async def ball_message(self, inter: disnake.MessageCommandInteraction):
+        await self.call_ball(inter, inter.target.content if inter.target else None)
+
+    @staticmethod
+    async def get_avatar(inter: disnake.ApplicationCommandInteraction | disnake.MessageCommandInteraction, user: disnake.User | None):
+        locale_source = inter.guild_id or inter
+        user = user or inter.author or inter.target
         embeds = []
+
+        if not user:
+            raise RuntimeError("get_avatar user is none")
 
         # server
         embed = disnake.Embed(
-            title=i18n.t("avatar_cmd.title", locale=inter.guild_id, name=user.display_name),
+            title=i18n.t("avatar_cmd.title", locale=locale_source, name=user.display_name),
             color=user.color
         )
         embed.set_image(url=user.display_avatar.url)
@@ -129,13 +141,36 @@ class UtilsCog(commands.Cog):
         # global != server
         if user.guild_avatar and user.avatar and user.guild_avatar.url != user.avatar.url:
             global_embed = disnake.Embed(
-                title=i18n.t("avatar_cmd.global_title", locale=inter.guild_id, name=user.display_name),
+                title=i18n.t("avatar_cmd.global_title", locale=locale_source, name=user.display_name),
                 color=user.color
             )
             global_embed.set_image(url=user.avatar.url)
             embeds.append(global_embed)
 
         return await inter.response.send_message(embeds=embeds, ephemeral=True)
+
+    @commands.slash_command(
+        name="avatar",
+        description=localized("commands.avatar.description")
+    )
+    async def avatar_application(
+            self,
+            inter: disnake.ApplicationCommandInteraction,
+            user: disnake.Member | None = commands.Param(
+                default=None,
+                description=localized("commands.avatar.param_user"),
+                name=localized("commands.avatar.param_user_name"),
+            ),
+    ):
+        await self.get_avatar(inter, user)
+
+    @commands.message_command(
+        name=localized("commands.avatar_message.name"),
+        install_types=disnake.ApplicationInstallTypes.all(),
+        contexts=disnake.InteractionContextTypes.all()
+    )
+    async def avatar_message(self, inter: disnake.MessageCommandInteraction):
+        await self.get_avatar(inter, user)
 
     @commands.slash_command(
         name="qr",
@@ -171,18 +206,18 @@ class UtilsCog(commands.Cog):
 
         return await inter.response.send_message(embed=embed, file=file, ephemeral=True)
 
-    @commands.slash_command(
-        name="preview",
-        description=localized("commands.preview.description")
-    )
-    async def preview(
-            self,
-            inter: disnake.ApplicationCommandInteraction,
-            link: str = commands.Param(
-                description=localized("commands.preview.param_link"),
-                name=localized("commands.preview.param_link_name"),
-            ),
-    ):
+    async def get_preview(self, inter: disnake.ApplicationCommandInteraction | disnake.MessageCommandInteraction, link: str | None = None):
+        locale = inter.guild_id or inter
+
+        if not link:
+            target_message = getattr(inter, "target", None)
+            message_content = getattr(target_message, "content", "")
+            match = re.search(r"https?://[^\s<>]+", message_content)
+            link = match.group(0).rstrip(".,!?;:)]}\"'") if match else None
+
+        if not link:
+            return await inter.response.send_message(i18n.t("preview_cmd.invalid_video", locale=locale), ephemeral=True)
+
         await inter.response.defer(ephemeral=True)
 
         ydl_options = {
@@ -199,13 +234,13 @@ class UtilsCog(commands.Cog):
             thumbnail_url = info.get("thumbnail")
 
             if not thumbnail_url:
-                return await inter.edit_original_response(content=i18n.t("preview_cmd.no_thumbnail", locale=inter.guild_id))
+                return await inter.edit_original_response(content=i18n.t("preview_cmd.no_thumbnail", locale=locale))
 
             async with aiohttp.ClientSession() as session:
                 async with session.get(thumbnail_url) as response:
                     if response.status != 200:
                         print(response)
-                        return await inter.edit_original_response(content=i18n.t("preview_cmd.download_error", locale=inter.guild_id, e=response))
+                        return await inter.edit_original_response(content=i18n.t("preview_cmd.download_error", locale=locale, e=response))
 
                     image_data = await response.read()
 
@@ -215,11 +250,33 @@ class UtilsCog(commands.Cog):
             return await inter.edit_original_response(content=None, file=file)
 
         except yt_dlp.utils.DownloadError:
-            return await inter.edit_original_response(content=i18n.t("preview_cmd.invalid_video", locale=inter.guild_id))
+            return await inter.edit_original_response(content=i18n.t("preview_cmd.invalid_video", locale=locale))
 
         except Exception as e:
             print(e)
-            return await inter.edit_original_response(content=i18n.t("preview_cmd.error", locale=inter.guild_id, e=e))
+            return await inter.edit_original_response(content=i18n.t("preview_cmd.error", locale=locale, e=e))
+
+    @commands.slash_command(
+        name="preview",
+        description=localized("commands.preview.description")
+    )
+    async def preview_application(
+            self,
+            inter: disnake.ApplicationCommandInteraction,
+            link: str = commands.Param(
+                description=localized("commands.preview.param_link"),
+                name=localized("commands.preview.param_link_name"),
+            ),
+    ):
+        await self.get_preview(inter, link)
+
+    @commands.message_command(
+        name=localized("commands.preview_message.name"),
+        install_types=disnake.ApplicationInstallTypes.all(),
+        contexts=disnake.InteractionContextTypes.all(),
+    )
+    async def preview_message(self, inter: disnake.MessageCommandInteraction):
+        await self.get_preview(inter)
 
     @commands.slash_command(
         name="slowmode",
