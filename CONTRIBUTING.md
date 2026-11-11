@@ -234,10 +234,6 @@ A pull request should include:
 
 Before opening the pull request, check that secrets, local configuration, generated files, AI instructions (`CLAUDE.md` or `AGENTS.md`) and downloaded voice models are not included in the diff. Be prepared to revise the contribution in response to review feedback.
 
-## 8. Reporting security issues
-
-Do not publish credentials, tokens, private user data, or exploitable vulnerability details in a public issue or pull request. For a suspected security vulnerability, contact the maintainer privately through GitHub rather than disclosing it publicly.
-
 ---
 
 By contributing, you confirm that you have read and will comply with the applicable terms in [LICENSE](LICENSE.md).
